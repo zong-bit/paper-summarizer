@@ -13,14 +13,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'API key not configured' }, { status: 500 })
     }
 
-    const prompt = `Please summarize the following academic paper. Format your response as JSON with these fields:
-    - "oneSentence": A concise one-sentence summary of the paper
-    - "keyFindings": An array of 3-5 key findings (each as a string)
-    - "methodology": A one-sentence description of the research methodology
-    - "conclusion": The main conclusion of the paper
+    const prompt = `You are a paper summarizer. Summarize the following academic paper and return ONLY valid JSON (no markdown, no code blocks, no extra text). Format:
+{
+  "oneSentence": "one sentence summary",
+  "keyFindings": ["finding 1", "finding 2", "finding 3", "finding 4", "finding 5"],
+  "methodology": "one sentence about methodology",
+  "conclusion": "main conclusion"
+}
 
-    Paper text:
-    ${text}`
+Paper text:
+${text}
+
+Return ONLY the JSON object, nothing else.`
 
     const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
       method: 'POST',
@@ -56,11 +60,22 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'No response from API' }, { status: 500 })
     }
 
+    // Try to parse JSON, handling potential markdown code blocks
     let parsedContent
     try {
       parsedContent = JSON.parse(content)
     } catch {
-      return NextResponse.json({ error: 'Invalid response format' }, { status: 500 })
+      // Try extracting JSON from markdown code block
+      const jsonMatch = content.match(/\`\`\`(?:json)?\s*([\s\S]*?)\`\`\`/)
+      if (jsonMatch) {
+        try {
+          parsedContent = JSON.parse(jsonMatch[1])
+        } catch {
+          return NextResponse.json({ error: 'Invalid response format from AI' }, { status: 500 })
+        }
+      } else {
+        return NextResponse.json({ error: 'Invalid response format from AI' }, { status: 500 })
+      }
     }
 
     return NextResponse.json(parsedContent)
