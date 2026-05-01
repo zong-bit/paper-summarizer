@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
 export const metadata = {
-  title: '"'"$title"'" - Paper Summarizer Blog',
-  description: '"'"$title"'". Learn how AI can help you summarize academic papers faster.',
+  title: 'Blog Post - Paper Summarizer',
+  description: 'Learn how to summarize academic papers faster with AI.',
 }
 
 export default function BlogPost() {
@@ -23,7 +23,8 @@ export default function BlogPost() {
       <main className="flex-1 max-w-3xl mx-auto px-4 py-8">
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
-<p>Article coming soon.</p>
+          <h1>Coming Soon</h1>
+          <p>This article is being written. Check back later.</p>
         </article>
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">Try Our Free AI Paper Summarizer</Link>
