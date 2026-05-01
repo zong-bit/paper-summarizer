@@ -172,24 +172,37 @@ export default function FlappyBird() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-bg p-4">
-      <div className="mb-4 text-center">
-        <h1 className="text-2xl font-bold text-text">Flappy Bird</h1>
-        <p className="text-text-secondary text-sm">Score: {score}</p>
+    <div className="min-h-screen flex flex-col items-center bg-bg p-4">
+      <header className="w-full max-w-2xl mb-6">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="text-primary hover:text-primary-dark transition-colors text-sm flex items-center gap-1">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+            Back to Summarizer
+          </Link>
+          <button onClick={reset} className="text-sm text-text-secondary hover:text-text transition-colors">Restart</button>
+        </div>
+        <div className="mt-4 text-center">
+          <h1 className="text-3xl font-bold text-text">🎮 Flappy Bird</h1>
+          <p className="text-text-secondary text-sm mt-1">Score: <span className="text-primary font-semibold text-lg">{score}</span></p>
+        </div>
+      </header>
+
+      <div className="bg-gradient-to-b from-primary/5 to-secondary/5 rounded-2xl p-1">
+        <canvas
+          ref={canvasRef}
+          width={400}
+          height={500}
+          onClick={() => { if (gameState === 'dead') reset(); else jump() }}
+          className="rounded-xl border border-primary/30 cursor-pointer mx-auto"
+          style={{ maxWidth: '100%', height: 'auto' }}
+        />
       </div>
-      <canvas
-        ref={canvasRef}
-        width={400}
-        height={500}
-        onClick={() => { if (gameState === 'dead') reset(); else jump() }}
-        className="rounded-xl border border-border cursor-pointer"
-        style={{ maxWidth: '100%', height: 'auto' }}
-      />
-      <div className="mt-4 flex gap-4">
-        <Link href="/" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Summarizer</Link>
-        <button onClick={reset} className="text-primary hover:text-primary-dark transition-colors text-sm">Restart</button>
+
+      <div className="mt-6 text-center space-y-1">
+        <p className="text-text-secondary/60 text-xs">Press SPACE or click/tap to flap</p>
       </div>
-      <div className="mt-8 bg-bg-card border border-border rounded-xl p-4 text-center max-w-md">
+
+      <div className="mt-8 bg-bg-card border border-border rounded-xl p-4 text-center max-w-md w-full">
         <div className="text-text-secondary text-xs">Ad Placeholder - Google AdSense</div>
       </div>
     </div>
