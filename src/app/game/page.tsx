@@ -13,6 +13,7 @@ export default function FlappyBird() {
     pipes: [] as { x: number; gap: number; width: number; scored: boolean }[],
     score: 0,
     frame: 0,
+    gameState: 'start' as 'start' | 'playing' | 'dead',
   })
 
   const GRAVITY = 0.5
