@@ -188,7 +188,7 @@ export default function Home() {
             <div className="text-center text-text-secondary/50 text-xs space-y-1">
               <p>Limit: 5 summaries per 10 minutes · 15,000 characters max per request</p>
               <p>Powered by DeepSeek AI · Free to use</p>
-              <p>Need higher limits? <a href="mailto:summarizeai@zong-bit.com" class="text-primary hover:text-primary-dark transition-colors">Contact us</a></p>
+              <p>Need higher limits? <a href="mailto:selina_zxw@qq.com" class="text-primary hover:text-primary-dark transition-colors">Contact us</a></p>
             </div>
           </>
         ) : (
