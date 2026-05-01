@@ -189,6 +189,7 @@ export default function Home() {
               <p>Limit: 5 summaries per 10 minutes · 15,000 characters max per request</p>
               <p>Powered by DeepSeek AI · Free to use</p>
               <p>Need higher limits? <a href="mailto:selina_zxw@qq.com" className="text-primary hover:text-primary-dark transition-colors">Contact us</a></p>
+              <p><Link href="/game" className="text-primary hover:text-primary-dark transition-colors">🎮 Need a break? Play a quick game →</Link></p>
             </div>
           </>
         ) : (
