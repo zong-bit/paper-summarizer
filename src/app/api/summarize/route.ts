@@ -1,12 +1,68 @@
 import { NextResponse } from 'next/server'
 
+// Simple in-memory rate limiter
+const rateLimit = new Map<string, { count: number; resetAt: number }>()
+
+function getRateLimitInfo(ip: string): { allowed: boolean; remaining: number; resetIn: number } {
+  const now = Date.now()
+  const entry = rateLimit.get(ip)
+
+  // Clean up old entries
+  if (entry && entry.resetAt < now) {
+    rateLimit.delete(ip)
+  }
+
+  const windowMs = 10 * 60 * 1000 // 10 minutes
+  const maxRequests = 5 // max 5 requests per window
+
+  if (!entry || entry.resetAt < now) {
+    rateLimit.set(ip, { count: 1, resetAt: now + windowMs })
+    return { allowed: true, remaining: maxRequests - 1, resetIn: windowMs }
+  }
+
+  if (entry.count >= maxRequests) {
+    return { allowed: false, remaining: 0, resetIn: entry.resetAt - now }
+  }
+
+  entry.count++
+  return { allowed: true, remaining: maxRequests - entry.count, resetIn: entry.resetAt - now }
+}
+
 export async function POST(request: Request) {
   try {
+    // Rate limiting
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
+               request.headers.get('x-real-ip') || 
+               'unknown'
+    
+    const rateInfo = getRateLimitInfo(ip)
+    
+    if (!rateInfo.allowed) {
+      return NextResponse.json(
+        { 
+          error: `Rate limit exceeded. Try again in ${Math.ceil(rateInfo.resetIn / 60000)} minutes.`,
+          remaining: 0,
+          resetIn: rateInfo.resetIn
+        },
+        { 
+          status: 429,
+          headers: {
+            'Retry-After': String(Math.ceil(rateInfo.resetIn / 1000)),
+            'X-RateLimit-Remaining': '0',
+          }
+        }
+      )
+    }
+
     const { text } = await request.json()
 
     if (!text || text.trim().length === 0) {
       return NextResponse.json({ error: 'No text provided' }, { status: 400 })
     }
+
+    // Limit text length to prevent abuse
+    const maxChars = 15000
+    const truncatedText = text.slice(0, maxChars)
 
     const apiKey = process.env.DEEPSEEK_API_KEY
     if (!apiKey) {
@@ -22,7 +78,7 @@ export async function POST(request: Request) {
 }
 
 Paper text:
-${text}
+${truncatedText}
 
 Return ONLY the JSON object, nothing else.`
 
@@ -78,7 +134,10 @@ Return ONLY the JSON object, nothing else.`
       }
     }
 
-    return NextResponse.json(parsedContent)
+    return NextResponse.json({
+      ...parsedContent,
+      _rate: { remaining: rateInfo.remaining, resetIn: rateInfo.resetIn }
+    })
   } catch (error) {
     console.error('Error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
