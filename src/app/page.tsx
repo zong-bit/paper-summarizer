@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import Link from 'next/link'
 import AdPlaceholder from '../components/AdPlaceholder'
 import Footer from '../components/Footer'
 import VisitorCounter from '../components/VisitorCounter'
