@@ -192,10 +192,10 @@ export default function Home() {
               <p>Need higher limits? <a href="mailto:selina_zxw@qq.com" className="text-primary hover:text-primary-dark transition-colors">Contact us</a></p>
             </div>
 
-            <Link href="/game" className="block bg-gradient-to-r from-primary/20 via-secondary/10 to-accent/10 border border-primary/30 rounded-2xl p-6 text-center hover:border-primary/60 transition-all group">
+            <Link href="/games" className="block bg-gradient-to-r from-primary/20 via-secondary/10 to-accent/10 border border-primary/30 rounded-2xl p-6 text-center hover:border-primary/60 transition-all group">
               <div className="text-3xl mb-2">🎮</div>
-              <div className="text-lg font-semibold text-text group-hover:text-primary transition-colors">Need a Break? Play Flappy Bird!</div>
-              <div className="text-sm text-text-secondary mt-1">Free browser game — no download needed</div>
+              <div className="text-lg font-semibold text-text group-hover:text-primary transition-colors">Need a Break? Play Academic Games!</div>
+              <div className="text-sm text-text-secondary mt-1">Paper Bingo, Citation Quiz & more — no download needed</div>
             </Link>
           </>
         ) : (
