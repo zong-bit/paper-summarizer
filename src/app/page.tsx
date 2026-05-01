@@ -147,13 +147,18 @@ export default function Home() {
                 </button>
               </div>
 
-              <textarea
-                value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
-                placeholder="Paste your paper text here or upload a PDF..."
-                className="w-full h-64 bg-bg border border-border rounded-xl p-4 text-text placeholder-text-secondary/60 resize-none focus:outline-none focus:ring-2 focus:ring-primary/50 scrollbar-thin"
-                disabled={isLoading}
-              />
+              <div className="relative">
+                <textarea
+                  value={inputText}
+                  onChange={(e) => setInputText(e.target.value)}
+                  placeholder="Paste your paper text here or upload a PDF..."
+                  className="w-full h-64 bg-bg border border-border rounded-xl p-4 text-text placeholder-text-secondary/60 resize-none focus:outline-none focus:ring-2 focus:ring-primary/50 scrollbar-thin"
+                  disabled={isLoading}
+                />
+                <div className="absolute bottom-3 right-3 text-xs text-text-secondary/50">
+                  {inputText.length.toLocaleString()} / 15,000 chars max
+                </div>
+              </div>
 
               {error && (
                 <div className="text-error text-sm">{error}</div>
@@ -179,6 +184,11 @@ export default function Home() {
             </div>
 
             <AdPlaceholder />
+
+            <div className="text-center text-text-secondary/50 text-xs space-y-1">
+              <p>Limit: 5 summaries per 10 minutes · 15,000 characters max per request</p>
+              <p>Powered by DeepSeek AI · Free to use</p>
+            </div>
           </>
         ) : (
           <>
