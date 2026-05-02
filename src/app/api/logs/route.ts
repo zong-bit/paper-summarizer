@@ -1,14 +1,9 @@
 import { NextResponse } from 'next/server'
-import type { ApiLog } from '../summarize/route'
-
-type LogsResponse = {
-  logs: ApiLog[]
-  source: string
-  count: number
-}
+import type { ApiLog } from '@/lib/api-types'
+import { getLogBuffer } from '@/lib/api-logger'
 
 export async function GET(request: Request) {
-  // Basic auth check: require a secret token in query param or Authorization header
+  // Simple auth: require LOGS_API_TOKEN env var as Bearer token or ?token= param
   const authHeader = request.headers.get('authorization')?.replace('Bearer ', '')
   const authQuery = new URL(request.url).searchParams.get('token')
   const authToken = process.env.LOGS_API_TOKEN
@@ -17,23 +12,31 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
+  // Try KV first for persistence across cold starts
   let logs: ApiLog[] = []
-  let source = 'none'
+  let source = 'memory'
 
   try {
     const { kv } = await import('@vercel/kv')
     const raw = await kv.lrange('api:logs', 0, 99)
-    source = 'kv'
-    logs = raw.map((r: string) => JSON.parse(r))
-  } catch (e) {
-    // KV not available — return empty
-    console.error('KV read error:', e)
+    if (raw && raw.length > 0) {
+      logs = raw.map((r: string) => JSON.parse(r))
+      source = 'kv'
+    }
+  } catch {
+    // KV not available — fall back to in-memory buffer
+    logs = getLogBuffer()
   }
 
-  // Apply optional filters
+  // If KV returned empty, fallback to memory
+  if (logs.length === 0) {
+    logs = getLogBuffer()
+  }
+
+  // Apply filters
   const url = new URL(request.url)
   const statusFilter = url.searchParams.get('status')
-  const since = url.searchParams.get('since') // ISO timestamp
+  const since = url.searchParams.get('since')
   const limit = Math.min(Number(url.searchParams.get('limit')) || 50, 100)
 
   if (statusFilter) {

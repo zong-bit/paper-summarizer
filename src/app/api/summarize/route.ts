@@ -1,24 +1,13 @@
 import { NextResponse } from 'next/server'
+import { logApiCall } from '@/lib/api-logger'
 
 // Simple in-memory rate limiter
 const rateLimit = new Map<string, { count: number; resetAt: number }>()
-
-export type ApiLog = {
-  id: string
-  timestamp: string
-  ip: string
-  ua: string
-  path: string
-  status: 'success' | 'rejected' | 'error'
-  textLength: number
-  errorMsg?: string
-}
 
 function getRateLimitInfo(ip: string): { allowed: boolean; remaining: number; resetIn: number } {
   const now = Date.now()
   const entry = rateLimit.get(ip)
 
-  // Clean up old entries
   if (entry && entry.resetAt < now) {
     rateLimit.delete(ip)
   }
@@ -39,39 +28,6 @@ function getRateLimitInfo(ip: string): { allowed: boolean; remaining: number; re
   return { allowed: true, remaining: maxRequests - entry.count, resetIn: entry.resetAt - now }
 }
 
-// KV-backed logger — stores recent API call logs
-let kv: any = null
-async function getKv() {
-  if (kv === null) {
-    try {
-      const { kv: kvModule } = await import('@vercel/kv')
-      kv = kvModule
-    } catch {
-      kv = false // fallback: no persistence
-    }
-  }
-  return kv
-}
-
-const MAX_LOGS = 200
-
-async function logApiCall(log: Omit<ApiLog, 'id'>): Promise<void> {
-  const entry: ApiLog = {
-    id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-    ...log,
-  }
-
-  const store = await getKv()
-  if (store) {
-    try {
-      await store.lpush('api:logs', JSON.stringify(entry))
-      await store.ltrim('api:logs', 0, MAX_LOGS - 1)
-    } catch (e) {
-      console.error('KV log error:', e)
-    }
-  }
-}
-
 export async function POST(request: Request) {
   // Collect request info early (before any early returns)
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
@@ -81,9 +37,6 @@ export async function POST(request: Request) {
 
   try {
     const { text } = await request.json()
-
-    // Log success immediately (fire & forget)
-    logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'success', textLength: text?.length || 0 })
 
     const rateInfo = getRateLimitInfo(ip)
     
@@ -108,6 +61,9 @@ export async function POST(request: Request) {
     if (!text || text.trim().length === 0) {
       return NextResponse.json({ error: 'No text provided' }, { status: 400 })
     }
+
+    // Log successful request (fire & forget)
+    logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'success', textLength: text?.length || 0 })
 
     // Limit text length to prevent abuse
     const maxChars = 15000
@@ -171,7 +127,6 @@ Return ONLY the JSON object, nothing else.`
     try {
       parsedContent = JSON.parse(content)
     } catch {
-      // Try extracting JSON from markdown code block
       const jsonMatch = content.match(/\`\`\`(?:json)?\s*([\s\S]*?)\`\`\`/)
       if (jsonMatch) {
         try {
@@ -190,7 +145,8 @@ Return ONLY the JSON object, nothing else.`
     })
   } catch (error) {
     console.error('Error:', error)
-    logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'error', textLength: 0, errorMsg: error instanceof Error ? error.message : 'unknown_error' })
+    const errMsg = error instanceof Error ? error.message : 'unknown_error'
+    logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'error', textLength: 0, errorMsg: errMsg })
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
