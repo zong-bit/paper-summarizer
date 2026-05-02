@@ -3,6 +3,17 @@ import { NextResponse } from 'next/server'
 // Simple in-memory rate limiter
 const rateLimit = new Map<string, { count: number; resetAt: number }>()
 
+export type ApiLog = {
+  id: string
+  timestamp: string
+  ip: string
+  ua: string
+  path: string
+  status: 'success' | 'rejected' | 'error'
+  textLength: number
+  errorMsg?: string
+}
+
 function getRateLimitInfo(ip: string): { allowed: boolean; remaining: number; resetIn: number } {
   const now = Date.now()
   const entry = rateLimit.get(ip)
@@ -28,16 +39,56 @@ function getRateLimitInfo(ip: string): { allowed: boolean; remaining: number; re
   return { allowed: true, remaining: maxRequests - entry.count, resetIn: entry.resetAt - now }
 }
 
+// KV-backed logger — stores recent API call logs
+let kv: any = null
+async function getKv() {
+  if (kv === null) {
+    try {
+      const { kv: kvModule } = await import('@vercel/kv')
+      kv = kvModule
+    } catch {
+      kv = false // fallback: no persistence
+    }
+  }
+  return kv
+}
+
+const MAX_LOGS = 200
+
+async function logApiCall(log: Omit<ApiLog, 'id'>): Promise<void> {
+  const entry: ApiLog = {
+    id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    ...log,
+  }
+
+  const store = await getKv()
+  if (store) {
+    try {
+      await store.lpush('api:logs', JSON.stringify(entry))
+      await store.ltrim('api:logs', 0, MAX_LOGS - 1)
+    } catch (e) {
+      console.error('KV log error:', e)
+    }
+  }
+}
+
 export async function POST(request: Request) {
+  // Collect request info early (before any early returns)
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
+             request.headers.get('x-real-ip') || 
+             'unknown'
+  const ua = request.headers.get('user-agent') || 'unknown'
+
   try {
-    // Rate limiting
-    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
-               request.headers.get('x-real-ip') || 
-               'unknown'
-    
+    const { text } = await request.json()
+
+    // Log success immediately (fire & forget)
+    logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'success', textLength: text?.length || 0 })
+
     const rateInfo = getRateLimitInfo(ip)
     
     if (!rateInfo.allowed) {
+      logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'rejected', textLength: text?.length || 0, errorMsg: 'rate_limited' })
       return NextResponse.json(
         { 
           error: `Rate limit exceeded. Try again in ${Math.ceil(rateInfo.resetIn / 60000)} minutes.`,
@@ -53,8 +104,6 @@ export async function POST(request: Request) {
         }
       )
     }
-
-    const { text } = await request.json()
 
     if (!text || text.trim().length === 0) {
       return NextResponse.json({ error: 'No text provided' }, { status: 400 })
@@ -103,6 +152,7 @@ Return ONLY the JSON object, nothing else.`
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}))
+      logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'error', textLength: text?.length || 0, errorMsg: errorData.error?.message || 'deepseek_api_error' })
       return NextResponse.json(
         { error: errorData.error?.message || 'Failed to generate summary' },
         { status: response.status }
@@ -140,6 +190,7 @@ Return ONLY the JSON object, nothing else.`
     })
   } catch (error) {
     console.error('Error:', error)
+    logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'error', textLength: 0, errorMsg: error instanceof Error ? error.message : 'unknown_error' })
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
