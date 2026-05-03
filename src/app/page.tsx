@@ -82,6 +82,14 @@ export default function Home() {
     }
   }
 
+  const SAMPLE_TEXT = `Deep learning has revolutionized the field of natural language processing in recent years. This paper presents a comprehensive survey of transformer-based architectures and their applications across various NLP tasks. We analyze the evolution from the original Transformer model to modern variants including BERT, GPT, RoBERTa, and T5. Our study covers pre-training objectives, model architectures, and fine-tuning strategies. We find that larger models consistently outperform smaller ones across all benchmarks, with diminishing returns beyond 1.5 billion parameters. The study also reveals that domain-specific pre-training significantly improves performance on specialized tasks. Our analysis shows that transformer models achieve state-of-the-art results on 89% of evaluated NLP benchmarks. Key challenges include computational cost, data efficiency, and model interpretability. We propose several directions for future research including more efficient architectures and better evaluation methodologies.`
+
+  const handleExample = () => {
+    setInputText(SAMPLE_TEXT)
+    setSummary(null)
+    setError('')
+  }
+
   const handleClear = () => {
     setInputText('')
     setSummary(null)
@@ -141,6 +149,12 @@ export default function Home() {
                   disabled={isLoading}
                 />
                 <button
+                  onClick={handleExample}
+                  className="px-6 py-3 bg-accent/20 hover:bg-accent/30 text-accent rounded-xl transition-colors font-medium border border-accent/30"
+                >
+                  📝 Try Example
+                </button>
+                <button
                   onClick={handleClear}
                   className="px-6 py-3 bg-bg-hover hover:bg-border text-text-secondary rounded-xl transition-colors font-medium"
                 >
@@ -178,6 +192,8 @@ export default function Home() {
                     </svg>
                     Summarizing...
                   </>
+                ) : inputText === SAMPLE_TEXT ? (
+                  '🚀 Run Example →'
                 ) : (
                   'Generate Summary'
                 )}
