@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import AdPlaceholder from '../components/AdPlaceholder'
 import Footer from '../components/Footer'
@@ -19,6 +19,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [summary, setSummary] = useState<SummaryData | null>(null)
   const [error, setError] = useState('')
+  const [rateLimitTimer, setRateLimitTimer] = useState<number | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,6 +73,10 @@ export default function Home() {
       const data = await response.json()
       if (response.ok) {
         setSummary(data)
+        setRateLimitTimer(null)
+      } else if (response.status === 429) {
+        setError('')
+        setRateLimitTimer(data.resetIn || 600000)
       } else {
         setError(data.error || 'Failed to generate summary')
       }
@@ -94,9 +99,32 @@ export default function Home() {
     setInputText('')
     setSummary(null)
     setError('')
+    setRateLimitTimer(null)
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
+  }
+
+  // Rate limit countdown
+  useEffect(() => {
+    if (rateLimitTimer === null || rateLimitTimer <= 0) return
+    const interval = setInterval(() => {
+      setRateLimitTimer(prev => {
+        if (prev === null || prev <= 1000) {
+          clearInterval(interval)
+          return null
+        }
+        return prev - 1000
+      })
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [rateLimitTimer !== null])
+
+  const formatTimer = (ms: number) => {
+    const min = Math.ceil(ms / 60000)
+    if (min >= 1) return `${min} min`
+    const sec = Math.ceil(ms / 1000)
+    return `${sec}s`
   }
 
   return (
@@ -175,7 +203,17 @@ export default function Home() {
                 </div>
               </div>
 
-              {error && (
+              {rateLimitTimer !== null ? (
+                <div className="bg-warning/10 border border-warning/30 rounded-xl p-4 text-center space-y-2">
+                  <div className="text-warning font-semibold">⏳ Usage limit reached</div>
+                  <div className="text-text-secondary text-sm">
+                    Try again in <span className="font-mono font-bold text-warning">{formatTimer(rateLimitTimer)}</span>
+                  </div>
+                  <div className="text-text-secondary/60 text-xs">
+                    Share this tool to unlock extra uses!
+                  </div>
+                </div>
+              ) : error && (
                 <div className="text-error text-sm">{error}</div>
               )}
 
@@ -203,8 +241,8 @@ export default function Home() {
             <AdPlaceholder />
 
             <div className="text-center text-text-secondary/50 text-xs space-y-1">
-              <p>Limit: 5 summaries per 10 minutes · 15,000 characters max per request</p>
               <p>Powered by DeepSeek AI · Free to use</p>
+              <p>15,000 characters max per request</p>
               <p>Need higher limits? <a href="mailto:selina_zxw@qq.com" className="text-primary hover:text-primary-dark transition-colors">Contact us</a></p>
             </div>
 

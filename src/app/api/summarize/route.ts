@@ -13,7 +13,7 @@ function getRateLimitInfo(ip: string): { allowed: boolean; remaining: number; re
   }
 
   const windowMs = 10 * 60 * 1000 // 10 minutes
-  const maxRequests = 5 // max 5 requests per window
+  const maxRequests = 1 // max 1 request per window
 
   if (!entry || entry.resetAt < now) {
     rateLimit.set(ip, { count: 1, resetAt: now + windowMs })
