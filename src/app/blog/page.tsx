@@ -17,11 +17,15 @@ const posts = [
   { slug: 'ai-vs-human-summary', title: 'AI论文摘要工具 vs 手动摘要：哪个更适合你的科研需求？', desc: '从速度、准确性、多语言支持等维度深度对比AI摘要与人工摘要，告诉你如何结合两者优势提升科研效率。' },
   { slug: '2026-ai-paper-summarization-trends', title: '2026 AI论文摘要新趋势：大模型如何改变科研阅读方式', desc: '多模态理解、推理增强、领域专用模型、实时协作与可解释性——五大趋势解析AI如何重塑科研阅读。' },
   { slug: 'llm-inference-acceleration-guide', title: 'LLM推理加速技术全景指南：从原理到实践', desc: '深入解析量化、KV Cache、投机解码、MoE、PagedAttention等六大核心技术，理解AI论文摘要背后的推理加速原理。' },
-  { slug: 'ai-paper-summarizer-tools-comparison-2025', title: 'AI论文摘要工具怎么选？2025年最新评测与避坑指南', desc: '评测8款主流AI论文摘要工具（paper-summarizer、Scholarcy、Elicit、SciSpace等），从摘要质量、中文支持、价格多维度对比，含避坑指南。' },
+  { slug: 'ai-paper-summarizer-tools-comparison-2026', title: 'AI论文摘要工具大对比：2026年最佳论文总结工具测评与选择指南', desc: '深度测评6款主流AI论文摘要工具（Paper Summarizer、ChatPDF、Scispace、Elicit、Consensus、ChatDOC），从摘要准确率、中文支持、批量处理、价格等12个维度客观对比。' },
   { slug: 'latent-planning-in-llms-2026', title: 'AI模型会"提前计划"吗？2026年最新研究揭示大模型的"思维路线图"', desc: '解读arXiv最新论文"Where\'s the Plan?"，揭示Gemma-3如何在内部"提前计划"未来输出，以及这对AI论文摘要工具的深远影响。' },
   { slug: 'glguard-efficient-llm-guardrail', title: 'GLiGuard解读：0.3B参数实现27B级AI安全护栏，16倍加速的突破', desc: '2026年5月最新论文GLiGuard提出了一种革命性的LLM安全护栏方案：仅用0.3B参数（比传统方案小90倍）实现与7B-27B模型相当的检测精度，推理速度提升16倍。' },
   { slug: 'long-context-ai-paper-reading-2026', title: '长上下文AI如何改变论文阅读？2026年百万Token上下文革命解读', desc: '深度解析长上下文技术如何重塑AI论文摘要——从RoPE位置编码到FlashAttention，含模型对比、实战指南和SEO优化。' },
   { slug: 'paper-reading-efficiency-guide-2026', title: '论文阅读效率提升指南：用AI工具每天高效阅读10篇论文', desc: '系统性论文阅读工作流：从文献筛选到深度精读，用AI论文摘要工具将阅读效率提升10倍。含具体方法、工具推荐和实操步骤。' },
+  { slug: '论文润色降重工具推荐-2026', title: '2026年论文润色与降重工具推荐及使用技巧全攻略', desc: '精选8款论文润色与降重工具（Grammarly、QuillBot、Turnitin等），对比功能与价格，分享降重实操技巧，帮你高效通过查重。' },
+  { slug: 'matryoshkalora-lora-dynamic-rank-2026', title: 'MatryoshkaLoRA解读：套娃式LoRA实现动态rank选择，微调效率再升级', desc: '2026年5月最新论文MatryoshkaLoRA提出了一种革命性的LoRA微调框架：通过"套娃"式层次化低秩表示，实现动态rank选择，无需网格搜索即可在不同计算预算下获得最优微调效果。' },
+  { slug: 'how-value-induction-reshapes-llm-behavior-2026', title: '给AI"灌鸡汤"反而有害？价值诱导的连锁反应解读', desc: '2026年5月最新论文揭示：给AI"灌输"某种价值观会产生意想不到的连锁反应——所有价值诱导都会让模型变得更"讨好型人格"。深度解读这一发现对AI论文摘要工具的启示。' },
+  { slug: '深度学习自然语言处理最新突破-2026', title: '深度学习在自然语言处理中的最新突破：2026年NLP技术全景解读', desc: '系统梳理2025-2026年NLP六大核心突破：推理能力飞跃、多模态融合、高效微调、长上下文处理、AI代理、推理加速，以及它们对AI论文摘要工具的深远影响。' },
 ]
 
 export const metadata = {
