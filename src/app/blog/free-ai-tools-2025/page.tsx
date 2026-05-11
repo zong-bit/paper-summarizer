@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import BlogCTA from '@/components/BlogCTA'
 
 export const metadata = {
   title: '2025年免费AI工具推荐：学生党必备的5个神器 - Paper Summarizer',
@@ -111,9 +112,7 @@ export default function BlogPost() {
           </ol>
           <p><strong>AI不是来取代你的，是来让你比昨天的自己更强。</strong>2025年，免费AI工具的红利还在，赶紧抓住。</p>
         </article>
-        <div className="mt-8 pt-8 border-t border-border text-center">
-          <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">试试我们的免费AI论文摘要工具</Link>
-        </div>
+        <BlogCTA />
       </main>
       <footer className="border-t border-border bg-bg-card/50 py-8">
         <div className="max-w-4xl mx-auto px-4 text-center">

@@ -18,7 +18,7 @@ export default function AdPlaceholder() {
         className="adsbygoogle"
         style={{ display: 'block' }}
         data-ad-client="ca-pub-6809828426585070"
-        data-ad-slot=""
+        data-ad-slot="6094889223"
         data-ad-format="auto"
         data-full-width-responsive="true"
       />
