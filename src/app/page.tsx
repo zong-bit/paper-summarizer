@@ -19,38 +19,8 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [summary, setSummary] = useState<SummaryData | null>(null)
   const [error, setError] = useState('')
-  const [token, setToken] = useState('')
-  const [tokenStatus, setTokenStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
+  const [rateLimitTimer, setRateLimitTimer] = useState<number | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
-
-  // --- Daily limit (localStorage) ---
-  const DAILY_LIMIT = 3
-
-  const getDailyUsage = (): number => {
-    if (typeof window === 'undefined') return 0
-    const today = new Date().toISOString().split('T')[0]
-    const stored = localStorage.getItem(`paper-summarizer-usage-${today}`)
-    return stored ? parseInt(stored, 10) : 0
-  }
-
-  const incrementDailyUsage = () => {
-    const today = new Date().toISOString().split('T')[0]
-    const current = getDailyUsage()
-    localStorage.setItem(`paper-summarizer-usage-${today}`, String(current + 1))
-  }
-
-  const [dailyUsage, setDailyUsage] = useState(0)
-  const [dailyLimitReached, setDailyLimitReached] = useState(false)
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const usage = getDailyUsage()
-      setDailyUsage(usage)
-      setDailyLimitReached(usage >= DAILY_LIMIT)
-    }
-  }, [])
-
-  const remaining = DAILY_LIMIT - dailyUsage
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -87,12 +57,6 @@ export default function Home() {
       return
     }
 
-    // Check daily limit (only when not using premium token)
-    if (!token.trim() && dailyUsage >= DAILY_LIMIT) {
-      setError(`Daily free limit reached (${DAILY_LIMIT}/${DAILY_LIMIT}). Upgrade to Pro for unlimited summaries!`)
-      return
-    }
-
     setIsLoading(true)
     setError('')
     setSummary(null)
@@ -102,7 +66,6 @@ export default function Home() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(token.trim() ? { 'Authorization': `Bearer ${token.trim()}` } : {}),
         },
         body: JSON.stringify({ text: inputText }),
       })
@@ -110,11 +73,10 @@ export default function Home() {
       const data = await response.json()
       if (response.ok) {
         setSummary(data)
-        // Increment daily usage on successful summary (only without premium token)
-        if (!token.trim()) {
-          incrementDailyUsage()
-          setDailyUsage(prev => prev + 1)
-        }
+        setRateLimitTimer(null)
+      } else if (response.status === 429) {
+        setError('')
+        setRateLimitTimer(data.resetIn || 600000)
       } else {
         setError(data.error || 'Failed to generate summary')
       }
@@ -137,30 +99,32 @@ export default function Home() {
     setInputText('')
     setSummary(null)
     setError('')
+    setRateLimitTimer(null)
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
   }
 
-  const handleVerifyToken = async () => {
-    if (!token.trim()) return
-    setTokenStatus('loading')
-    try {
-      const res = await fetch(`/api/verify-token?token=${encodeURIComponent(token.trim())}`)
-      const data = await res.json()
-      if (data.valid) {
-        setTokenStatus('ok')
-      } else {
-        setTokenStatus('error')
-      }
-    } catch {
-      setTokenStatus('error')
-    }
-  }
+  // Rate limit countdown
+  useEffect(() => {
+    if (rateLimitTimer === null || rateLimitTimer <= 0) return
+    const interval = setInterval(() => {
+      setRateLimitTimer(prev => {
+        if (prev === null || prev <= 1000) {
+          clearInterval(interval)
+          return null
+        }
+        return prev - 1000
+      })
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [rateLimitTimer !== null])
 
-  const handleRemoveToken = () => {
-    setToken('')
-    setTokenStatus('idle')
+  const formatTimer = (ms: number) => {
+    const min = Math.ceil(ms / 60000)
+    if (min >= 1) return `${min} min`
+    const sec = Math.ceil(ms / 1000)
+    return `${sec}s`
   }
 
   return (
@@ -192,49 +156,6 @@ export default function Home() {
             </div>
 
             <AdPlaceholder />
-
-            {/* Daily Limit Banner */}
-            <div className="bg-bg-card border border-border rounded-2xl p-4 space-y-2">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                  <span className="text-sm font-medium text-text">
-                    {token.trim() ? (
-                      <>🔓 Premium — Unlimited Summaries</>
-                    ) : dailyLimitReached ? (
-                      <span className="text-error">⛔ Daily limit reached — {remaining === 0 ? '0' : remaining} free uses left today</span>
-                    ) : (
-                      <>📊 Free Plan — {remaining} / {DAILY_LIMIT} summaries used today</>
-                    )}
-                  </span>
-                </div>
-                {!token.trim() && (
-                  <Link
-                    href="/premium"
-                    className="px-4 py-1.5 bg-gradient-to-r from-primary to-secondary text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
-                  >
-                    ⚡ Upgrade to Pro ¥9.9/mo
-                  </Link>
-                )}
-              </div>
-              {/* Progress bar */}
-              {!token.trim() && !dailyLimitReached && (
-                <div className="w-full bg-bg-hover rounded-full h-1.5">
-                  <div
-                    className="bg-gradient-to-r from-primary to-secondary h-1.5 rounded-full transition-all duration-300"
-                    style={{ width: `${(dailyUsage / DAILY_LIMIT) * 100}%` }}
-                  />
-                </div>
-              )}
-              {dailyLimitReached && !token.trim() && (
-                <p className="text-xs text-text-secondary/70">
-                  You've used all {DAILY_LIMIT} free summaries today.{' '}
-                  <Link href="/premium" className="text-primary hover:underline">Upgrade to Pro →</Link>
-                </p>
-              )}
-            </div>
 
             <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
               <div className="flex flex-col md:flex-row gap-4">
@@ -282,51 +203,19 @@ export default function Home() {
                 </div>
               </div>
 
-              {error && (
+              {rateLimitTimer !== null ? (
+                <div className="bg-warning/10 border border-warning/30 rounded-xl p-4 text-center space-y-2">
+                  <div className="text-warning font-semibold">⏳ Usage limit reached</div>
+                  <div className="text-text-secondary text-sm">
+                    Try again in <span className="font-mono font-bold text-warning">{formatTimer(rateLimitTimer)}</span>
+                  </div>
+                  <div className="text-text-secondary/60 text-xs">
+                    Share this tool to unlock extra uses!
+                  </div>
+                </div>
+              ) : error && (
                 <div className="text-error text-sm">{error}</div>
               )}
-
-              {/* Token Section */}
-              <div className="border-t border-border pt-4 space-y-3">
-                <div className="flex items-center gap-2">
-                  <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                  </svg>
-                  <span className="text-sm font-medium text-text">Premium Access Token (optional)</span>
-                </div>
-                <div className="flex gap-3">
-                  <input
-                    type="text"
-                    value={token}
-                    onChange={e => { setToken(e.target.value); setTokenStatus('idle') }}
-                    placeholder="ps-xxxxxxxx..."
-                    className="flex-1 bg-bg border border-border rounded-lg px-3 py-2 text-sm text-text placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  />
-                  {tokenStatus === 'idle' ? (
-                    <button
-                      onClick={handleVerifyToken}
-                      disabled={!token.trim()}
-                      className="px-4 py-2 bg-bg-hover hover:bg-border text-text-secondary rounded-lg text-sm transition-colors disabled:opacity-40"
-                    >
-                      Verify
-                    </button>
-                  ) : tokenStatus === 'loading' ? (
-                    <span className="text-sm text-text-secondary">Checking...</span>
-                  ) : tokenStatus === 'ok' ? (
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-green-600">✓ Verified</span>
-                      <button onClick={handleRemoveToken} className="text-xs text-text-secondary hover:text-error transition-colors">Remove</button>
-                    </div>
-                  ) : (
-                    <span className="text-sm text-error">✗ Invalid</span>
-                  )}
-                </div>
-                {!token && (
-                  <p className="text-xs text-text-secondary/50">
-                    Got a premium token? Paste it above. <Link href="/premium" className="text-primary hover:underline">Get one →</Link>
-                  </p>
-                )}
-              </div>
 
               <button
                 onClick={handleSubmit}
@@ -352,9 +241,9 @@ export default function Home() {
             <AdPlaceholder />
 
             <div className="text-center text-text-secondary/50 text-xs space-y-1">
-              <p>Free: 3 summaries/day · Pro: Unlimited · 15,000 characters max per request</p>
               <p>Powered by DeepSeek AI · Free to use</p>
-              <p>Need more? <a href="/premium" className="text-primary hover:text-primary-dark transition-colors">Upgrade to Pro</a> · ¥9.9/month</p>
+              <p>15,000 characters max per request</p>
+              <p>Need higher limits? <a href="mailto:selina_zxw@qq.com" className="text-primary hover:text-primary-dark transition-colors">Contact us</a></p>
             </div>
 
             <Link href="/games" className="block bg-gradient-to-r from-primary/20 via-secondary/10 to-accent/10 border border-primary/30 rounded-2xl p-6 text-center hover:border-primary/60 transition-all group">
