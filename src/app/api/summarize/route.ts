@@ -1,19 +1,17 @@
 import { NextResponse } from 'next/server'
 import { logApiCall } from '@/lib/api-logger'
+import { findToken } from '@/lib/tokens'
 
-// Simple in-memory rate limiter
+// In-memory rate limiter
 const rateLimit = new Map<string, { count: number; resetAt: number }>()
 
-function getRateLimitInfo(ip: string): { allowed: boolean; remaining: number; resetIn: number } {
+function getRateLimitInfo(ip: string, maxRequests: number, windowMs: number): { allowed: boolean; remaining: number; resetIn: number } {
   const now = Date.now()
   const entry = rateLimit.get(ip)
 
   if (entry && entry.resetAt < now) {
     rateLimit.delete(ip)
   }
-
-  const windowMs = 10 * 60 * 1000 // 10 minutes
-  const maxRequests = 5 // max 5 requests per window
 
   if (!entry || entry.resetAt < now) {
     rateLimit.set(ip, { count: 1, resetAt: now + windowMs })
@@ -38,7 +36,35 @@ export async function POST(request: Request) {
   try {
     const { text } = await request.json()
 
-    const rateInfo = getRateLimitInfo(ip)
+    // Check for premium token in Authorization header
+    const authHeader = request.headers.get('authorization') || ''
+    let premiumToken = null
+    if (authHeader.startsWith('Bearer ')) {
+      premiumToken = authHeader.slice(7)
+    }
+
+    let rateInfo
+    if (premiumToken) {
+      const tokenEntry = findToken(premiumToken)
+      if (!tokenEntry) {
+        logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'rejected', textLength: text?.length || 0, errorMsg: 'invalid_token' })
+        return NextResponse.json(
+          { error: 'Invalid access token. Get one at /premium' },
+          { status: 403 }
+        )
+      }
+      if (tokenEntry.expiresAt && new Date(tokenEntry.expiresAt) < new Date()) {
+        logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'rejected', textLength: text?.length || 0, errorMsg: 'token_expired' })
+        return NextResponse.json(
+          { error: 'Access token has expired.', renewUrl: '/premium' },
+          { status: 403 }
+        )
+      }
+      rateInfo = getRateLimitInfo(ip, tokenEntry.maxRequests, tokenEntry.windowMs)
+    } else {
+      // Free user: 5 per 10 minutes
+      rateInfo = getRateLimitInfo(ip, 5, 10 * 60 * 1000)
+    }
     
     if (!rateInfo.allowed) {
       logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'rejected', textLength: text?.length || 0, errorMsg: 'rate_limited' })
@@ -142,6 +168,10 @@ Return ONLY the JSON object, nothing else.`
     return NextResponse.json({
       ...parsedContent,
       _rate: { remaining: rateInfo.remaining, resetIn: rateInfo.resetIn }
+    }, {
+      headers: {
+        'X-RateLimit-Remaining': String(rateInfo.remaining),
+      }
     })
   } catch (error) {
     console.error('Error:', error)

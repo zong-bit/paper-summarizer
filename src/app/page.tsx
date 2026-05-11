@@ -19,6 +19,8 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [summary, setSummary] = useState<SummaryData | null>(null)
   const [error, setError] = useState('')
+  const [token, setToken] = useState('')
+  const [tokenStatus, setTokenStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,6 +67,7 @@ export default function Home() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...(token.trim() ? { 'Authorization': `Bearer ${token.trim()}` } : {}),
         },
         body: JSON.stringify({ text: inputText }),
       })
@@ -97,6 +100,27 @@ export default function Home() {
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
+  }
+
+  const handleVerifyToken = async () => {
+    if (!token.trim()) return
+    setTokenStatus('loading')
+    try {
+      const res = await fetch(`/api/verify-token?token=${encodeURIComponent(token.trim())}`)
+      const data = await res.json()
+      if (data.valid) {
+        setTokenStatus('ok')
+      } else {
+        setTokenStatus('error')
+      }
+    } catch {
+      setTokenStatus('error')
+    }
+  }
+
+  const handleRemoveToken = () => {
+    setToken('')
+    setTokenStatus('idle')
   }
 
   return (
@@ -179,6 +203,48 @@ export default function Home() {
                 <div className="text-error text-sm">{error}</div>
               )}
 
+              {/* Token Section */}
+              <div className="border-t border-border pt-4 space-y-3">
+                <div className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                  </svg>
+                  <span className="text-sm font-medium text-text">Premium Access Token (optional)</span>
+                </div>
+                <div className="flex gap-3">
+                  <input
+                    type="text"
+                    value={token}
+                    onChange={e => { setToken(e.target.value); setTokenStatus('idle') }}
+                    placeholder="ps-xxxxxxxx..."
+                    className="flex-1 bg-bg border border-border rounded-lg px-3 py-2 text-sm text-text placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  />
+                  {tokenStatus === 'idle' ? (
+                    <button
+                      onClick={handleVerifyToken}
+                      disabled={!token.trim()}
+                      className="px-4 py-2 bg-bg-hover hover:bg-border text-text-secondary rounded-lg text-sm transition-colors disabled:opacity-40"
+                    >
+                      Verify
+                    </button>
+                  ) : tokenStatus === 'loading' ? (
+                    <span className="text-sm text-text-secondary">Checking...</span>
+                  ) : tokenStatus === 'ok' ? (
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-green-600">✓ Verified</span>
+                      <button onClick={handleRemoveToken} className="text-xs text-text-secondary hover:text-error transition-colors">Remove</button>
+                    </div>
+                  ) : (
+                    <span className="text-sm text-error">✗ Invalid</span>
+                  )}
+                </div>
+                {!token && (
+                  <p className="text-xs text-text-secondary/50">
+                    Got a premium token? Paste it above. <Link href="/premium" className="text-primary hover:underline">Get one →</Link>
+                  </p>
+                )}
+              </div>
+
               <button
                 onClick={handleSubmit}
                 disabled={isLoading || !inputText.trim()}
@@ -205,7 +271,7 @@ export default function Home() {
             <div className="text-center text-text-secondary/50 text-xs space-y-1">
               <p>Limit: 5 summaries per 10 minutes · 15,000 characters max per request</p>
               <p>Powered by DeepSeek AI · Free to use</p>
-              <p>Need higher limits? <a href="mailto:selina_zxw@qq.com" className="text-primary hover:text-primary-dark transition-colors">Contact us</a></p>
+              <p>Need higher limits? <a href="/premium" className="text-primary hover:text-primary-dark transition-colors">Upgrade to Premium</a> · 100+/hour</p>
             </div>
 
             <Link href="/games" className="block bg-gradient-to-r from-primary/20 via-secondary/10 to-accent/10 border border-primary/30 rounded-2xl p-6 text-center hover:border-primary/60 transition-all group">
