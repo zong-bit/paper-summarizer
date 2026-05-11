@@ -21,6 +21,7 @@ const posts = [
   { slug: 'latent-planning-in-llms-2026', title: 'AI模型会"提前计划"吗？2026年最新研究揭示大模型的"思维路线图"', desc: '解读arXiv最新论文"Where\'s the Plan?"，揭示Gemma-3如何在内部"提前计划"未来输出，以及这对AI论文摘要工具的深远影响。' },
   { slug: 'glguard-efficient-llm-guardrail', title: 'GLiGuard解读：0.3B参数实现27B级AI安全护栏，16倍加速的突破', desc: '2026年5月最新论文GLiGuard提出了一种革命性的LLM安全护栏方案：仅用0.3B参数（比传统方案小90倍）实现与7B-27B模型相当的检测精度，推理速度提升16倍。' },
   { slug: 'long-context-ai-paper-reading-2026', title: '长上下文AI如何改变论文阅读？2026年百万Token上下文革命解读', desc: '深度解析长上下文技术如何重塑AI论文摘要——从RoPE位置编码到FlashAttention，含模型对比、实战指南和SEO优化。' },
+  { slug: 'paper-reading-efficiency-guide-2026', title: '论文阅读效率提升指南：用AI工具每天高效阅读10篇论文', desc: '系统性论文阅读工作流：从文献筛选到深度精读，用AI论文摘要工具将阅读效率提升10倍。含具体方法、工具推荐和实操步骤。' },
 ]
 
 export const metadata = {
