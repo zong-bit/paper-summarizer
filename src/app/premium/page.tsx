@@ -46,13 +46,13 @@ export default function PremiumPage() {
         {/* Hero */}
         <div className="text-center space-y-4">
           <div className="inline-block px-4 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium">
-            ⚡ Premium Access
+            ⚡ Upgrade to Pro
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-text">
-            Higher Limits for Serious Researchers
+            ¥9.9/month — Unlimited Summaries
           </h1>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            Free users get 5 summaries per 10 minutes. Premium users get 100+ per hour with no waiting.
+            Free users get 3 summaries per day. Pro users get unlimited summaries with priority processing.
           </p>
         </div>
 
@@ -100,19 +100,104 @@ export default function PremiumPage() {
           )}
         </div>
 
-        {/* Pricing / Plans */}
+        {/* Pricing Hero */}
+        <div className="bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/30 rounded-2xl p-8 space-y-6 text-center">
+          <div className="text-4xl">💎</div>
+          <h2 className="text-2xl font-bold text-text">Pro Plan — ¥9.9/month</h2>
+          <p className="text-text-secondary">
+            Unlock unlimited daily summaries and priority processing.
+          </p>
+          <div className="inline-block bg-bg-card border border-primary/30 rounded-2xl p-6">
+            <div className="text-sm text-text-secondary mb-1">Monthly Subscription</div>
+            <div className="text-4xl font-bold text-primary">¥9.9<span className="text-lg text-text-secondary font-normal">/month</span></div>
+            <div className="mt-4 text-text-secondary text-sm space-y-2 text-left">
+              <p>✓ Unlimited daily summaries</p>
+              <p>✓ 15,000 chars per request</p>
+              <p>✓ Priority processing queue</p>
+              <p>✓ PDF upload support</p>
+              <p>✓ Email support</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Static Payment Methods */}
+        <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
+          <h2 className="text-xl font-semibold text-text">Choose Payment Method</h2>
+          <p className="text-text-secondary text-sm">
+            Select a payment method below. After payment confirmation, your Pro access token will be sent to your email within 24 hours.
+          </p>
+
+          <div className="space-y-3">
+            {/* WeChat Pay */}
+            <div className="flex items-center justify-between bg-bg border border-border rounded-xl p-4 hover:border-primary/40 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center text-xl">💚</div>
+                <div>
+                  <div className="text-text font-medium">WeChat Pay</div>
+                  <div className="text-text-secondary text-xs">Scan QR code to pay ¥9.9</div>
+                </div>
+              </div>
+              <a
+                href="mailto:selina_zxw@qq.com?subject=Pro%20Payment%20-%20WeChat&body=I%20want%20to%20upgrade%20to%20Pro%20(%C2%A59.9%2Fmonth)%20via%20WeChat%20Pay.%20Please%20send%20me%20the%20payment%20QR%20code."
+                className="px-4 py-2 bg-primary hover:bg-primary-dark text-white text-sm rounded-lg transition-colors"
+              >
+                Pay Now
+              </a>
+            </div>
+
+            {/* Alipay */}
+            <div className="flex items-center justify-between bg-bg border border-border rounded-xl p-4 hover:border-primary/40 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center text-xl">🔵</div>
+                <div>
+                  <div className="text-text font-medium">Alipay</div>
+                  <div className="text-text-secondary text-xs">Scan QR code to pay ¥9.9</div>
+                </div>
+              </div>
+              <a
+                href="mailto:selina_zxw@qq.com?subject=Pro%20Payment%20-%20Alipay&body=I%20want%20to%20upgrade%20to%20Pro%20(%C2%A59.9%2Fmonth)%20via%20Alipay.%20Please%20send%20me%20the%20payment%20QR%20code."
+                className="px-4 py-2 bg-primary hover:bg-primary-dark text-white text-sm rounded-lg transition-colors"
+              >
+                Pay Now
+              </a>
+            </div>
+
+            {/* Email Invoice */}
+            <div className="flex items-center justify-between bg-bg border border-border rounded-xl p-4 hover:border-primary/40 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center text-xl">📧</div>
+                <div>
+                  <div className="text-text font-medium">Email Invoice</div>
+                  <div className="text-text-secondary text-xs">We'll send an invoice with payment instructions</div>
+                </div>
+              </div>
+              <a
+                href="mailto:selina_zxw@qq.com?subject=Pro%20Payment%20-%20Invoice&body=I%20want%20to%20upgrade%20to%20Pro%20(%C2%A59.9%2Fmonth).%20Please%20send%20me%20an%20invoice."
+                className="px-4 py-2 bg-primary hover:bg-primary-dark text-white text-sm rounded-lg transition-colors"
+              >
+                Request Invoice
+              </a>
+            </div>
+          </div>
+
+          <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 text-sm text-text-secondary">
+            <strong className="text-text">🔒 Note:</strong> This is a manual payment process. After payment is confirmed, your access token will be sent to you via email. No automatic recurring charges — you can renew manually each month.
+          </div>
+        </div>
+
+        {/* Pricing Comparison */}
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-3">
             <h3 className="text-xl font-semibold text-text">Free</h3>
             <div className="text-3xl font-bold text-text">¥0</div>
             <div className="text-text-secondary text-sm space-y-1">
-              <p>• 5 summaries per 10 minutes</p>
+              <p>• 3 summaries per day</p>
               <p>• 15,000 chars max per request</p>
               <p>• Paper text summary</p>
               <p>• PDF upload</p>
             </div>
             <Link href="/" className="block text-center py-3 bg-bg-hover hover:bg-border text-text rounded-xl font-medium transition-colors">
-              Get Started Free
+              Continue Free
             </Link>
           </div>
 
@@ -120,19 +205,20 @@ export default function PremiumPage() {
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-primary text-white text-xs font-medium rounded-full">
               Recommended
             </div>
-            <h3 className="text-xl font-semibold text-text">Premium</h3>
-            <div className="text-3xl font-bold text-primary">¥29<span className="text-sm text-text-secondary font-normal">/month</span></div>
+            <h3 className="text-xl font-semibold text-text">Pro</h3>
+            <div className="text-3xl font-bold text-primary">¥9.9<span className="text-sm text-text-secondary font-normal">/month</span></div>
             <div className="text-text-secondary text-sm space-y-1">
-              <p>• 100 summaries per hour</p>
+              <p>• Unlimited daily summaries</p>
               <p>• 15,000 chars max per request</p>
               <p>• Priority processing</p>
+              <p>• PDF upload</p>
               <p>• Email support</p>
             </div>
             <a
-              href="mailto:selina_zxw@qq.com?subject=Premium%20Access%20Request"
+              href="mailto:selina_zxw@qq.com?subject=Pro%20Upgrade&body=I%20want%20to%20upgrade%20to%20Pro%20(%C2%A59.9%2Fmonth)."
               className="block text-center py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors"
             >
-              Request Access
+              Upgrade Now
             </a>
           </div>
         </div>
@@ -143,7 +229,7 @@ export default function PremiumPage() {
           <div className="space-y-3 text-text-secondary">
             <div className="flex items-start gap-3">
               <span className="flex-shrink-0 w-6 h-6 bg-primary/20 text-primary rounded-full flex items-center justify-center text-sm font-medium">1</span>
-              <p><strong className="text-text">Email us</strong> at selina_zxw@qq.com with your name and how many summaries you need.</p>
+              <p><strong className="text-text">Choose a payment method</strong> above and complete the payment (¥9.9/month).</p>
             </div>
             <div className="flex items-start gap-3">
               <span className="flex-shrink-0 w-6 h-6 bg-primary/20 text-primary rounded-full flex items-center justify-center text-sm font-medium">2</span>
@@ -151,7 +237,7 @@ export default function PremiumPage() {
             </div>
             <div className="flex items-start gap-3">
               <span className="flex-shrink-0 w-6 h-6 bg-primary/20 text-primary rounded-full flex items-center justify-center text-sm font-medium">3</span>
-              <p><strong className="text-text">Use it immediately</strong> — your token is your key. No login, no password. Just paste it in the API header.</p>
+              <p><strong className="text-text">Paste your token</strong> on the home page or in the API headers. Enjoy unlimited summaries!</p>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import AdPlaceholder from '../components/AdPlaceholder'
 import Footer from '../components/Footer'
@@ -22,6 +22,35 @@ export default function Home() {
   const [token, setToken] = useState('')
   const [tokenStatus, setTokenStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // --- Daily limit (localStorage) ---
+  const DAILY_LIMIT = 3
+
+  const getDailyUsage = (): number => {
+    if (typeof window === 'undefined') return 0
+    const today = new Date().toISOString().split('T')[0]
+    const stored = localStorage.getItem(`paper-summarizer-usage-${today}`)
+    return stored ? parseInt(stored, 10) : 0
+  }
+
+  const incrementDailyUsage = () => {
+    const today = new Date().toISOString().split('T')[0]
+    const current = getDailyUsage()
+    localStorage.setItem(`paper-summarizer-usage-${today}`, String(current + 1))
+  }
+
+  const [dailyUsage, setDailyUsage] = useState(0)
+  const [dailyLimitReached, setDailyLimitReached] = useState(false)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const usage = getDailyUsage()
+      setDailyUsage(usage)
+      setDailyLimitReached(usage >= DAILY_LIMIT)
+    }
+  }, [])
+
+  const remaining = DAILY_LIMIT - dailyUsage
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -58,6 +87,12 @@ export default function Home() {
       return
     }
 
+    // Check daily limit (only when not using premium token)
+    if (!token.trim() && dailyUsage >= DAILY_LIMIT) {
+      setError(`Daily free limit reached (${DAILY_LIMIT}/${DAILY_LIMIT}). Upgrade to Pro for unlimited summaries!`)
+      return
+    }
+
     setIsLoading(true)
     setError('')
     setSummary(null)
@@ -75,6 +110,11 @@ export default function Home() {
       const data = await response.json()
       if (response.ok) {
         setSummary(data)
+        // Increment daily usage on successful summary (only without premium token)
+        if (!token.trim()) {
+          incrementDailyUsage()
+          setDailyUsage(prev => prev + 1)
+        }
       } else {
         setError(data.error || 'Failed to generate summary')
       }
@@ -152,6 +192,49 @@ export default function Home() {
             </div>
 
             <AdPlaceholder />
+
+            {/* Daily Limit Banner */}
+            <div className="bg-bg-card border border-border rounded-2xl p-4 space-y-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                  <span className="text-sm font-medium text-text">
+                    {token.trim() ? (
+                      <>🔓 Premium — Unlimited Summaries</>
+                    ) : dailyLimitReached ? (
+                      <span className="text-error">⛔ Daily limit reached — {remaining === 0 ? '0' : remaining} free uses left today</span>
+                    ) : (
+                      <>📊 Free Plan — {remaining} / {DAILY_LIMIT} summaries used today</>
+                    )}
+                  </span>
+                </div>
+                {!token.trim() && (
+                  <Link
+                    href="/premium"
+                    className="px-4 py-1.5 bg-gradient-to-r from-primary to-secondary text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
+                  >
+                    ⚡ Upgrade to Pro ¥9.9/mo
+                  </Link>
+                )}
+              </div>
+              {/* Progress bar */}
+              {!token.trim() && !dailyLimitReached && (
+                <div className="w-full bg-bg-hover rounded-full h-1.5">
+                  <div
+                    className="bg-gradient-to-r from-primary to-secondary h-1.5 rounded-full transition-all duration-300"
+                    style={{ width: `${(dailyUsage / DAILY_LIMIT) * 100}%` }}
+                  />
+                </div>
+              )}
+              {dailyLimitReached && !token.trim() && (
+                <p className="text-xs text-text-secondary/70">
+                  You've used all {DAILY_LIMIT} free summaries today.{' '}
+                  <Link href="/premium" className="text-primary hover:underline">Upgrade to Pro →</Link>
+                </p>
+              )}
+            </div>
 
             <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
               <div className="flex flex-col md:flex-row gap-4">
@@ -269,9 +352,9 @@ export default function Home() {
             <AdPlaceholder />
 
             <div className="text-center text-text-secondary/50 text-xs space-y-1">
-              <p>Limit: 5 summaries per 10 minutes · 15,000 characters max per request</p>
+              <p>Free: 3 summaries/day · Pro: Unlimited · 15,000 characters max per request</p>
               <p>Powered by DeepSeek AI · Free to use</p>
-              <p>Need higher limits? <a href="/premium" className="text-primary hover:text-primary-dark transition-colors">Upgrade to Premium</a> · 100+/hour</p>
+              <p>Need more? <a href="/premium" className="text-primary hover:text-primary-dark transition-colors">Upgrade to Pro</a> · ¥9.9/month</p>
             </div>
 
             <Link href="/games" className="block bg-gradient-to-r from-primary/20 via-secondary/10 to-accent/10 border border-primary/30 rounded-2xl p-6 text-center hover:border-primary/60 transition-all group">
