@@ -82,9 +82,8 @@ export async function POST(request: Request) {
 
     // Verify signature
     if (!verifySignature(rawBody, signature)) {
-      console.warn('[Gumroad] Invalid signature — possible spoofed request')
-      // Still process but log the warning; or reject:
-      // return NextResponse.json({ success: false, error: 'Invalid signature' }, { status: 401 })
+      console.warn('[Gumroad] Invalid signature — possible spoofed request. Rejecting.')
+      return NextResponse.json({ success: false, error: 'Invalid signature' }, { status: 401 })
     }
 
     let payload: any

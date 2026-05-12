@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server'
 import { logApiCall } from '@/lib/api-logger'
+import { findToken } from '@/lib/tokens'
 
-// Simple in-memory rate limiter
+// ── Rate limiter for anonymous/free users ──
+// Per-IP rate limit: 1 request per 10 minutes (anti-abuse)
 const rateLimit = new Map<string, { count: number; resetAt: number }>()
 
 function getRateLimitInfo(ip: string): { allowed: boolean; remaining: number; resetIn: number } {
@@ -13,7 +15,7 @@ function getRateLimitInfo(ip: string): { allowed: boolean; remaining: number; re
   }
 
   const windowMs = 10 * 60 * 1000 // 10 minutes
-  const maxRequests = 1 // max 1 request per window
+  const maxRequests = 1
 
   if (!entry || entry.resetAt < now) {
     rateLimit.set(ip, { count: 1, resetAt: now + windowMs })
@@ -28,6 +30,53 @@ function getRateLimitInfo(ip: string): { allowed: boolean; remaining: number; re
   return { allowed: true, remaining: maxRequests - entry.count, resetIn: entry.resetAt - now }
 }
 
+// ── Daily free usage tracker (per IP, 3 per day) ──
+const freeDailyUsage = new Map<string, { date: string; count: number }>()
+
+function getFreeDailyKey(ip: string): string {
+  const today = new Date().toISOString().split('T')[0]
+  return `free:${today}:${ip}`
+}
+
+function getFreeDailyUsage(ip: string): { date: string; count: number } {
+  const key = getFreeDailyKey(ip)
+  const today = new Date().toISOString().split('T')[0]
+  const entry = freeDailyUsage.get(key)
+  if (!entry || entry.date !== today) {
+    return { date: today, count: 0 }
+  }
+  return entry
+}
+
+function incrementFreeDailyUsage(ip: string): number {
+  const key = getFreeDailyKey(ip)
+  const today = new Date().toISOString().split('T')[0]
+  const entry = getFreeDailyUsage(ip)
+  freeDailyUsage.set(key, { date: today, count: entry.count + 1 })
+  return entry.count + 1
+}
+
+// ── Token / Pro verification helper ──
+function extractProToken(request: Request): { token: string | null; isPro: boolean } {
+  // Check Authorization header first
+  const authHeader = request.headers.get('authorization') || ''
+  const tokenMatch = authHeader.match(/^Bearer\s+(\S+)$/)
+  const userToken = tokenMatch ? tokenMatch[1] : null
+
+  if (userToken) {
+    const tokenEntry = findToken(userToken)
+    if (tokenEntry) {
+      // Check expiry
+      if (tokenEntry.expiresAt && new Date(tokenEntry.expiresAt) < new Date()) {
+        return { token: userToken, isPro: false }
+      }
+      return { token: userToken, isPro: tokenEntry.plan === 'pro' }
+    }
+  }
+
+  return { token: null, isPro: false }
+}
+
 export async function POST(request: Request) {
   // Collect request info early (before any early returns)
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
@@ -38,31 +87,51 @@ export async function POST(request: Request) {
   try {
     const { text } = await request.json()
 
-    const rateInfo = getRateLimitInfo(ip)
-    
-    if (!rateInfo.allowed) {
-      logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'rejected', textLength: text?.length || 0, errorMsg: 'rate_limited' })
-      return NextResponse.json(
-        { 
-          error: `Rate limit exceeded. Try again in ${Math.ceil(rateInfo.resetIn / 60000)} minutes.`,
-          remaining: 0,
-          resetIn: rateInfo.resetIn
-        },
-        { 
-          status: 429,
-          headers: {
-            'Retry-After': String(Math.ceil(rateInfo.resetIn / 1000)),
-            'X-RateLimit-Remaining': '0',
+    // ── 1. Check Pro token ──
+    const { isPro } = extractProToken(request)
+
+    // ── 2. Rate limiting ──
+    if (!isPro) {
+      // Free users: check daily limit first (3 per day)
+      const dailyUsage = getFreeDailyUsage(ip)
+      if (dailyUsage.count >= 3) {
+        logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'rejected', textLength: text?.length || 0, errorMsg: 'daily_limit_3' })
+        return NextResponse.json(
+          {
+            error: 'Daily free limit reached (3/3). Upgrade to Pro for unlimited summaries.',
+            remaining: 0,
+            resetIn: 86400000, // 24 hours
+          },
+          { status: 429 }
+        )
+      }
+
+      // Free users: also apply 10-minute cooldown
+      const rateInfo = getRateLimitInfo(ip)
+      if (!rateInfo.allowed) {
+        logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'rejected', textLength: text?.length || 0, errorMsg: 'rate_limited' })
+        return NextResponse.json(
+          {
+            error: `Rate limit exceeded. Try again in ${Math.ceil(rateInfo.resetIn / 60000)} minutes.`,
+            remaining: 0,
+            resetIn: rateInfo.resetIn
+          },
+          {
+            status: 429,
+            headers: {
+              'Retry-After': String(Math.ceil(rateInfo.resetIn / 1000)),
+              'X-RateLimit-Remaining': '0',
+            }
           }
-        }
-      )
+        )
+      }
     }
 
     if (!text || text.trim().length === 0) {
       return NextResponse.json({ error: 'No text provided' }, { status: 400 })
     }
 
-    // Log successful request (fire & forget)
+    // Log request (fire & forget)
     logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'success', textLength: text?.length || 0 })
 
     // Limit text length to prevent abuse
@@ -139,9 +208,15 @@ Return ONLY the JSON object, nothing else.`
       }
     }
 
+    // Increment daily usage only for free users
+    if (!isPro) {
+      incrementFreeDailyUsage(ip)
+    }
+
     return NextResponse.json({
       ...parsedContent,
-      _rate: { remaining: rateInfo.remaining, resetIn: rateInfo.resetIn }
+      _pro: isPro,
+      _remaining: isPro ? -1 : Math.max(0, 3 - (getFreeDailyUsage(ip).count + (isPro ? 0 : 1))),
     })
   } catch (error) {
     console.error('Error:', error)

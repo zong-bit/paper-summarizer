@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import crypto from 'crypto'
 import { addToken } from '@/lib/tokens'
 import fs from 'fs'
 import path from 'path'
@@ -40,9 +41,50 @@ function generateProToken(name: string): string {
   return `ps-${hash}-${random}`
 }
 
+/**
+ * Verify Afdian webhook signature.
+ * Afdian sends a `sign` field in the JSON payload.
+ * sign = MD5(order_id + AFDIAN_TOKEN)
+ * Where AFDIAN_TOKEN is the user_token from Afdian developer settings.
+ */
+function verifySignature(payload: any): boolean {
+  const sign = payload.sign
+  if (!sign) {
+    console.warn('[Afdian] No signature in webhook payload')
+    return false
+  }
+
+  const token = process.env.AFDIAN_TOKEN
+  if (!token) {
+    console.warn('[Afdian] AFDIAN_TOKEN not set. Set it in environment variables to enable signature verification.')
+    return false
+  }
+
+  // Try to find the order_id from the payload
+  const payloadData = payload.data || {}
+  const order = payloadData.order || {}
+  const orderId = order.order_id || order.out_trade_no
+
+  if (!orderId) {
+    console.warn('[Afdian] Cannot verify signature: no order_id found in payload')
+    return false
+  }
+
+  // Afdian signature: MD5(order_id + user_token)
+  const expected = crypto.createHash('md5').update(orderId + token).digest('hex')
+  return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(sign))
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json()
+
+    // ── Signature verification ──
+    if (!verifySignature(body)) {
+      console.warn('[Afdian] Invalid signature — possible spoofed request. Rejecting.')
+      return NextResponse.json({ ec: 400, em: 'Invalid signature' }, { status: 401 })
+    }
+
     const { type, data } = body
 
     // Afdian sends: { ec: 200, data: { type: "order", order: {...} } }
@@ -66,8 +108,17 @@ export async function POST(request: Request) {
     const planName = order.plan_title || 'Paper Summarizer Pro'
     const buyerName = order.buyer_name || 'Pro User'
 
-    // Only process paid orders of ¥9.9
-    if (status === 2 && totalAmount === '990') {
+    // ── Idempotency check: skip if we already created a token for this order ──
+    const existingOrders = loadOrders()
+    if (existingOrders.find(o => o.orderId === (orderId || outTradeNo))) {
+      console.log(`[Afdian] Order ${outTradeNo} already processed, skipping (idempotency)`)
+      return NextResponse.json({ ec: 200 })
+    }
+
+    // Only process paid orders
+    // Accept all positive amounts (flexible: support ¥9.9, ¥19.9, ¥29.9, etc.)
+    const amountNum = parseInt(totalAmount, 10)
+    if (status === 2 && amountNum > 0) {
       // Generate Pro token valid for 30 days
       const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
       const token = generateProToken(buyerName)
