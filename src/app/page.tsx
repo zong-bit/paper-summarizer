@@ -139,7 +139,15 @@ export default function Home() {
             </div>
             <span className="text-lg font-bold text-text">Paper Summarizer</span>
           </div>
-          <VisitorCounter />
+          <div className="flex items-center gap-3">
+            <VisitorCounter />
+            <Link
+              href="/premium"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-medium transition-colors border border-primary/20"
+            >
+              ⭐ Pro
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -243,7 +251,16 @@ export default function Home() {
             <div className="text-center text-text-secondary/50 text-xs space-y-1">
               <p>Powered by DeepSeek AI · Free to use</p>
               <p>15,000 characters max per request</p>
-              <p>Need higher limits? <a href="mailto:selina_zxw@qq.com" className="text-primary hover:text-primary-dark transition-colors">Contact us</a></p>
+            </div>
+
+            {/* CTA for Pro */}
+            <div className="text-center">
+              <Link
+                href="/premium"
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-xl text-sm font-medium transition-colors border border-primary/20"
+              >
+                ⚡ Upgrade to Pro — ¥9.9/month →
+              </Link>
             </div>
 
             <Link href="/games" className="block bg-gradient-to-r from-primary/20 via-secondary/10 to-accent/10 border border-primary/30 rounded-2xl p-6 text-center hover:border-primary/60 transition-all group">

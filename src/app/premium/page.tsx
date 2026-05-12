@@ -120,68 +120,45 @@ export default function PremiumPage() {
           </div>
         </div>
 
-        {/* Static Payment Methods */}
+        {/* Afdian Payment */}
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
-          <h2 className="text-xl font-semibold text-text">Choose Payment Method</h2>
+          <h2 className="text-xl font-semibold text-text">💡 Pay with Afdian (爱发电)</h2>
           <p className="text-text-secondary text-sm">
-            Select a payment method below. After payment confirmation, your Pro access token will be sent to your email within 24 hours.
+            Support the project via 爱发电 (Chinese patronage platform). Instant verification after payment.
           </p>
 
-          <div className="space-y-3">
-            {/* WeChat Pay */}
-            <div className="flex items-center justify-between bg-bg border border-border rounded-xl p-4 hover:border-primary/40 transition-colors">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center text-xl">💚</div>
-                <div>
-                  <div className="text-text font-medium">WeChat Pay</div>
-                  <div className="text-text-secondary text-xs">Scan QR code to pay ¥9.9</div>
-                </div>
-              </div>
-              <a
-                href="mailto:selina_zxw@qq.com?subject=Pro%20Payment%20-%20WeChat&body=I%20want%20to%20upgrade%20to%20Pro%20(%C2%A59.9%2Fmonth)%20via%20WeChat%20Pay.%20Please%20send%20me%20the%20payment%20QR%20code."
-                className="px-4 py-2 bg-primary hover:bg-primary-dark text-white text-sm rounded-lg transition-colors"
-              >
-                Pay Now
-              </a>
-            </div>
-
-            {/* Alipay */}
-            <div className="flex items-center justify-between bg-bg border border-border rounded-xl p-4 hover:border-primary/40 transition-colors">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center text-xl">🔵</div>
-                <div>
-                  <div className="text-text font-medium">Alipay</div>
-                  <div className="text-text-secondary text-xs">Scan QR code to pay ¥9.9</div>
-                </div>
-              </div>
-              <a
-                href="mailto:selina_zxw@qq.com?subject=Pro%20Payment%20-%20Alipay&body=I%20want%20to%20upgrade%20to%20Pro%20(%C2%A59.9%2Fmonth)%20via%20Alipay.%20Please%20send%20me%20the%20payment%20QR%20code."
-                className="px-4 py-2 bg-primary hover:bg-primary-dark text-white text-sm rounded-lg transition-colors"
-              >
-                Pay Now
-              </a>
-            </div>
-
-            {/* Email Invoice */}
-            <div className="flex items-center justify-between bg-bg border border-border rounded-xl p-4 hover:border-primary/40 transition-colors">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center text-xl">📧</div>
-                <div>
-                  <div className="text-text font-medium">Email Invoice</div>
-                  <div className="text-text-secondary text-xs">We'll send an invoice with payment instructions</div>
-                </div>
-              </div>
-              <a
-                href="mailto:selina_zxw@qq.com?subject=Pro%20Payment%20-%20Invoice&body=I%20want%20to%20upgrade%20to%20Pro%20(%C2%A59.9%2Fmonth).%20Please%20send%20me%20an%20invoice."
-                className="px-4 py-2 bg-primary hover:bg-primary-dark text-white text-sm rounded-lg transition-colors"
-              >
-                Request Invoice
-              </a>
-            </div>
-          </div>
+          <a
+            href="https://afdian.com/p/566dd4464d3111f1bd1352540025c377"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold text-lg transition-all shadow-lg hover:shadow-xl block text-center"
+          >
+            🚀 Go to Afdian — Pay ¥9.9/month
+          </a>
 
           <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 text-sm text-text-secondary">
-            <strong className="text-text">🔒 Note:</strong> This is a manual payment process. After payment is confirmed, your access token will be sent to you via email. No automatic recurring charges — you can renew manually each month.
+            <strong className="text-text">📋 How it works:</strong>
+            <ol className="mt-2 space-y-1 list-decimal list-inside">
+              <li>Click the button above, pay ¥9.9 on 爱发电</li>
+              <li>After payment verification, enter your 爱发电 order number below to activate Pro</li>
+              <li>Enjoy unlimited summaries! No email needed — direct activation</li>
+            </ol>
+          </div>
+        </div>
+
+        {/* Alternative: Contact for Invoice */}
+        <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-3">
+          <h2 className="text-xl font-semibold text-text">📧 Alternative: Contact Us</h2>
+          <p className="text-text-secondary text-sm">
+            Need a different payment method or invoice? Reach out directly.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="mailto:selina_zxw@qq.com?subject=Pro%20Payment%20Inquiry&body=I%20want%20to%20upgrade%20to%20Pro%20(%C2%A59.9%2Fmonth).%20Please%20send%20payment%20instructions."
+              className="px-5 py-2.5 bg-bg-hover hover:bg-border text-text rounded-lg text-sm transition-colors border border-border"
+            >
+              📧 Email Us
+            </a>
           </div>
         </div>
 
@@ -215,10 +192,12 @@ export default function PremiumPage() {
               <p>• Email support</p>
             </div>
             <a
-              href="mailto:selina_zxw@qq.com?subject=Pro%20Upgrade&body=I%20want%20to%20upgrade%20to%20Pro%20(%C2%A59.9%2Fmonth)."
+              href="https://afdian.com/p/566dd4464d3111f1bd1352540025c377"
+              target="_blank"
+              rel="noopener noreferrer"
               className="block text-center py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors"
             >
-              Upgrade Now
+              Upgrade on Afdian →
             </a>
           </div>
         </div>

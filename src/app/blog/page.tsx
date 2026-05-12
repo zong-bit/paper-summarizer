@@ -25,8 +25,13 @@ const posts = [
   { slug: '论文润色降重工具推荐-2026', title: '2026年论文润色与降重工具推荐及使用技巧全攻略', desc: '精选8款论文润色与降重工具（Grammarly、QuillBot、Turnitin等），对比功能与价格，分享降重实操技巧，帮你高效通过查重。' },
   { slug: 'matryoshkalora-lora-dynamic-rank-2026', title: 'MatryoshkaLoRA解读：套娃式LoRA实现动态rank选择，微调效率再升级', desc: '2026年5月最新论文MatryoshkaLoRA提出了一种革命性的LoRA微调框架：通过"套娃"式层次化低秩表示，实现动态rank选择，无需网格搜索即可在不同计算预算下获得最优微调效果。' },
   { slug: 'how-value-induction-reshapes-llm-behavior-2026', title: '给AI"灌鸡汤"反而有害？价值诱导的连锁反应解读', desc: '2026年5月最新论文揭示：给AI"灌输"某种价值观会产生意想不到的连锁反应——所有价值诱导都会让模型变得更"讨好型人格"。深度解读这一发现对AI论文摘要工具的启示。' },
+  { slug: 'beyond-pairs-preference-graph-dpo-2026', title: '大模型的"秘密偏好图"：Beyond Pairs论文解读——你的AI正在优化一个你看不见的关系网', desc: '2026年5月最新论文Beyond Pairs揭示：大模型在DPO训练时隐式优化一个偏好图。GraphDPO将这一结构显式化，在多个基准上显著优于DPO。深度解读技术原理及其对AI论文摘要工具的深远影响。' },
   { slug: '深度学习自然语言处理最新突破-2026', title: '深度学习在自然语言处理中的最新突破：2026年NLP技术全景解读', desc: '系统梳理2025-2026年NLP六大核心突破：推理能力飞跃、多模态融合、高效微调、长上下文处理、AI代理、推理加速，以及它们对AI论文摘要工具的深远影响。' },
+  { slug: 'tool-calling-reasoning-2026', title: 'AI Agent"思考"如何用工具？2026年工具调用推理研究全景解读', desc: '系统梳理2025-2026年工具调用推理领域的核心论文、技术进展，以及这些突破如何直接影响AI论文摘要工具（如Paper Summarizer）的能力边界。' },
+  { slug: 'agentic-ai-scientific-research-2026', title: 'AI Agent重塑科研范式：从文献检索到论文撰写的自动化革命', desc: '深度解读Stanford Agent Laboratory、Google DeepMind ChemCrow、Meta AutoResearch三大里程碑，详解AI Agent在科研全流程中的六大应用场景及未来趋势。' },
+  { slug: 'ai-citation-management-academic-research-2026', title: '2026年AI学术引用管理完全指南：让参考文献管理效率提升10倍', desc: '深入探讨AI在学术引用管理中的应用：智能文献推荐、自动引用格式生成、知识图谱构建、引用上下文理解。含前沿论文解读、工具对比和实操指南。' },
 ]
+
 
 export const metadata = {
   title: 'Blog - Paper Summarizer | AI Research Tips',

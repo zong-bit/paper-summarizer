@@ -16,6 +16,11 @@ export default function Footer() {
         <p className="mt-4 text-text-secondary/60 text-sm">
           Free AI Paper Summarizer - Summarize research papers instantly
         </p>
+        <div className="mt-2 flex items-center justify-center gap-4 text-xs text-text-secondary/40">
+          <a href="/premium" className="hover:text-primary transition-colors">⭐ Pro</a>
+          <span>·</span>
+          <a href="https://afdian.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">爱发电</a>
+        </div>
       </div>
     </footer>
   )
