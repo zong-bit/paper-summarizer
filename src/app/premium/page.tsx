@@ -122,26 +122,26 @@ export default function PremiumPage() {
 
         {/* Afdian Payment */}
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
-          <h2 className="text-xl font-semibold text-text">💡 Pay with Afdian (爱发电)</h2>
+          <h2 className="text-xl font-semibold text-text">💡 Pay with 爱发电</h2>
           <p className="text-text-secondary text-sm">
-            Support the project via 爱发电 (Chinese patronage platform). Instant verification after payment.
+            Support the project via 爱发电 (Chinese patronage platform). After payment, enter your order ID below to activate Pro.
           </p>
 
           <a
-            href="https://afdian.com/p/566dd4464d3111f1bd1352540025c377"
+            href="https://ifdian.net/item/8631b7544da611f1b57c52540025c377"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold text-lg transition-all shadow-lg hover:shadow-xl block text-center"
           >
-            🚀 Go to Afdian — Pay ¥9.9/month
+            🚀 Go to 爱发电 — Pay ¥9.9/month
           </a>
 
           <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 text-sm text-text-secondary">
             <strong className="text-text">📋 How it works:</strong>
             <ol className="mt-2 space-y-1 list-decimal list-inside">
-              <li>Click the button above, pay ¥9.9 on 爱发电</li>
-              <li>After payment verification, enter your 爱发电 order number below to activate Pro</li>
-              <li>Enjoy unlimited summaries! No email needed — direct activation</li>
+              <li>Click the button above and pay ¥9.9 on 爱发电</li>
+              <li>After payment, enter your order ID below to activate Pro</li>
+              <li>Your Pro token will be issued within 24 hours</li>
             </ol>
           </div>
         </div>
@@ -192,12 +192,12 @@ export default function PremiumPage() {
               <p>• Email support</p>
             </div>
             <a
-              href="https://afdian.com/p/566dd4464d3111f1bd1352540025c377"
+              href="https://ifdian.net/item/8631b7544da611f1b57c52540025c377"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-center py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors"
             >
-              Upgrade on Afdian →
+              Upgrade on 爱发电 →
             </a>
           </div>
         </div>
@@ -212,7 +212,7 @@ export default function PremiumPage() {
             </div>
             <div className="flex items-start gap-3">
               <span className="flex-shrink-0 w-6 h-6 bg-primary/20 text-primary rounded-full flex items-center justify-center text-sm font-medium">2</span>
-              <p><strong className="text-text">Receive your token</strong> via email within 24 hours. No registration, no account needed.</p>
+              <p><strong className="text-text">Receive your token</strong> within 24 hours after entering your order ID. No registration, no account needed.</p>
             </div>
             <div className="flex items-start gap-3">
               <span className="flex-shrink-0 w-6 h-6 bg-primary/20 text-primary rounded-full flex items-center justify-center text-sm font-medium">3</span>
