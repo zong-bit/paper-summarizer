@@ -9,6 +9,10 @@ export default function PremiumPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
   const [tokenInfo, setTokenInfo] = useState<any>(null)
 
+  const [orderId, setOrderId] = useState('')
+  const [claimStatus, setClaimStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
+  const [claimInfo, setClaimInfo] = useState<any>(null)
+
   const verifyToken = async () => {
     if (!token.trim()) return
     setStatus('loading')
@@ -25,6 +29,27 @@ export default function PremiumPage() {
     } catch {
       setStatus('error')
       setTokenInfo({ error: 'Verification failed' })
+    }
+  }
+
+  const claimToken = async () => {
+    if (!orderId.trim() || orderId.trim().length < 6) return
+    setClaimStatus('loading')
+    setClaimInfo(null)
+    try {
+      const res = await fetch(`/api/claim-token?order_id=${encodeURIComponent(orderId.trim())}`)
+      const data = await res.json()
+      if (data.valid) {
+        setClaimStatus('ok')
+        setClaimInfo(data)
+        setToken(data.token)
+      } else {
+        setClaimStatus('error')
+        setClaimInfo(data)
+      }
+    } catch {
+      setClaimStatus('error')
+      setClaimInfo({ error: 'Failed to claim token. Please try again later.' })
     }
   }
 
@@ -56,11 +81,60 @@ export default function PremiumPage() {
           </p>
         </div>
 
+        {/* Claim Token (for new buyers) */}
+        <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
+          <h2 className="text-xl font-semibold text-text">🔑 Claim Your Pro Token</h2>
+          <p className="text-text-secondary text-sm">
+            Already paid on 爱发电? Enter your order ID below to receive your Pro access token instantly.
+          </p>
+          <div className="flex gap-3">
+            <input
+              type="text"
+              value={orderId}
+              onChange={e => { setOrderId(e.target.value); setClaimStatus('idle'); setClaimInfo(null) }}
+              placeholder="Paste your 爱发电 order ID..."
+              className="flex-1 bg-bg border border-border rounded-xl px-4 py-3 text-text placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/50"
+            />
+            <button
+              onClick={claimToken}
+              disabled={claimStatus === 'loading' || orderId.trim().length < 6}
+              className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:opacity-50 text-white rounded-xl font-medium transition-colors"
+            >
+              {claimStatus === 'loading' ? 'Claiming...' : 'Claim Token'}
+            </button>
+          </div>
+
+          {claimStatus === 'ok' && claimInfo && (
+            <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 space-y-3">
+              <div className="flex items-center gap-2 text-green-600 font-medium text-lg">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                🎉 Pro Access Activated!
+              </div>
+              <div className="bg-bg rounded-xl p-4">
+                <p className="text-xs text-text-secondary mb-1">Your Pro Token (save this):</p>
+                <p className="text-lg font-mono font-bold text-primary break-all select-all">{claimInfo.token}</p>
+              </div>
+              <div className="text-sm text-text-secondary space-y-1">
+                <p>Plan: {claimInfo.plan} · Expires: {new Date(claimInfo.expiresAt).toLocaleDateString()}</p>
+                <p>Use this token on the home page to unlock unlimited summaries!</p>
+              </div>
+            </div>
+          )}
+
+          {claimStatus === 'error' && claimInfo && (
+            <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 text-red-500 text-sm">
+              {claimInfo.error}
+            </div>
+          )}
+        </div>
+
         {/* Token Checker */}
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
           <h2 className="text-xl font-semibold text-text">Check Your Token</h2>
           <p className="text-text-secondary text-sm">
-            Enter the access token you received to verify your plan and remaining limits.
+            Already have a token? Enter it here to check your plan and remaining limits.
           </p>
           <div className="flex gap-3">
             <input
