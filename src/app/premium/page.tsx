@@ -194,29 +194,55 @@ export default function PremiumPage() {
           </div>
         </div>
 
-        {/* Afdian Payment */}
-        <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
-          <h2 className="text-xl font-semibold text-text">💡 Pay with 爱发电</h2>
-          <p className="text-text-secondary text-sm">
-            Support the project via 爱发电 (Chinese patronage platform). After payment, enter your order ID below to activate Pro.
-          </p>
+        {/* Payment Options */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Afdian Payment */}
+          <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
+            <h2 className="text-xl font-semibold text-text">💡 Pay with 爱发电</h2>
+            <p className="text-text-secondary text-sm">
+              🇨🇳 Chinese users: Support the project via 爱发电. After payment, enter your order ID to activate Pro.
+            </p>
 
-          <a
-            href="https://ifdian.net/item/8631b7544da611f1b57c52540025c377"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold text-lg transition-all shadow-lg hover:shadow-xl block text-center"
-          >
-            🚀 Go to 爱发电 — Pay ¥9.9/month
-          </a>
+            <a
+              href="https://ifdian.net/item/8631b7544da611f1b57c52540025c377"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 px-6 py-3.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold text-lg transition-all shadow-lg hover:shadow-xl block text-center"
+            >
+              🚀 Go to 爱发电 — ¥9.9/month
+            </a>
 
-          <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 text-sm text-text-secondary">
-            <strong className="text-text">📋 How it works:</strong>
-            <ol className="mt-2 space-y-1 list-decimal list-inside">
-              <li>Click the button above and pay ¥9.9 on 爱发电</li>
-              <li>After payment, enter your order ID below to activate Pro</li>
-              <li>Your Pro token will be issued within 24 hours</li>
-            </ol>
+            <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 text-sm text-text-secondary">
+              <strong className="text-text">📋 How it works:</strong>
+              <ol className="mt-2 space-y-1 list-decimal list-inside">
+                <li>Click the button above and pay ¥9.9 on 爱发电</li>
+                <li>After payment, enter your order ID to claim your token</li>
+                <li>Token issued within 24 hours</li>
+              </ol>
+            </div>
+          </div>
+
+          {/* Gumroad Payment */}
+          <div className="bg-bg-card border border-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl p-6 space-y-4">
+            <h2 className="text-xl font-semibold text-text">💳 Pay with Gumroad</h2>
+            <p className="text-text-secondary text-sm">
+              🌍 International users: Pay with credit card, PayPal, or Apple Pay. Instant token delivery via email.
+            </p>
+
+            <Link
+              href="/buy"
+              className="flex items-center justify-center gap-3 px-6 py-3.5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl font-semibold text-lg transition-all shadow-lg hover:shadow-xl block text-center"
+            >
+              🌍 Gumroad Checkout — From $9.99/month
+            </Link>
+
+            <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 text-sm text-text-secondary">
+              <strong className="text-text">📋 Plans:</strong>
+              <ul className="mt-2 space-y-1 list-disc list-inside">
+                <li>Pro Monthly: $9.99/month (500/day)</li>
+                <li>Pro Yearly: $79.99/year (save 33%)</li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -265,14 +291,22 @@ export default function PremiumPage() {
               <p>• PDF upload</p>
               <p>• Email support</p>
             </div>
-            <a
-              href="https://ifdian.net/item/8631b7544da611f1b57c52540025c377"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block text-center py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors"
-            >
-              Upgrade on 爱发电 →
-            </a>
+                <div className="space-y-3">
+              <a
+                href="https://ifdian.net/item/8631b7544da611f1b57c52540025c377"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors"
+              >
+                🇨🇳 Buy on 爱发电 ¥9.9 →
+              </a>
+              <Link
+                href="/buy"
+                className="block text-center py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-medium transition-colors"
+              >
+                🌍 Buy on Gumroad $9.99 →
+              </Link>
+            </div>
           </div>
         </div>
 
