@@ -43,14 +43,18 @@ export async function POST(request: Request) {
     const body = await request.json()
     const { type, data } = body
 
+    // Afdian sends: { ec: 200, data: { type: "order", order: {...} } }
+    const payloadData = data || body.data
+    const payloadType = payloadData?.type || type
+
     // Only handle order events
-    if (type !== 'order' && type !== 'commerce_order') {
-      return NextResponse.json({ ok: true })
+    if (payloadType !== 'order' && payloadType !== 'commerce_order') {
+      return NextResponse.json({ ec: 200 })
     }
 
-    const order = data?.order || data
+    const order = payloadData?.order || data?.order
     if (!order) {
-      return NextResponse.json({ ok: false, error: 'Invalid payload' }, { status: 400 })
+      return NextResponse.json({ ec: 200 })
     }
 
     const outTradeNo = order.out_trade_no
@@ -91,9 +95,11 @@ export async function POST(request: Request) {
       console.log(`[Afdian] Pro token created for order ${outTradeNo}: ${token}`)
     }
 
-    return NextResponse.json({ ok: true })
+    // Afdian expects { ec: 200 } response
+    return NextResponse.json({ ec: 200 })
   } catch (err) {
     console.error('[Afdian Webhook Error]', err)
-    return NextResponse.json({ ok: false }, { status: 500 })
+    // Always return ec:200 even on error, afdian only checks this
+    return NextResponse.json({ ec: 200 }, { status: 500 })
   }
 }
