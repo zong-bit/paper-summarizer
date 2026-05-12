@@ -8,6 +8,12 @@ import Footer from '../../components/Footer'
 const GUMROAD_MONTHLY = 'https://paper-summarizer.gumroad.com/l/pro-monthly'
 const GUMROAD_YEARLY = 'https://paper-summarizer.gumroad.com/l/pro-yearly'
 
+// Lemon Squeezy checkout URLs — replace with your actual Lemon Squeezy checkout links
+// After creating products/variants in Lemon Squeezy dashboard, set these as env variables or hardcode
+// Format: https://{store-name}.lemonsqueezy.com/checkout/buy/{variant-id}
+const LS_CHECKOUT_MONTHLY = process.env.NEXT_PUBLIC_LS_MONTHLY_URL || 'https://paper-summarizer.lemonsqueezy.com/checkout/buy/monthly'
+const LS_CHECKOUT_YEARLY = process.env.NEXT_PUBLIC_LS_YEARLY_URL || 'https://paper-summarizer.lemonsqueezy.com/checkout/buy/yearly'
+
 export default function BuyPage() {
   const [orderId, setOrderId] = useState('')
   const [claimStatus, setClaimStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
@@ -86,74 +92,167 @@ export default function BuyPage() {
           </p>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Pro Monthly */}
-          <div className="bg-bg-card border border-border rounded-2xl p-6 sm:p-8 space-y-6 flex flex-col">
-            <div>
-              <h2 className="text-xl font-semibold text-text">Pro Monthly</h2>
-              <p className="text-text-secondary text-sm mt-1">Best for trying out</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-text">
-                $9.99
-                <span className="text-lg text-text-secondary font-normal">/month</span>
-              </div>
-              <div className="text-sm text-text-secondary mt-1">≈ ¥72 / month</div>
-            </div>
-            <div className="flex-1 text-text-secondary text-sm space-y-2">
-              <p>✓ 500 summaries per day</p>
-              <p>✓ 15,000 chars per request</p>
-              <p>✓ Priority processing queue</p>
-              <p>✓ PDF upload support</p>
-              <p>✓ Email support</p>
-              <p>✓ Instant token delivery</p>
-            </div>
-            <a
-              href={GUMROAD_MONTHLY}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block text-center py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold text-lg transition-colors"
-            >
-              Buy Now — $9.99/month
-            </a>
+        {/* Payment Provider Tabs */}
+        <div className="flex justify-center gap-2 mb-2">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary text-sm font-medium rounded-full">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+            </svg>
+            Gumroad (Credit Card / PayPal / Apple Pay)
           </div>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 text-purple-500 text-sm font-medium rounded-full">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            Lemon Squeezy (Credit Card / PayPal / Google Pay)
+          </div>
+        </div>
 
-          {/* Pro Yearly */}
-          <div className="bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/40 rounded-2xl p-6 sm:p-8 space-y-6 flex flex-col relative">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-primary text-white text-xs font-medium rounded-full">
-              Best Value
-            </div>
-            <div>
-              <h2 className="text-xl font-semibold text-text">Pro Yearly</h2>
-              <p className="text-text-secondary text-sm mt-1">Save 33% vs monthly</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-primary">
-                $79.99
-                <span className="text-lg text-text-secondary font-normal">/year</span>
+        {/* Gumroad Pricing Cards */}
+        <div className="space-y-6">
+          <h2 className="text-xl font-semibold text-text text-center">Pay with Gumroad</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Pro Monthly */}
+            <div className="bg-bg-card border border-border rounded-2xl p-6 sm:p-8 space-y-6 flex flex-col">
+              <div>
+                <h2 className="text-xl font-semibold text-text">Pro Monthly</h2>
+                <p className="text-text-secondary text-sm mt-1">Best for trying out</p>
               </div>
-              <div className="text-sm text-text-secondary mt-1">
-                $6.67/month · ≈ ¥576 / year
+              <div>
+                <div className="text-4xl font-bold text-text">
+                  $9.99
+                  <span className="text-lg text-text-secondary font-normal">/month</span>
+                </div>
+                <div className="text-sm text-text-secondary mt-1">≈ ¥72 / month</div>
               </div>
+              <div className="flex-1 text-text-secondary text-sm space-y-2">
+                <p>✓ 500 summaries per day</p>
+                <p>✓ 15,000 chars per request</p>
+                <p>✓ Priority processing queue</p>
+                <p>✓ PDF upload support</p>
+                <p>✓ Email support</p>
+                <p>✓ Instant token delivery via email</p>
+              </div>
+              <a
+                href={GUMROAD_MONTHLY}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold text-lg transition-colors"
+              >
+                Buy Now — $9.99/month
+              </a>
             </div>
-            <div className="flex-1 text-text-secondary text-sm space-y-2">
-              <p>✓ Everything in Monthly</p>
-              <p>✓ 500 summaries per day</p>
-              <p>✓ 15,000 chars per request</p>
-              <p>✓ Priority processing queue</p>
-              <p>✓ PDF upload support</p>
-              <p>✓ Email support</p>
-              <p>✓ Best value — 33% savings</p>
+
+            {/* Pro Yearly */}
+            <div className="bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/40 rounded-2xl p-6 sm:p-8 space-y-6 flex flex-col relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-primary text-white text-xs font-medium rounded-full">
+                Best Value
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold text-text">Pro Yearly</h2>
+                <p className="text-text-secondary text-sm mt-1">Save 33% vs monthly</p>
+              </div>
+              <div>
+                <div className="text-4xl font-bold text-primary">
+                  $79.99
+                  <span className="text-lg text-text-secondary font-normal">/year</span>
+                </div>
+                <div className="text-sm text-text-secondary mt-1">
+                  $6.67/month · ≈ ¥576 / year
+                </div>
+              </div>
+              <div className="flex-1 text-text-secondary text-sm space-y-2">
+                <p>✓ Everything in Monthly</p>
+                <p>✓ 500 summaries per day</p>
+                <p>✓ 15,000 chars per request</p>
+                <p>✓ Priority processing queue</p>
+                <p>✓ PDF upload support</p>
+                <p>✓ Email support</p>
+                <p>✓ Best value — 33% savings</p>
+              </div>
+              <a
+                href={GUMROAD_YEARLY}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold text-lg transition-colors"
+              >
+                Buy Now — $79.99/year
+              </a>
             </div>
-            <a
-              href={GUMROAD_YEARLY}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block text-center py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold text-lg transition-colors"
-            >
-              Buy Now — $79.99/year
-            </a>
+          </div>
+        </div>
+
+        {/* Lemon Squeezy Pricing Cards */}
+        <div className="space-y-6">
+          <h2 className="text-xl font-semibold text-text text-center">Pay with Lemon Squeezy</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Pro Monthly */}
+            <div className="bg-bg-card border border-border rounded-2xl p-6 sm:p-8 space-y-6 flex flex-col">
+              <div>
+                <h2 className="text-xl font-semibold text-text">Pro Monthly</h2>
+                <p className="text-text-secondary text-sm mt-1">Best for trying out</p>
+              </div>
+              <div>
+                <div className="text-4xl font-bold text-text">
+                  $9.99
+                  <span className="text-lg text-text-secondary font-normal">/month</span>
+                </div>
+                <div className="text-sm text-text-secondary mt-1">≈ ¥72 / month</div>
+              </div>
+              <div className="flex-1 text-text-secondary text-sm space-y-2">
+                <p>✓ 500 summaries per day</p>
+                <p>✓ 15,000 chars per request</p>
+                <p>✓ Priority processing queue</p>
+                <p>✓ PDF upload support</p>
+                <p>✓ Email support</p>
+                <p>✓ Instant token delivery</p>
+              </div>
+              <a
+                href={LS_CHECKOUT_MONTHLY}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center py-3.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-semibold text-lg transition-colors"
+              >
+                Buy Now — $9.99/month
+              </a>
+            </div>
+
+            {/* Pro Yearly */}
+            <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/40 rounded-2xl p-6 sm:p-8 space-y-6 flex flex-col relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-purple-600 text-white text-xs font-medium rounded-full">
+                Best Value
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold text-text">Pro Yearly</h2>
+                <p className="text-text-secondary text-sm mt-1">Save 33% vs monthly</p>
+              </div>
+              <div>
+                <div className="text-4xl font-bold text-purple-500">
+                  $79.99
+                  <span className="text-lg text-text-secondary font-normal">/year</span>
+                </div>
+                <div className="text-sm text-text-secondary mt-1">
+                  $6.67/month · ≈ ¥576 / year
+                </div>
+              </div>
+              <div className="flex-1 text-text-secondary text-sm space-y-2">
+                <p>✓ Everything in Monthly</p>
+                <p>✓ 500 summaries per day</p>
+                <p>✓ 15,000 chars per request</p>
+                <p>✓ Priority processing queue</p>
+                <p>✓ PDF upload support</p>
+                <p>✓ Email support</p>
+                <p>✓ Best value — 33% savings</p>
+              </div>
+              <a
+                href={LS_CHECKOUT_YEARLY}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center py-3.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-semibold text-lg transition-colors"
+              >
+                Buy Now — $79.99/year
+              </a>
+            </div>
           </div>
         </div>
 
@@ -165,14 +264,14 @@ export default function BuyPage() {
               <span className="flex-shrink-0 w-7 h-7 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center text-sm font-medium">1</span>
               <div>
                 <p className="text-text font-medium">Choose a plan & pay</p>
-                <p className="text-sm">Click &quot;Buy Now&quot; above. You&apos;ll be taken to Gumroad&apos;s secure checkout. Pay with credit card, PayPal, or Apple Pay.</p>
+                <p className="text-sm">Click &quot;Buy Now&quot; above. Pay securely via Gumroad (credit card, PayPal, Apple Pay) or Lemon Squeezy (credit card, PayPal, Google Pay).</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <span className="flex-shrink-0 w-7 h-7 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center text-sm font-medium">2</span>
               <div>
                 <p className="text-text font-medium">Receive token instantly via email</p>
-                <p className="text-sm">Gumroad sends you an email with your Pro token immediately after purchase. <strong>Check your spam folder if you don&apos;t see it.</strong></p>
+                <p className="text-sm">After purchase, your token is created automatically. <strong>For Gumroad</strong>: you&apos;ll also receive an email. <strong>For Lemon Squeezy</strong>: use your order ID to claim your token below. <strong>Check your spam folder if you don&apos;t see the email.</strong></p>
               </div>
             </div>
             <div className="flex items-start gap-3">
@@ -189,14 +288,14 @@ export default function BuyPage() {
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
           <h2 className="text-xl font-semibold text-text">🔁 Manual Claim (Backup)</h2>
           <p className="text-text-secondary text-sm">
-            Didn&apos;t receive the email? Enter your Gumroad purchase ID (from your receipt) and we&apos;ll look up your token.
+            Didn&apos;t receive the email? Enter your Gumroad sale ID or Lemon Squeezy order ID to look up your token.
           </p>
           <div className="flex gap-3">
             <input
               type="text"
               value={orderId}
               onChange={e => { setOrderId(e.target.value); setClaimStatus('idle'); setClaimInfo(null) }}
-              placeholder="Paste Gumroad sale ID..."
+              placeholder="Gumroad sale ID / Lemon Squeezy order ID..."
               className="flex-1 bg-bg border border-border rounded-xl px-4 py-3 text-text placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/50"
             />
             <button
@@ -222,6 +321,7 @@ export default function BuyPage() {
               </div>
               <div className="text-sm text-text-secondary space-y-1">
                 <p>Plan: {claimInfo.plan} · Expires: {new Date(claimInfo.expiresAt).toLocaleDateString()}</p>
+                {claimInfo.variantName && <p>Product: {claimInfo.variantName}</p>}
                 <p>Use this token on the home page to unlock Pro features!</p>
               </div>
             </div>
@@ -283,24 +383,28 @@ export default function BuyPage() {
           <h2 className="text-xl font-semibold text-text">❓ Frequently Asked Questions</h2>
           <div className="space-y-4 text-sm text-text-secondary">
             <div>
-              <h3 className="text-text font-medium">Do I need a Gumroad account to purchase?</h3>
-              <p className="mt-1">Not necessarily. You can check out as a guest with PayPal or a credit card. Gumroad will ask for your email to deliver the token.</p>
+              <h3 className="text-text font-medium">Do I need an account to purchase?</h3>
+              <p className="mt-1">Not necessarily. <strong>Gumroad</strong>: Check out as a guest with PayPal or credit card. <strong>Lemon Squeezy</strong>: Check out with credit card, PayPal, or Google Pay.</p>
             </div>
             <div>
               <h3 className="text-text font-medium">How long does token delivery take?</h3>
-              <p className="mt-1">It&apos;s instant. As soon as Gumroad confirms your payment, our system creates your token and emails it to you. Usually within seconds.</p>
+              <p className="mt-1">It&apos;s instant. As soon as the payment is confirmed, our system creates your token. For Gumroad, you&apos;ll also receive an email. For Lemon Squeezy, use the Manual Claim form above with your order ID.</p>
             </div>
             <div>
-              <h3 className="text-text font-medium">What if I don&apos;t receive the email?</h3>
+              <h3 className="text-text font-medium">What if I don&apos;t receive the email (Gumroad)?</h3>
               <p className="mt-1">Check your spam folder first. If it&apos;s not there, look up the Gumroad sale ID from your receipt and use the Manual Claim form above to retrieve your token.</p>
             </div>
             <div>
-              <h3 className="text-text font-medium">Can I get a refund?</h3>
-              <p className="mt-1">Yes — Gumroad offers refunds within 30 days of purchase. If you get a refund, your token will be deactivated.</p>
+              <h3 className="text-text font-medium">What if I lost my Lemon Squeezy order ID?</h3>
+              <p className="mt-1">You can find it in your Lemon Squeezy purchase confirmation email. Alternatively, contact us at selina_zxw@qq.com with the email you used to purchase and we can look it up.</p>
             </div>
             <div>
-              <h3 className="text-text font-medium">Can I switch from Chinese (爱发电) to Gumroad?</h3>
-              <p className="mt-1">Absolutely. You can use either payment method. Your token works the same way regardless of where you purchased it.</p>
+              <h3 className="text-text font-medium">Can I get a refund?</h3>
+              <p className="mt-1"><strong>Gumroad</strong>: Offers refunds within 30 days of purchase. <strong>Lemon Squeezy</strong>: Please contact us directly for refund requests. If you get a refund, your token will be deactivated.</p>
+            </div>
+            <div>
+              <h3 className="text-text font-medium">Can I use both Gumroad and Lemon Squeezy tokens?</h3>
+              <p className="mt-1">Absolutely. Your token works the same way regardless of where you purchased it. You can even use the same token for both the web app and API.</p>
             </div>
             <div>
               <h3 className="text-text font-medium">Is there a free trial?</h3>

@@ -85,14 +85,14 @@ export default function PremiumPage() {
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
           <h2 className="text-xl font-semibold text-text">🔑 Claim Your Pro Token</h2>
           <p className="text-text-secondary text-sm">
-            Already paid on 爱发电? Enter your order ID below to receive your Pro access token instantly.
+            Already paid? Enter your order ID below to receive your Pro access token instantly. Supports 爱发电, Gumroad, and Lemon Squeezy orders.
           </p>
           <div className="flex gap-3">
             <input
               type="text"
               value={orderId}
               onChange={e => { setOrderId(e.target.value); setClaimStatus('idle'); setClaimInfo(null) }}
-              placeholder="Paste your 爱发电 order ID..."
+              placeholder="爱发电 / Gumroad / Lemon Squeezy order ID..."
               className="flex-1 bg-bg border border-border rounded-xl px-4 py-3 text-text placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/50"
             />
             <button
@@ -195,7 +195,7 @@ export default function PremiumPage() {
         </div>
 
         {/* Payment Options */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-3 gap-6">
           {/* Afdian Payment */}
           <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
             <h2 className="text-xl font-semibold text-text">💡 Pay with 爱发电</h2>
@@ -237,6 +237,29 @@ export default function PremiumPage() {
             </Link>
 
             <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 text-sm text-text-secondary">
+              <strong className="text-text">📋 Plans:</strong>
+              <ul className="mt-2 space-y-1 list-disc list-inside">
+                <li>Pro Monthly: $9.99/month (500/day)</li>
+                <li>Pro Yearly: $79.99/year (save 33%)</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Lemon Squeezy Payment */}
+          <div className="bg-bg-card border border-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl p-6 space-y-4">
+            <h2 className="text-xl font-semibold text-text">💳 Pay with Lemon Squeezy</h2>
+            <p className="text-text-secondary text-sm">
+              🌍 International alternative: Pay with credit card, PayPal, or Google Pay. Supports subscriptions and one-time payments.
+            </p>
+
+            <Link
+              href="/buy"
+              className="flex items-center justify-center gap-3 px-6 py-3.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl font-semibold text-lg transition-all shadow-lg hover:shadow-xl block text-center"
+            >
+              🛒 Lemon Squeezy Checkout — From $9.99/month
+            </Link>
+
+            <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4 text-sm text-text-secondary">
               <strong className="text-text">📋 Plans:</strong>
               <ul className="mt-2 space-y-1 list-disc list-inside">
                 <li>Pro Monthly: $9.99/month (500/day)</li>
@@ -305,6 +328,12 @@ export default function PremiumPage() {
                 className="block text-center py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-medium transition-colors"
               >
                 🌍 Buy on Gumroad $9.99 →
+              </Link>
+              <Link
+                href="/buy#lemon-squeezy"
+                className="block text-center py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-medium transition-colors"
+              >
+                🍋 Buy on Lemon Squeezy $9.99 →
               </Link>
             </div>
           </div>
