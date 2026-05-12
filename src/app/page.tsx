@@ -263,6 +263,94 @@ export default function Home() {
               </Link>
             </div>
 
+            {/* Pricing Comparison */}
+            <div className="bg-gradient-to-br from-bg-card to-bg-card/50 border border-border rounded-2xl p-8 space-y-6">
+              <div className="text-center space-y-2">
+                <h2 className="text-2xl font-bold text-text">Simple, Transparent Pricing</h2>
+                <p className="text-text-secondary">Choose the plan that fits your needs</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Free Card */}
+                <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
+                  <div className="text-center space-y-2">
+                    <h3 className="text-xl font-bold text-text">Free</h3>
+                    <div className="text-3xl font-bold text-text">¥0</div>
+                  </div>
+                  <ul className="space-y-3">
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="text-green-500">✓</span>
+                      Daily 3 summaries
+                    </li>
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="text-green-500">✓</span>
+                      Basic PDF parsing
+                    </li>
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="text-green-500">✓</span>
+                      All summary formats
+                    </li>
+                  </ul>
+                  <Link
+                    href="/"
+                    className="block w-full text-center py-3 bg-bg-card border border-border hover:bg-bg-hover text-text rounded-xl font-medium transition-colors"
+                  >
+                    Get Started
+                  </Link>
+                </div>
+                {/* Pro Card */}
+                <div className="bg-bg-card border border-primary/50 ring-1 ring-primary/30 rounded-2xl p-6 space-y-4 relative">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <span className="bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full">Popular</span>
+                  </div>
+                  <div className="text-center space-y-2">
+                    <h3 className="text-xl font-bold text-text">Pro</h3>
+                    <div className="text-3xl font-bold text-text">
+                      ¥9.9
+                      <span className="text-sm text-text-secondary font-normal">/month</span>
+                    </div>
+                  </div>
+                  <ul className="space-y-3">
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="text-green-500">✓</span>
+                      Unlimited summaries
+                    </li>
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="text-green-500">✓</span>
+                      Priority processing queue
+                    </li>
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="text-green-500">✓</span>
+                      Advanced PDF parsing
+                    </li>
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="text-green-500">✓</span>
+                      All summary formats
+                    </li>
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="text-green-500">✓</span>
+                      Full Token verification
+                    </li>
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="text-green-500">✓</span>
+                      Priority support
+                    </li>
+                  </ul>
+                  <Link
+                    href="/premium"
+                    className="block w-full text-center py-3 bg-primary hover:bg-primary/90 text-white rounded-xl font-medium transition-colors"
+                  >
+                    Upgrade to Pro
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <Link href="/tools/prompt-lab" className="block bg-gradient-to-r from-accent/20 via-primary/10 to-secondary/10 border border-accent/30 rounded-2xl p-6 text-center hover:border-accent/60 transition-all group">
+              <div className="text-3xl mb-2">🧪</div>
+              <div className="text-lg font-semibold text-text group-hover:text-accent transition-colors">Try Prompt Lab — 50 Research AI Prompts</div>
+              <div className="text-sm text-text-secondary mt-1">Interactive tool: select a prompt, fill in variables, generate with AI</div>
+            </Link>
+
             <Link href="/games" className="block bg-gradient-to-r from-primary/20 via-secondary/10 to-accent/10 border border-primary/30 rounded-2xl p-6 text-center hover:border-primary/60 transition-all group">
               <div className="text-3xl mb-2">🎮</div>
               <div className="text-lg font-semibold text-text group-hover:text-primary transition-colors">Need a Break? Play Academic Games!</div>
