@@ -6,7 +6,9 @@ import path from 'path'
 const AFDIAN_USER_ID = '6d58eee44d3011f1961952540025c377'
 
 // Store order_id → token mappings
-const ORDER_FILE = path.join(process.cwd(), 'data', 'afdian_orders.json')
+// Use /tmp on Vercel (serverless read-only filesystem)
+const DATA_DIR = process.env.VERCEL ? path.join('/tmp', 'data') : path.join(process.cwd(), 'data')
+const ORDER_FILE = path.join(DATA_DIR, 'afdian_orders.json')
 
 interface OrderMapping {
   orderId: string

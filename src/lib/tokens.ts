@@ -4,7 +4,9 @@
 import fs from 'fs'
 import path from 'path'
 
-const TOKENS_FILE = path.join(process.cwd(), 'data', 'tokens.json')
+// Use /tmp on Vercel (read-only filesystem), or ./data locally
+const DATA_DIR = process.env.VERCEL ? path.join('/tmp', 'data') : path.join(process.cwd(), 'data')
+const TOKENS_FILE = path.join(DATA_DIR, 'tokens.json')
 
 interface TokenEntry {
   token: string

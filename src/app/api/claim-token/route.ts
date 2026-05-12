@@ -3,7 +3,9 @@ import { findToken } from '@/lib/tokens'
 import fs from 'fs'
 import path from 'path'
 
-const ORDER_FILE = path.join(process.cwd(), 'data', 'afdian_orders.json')
+// Use /tmp on Vercel (serverless read-only filesystem)
+const DATA_DIR = process.env.VERCEL ? path.join('/tmp', 'data') : path.join(process.cwd(), 'data')
+const ORDER_FILE = path.join(DATA_DIR, 'afdian_orders.json')
 
 interface OrderMapping {
   orderId: string
