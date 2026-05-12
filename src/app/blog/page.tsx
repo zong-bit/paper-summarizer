@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 const posts = [
+  { slug: 'ai-lun-wen-zhai-yao-gong-ju-zen-me-xuan', title: 'AI论文摘要工具怎么选？2026年最新选择指南与避坑建议', desc: '市面上有超过20款AI论文摘要工具，到底该选哪款？从摘要准确率、中文支持、批量处理、价格等10个维度帮你理清选择思路，避免花冤枉钱。' },
   { slug: '5款免费论文摘要工具对比', title: '5款免费论文摘要工具横向对比（2025实测）', desc: '实测5款主流论文摘要工具，从免费额度、中文支持到AI摘要质量，一篇帮你选对。' },
   { slug: '摘要质量真实测试', title: 'paper-summarizer 摘要质量怎么样？真实测试', desc: '选取3篇不同领域论文做真实测试，分享摘要准确性评估结果和使用建议。' },
   { slug: 'paper-summarizer-faq', title: 'paper-summarizer FAQ — 常见问题解答', desc: '关于 paper-summarizer 的常见问题：免费额度、中文支持、数据安全、升级Pro等。' },
