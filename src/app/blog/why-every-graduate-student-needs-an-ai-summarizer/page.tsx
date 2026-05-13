@@ -3,6 +3,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'Why Every Graduate Student Needs an AI Paper Summarizer',
   description: 'Discover how AI paper summarizers can save graduate students dozens of hours per semester and improve research quality.',
+  keywords: ['graduate student AI tools', 'AI paper summarizer', 'research productivity', 'academic paper summary', 'PhD tools', 'Paper Summarizer'],
 }
 
 export default function BlogPost() {

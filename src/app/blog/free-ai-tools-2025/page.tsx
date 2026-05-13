@@ -4,6 +4,7 @@ import BlogCTA from '@/components/BlogCTA'
 export const metadata = {
   title: '2025年免费AI工具推荐：学生党必备的5个神器 - Paper Summarizer',
   description: '2025年免费AI工具推荐，为学生党精选5款真正好用的免费AI神器，涵盖写作、设计、学习等场景，亲测有效。',
+  keywords: ['免费AI工具', '学生AI工具', 'AI神器推荐', '免费AI论文摘要', 'Paper Summarizer', '学生必备工具'],
 }
 
 export default function BlogPost() {

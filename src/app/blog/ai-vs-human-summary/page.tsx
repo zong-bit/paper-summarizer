@@ -4,6 +4,7 @@ import BlogCTA from '@/components/BlogCTA'
 export const metadata = {
   title: 'AI论文摘要工具 vs 手动摘要：哪个更适合你的科研需求？ | Paper Summarizer',
   description: 'AI论文摘要工具与人工摘要的深度对比。从速度、准确性、多语言支持等维度分析，告诉你如何结合两者优势提升文献处理效率。',
+  keywords: ['AI论文摘要', '手动摘要', 'AI vs 人工', '论文摘要工具对比', 'AI paper summarizer', 'Paper Summarizer'],
 }
 
 export default function BlogPost() {

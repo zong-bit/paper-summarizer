@@ -4,6 +4,7 @@ import BlogCTA from '@/components/BlogCTA'
 export const metadata = {
   title: '5款免费论文摘要工具横向对比（2025实测） | Paper Summarizer',
   description: '2025年实测5款主流论文摘要工具，从免费额度、中文支持到AI摘要质量，一篇帮你选对。',
+  keywords: ['免费论文摘要工具', 'AI论文摘要工具对比', 'paper-summarizer', '免费AI工具', '论文摘要工具评测', 'Paper Summarizer'],
 }
 
 export default function BlogPost() {

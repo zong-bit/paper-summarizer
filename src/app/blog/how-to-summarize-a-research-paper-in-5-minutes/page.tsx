@@ -3,6 +3,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'How to Summarize a Research Paper in 5 Minutes with AI',
   description: 'A step-by-step guide for busy researchers and students to quickly extract key findings from any academic paper using AI summarization.',
+  keywords: ['summarize research paper', 'AI paper summarizer', 'research paper summary', 'academic paper AI', 'quick paper summary', 'Paper Summarizer'],
 }
 
 export default function BlogPost() {

@@ -4,6 +4,7 @@ import BlogCTA from '@/components/BlogCTA'
 export const metadata = {
   title: 'paper-summarizer FAQ — 常见问题解答 | Paper Summarizer',
   description: '关于 paper-summarizer 的常见问题解答：免费额度、中文支持、数据安全、升级Pro等。',
+  keywords: ['paper-summarizer FAQ', 'AI论文摘要工具常见问题', 'Paper Summarizer 帮助', 'AI摘要工具FAQ', '论文摘要工具'],
 }
 
 export default function BlogPost() {

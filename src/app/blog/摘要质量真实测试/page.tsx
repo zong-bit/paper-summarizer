@@ -4,6 +4,7 @@ import BlogCTA from '@/components/BlogCTA'
 export const metadata = {
   title: 'paper-summarizer 摘要质量怎么样？真实测试 | Paper Summarizer',
   description: '我们选取了3篇不同领域的论文（计算机、医学、社会科学）对 paper-summarizer 的摘要质量进行了真实测试，分享测试结果和使用建议。',
+  keywords: ['paper-summarizer', '摘要质量测试', 'AI论文摘要工具评测', '论文摘要准确性', 'AI摘要工具', 'Paper Summarizer'],
 }
 
 export default function BlogPost() {

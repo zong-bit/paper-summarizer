@@ -3,6 +3,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'How to Summarize Multiple Papers at Once: A Practical Guide',
   description: 'Learn efficient strategies for batch-processing academic papers with AI summarization to tackle large reading lists.',
+  keywords: ['batch paper summary', 'summarize multiple papers', 'AI paper summarizer', 'academic reading workflow', 'research productivity', 'Paper Summarizer'],
 }
 
 export default function BlogPost() {

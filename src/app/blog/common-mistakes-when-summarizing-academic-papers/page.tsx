@@ -3,6 +3,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'Common Mistakes When Summarizing Academic Papers (And How to Avoid Them)',
   description: 'Learn the most common pitfalls in academic paper summarization and practical strategies to avoid them for better research outcomes.',
+  keywords: ['academic paper summarization', 'paper summarizing mistakes', 'research paper summary tips', 'AI paper summarizer', 'academic writing', 'Paper Summarizer'],
 }
 
 export default function BlogPost() {

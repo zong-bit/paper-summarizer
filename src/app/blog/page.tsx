@@ -40,6 +40,31 @@ const posts = [
 export const metadata = {
   title: 'Blog - Paper Summarizer | AI Research Tips',
   description: 'Learn how to summarize academic papers efficiently with AI. Tips, guides, and best practices for researchers and students.',
+  keywords: 'AI paper summarizer, research paper summary, AI literature review, academic paper tools, paper reading tips',
+  alternates: {
+    canonical: 'https://www.summarizeai.app/blog/',
+  },
+  openGraph: {
+    title: 'Blog - Paper Summarizer | AI Research Tips',
+    description: 'Learn how to summarize academic papers efficiently with AI. Tips, guides, and best practices for researchers and students.',
+    type: 'website',
+    url: 'https://www.summarizeai.app/blog/',
+    siteName: 'Paper Summarizer',
+    images: [
+      {
+        url: 'https://www.summarizeai.app/og-blog.png',
+        width: 1200,
+        height: 630,
+        alt: 'Paper Summarizer Blog',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blog - Paper Summarizer | AI Research Tips',
+    description: 'Learn how to summarize academic papers efficiently with AI.',
+    images: ['https://www.summarizeai.app/og-blog.png'],
+  },
 }
 
 export default function BlogPage() {

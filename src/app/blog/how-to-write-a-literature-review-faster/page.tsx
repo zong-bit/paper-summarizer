@@ -3,6 +3,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'How to Write a Literature Review Faster Using AI Summarizers',
   description: 'Practical workflow tips for speeding up your literature review with AI-powered paper summarization tools.',
+  keywords: ['literature review AI', 'AI literature review workflow', 'academic paper summary', 'research productivity', 'AI paper summarizer', 'Paper Summarizer'],
 }
 
 export default function BlogPost() {

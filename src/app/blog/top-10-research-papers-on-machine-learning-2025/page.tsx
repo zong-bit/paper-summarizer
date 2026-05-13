@@ -3,6 +3,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'Top 10 Research Papers on Machine Learning in 2025 (Summarized)',
   description: 'Our AI summarizes the most influential machine learning papers of 2025, covering LLMs, transformers, reinforcement learning, and more.',
+  keywords: ['machine learning papers 2025', 'top ML papers', 'transformer architecture', 'LLM research', 'AI paper summarizer', 'research paper summary', 'Paper Summarizer'],
 }
 
 export default function BlogPost() {

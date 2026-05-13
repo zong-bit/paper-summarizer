@@ -3,6 +3,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'AI vs Manual Summarizing: Which Is Better for Researchers?',
   description: 'A balanced comparison of AI-powered and manual paper summarization, covering accuracy, speed, comprehension, and when to use each approach.',
+  keywords: ['AI vs manual summarizing', 'AI paper summarizer', 'manual paper summary', 'research paper comparison', 'AI summarization accuracy', 'Paper Summarizer'],
 }
 
 export default function BlogPost() {

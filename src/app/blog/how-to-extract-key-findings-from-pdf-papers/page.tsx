@@ -3,6 +3,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'How to Extract Key Findings from PDF Papers Instantly',
   description: 'Learn how to quickly extract methodology, results, and conclusions from academic PDF papers using AI-powered summarization.',
+  keywords: ['PDF paper summary', 'extract key findings', 'academic PDF', 'AI paper summarizer', 'research paper methodology', 'Paper Summarizer'],
 }
 
 export default function BlogPost() {

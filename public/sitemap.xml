@@ -3,190 +3,296 @@
   <!-- 首页 -->
   <url>
     <loc>https://www.summarizeai.app/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- 博客列表页 -->
   <url>
     <loc>https://www.summarizeai.app/blog/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- 高级会员页 -->
   <url>
     <loc>https://www.summarizeai.app/premium/</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <!-- 购买页 -->
+  <url>
+    <loc>https://www.summarizeai.app/buy/</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 工具页 -->
+  <url>
+    <loc>https://www.summarizeai.app/tools/prompt-lab/</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 
   <!-- 游戏 -->
   <url>
     <loc>https://www.summarizeai.app/games/</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.summarizeai.app/games/quiz/</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.summarizeai.app/games/bingo/</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.summarizeai.app/games/reviewer/</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.summarizeai.app/game/</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <!-- 博客文章 -->
   <url>
     <loc>https://www.summarizeai.app/blog/context-contamination-llm-agent/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.summarizeai.app/blog/top-10-research-papers-on-machine-learning-2025/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/common-mistakes-when-summarizing-academic-papers/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/how-to-write-a-literature-review-faster/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/paper-summarizer-comparison/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/how-to-summarize-a-research-paper-in-5-minutes/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/how-to-extract-key-findings-from-pdf-papers/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/best-ai-tools-for-academic-paper-summary/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/why-every-graduate-student-needs-an-ai-summarizer/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/ai-vs-manual-summarizing-which-is-better/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/the-future-of-academic-reading-with-ai/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/ai-for-academic-writing/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/free-ai-tools-2025/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/chinese-ai-comparison/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/how-to-summarize-multiple-papers-at-once/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/ai-side-hustle-100/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/2026-ai-paper-summarization-trends/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/llm-inference-acceleration-guide/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/latent-planning-in-llms-2026/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/long-context-ai-paper-reading-2026/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/ai-paper-summarizer-tools-comparison-2025/</loc>
+    <loc>https://www.summarizeai.app/blog/ai-research-productivity-guide-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.summarizeai.app/blog/ai-wen-xian-zong-shu-gong-ju-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.summarizeai.app/blog/ai-vs-human-summary/</loc>
+    <loc>https://www.summarizeai.app/blog/ai-lun-wen-zhai-yao-gong-ju-zen-me-xuan/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.summarizeai.app/blog/5款免费论文摘要工具对比/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.summarizeai.app/blog/摘要质量真实测试/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.summarizeai.app/blog/论文润色降重工具推荐-2026/</loc>
+    <loc>https://www.summarizeai.app/blog/paper-summarizer-faq/</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.summarizeai.app/blog/matryoshkalora-lora-dynamic-rank-2026/</loc>
+    <loc>https://www.summarizeai.app/blog/how-to-summarize-a-research-paper-in-5-minutes/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.summarizeai.app/blog/how-value-induction-reshapes-llm-behavior-2026/</loc>
+    <loc>https://www.summarizeai.app/blog/best-ai-tools-for-academic-paper-summary/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/how-to-write-a-literature-review-faster/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/ai-vs-manual-summarizing-which-is-better/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/how-to-extract-key-findings-from-pdf-papers/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/common-mistakes-when-summarizing-academic-papers/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/why-every-graduate-student-needs-an-ai-summarizer/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/how-to-summarize-multiple-papers-at-once/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/the-future-of-academic-reading-with-ai/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/top-10-research-papers-on-machine-learning-2025/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/ai-vs-human-summary/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/2026-ai-paper-summarization-trends/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/llm-inference-acceleration-guide/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/latent-planning-in-llms-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.summarizeai.app/blog/glguard-efficient-llm-guardrail/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/long-context-ai-paper-reading-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.summarizeai.app/blog/paper-reading-efficiency-guide-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.summarizeai.app/blog/paper-summarizer-hallucination-trustworthy-summary-2026/</loc>
+    <loc>https://www.summarizeai.app/blog/论文润色降重工具推荐-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.summarizeai.app/blog/paper-summarizer-ai-academic-writing-tools-guide-2026/</loc>
+    <loc>https://www.summarizeai.app/blog/matryoshkalora-lora-dynamic-rank-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.summarizeai.app/blog/paper-summarizer-ai-for-science-scientific-discovery-2026/</loc>
+    <loc>https://www.summarizeai.app/blog/how-value-induction-reshapes-llm-behavior-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.summarizeai.app/blog/paper-summarizer-ai-bibliometric-analysis-knowledge-graph-2026/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/paper-summarizer-ai-academic-search-tools-2026/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.summarizeai.app/blog/paper-summarizer-agent-ai-evaluation-2026/</loc>
+    <loc>https://www.summarizeai.app/blog/beyond-pairs-preference-graph-dpo-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.summarizeai.app/blog/深度学习自然语言处理最新突破-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/tool-calling-reasoning-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/agentic-ai-scientific-research-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/ai-citation-management-academic-research-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/ai-paper-summarizer-tools-comparison-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/ai-literature-review-workflow-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/natural-language-autoencoders-claude-thoughts-2026/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/ai-paper-summarizer-tools-comparison-2025/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.summarizeai.app/blog/free-ai-tools-2025/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 </urlset>

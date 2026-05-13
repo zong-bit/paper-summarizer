@@ -3,6 +3,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'The Future of Academic Reading: How AI Is Changing Research',
   description: 'Explore how AI summarization and language models are transforming the way researchers consume, understand, and engage with academic literature.',
+  keywords: ['future of academic reading', 'AI research tools', 'academic literature AI', 'AI paper summarizer', 'research reading', 'Paper Summarizer'],
 }
 
 export default function BlogPost() {

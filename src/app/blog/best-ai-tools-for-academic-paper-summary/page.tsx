@@ -3,6 +3,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'Best AI Tools for Academic Paper Summary in 2025',
   description: 'Compare the top AI paper summarization tools of 2025 including features, pricing, and why Paper Summarizer is a great free option.',
+  keywords: ['AI paper summarizer comparison', 'best AI paper tools', 'academic paper summary tools', 'AI summarization tools', 'Paper Summarizer', 'free AI tools'],
 }
 
 export default function BlogPost() {
