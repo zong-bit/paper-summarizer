@@ -1,0 +1,32 @@
+{
+  "project": "douyin-video",
+  "name": "抖音自动视频",
+  "status": "active",
+  "phase": "research",
+  "backlog": [
+    {"id": "research-auto-video-tools", "title": "调研已有自动视频工具（用户已找到几个），评估集成可行性", "priority": 1, "status": "pending", "note": "CEO已提供工具信息，暂不执行"},
+    {"id": "define-content-direction", "title": "确定视频内容方向（AI教程/科研科普/副业经验/其他）", "priority": 2, "status": "done", "note": "研究员已完成5个方向调研，报告存于 research/research-report.md"},
+    {"id": "choose-platform-tools", "title": "选定要集成的工具和平台", "priority": 3, "status": "pending", "note": "等待CEO确认内容方向后推进"},
+    {"id": "build-mvp-pipeline", "title": "搭建最小可用视频生产流水线", "priority": 4, "status": "pending"}
+  ],
+  "last_check": "2026-05-13T16:32:00+08:00",
+  "last_report": "2026-05-13T16:32:00+08:00",
+  "consecutive_errors": 0,
+  "long_term_plan": {
+    "current_phase": "research — 数据积累中",
+    "next_milestone": "积累至少1周数据后CEO确认方向 → task3/task4",
+    "blockers": ["数据量不足1周（目前仅2天有效数据），CEO要求继续积累"],
+    "assessment": "当前趋势数据2天，但5月13日trend文件为空（仅标题无数据），实际有效数据仍为1天。第2轮深度调研已完成（5方向对比+工具清单+收益分析）。CEO指示至少积累1周数据再做方向决策。PM继续每日积累+状态检查，不催CEO。"
+  },
+  "data_accumulation": {
+    "trend_records": 2,
+    "last_trend_date": "2026-05-12",
+    "trend_file_status": "trend-20260513.md存在但为空（仅标题，无实际数据），13:43采集失败。5月12日数据完整。",
+    "valid_data_days": 1,
+    "target_days": 7,
+    "research_rounds": ["round1: 5方向调研(05-12)", "round2: 数据+工具+收益调研(05-13)"],
+    "status": "accumulating — 目标至少1周数据，当前仅1天有效",
+    "note": "每天20:00趋势采集自动运行，PM每2h检查数据量。⚠️ 5月13日13:43 cron趋势采集失败（文件为空），20:00采集待观察。数据量不足，需继续积累。"
+  },
+  "audit_strikes": {}
+}
