@@ -4,7 +4,7 @@ const posts = [
   { slug: 'context-contamination-llm-agent', title: '为什么重试让 LLM Agent 越修越糟？上下文污染问题深度解析', desc: 'arXiv最新论文揭示：Agent重试失败后，失败痕迹会"污染"下次尝试，使失败率提高7倍。首个数学模型CCRM给出最优重试策略。' },
   { slug: 'ai-research-productivity-guide-2026', title: '2026研究生科研效率革命：AI论文工具全攻略，从文献阅读到论文发表', desc: '2026年研究生必备科研效率提升指南：从文献检索、AI论文摘要、文献综述撰写到论文发表，全覆盖8大AI工具与实操工作流。附完整时间表：如何用AI将论文写作周期从3个月压缩到3周。' },
   { slug: 'ai-wen-xian-zong-shu-gong-ju-2026', title: 'AI文献综述工具推荐：2026年用AI写文献综述的正确姿势（附实操教程）', desc: '精选5款AI文献综述工具深度测评，从摘要生成到参考文献管理全覆盖。附完整新手实操教程：如何用AI在3天内完成一篇高质量的文献综述初稿。' },
-  { slug: 'ai-lun-wen-zhai-yao-gong-ju-zen-me-xuan', title: 'AI论文摘要工具怎么选？2026年最新选择指南与避坑建议', desc: '市面上有超过20款AI论文摘要工具，到底该选哪款？从摘要准确率、中文支持、批量处理、价格等10个维度帮你理清选择思路，避免花冤枉钱。' },
+  { slug: 'ai-lun-wen-zhai-yao-gong-ju-xuan-ze', title: 'AI论文摘要工具怎么选？AI摘要与人工摘要的深度对比', desc: 'AI摘要与人工摘要的深度对比：速度、规模、深度、批判性思维、跨领域理解等10个维度全面评测，帮你找到最适合的摘要方式。' },
   { slug: '5款免费论文摘要工具对比', title: '5款免费论文摘要工具横向对比（2025实测）', desc: '实测5款主流论文摘要工具，从免费额度、中文支持到AI摘要质量，一篇帮你选对。' },
   { slug: '摘要质量真实测试', title: 'paper-summarizer 摘要质量怎么样？真实测试', desc: '选取3篇不同领域论文做真实测试，分享摘要准确性评估结果和使用建议。' },
   { slug: 'paper-summarizer-faq', title: 'paper-summarizer FAQ — 常见问题解答', desc: '关于 paper-summarizer 的常见问题：免费额度、中文支持、数据安全、升级Pro等。' },
