@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 const posts = [
+  { slug: 'rag-vs-long-context-2026', title: 'RAG vs 长上下文：LLM 到底该选谁？2026 年最新研究告诉你答案', desc: 'RAG（检索增强生成）和扩展长上下文窗口是当前 LLM 落地的两大主流方案。2026 年 5 月最新研究提出让 LLM 自己判断该走哪条路，帮你理清思路找到最适合的方案。' },
   { slug: 'context-contamination-llm-agent', title: '为什么重试让 LLM Agent 越修越糟？上下文污染问题深度解析', desc: 'arXiv最新论文揭示：Agent重试失败后，失败痕迹会"污染"下次尝试，使失败率提高7倍。首个数学模型CCRM给出最优重试策略。' },
   { slug: 'ai-research-productivity-guide-2026', title: '2026研究生科研效率革命：AI论文工具全攻略，从文献阅读到论文发表', desc: '2026年研究生必备科研效率提升指南：从文献检索、AI论文摘要、文献综述撰写到论文发表，全覆盖8大AI工具与实操工作流。附完整时间表：如何用AI将论文写作周期从3个月压缩到3周。' },
   { slug: 'ai-wen-xian-zong-shu-gong-ju-2026', title: 'AI文献综述工具推荐：2026年用AI写文献综述的正确姿势（附实操教程）', desc: '精选5款AI文献综述工具深度测评，从摘要生成到参考文献管理全覆盖。附完整新手实操教程：如何用AI在3天内完成一篇高质量的文献综述初稿。' },
