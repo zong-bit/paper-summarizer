@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 const posts = [
+  { slug: 'ai-sheng-cheng-nei-rong-jian-ce-2026', title: 'AI生成内容检测技术2026：学术论文中的AI写作识别与应对指南', desc: '2026年AI生成内容检测技术最新进展。了解AI写作检测工具如何识别AI辅助的学术论文，研究者如何应对AI检测，以及如何合规使用AI论文摘要工具。' },
   { slug: 'ru-he-yong-ai-kuai-su-yue-du-ying-wen-wen-xian', title: '如何用AI快速阅读英文文献：非英语母语研究者的终极指南', desc: '非英语母语研究者如何用AI工具快速阅读英文文献？从AI论文摘要、中英双语对照到文献管理，一文教你提升10倍学术阅读效率。' },
   { slug: 'rag-vs-long-context-2026', title: 'RAG vs 长上下文：LLM 到底该选谁？2026 年最新研究告诉你答案', desc: 'RAG（检索增强生成）和扩展长上下文窗口是当前 LLM 落地的两大主流方案。2026 年 5 月最新研究提出让 LLM 自己判断该走哪条路，帮你理清思路找到最适合的方案。' },
   { slug: 'context-contamination-llm-agent', title: '为什么重试让 LLM Agent 越修越糟？上下文污染问题深度解析', desc: 'arXiv最新论文揭示：Agent重试失败后，失败痕迹会"污染"下次尝试，使失败率提高7倍。首个数学模型CCRM给出最优重试策略。' },
