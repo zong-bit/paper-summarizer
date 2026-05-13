@@ -42,6 +42,10 @@
 
   <!-- 博客文章 -->
   <url>
+    <loc>https://www.summarizeai.app/blog/context-contamination-llm-agent/</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.summarizeai.app/blog/top-10-research-papers-on-machine-learning-2025/</loc>
     <priority>0.7</priority>
   </url>
