@@ -345,6 +345,41 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Tools Section */}
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold text-text text-center">🔧 More Tools</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Link href="/tools/paper-qa" className="bg-bg-card border border-border rounded-2xl p-5 text-center hover:border-primary/40 transition-all group relative overflow-hidden">
+                  <div className="text-3xl mb-2">💬</div>
+                  <div className="font-semibold text-text group-hover:text-primary transition-colors">Paper Q&A
+                    <span className="ml-2 px-1.5 py-0.5 bg-primary/20 text-primary text-xs rounded">Pro</span>
+                  </div>
+                  <div className="text-sm text-text-secondary mt-1">Ask specific questions about any paper</div>
+                </Link>
+                <Link href="/tools/paper-compare" className="bg-bg-card border border-border rounded-2xl p-5 text-center hover:border-primary/40 transition-all group relative overflow-hidden">
+                  <div className="text-3xl mb-2">🔬</div>
+                  <div className="font-semibold text-text group-hover:text-primary transition-colors">Paper Comparison
+                    <span className="ml-2 px-1.5 py-0.5 bg-primary/20 text-primary text-xs rounded">Pro</span>
+                  </div>
+                  <div className="text-sm text-text-secondary mt-1">Compare 2-5 papers side by side</div>
+                </Link>
+                <Link href="/tools/citation-export" className="bg-bg-card border border-border rounded-2xl p-5 text-center hover:border-primary/40 transition-all group relative overflow-hidden">
+                  <div className="text-3xl mb-2">📚</div>
+                  <div className="font-semibold text-text group-hover:text-primary transition-colors">Citation Generator
+                    <span className="ml-2 px-1.5 py-0.5 bg-green-500/20 text-green-500 text-xs rounded">Free</span>
+                  </div>
+                  <div className="text-sm text-text-secondary mt-1">Generate APA/MLA/GB/T citations</div>
+                </Link>
+                <Link href="/tools/literature-outline" className="bg-bg-card border border-border rounded-2xl p-5 text-center hover:border-primary/40 transition-all group relative overflow-hidden">
+                  <div className="text-3xl mb-2">📝</div>
+                  <div className="font-semibold text-text group-hover:text-primary transition-colors">Literature Outline
+                    <span className="ml-2 px-1.5 py-0.5 bg-primary/20 text-primary text-xs rounded">Pro</span>
+                  </div>
+                  <div className="text-sm text-text-secondary mt-1">Generate comprehensive review outlines</div>
+                </Link>
+              </div>
+            </div>
+
             <Link href="/tools/prompt-lab" className="block bg-gradient-to-r from-accent/20 via-primary/10 to-secondary/10 border border-accent/30 rounded-2xl p-6 text-center hover:border-accent/60 transition-all group">
               <div className="text-3xl mb-2">🧪</div>
               <div className="text-lg font-semibold text-text group-hover:text-accent transition-colors">Try Prompt Lab — 50 Research AI Prompts</div>
