@@ -73,15 +73,44 @@
     <lastmod>2026-05-12</lastmod>
     <priority>0.7</priority>
   </url>
-</urlset>
+  <url>
+    <loc>https://paper-summarizer.vercel.app/blog/2026-05-12-ai-lun-wen-zhai-yao-gong-ju-tui-jian/</loc>
+    <lastmod>2026-05-12</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://paper-summarizer.vercel.app/blog/2026-05-13-ai-wen-xian-zong-shu-gong-ju-tui-jian/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://paper-summarizer.vercel.app/blog/2026-05-13-ai-lun-wen-zhai-yao-dui-bi/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://paper-summarizer.vercel.app/blog/2026-05-13-LLM-context-contamination-jie-xi/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <priority>0.7</priority>
+  </url>
   <url>
     <loc>https://paper-summarizer.vercel.app/blog/2026-05-14-ai-lun-wen-zhai-yao-dui-bi/</loc>
     <lastmod>2026-05-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://paper-summarizer.vercel.app/blog/2026-05-14-rag-vs-long-context/</loc>
+    <lastmod>2026-05-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://paper-summarizer.vercel.app/blog/2026-05-14-bo-shi-sheng-he-yong-AI-ti-gao-ke-yan-xiao-lv/</loc>
     <lastmod>2026-05-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://paper-summarizer.vercel.app/blog/2026-05-15-ai-lun-wen-zhai-yao-gong-ju-dui-bi/</loc>
+    <lastmod>2026-05-15</lastmod>
     <priority>0.7</priority>
   </url>
 </urlset>
