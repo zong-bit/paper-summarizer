@@ -7,8 +7,8 @@ import LanguageSwitcher from '../../components/LanguageSwitcher'
 import { useTranslation } from '@/i18n/provider'
 
 // Gumroad product links — replace with actual Gumroad product URLs after publishing
-const GUMROAD_MONTHLY = 'https://paper-summarizer.gumroad.com/l/pro-monthly'
-const GUMROAD_YEARLY = 'https://paper-summarizer.gumroad.com/l/pro-yearly'
+const GUMROAD_MONTHLY = 'https://selinazw.gumroad.com/l/qkcjod'
+const GUMROAD_YEARLY = 'https://selinazw.gumroad.com/l/kzfhr'
 
 // Lemon Squeezy checkout URLs
 const LS_CHECKOUT_MONTHLY = process.env.NEXT_PUBLIC_LS_MONTHLY_URL || 'https://paper-summarizer.lemonsqueezy.com/checkout/buy/monthly'
