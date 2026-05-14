@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 const posts = [
+  { slug: 'ai-paper-summary-hallucination-2026', title: 'AI论文摘要的"幻觉"真相：2026年研究者必须知道的6种陷阱与应对指南', desc: '2026年AI幻觉问题引发学术信任危机。详解AI论文摘要中最常见的6种幻觉类型、真实数据案例，以及如何用科学方法识别和防范，确保你的研究不被AI误导。' },
   { slug: 'future-trends-ai-paper-summarizer', title: 'AI论文摘要工具的未来趋势：2026-2027年展望', desc: '深度解析AI论文摘要工具的四大未来趋势：多模态理解、推理增强、个性化摘要和AI Agent科研助手。为学术研究人员提供前瞻性展望和选择建议。' },
   { slug: 'how-to-verify-ai-paper-summaries-accuracy', title: '如何验证AI论文摘要的准确性：研究者必读的核实指南', desc: 'AI论文摘要真的准确吗？本文提供7个实用的验证方法，帮助研究者快速判断AI摘要质量，避免被AI幻觉误导。含具体案例和检查清单。' },
   { slug: 'ai-sheng-cheng-nei-rong-jian-ce-2026', title: 'AI生成内容检测技术2026：学术论文中的AI写作识别与应对指南', desc: '2026年AI生成内容检测技术最新进展。了解AI写作检测工具如何识别AI辅助的学术论文，研究者如何应对AI检测，以及如何合规使用AI论文摘要工具。' },
