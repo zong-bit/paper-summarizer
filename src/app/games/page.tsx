@@ -4,6 +4,8 @@ import Link from 'next/link'
 import Footer from '../../components/Footer'
 import VisitorCounter from '../../components/VisitorCounter'
 import AdPlaceholder from '../../components/AdPlaceholder'
+import LanguageSwitcher from '../../components/LanguageSwitcher'
+import { useTranslation } from '@/i18n/provider'
 
 interface Game {
   id: string
@@ -68,6 +70,7 @@ export default function GamesPage() {
             </Link>
           </div>
           <VisitorCounter />
+            <LanguageSwitcher />
         </div>
       </header>
 

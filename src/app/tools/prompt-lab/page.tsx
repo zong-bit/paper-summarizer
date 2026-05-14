@@ -3,9 +3,12 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../../components/Footer'
+import LanguageSwitcher from '../../../components/LanguageSwitcher'
+import { useTranslation } from '@/i18n/provider'
 import { prompts, categories, getPromptById, type Prompt } from '@/data/prompts'
 
 export default function PromptLabPage() {
+  const { t } = useTranslation()
   const [selectedCategory, setSelectedCategory] = useState<string>('summary')
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null)
   const [variables, setVariables] = useState<Record<string, string>>({})
@@ -109,6 +112,7 @@ export default function PromptLabPage() {
             <span className="font-bold">Paper Summarizer</span>
           </Link>
           <div className="flex items-center gap-3">
+            <LanguageSwitcher />
             <Link href="/premium" className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-medium transition-colors border border-primary/20">
               ⭐ Pro
             </Link>
@@ -120,7 +124,7 @@ export default function PromptLabPage() {
         {/* Title */}
         <div className="text-center space-y-3">
           <h1 className="text-3xl md:text-4xl font-bold text-text">
-            🧪 Prompt Lab
+            {t('promptLab.title')}
           </h1>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto">
             50 ready-to-use AI prompts for research papers. Select a category, pick a prompt, fill in your details, and generate with AI.
@@ -312,7 +316,7 @@ export default function PromptLabPage() {
             href="/"
             className="px-5 py-2.5 bg-bg-card border border-border hover:border-primary/40 text-text rounded-xl text-sm transition-colors"
           >
-            ← Back to Home
+            {t('promptLab.backToHome')}
           </Link>
           <Link
             href="/premium"

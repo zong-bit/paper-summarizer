@@ -6,6 +6,8 @@ import AdPlaceholder from '../components/AdPlaceholder'
 import Footer from '../components/Footer'
 import VisitorCounter from '../components/VisitorCounter'
 import SummaryCard from '../components/SummaryCard'
+import LanguageSwitcher from '../components/LanguageSwitcher'
+import { useTranslation } from '@/i18n/provider'
 
 type SummaryData = {
   oneSentence: string
@@ -15,6 +17,7 @@ type SummaryData = {
 }
 
 export default function Home() {
+  const { t } = useTranslation()
   const [inputText, setInputText] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [summary, setSummary] = useState<SummaryData | null>(null)
@@ -53,7 +56,7 @@ export default function Home() {
 
   const handleSubmit = async () => {
     if (!inputText.trim()) {
-      setError('Please paste text or upload a PDF')
+      setError(t('hero.pasteText'))
       return
     }
 
@@ -141,11 +144,12 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-3">
             <VisitorCounter />
+            <LanguageSwitcher />
             <Link
               href="/premium"
               className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-medium transition-colors border border-primary/20"
             >
-              ⭐ Pro
+              ⭐ {t('nav.premium')}
             </Link>
           </div>
         </div>
@@ -156,10 +160,10 @@ export default function Home() {
           <>
             <div className="text-center space-y-4">
               <h1 className="text-3xl md:text-4xl font-bold text-text">
-                Summarize Any Paper in Seconds
+                {t('hero.title')}
               </h1>
               <p className="text-text-secondary text-lg">
-                Paste your academic paper text or upload a PDF, and our AI will generate a comprehensive summary with key findings, methodology, and conclusions.
+                {t('hero.subtitle')}
               </p>
             </div>
 
@@ -174,7 +178,7 @@ export default function Home() {
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                   </svg>
-                  Upload PDF
+                  {t('hero.uploadPdf')}
                 </button>
                 <input
                   ref={fileInputRef}
@@ -188,13 +192,13 @@ export default function Home() {
                   onClick={handleExample}
                   className="px-6 py-3 bg-accent/20 hover:bg-accent/30 text-accent rounded-xl transition-colors font-medium border border-accent/30"
                 >
-                  📝 Try Example
+                  {t('hero.tryExample')}
                 </button>
                 <button
                   onClick={handleClear}
                   className="px-6 py-3 bg-bg-hover hover:bg-border text-text-secondary rounded-xl transition-colors font-medium"
                 >
-                  Clear
+                  {t('hero.clear')}
                 </button>
               </div>
 
@@ -202,23 +206,24 @@ export default function Home() {
                 <textarea
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Paste your paper text here or upload a PDF..."
+                  placeholder={t('hero.placeholder')}
                   className="w-full h-64 bg-bg border border-border rounded-xl p-4 text-text placeholder-text-secondary/60 resize-none focus:outline-none focus:ring-2 focus:ring-primary/50 scrollbar-thin"
                   disabled={isLoading}
                 />
                 <div className="absolute bottom-3 right-3 text-xs text-text-secondary/50">
-                  {inputText.length.toLocaleString()} / 15,000 chars max
+                  {inputText.length.toLocaleString()} {t('hero.charCount')}
                 </div>
               </div>
 
               {rateLimitTimer !== null ? (
                 <div className="bg-warning/10 border border-warning/30 rounded-xl p-4 text-center space-y-2">
-                  <div className="text-warning font-semibold">⏳ Usage limit reached</div>
+                  <div className="text-warning font-semibold">{t('hero.usageLimit')}</div>
                   <div className="text-text-secondary text-sm">
-                    Try again in <span className="font-mono font-bold text-warning">{formatTimer(rateLimitTimer)}</span>
+                    {t('hero.tryAgainIn').replace('<span>{time}</span>', `<span class="font-mono font-bold text-warning">${formatTimer(rateLimitTimer)}</span>`)}
+                    {/* We use dangerouslySetInnerHTML below as a fallback */}
                   </div>
                   <div className="text-text-secondary/60 text-xs">
-                    Share this tool to unlock extra uses!
+                    {t('hero.shareToUnlock')}
                   </div>
                 </div>
               ) : error && (
@@ -236,12 +241,12 @@ export default function Home() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Summarizing...
+                    {t('hero.summarizing')}
                   </>
                 ) : inputText === SAMPLE_TEXT ? (
-                  '🚀 Run Example →'
+                  t('hero.runExample')
                 ) : (
-                  'Generate Summary'
+                  t('hero.cta')
                 )}
               </button>
             </div>
@@ -249,8 +254,8 @@ export default function Home() {
             <AdPlaceholder />
 
             <div className="text-center text-text-secondary/50 text-xs space-y-1">
-              <p>Powered by DeepSeek AI · Free to use</p>
-              <p>15,000 characters max per request</p>
+              <p>{t('hero.poweredBy')}</p>
+              <p>{t('hero.charsInfo')}</p>
             </div>
 
             {/* CTA for Pro */}
@@ -259,87 +264,87 @@ export default function Home() {
                 href="/premium"
                 className="inline-flex items-center gap-2 px-6 py-2.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-xl text-sm font-medium transition-colors border border-primary/20"
               >
-                ⚡ Upgrade to Pro — ¥9.9/month →
+                {t('hero.upgradeToPro')}
               </Link>
             </div>
 
             {/* Pricing Comparison */}
             <div className="bg-gradient-to-br from-bg-card to-bg-card/50 border border-border rounded-2xl p-8 space-y-6">
               <div className="text-center space-y-2">
-                <h2 className="text-2xl font-bold text-text">Simple, Transparent Pricing</h2>
-                <p className="text-text-secondary">Choose the plan that fits your needs</p>
+                <h2 className="text-2xl font-bold text-text">{t('pricing.title')}</h2>
+                <p className="text-text-secondary">{t('pricing.subtitle')}</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Free Card */}
                 <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
                   <div className="text-center space-y-2">
-                    <h3 className="text-xl font-bold text-text">Free</h3>
-                    <div className="text-3xl font-bold text-text">¥0</div>
+                    <h3 className="text-xl font-bold text-text">{t('pricing.free')}</h3>
+                    <div className="text-3xl font-bold text-text">{t('pricing.freePrice')}</div>
                   </div>
                   <ul className="space-y-3">
                     <li className="flex items-center gap-2 text-sm text-text-secondary">
                       <span className="text-green-500">✓</span>
-                      Daily 3 summaries
+                      {t('pricing.freeSummary')}
                     </li>
                     <li className="flex items-center gap-2 text-sm text-text-secondary">
                       <span className="text-green-500">✓</span>
-                      Basic PDF parsing
+                      {t('pricing.freePdf')}
                     </li>
                     <li className="flex items-center gap-2 text-sm text-text-secondary">
                       <span className="text-green-500">✓</span>
-                      All summary formats
+                      {t('pricing.freeFormats')}
                     </li>
                   </ul>
                   <Link
                     href="/"
                     className="block w-full text-center py-3 bg-bg-card border border-border hover:bg-bg-hover text-text rounded-xl font-medium transition-colors"
                   >
-                    Get Started
+                    {t('pricing.getStarted')}
                   </Link>
                 </div>
                 {/* Pro Card */}
                 <div className="bg-bg-card border border-primary/50 ring-1 ring-primary/30 rounded-2xl p-6 space-y-4 relative">
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span className="bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full">Popular</span>
+                    <span className="bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full">{t('pricing.popular')}</span>
                   </div>
                   <div className="text-center space-y-2">
-                    <h3 className="text-xl font-bold text-text">Pro</h3>
+                    <h3 className="text-xl font-bold text-text">{t('pricing.pro')}</h3>
                     <div className="text-3xl font-bold text-text">
-                      ¥9.9
-                      <span className="text-sm text-text-secondary font-normal">/month</span>
+                      {t('pricing.proPrice')}
+                      <span className="text-sm text-text-secondary font-normal">{t('pricing.proPriceSuffix')}</span>
                     </div>
                   </div>
                   <ul className="space-y-3">
                     <li className="flex items-center gap-2 text-sm text-text-secondary">
                       <span className="text-green-500">✓</span>
-                      Unlimited summaries
+                      {t('pricing.proUnlimited')}
                     </li>
                     <li className="flex items-center gap-2 text-sm text-text-secondary">
                       <span className="text-green-500">✓</span>
-                      Priority processing queue
+                      {t('pricing.proPriority')}
                     </li>
                     <li className="flex items-center gap-2 text-sm text-text-secondary">
                       <span className="text-green-500">✓</span>
-                      Advanced PDF parsing
+                      {t('pricing.proPdf')}
                     </li>
                     <li className="flex items-center gap-2 text-sm text-text-secondary">
                       <span className="text-green-500">✓</span>
-                      All summary formats
+                      {t('pricing.proFormats')}
                     </li>
                     <li className="flex items-center gap-2 text-sm text-text-secondary">
                       <span className="text-green-500">✓</span>
-                      Full Token verification
+                      {t('pricing.proToken')}
                     </li>
                     <li className="flex items-center gap-2 text-sm text-text-secondary">
                       <span className="text-green-500">✓</span>
-                      Priority support
+                      {t('pricing.proSupport')}
                     </li>
                   </ul>
                   <Link
                     href="/premium"
                     className="block w-full text-center py-3 bg-primary hover:bg-primary/90 text-white rounded-xl font-medium transition-colors"
                   >
-                    Upgrade to Pro
+                    {t('pricing.upgrade')}
                   </Link>
                 </div>
               </div>
@@ -347,49 +352,49 @@ export default function Home() {
 
             {/* Tools Section */}
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-text text-center">🔧 More Tools</h2>
+              <h2 className="text-2xl font-bold text-text text-center">{t('tools.moreTools')}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Link href="/tools/paper-qa" className="bg-bg-card border border-border rounded-2xl p-5 text-center hover:border-primary/40 transition-all group relative overflow-hidden">
                   <div className="text-3xl mb-2">💬</div>
-                  <div className="font-semibold text-text group-hover:text-primary transition-colors">Paper Q&A
-                    <span className="ml-2 px-1.5 py-0.5 bg-primary/20 text-primary text-xs rounded">Pro</span>
+                  <div className="font-semibold text-text group-hover:text-primary transition-colors">{t('tools.paperQa')}
+                    <span className="ml-2 px-1.5 py-0.5 bg-primary/20 text-primary text-xs rounded">{t('tools.proFeature')}</span>
                   </div>
-                  <div className="text-sm text-text-secondary mt-1">Ask specific questions about any paper</div>
+                  <div className="text-sm text-text-secondary mt-1">{t('tools.paperQaDesc')}</div>
                 </Link>
                 <Link href="/tools/paper-compare" className="bg-bg-card border border-border rounded-2xl p-5 text-center hover:border-primary/40 transition-all group relative overflow-hidden">
                   <div className="text-3xl mb-2">🔬</div>
-                  <div className="font-semibold text-text group-hover:text-primary transition-colors">Paper Comparison
-                    <span className="ml-2 px-1.5 py-0.5 bg-primary/20 text-primary text-xs rounded">Pro</span>
+                  <div className="font-semibold text-text group-hover:text-primary transition-colors">{t('tools.paperCompare')}
+                    <span className="ml-2 px-1.5 py-0.5 bg-primary/20 text-primary text-xs rounded">{t('tools.proFeature')}</span>
                   </div>
-                  <div className="text-sm text-text-secondary mt-1">Compare 2-5 papers side by side</div>
+                  <div className="text-sm text-text-secondary mt-1">{t('tools.paperCompareDesc')}</div>
                 </Link>
                 <Link href="/tools/citation-export" className="bg-bg-card border border-border rounded-2xl p-5 text-center hover:border-primary/40 transition-all group relative overflow-hidden">
                   <div className="text-3xl mb-2">📚</div>
-                  <div className="font-semibold text-text group-hover:text-primary transition-colors">Citation Generator
-                    <span className="ml-2 px-1.5 py-0.5 bg-green-500/20 text-green-500 text-xs rounded">Free</span>
+                  <div className="font-semibold text-text group-hover:text-primary transition-colors">{t('tools.citationGenerator')}
+                    <span className="ml-2 px-1.5 py-0.5 bg-green-500/20 text-green-500 text-xs rounded">{t('tools.freeTool')}</span>
                   </div>
-                  <div className="text-sm text-text-secondary mt-1">Generate APA/MLA/GB/T citations</div>
+                  <div className="text-sm text-text-secondary mt-1">{t('tools.citationGeneratorDesc')}</div>
                 </Link>
                 <Link href="/tools/literature-outline" className="bg-bg-card border border-border rounded-2xl p-5 text-center hover:border-primary/40 transition-all group relative overflow-hidden">
                   <div className="text-3xl mb-2">📝</div>
-                  <div className="font-semibold text-text group-hover:text-primary transition-colors">Literature Outline
-                    <span className="ml-2 px-1.5 py-0.5 bg-primary/20 text-primary text-xs rounded">Pro</span>
+                  <div className="font-semibold text-text group-hover:text-primary transition-colors">{t('tools.literatureOutline')}
+                    <span className="ml-2 px-1.5 py-0.5 bg-primary/20 text-primary text-xs rounded">{t('tools.proFeature')}</span>
                   </div>
-                  <div className="text-sm text-text-secondary mt-1">Generate comprehensive review outlines</div>
+                  <div className="text-sm text-text-secondary mt-1">{t('tools.literatureOutlineDesc')}</div>
                 </Link>
               </div>
             </div>
 
             <Link href="/tools/prompt-lab" className="block bg-gradient-to-r from-accent/20 via-primary/10 to-secondary/10 border border-accent/30 rounded-2xl p-6 text-center hover:border-accent/60 transition-all group">
               <div className="text-3xl mb-2">🧪</div>
-              <div className="text-lg font-semibold text-text group-hover:text-accent transition-colors">Try Prompt Lab — 50 Research AI Prompts</div>
-              <div className="text-sm text-text-secondary mt-1">Interactive tool: select a prompt, fill in variables, generate with AI</div>
+              <div className="text-lg font-semibold text-text group-hover:text-accent transition-colors">{t('tools.promptLab')}</div>
+              <div className="text-sm text-text-secondary mt-1">{t('tools.promptLabDesc')}</div>
             </Link>
 
             <Link href="/games" className="block bg-gradient-to-r from-primary/20 via-secondary/10 to-accent/10 border border-primary/30 rounded-2xl p-6 text-center hover:border-primary/60 transition-all group">
               <div className="text-3xl mb-2">🎮</div>
-              <div className="text-lg font-semibold text-text group-hover:text-primary transition-colors">Need a Break? Play Academic Games!</div>
-              <div className="text-sm text-text-secondary mt-1">Paper Bingo, Citation Quiz & more — no download needed</div>
+              <div className="text-lg font-semibold text-text group-hover:text-primary transition-colors">{t('tools.games')}</div>
+              <div className="text-sm text-text-secondary mt-1">{t('tools.gamesDesc')}</div>
             </Link>
           </>
         ) : (
@@ -402,7 +407,7 @@ export default function Home() {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
-                Back
+                {t('common.back')}
               </button>
             </div>
 

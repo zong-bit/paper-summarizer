@@ -1,8 +1,12 @@
 'use client'
 
+'use client'
+
 import { useState, useEffect } from 'react'
+import { useTranslation } from '@/i18n/provider'
 
 export default function VisitorCounter() {
+  const { t } = useTranslation()
   const [count, setCount] = useState(0)
 
   useEffect(() => {
@@ -15,7 +19,7 @@ export default function VisitorCounter() {
 
   return (
     <div className="text-text-secondary/60 text-xs">
-      Visitors: {count.toLocaleString()}
+      {t('visitor.label')}{count.toLocaleString()}
     </div>
   )
 }

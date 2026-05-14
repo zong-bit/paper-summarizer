@@ -1,4 +1,6 @@
 'use client'
+import LanguageSwitcher from '../../../components/LanguageSwitcher'
+import { useTranslation } from '@/i18n/provider'
 
 import { useState } from 'react'
 import Link from 'next/link'
@@ -7,6 +9,7 @@ import Footer from '../../../components/Footer'
 const SAMPLE_PAPER = `Deep learning has revolutionized the field of natural language processing in recent years. This paper presents a comprehensive survey of transformer-based architectures and their applications across various NLP tasks. We analyze the evolution from the original Transformer model to modern variants including BERT, GPT, RoBERTa, and T5. Our study covers pre-training objectives, model architectures, and fine-tuning strategies. We find that larger models consistently outperform smaller ones across all benchmarks, with diminishing returns beyond 1.5 billion parameters. The study also reveals that domain-specific pre-training significantly improves performance on specialized tasks. Our analysis shows that transformer models achieve state-of-the-art results on 89% of evaluated NLP benchmarks. Key challenges include computational cost, data efficiency, and model interpretability. We propose several directions for future research including more efficient architectures and better evaluation methodologies.`
 
 export default function PaperQAPage() {
+  const { t } = useTranslation()
   const [paperText, setPaperText] = useState('')
   const [question, setQuestion] = useState('')
   const [answer, setAnswer] = useState<string | null>(null)
@@ -16,7 +19,7 @@ export default function PaperQAPage() {
 
   const handleSubmit = async () => {
     if (!paperText.trim() || !question.trim()) {
-      setError('Please provide both paper text and a question.')
+      setError(t('paperQa.errorBothRequired'))
       return
     }
 
@@ -36,12 +39,12 @@ export default function PaperQAPage() {
       if (res.ok) {
         setAnswer(data.answer)
       } else if (res.status === 403) {
-        setError(data.error || 'Pro feature. Please upgrade.')
+        setError(data.error || t('paperQa.errorPro'))
       } else {
         setError(data.error || 'Failed to get answer')
       }
     } catch {
-      setError('Network error. Please try again.')
+      setError(t('common.networkError'))
     } finally {
       setIsLoading(false)
     }
@@ -73,9 +76,10 @@ export default function PaperQAPage() {
             <span className="font-bold">Paper Summarizer</span>
           </Link>
           <div className="flex items-center gap-3">
-            <span className="px-2.5 py-1 bg-primary/20 text-primary rounded-lg text-xs font-medium">Pro Feature</span>
+            <LanguageSwitcher />
+            <span className="px-2.5 py-1 bg-primary/20 text-primary rounded-lg text-xs font-medium">{t('tools.proFeature')}</span>
             <Link href="/premium" className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-medium transition-colors border border-primary/20">
-              ⭐ Upgrade
+              ⭐ {t('tools.upgrade')}
             </Link>
           </div>
         </div>
@@ -85,24 +89,24 @@ export default function PaperQAPage() {
         {/* Title */}
         <div className="text-center space-y-3">
           <div className="inline-block px-4 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium">
-            🎯 Pro Feature
+            🎯 {t('tools.proFeature')}
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-text">
             Paper Q&A
           </h1>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            Paste any academic paper and ask specific questions. Get AI-powered answers based on the paper content.
+            {t('paperQa.subtitle')}
           </p>
         </div>
 
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
           {/* Paper Text */}
           <div>
-            <label className="block text-sm font-medium text-text mb-2">Paper Text</label>
+            <label className="block text-sm font-medium text-text mb-2">{t('paperQa.paperText')}</label>
             <textarea
               value={paperText}
               onChange={(e) => setPaperText(e.target.value)}
-              placeholder="Paste your paper text here..."
+              placeholder={t('paperQa.paperPlaceholder')}
               className="w-full h-48 bg-bg border border-border rounded-xl p-4 text-text placeholder-text-secondary/60 resize-none focus:outline-none focus:ring-2 focus:ring-primary/50 scrollbar-thin"
               disabled={isLoading}
             />
@@ -111,7 +115,7 @@ export default function PaperQAPage() {
                 onClick={() => setPaperText(SAMPLE_PAPER)}
                 className="text-xs text-primary hover:underline"
               >
-                📝 Use sample paper
+                {t('paperQa.useSamplePaper')}
               </button>
               <span className="text-xs text-text-secondary/50">{paperText.length.toLocaleString()} chars</span>
             </div>
@@ -119,13 +123,13 @@ export default function PaperQAPage() {
 
           {/* Question */}
           <div>
-            <label className="block text-sm font-medium text-text mb-2">Your Question</label>
+            <label className="block text-sm font-medium text-text mb-2">{t('paperQa.yourQuestion')}</label>
             <input
               type="text"
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter' && !isLoading) handleSubmit() }}
-              placeholder="e.g., What methodology did the authors use?"
+              placeholder={t('paperQa.questionPlaceholder')}
               className="w-full bg-bg border border-border rounded-xl px-4 py-3 text-text placeholder-text-secondary/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
               disabled={isLoading}
             />
@@ -133,7 +137,12 @@ export default function PaperQAPage() {
 
           {/* Example questions */}
           <div className="flex flex-wrap gap-2">
-            {['What is the main contribution?', 'What methodology was used?', 'What are the key findings?', 'What limitations are mentioned?'].map((q) => (
+            {[
+              t('paperQa.sampleQuestions.contribution'),
+              t('paperQa.sampleQuestions.methodology'),
+              t('paperQa.sampleQuestions.findings'),
+              t('paperQa.sampleQuestions.limitations'),
+            ].map((q) => (
               <button
                 key={q}
                 onClick={() => setQuestion(q)}
@@ -150,7 +159,7 @@ export default function PaperQAPage() {
               {error}
               {error.includes('Pro') && (
                 <Link href="/premium" className="block mt-2 text-primary hover:underline">
-                  Upgrade to Pro →
+                  {t('common.upgradeToPro')}
                 </Link>
               )}
             </div>
@@ -169,10 +178,10 @@ export default function PaperQAPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Analyzing...
+                  {t('paperQa.analyzing')}
                 </>
               ) : (
-                'Ask Question'
+                t('paperQa.askQuestion')
               )}
             </button>
             <button
@@ -188,12 +197,12 @@ export default function PaperQAPage() {
         {answer && (
           <div className="bg-bg-card border border-border rounded-2xl overflow-hidden">
             <div className="px-5 py-4 border-b border-border flex items-center justify-between">
-              <h2 className="font-semibold text-text">Answer</h2>
+              <h2 className="font-semibold text-text">{t('paperQa.answer')}</h2>
               <button
                 onClick={handleCopy}
                 className="text-xs text-primary hover:underline flex items-center gap-1"
               >
-                {copied ? '✓ Copied!' : '📋 Copy'}
+                {copied ? t('common.copied') : t('common.copy')}
               </button>
             </div>
             <div className="px-5 py-4">
@@ -210,7 +219,7 @@ export default function PaperQAPage() {
             href="/"
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-bg-card border border-border hover:border-primary/40 text-text rounded-xl text-sm transition-colors"
           >
-            ← Back to Home
+            {t('common.backToHome')}
           </Link>
         </div>
       </main>

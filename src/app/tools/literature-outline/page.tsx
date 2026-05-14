@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../../components/Footer'
+import LanguageSwitcher from '../../../components/LanguageSwitcher'
+import { useTranslation } from '@/i18n/provider'
 
 interface Section {
   sectionTitle: string
@@ -25,6 +27,7 @@ interface OutlineResult {
 }
 
 export default function LiteratureOutlinePage() {
+  const { t } = useTranslation()
   const [topic, setTopic] = useState('')
   const [context, setContext] = useState('')
   const [language, setLanguage] = useState<'en' | 'zh'>('en')
@@ -97,9 +100,10 @@ export default function LiteratureOutlinePage() {
             <span className="font-bold">Paper Summarizer</span>
           </Link>
           <div className="flex items-center gap-3">
-            <span className="px-2.5 py-1 bg-primary/20 text-primary rounded-lg text-xs font-medium">Pro Feature</span>
+            <LanguageSwitcher />
+            <span className="px-2.5 py-1 bg-primary/20 text-primary rounded-lg text-xs font-medium">{t('tools.proFeature')}</span>
             <Link href="/premium" className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-medium transition-colors border border-primary/20">
-              ⭐ Upgrade
+              ⭐ {t('tools.upgrade')}
             </Link>
           </div>
         </div>
@@ -109,13 +113,13 @@ export default function LiteratureOutlinePage() {
         {/* Title */}
         <div className="text-center space-y-3">
           <div className="inline-block px-4 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium">
-            📝 Pro Feature
+            {t('tools.proFeature')}
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-text">
-            Literature Review Outline Generator
+          <h1 className='text-3xl md:text-4xl font-bold text-text'>
+            {t('literatureOutline.title')}
           </h1>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            Generate a comprehensive literature review outline for any research topic. Includes suggested sections, research trends, gaps, timeline, and database recommendations.
+            {t('literatureOutline.subtitle')}
           </p>
         </div>
 
@@ -123,7 +127,7 @@ export default function LiteratureOutlinePage() {
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
           {/* Language Toggle */}
           <div className="flex items-center gap-3">
-            <span className="text-sm text-text-secondary">Output Language:</span>
+            <span className='text-sm text-text-secondary'>{t('literatureOutline.outputLanguage')}</span>
             <div className="flex bg-bg border border-border rounded-xl overflow-hidden">
               <button
                 onClick={() => setLanguage('en')}
@@ -146,13 +150,13 @@ export default function LiteratureOutlinePage() {
 
           {/* Topic */}
           <div>
-            <label className="block text-sm font-medium text-text mb-2">Research Topic *</label>
+            <label className='block text-sm font-medium text-text mb-2'>{t('literatureOutline.researchTopic')}</label>
             <input
               type="text"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter' && !isLoading) handleSubmit() }}
-              placeholder={language === 'zh' ? '例如：基于Transformer的医学图像分割方法综述' : 'e.g., Transformer-based Medical Image Segmentation'}
+              placeholder={language === 'zh' ? t('literatureOutline.topicPlaceholderZh') : t('literatureOutline.topicPlaceholderEn')}
               className="w-full bg-bg border border-border rounded-xl px-4 py-3 text-text placeholder-text-secondary/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
               disabled={isLoading}
             />
@@ -160,13 +164,13 @@ export default function LiteratureOutlinePage() {
 
           {/* Context */}
           <div>
-            <label className="block text-sm font-medium text-text mb-2">
-              Additional Context <span className="text-text-secondary/50">(optional)</span>
+            <label className='block text-sm font-medium text-text mb-2'>
+              {t('literatureOutline.additionalContext')}
             </label>
             <textarea
               value={context}
               onChange={(e) => setContext(e.target.value)}
-              placeholder={language === 'zh' ? '提供更多背景信息，如：具体研究方向、关注的年份范围、已阅读的论文等' : 'e.g., specific focus areas, time range of interest, papers already reviewed, etc.'}
+              placeholder={language === 'zh' ? t('literatureOutline.contextPlaceholderZh') : t('literatureOutline.contextPlaceholderEn')}
               className="w-full h-28 bg-bg border border-border rounded-xl p-4 text-text placeholder-text-secondary/40 resize-none focus:outline-none focus:ring-2 focus:ring-primary/50 scrollbar-thin"
               disabled={isLoading}
             />
@@ -178,7 +182,7 @@ export default function LiteratureOutlinePage() {
               {error}
               {error.includes('Pro') && (
                 <Link href="/premium" className="block mt-2 text-primary hover:underline">
-                  Upgrade to Pro →
+                  {t('common.upgradeToPro')}
                 </Link>
               )}
             </div>
@@ -197,17 +201,17 @@ export default function LiteratureOutlinePage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Generating Outline...
+                  {t('literatureOutline.generating')}
                 </>
               ) : (
-                'Generate Outline'
+                t('literatureOutline.generate')
               )}
             </button>
             <button
               onClick={handleClear}
               className="px-6 py-3.5 bg-bg-hover hover:bg-border text-text-secondary rounded-xl transition-colors"
             >
-              Clear
+              {t('common.clear')}
             </button>
           </div>
         </div>
@@ -232,7 +236,7 @@ export default function LiteratureOutlinePage() {
                       <p className="text-text-secondary text-sm mb-3">{sub.description}</p>
                       {sub.keyQuestions.length > 0 && (
                         <div>
-                          <p className="text-xs text-text-secondary mb-1">Key Questions:</p>
+                          <p className='text-xs text-text-secondary mb-1'>{t('literatureOutline.keyQuestions')}</p>
                           <ul className="space-y-1">
                             {sub.keyQuestions.map((q, k) => (
                               <li key={k} className="flex items-start gap-1.5 text-xs text-text-secondary">
@@ -245,7 +249,7 @@ export default function LiteratureOutlinePage() {
                       )}
                       {sub.suggestedPapers > 0 && (
                         <p className="text-xs text-text-secondary/60 mt-2">
-                          Suggested papers: {sub.suggestedPapers}
+                          {t('literatureOutline.suggestedPapers', { n: sub.suggestedPapers })}
                         </p>
                       )}
                     </div>
@@ -256,7 +260,7 @@ export default function LiteratureOutlinePage() {
 
             {/* Research Trends */}
             <div className="bg-bg-card border border-border rounded-2xl p-6">
-              <h3 className="font-semibold text-text mb-3">📈 Research Trends</h3>
+              <h3 className="font-semibold text-text mb-3">{t('literatureOutline.researchTrends')}</h3>
               <ul className="space-y-2">
                 {result.researchTrends.map((trend, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
@@ -269,7 +273,7 @@ export default function LiteratureOutlinePage() {
 
             {/* Gaps & Future Directions */}
             <div className="bg-bg-card border border-border rounded-2xl p-6">
-              <h3 className="font-semibold text-text mb-3">🔮 Gaps & Future Directions</h3>
+              <h3 className="font-semibold text-text mb-3">{t('literatureOutline.gapsAndFuture')}</h3>
               <ul className="space-y-2">
                 {result.gapsAndFutureDirections.map((gap, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
@@ -283,7 +287,7 @@ export default function LiteratureOutlinePage() {
             {/* Databases & Timeline */}
             <div className="grid md:grid-cols-2 gap-4">
               <div className="bg-bg-card border border-border rounded-2xl p-5">
-                <h3 className="font-semibold text-text mb-3">📚 Recommended Databases</h3>
+                <h3 className="font-semibold text-text mb-3">{t('literatureOutline.recommendedDatabases')}</h3>
                 <ul className="space-y-2">
                   {result.recommendedDatabases.map((db, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
@@ -294,7 +298,7 @@ export default function LiteratureOutlinePage() {
                 </ul>
               </div>
               <div className="bg-bg-card border border-border rounded-2xl p-5">
-                <h3 className="font-semibold text-text mb-3">⏱ Timeline</h3>
+                <h3 className="font-semibold text-text mb-3">{t('literatureOutline.timeline')}</h3>
                 <div className="space-y-2">
                   {Object.entries(result.timeline).map(([key, value]) => (
                     <div key={key} className="flex justify-between text-sm">
@@ -314,7 +318,7 @@ export default function LiteratureOutlinePage() {
                 onClick={handleCopy}
                 className="px-6 py-3 bg-bg-card border border-border hover:border-primary/40 text-text rounded-xl text-sm transition-colors"
               >
-                {copied ? '✓ Copied to Clipboard!' : '📋 Copy Full Outline'}
+                {copied ? t('literatureOutline.copied') : t('literatureOutline.copyFull')}
               </button>
             </div>
           </div>
@@ -326,7 +330,7 @@ export default function LiteratureOutlinePage() {
             href="/"
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-bg-card border border-border hover:border-primary/40 text-text rounded-xl text-sm transition-colors"
           >
-            ← Back to Home
+            {t('common.backToHome')}
           </Link>
         </div>
       </main>

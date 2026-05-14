@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import LanguageSwitcher from '../../components/LanguageSwitcher'
 
 const posts = [
   { slug: 'ai-paper-summary-chinese-support-review-2026', title: 'AI论文摘要工具中文支持深度测评：中文论文摘要到底靠不靠谱？', desc: '中文论文用AI摘要靠谱吗？实测6款主流AI论文摘要工具的中文支持能力，从摘要准确率、术语翻译、学术规范到中文文献理解深度，全面对比分析。' },

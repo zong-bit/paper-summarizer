@@ -3,8 +3,11 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../components/Footer'
+import LanguageSwitcher from '../../components/LanguageSwitcher'
+import { useTranslation } from '@/i18n/provider'
 
 export default function PremiumPage() {
+  const { t, locale, tArray } = useTranslation()
   const [token, setToken] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
   const [tokenInfo, setTokenInfo] = useState<any>(null)
@@ -63,7 +66,10 @@ export default function PremiumPage() {
             </svg>
             <span className="font-bold">Paper Summarizer</span>
           </Link>
-          <Link href="/#premium" className="text-sm text-primary hover:underline">Back to Home</Link>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            <Link href="/" className="text-sm text-primary hover:underline">{t('nav.backToHome')}</Link>
+          </div>
         </div>
       </header>
 
@@ -71,28 +77,28 @@ export default function PremiumPage() {
         {/* Hero */}
         <div className="text-center space-y-4">
           <div className="inline-block px-4 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium">
-            ⚡ Upgrade to Pro
+            {t('premium.heroBadge')}
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-text">
-            ¥9.9/month — Unlimited Summaries
+            {t('premium.title')}
           </h1>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            Free users get 3 summaries per day. Pro users get unlimited summaries with priority processing.
+            {t('premium.subtitle')}
           </p>
         </div>
 
         {/* Claim Token (for new buyers) */}
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
-          <h2 className="text-xl font-semibold text-text">🔑 Claim Your Pro Token</h2>
+          <h2 className="text-xl font-semibold text-text">{t('premium.claimToken')}</h2>
           <p className="text-text-secondary text-sm">
-            Already paid? Enter your order ID below to receive your Pro access token instantly. Supports 爱发电, Gumroad, and Lemon Squeezy orders.
+            {t('premium.claimTokenDesc')}
           </p>
           <div className="flex gap-3">
             <input
               type="text"
               value={orderId}
               onChange={e => { setOrderId(e.target.value); setClaimStatus('idle'); setClaimInfo(null) }}
-              placeholder="爱发电 / Gumroad / Lemon Squeezy order ID..."
+              placeholder={t('premium.orderIdPlaceholder')}
               className="flex-1 bg-bg border border-border rounded-xl px-4 py-3 text-text placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/50"
             />
             <button
@@ -100,7 +106,7 @@ export default function PremiumPage() {
               disabled={claimStatus === 'loading' || orderId.trim().length < 6}
               className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:opacity-50 text-white rounded-xl font-medium transition-colors"
             >
-              {claimStatus === 'loading' ? 'Claiming...' : 'Claim Token'}
+              {claimStatus === 'loading' ? t('premium.claiming') : t('premium.claimTokenBtn')}
             </button>
           </div>
 
@@ -110,15 +116,15 @@ export default function PremiumPage() {
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                🎉 Pro Access Activated!
+                {t('premium.tokenActivated')}
               </div>
               <div className="bg-bg rounded-xl p-4">
-                <p className="text-xs text-text-secondary mb-1">Your Pro Token (save this):</p>
+                <p className="text-xs text-text-secondary mb-1">{t('premium.yourToken')}</p>
                 <p className="text-lg font-mono font-bold text-primary break-all select-all">{claimInfo.token}</p>
               </div>
               <div className="text-sm text-text-secondary space-y-1">
-                <p>Plan: {claimInfo.plan} · Expires: {new Date(claimInfo.expiresAt).toLocaleDateString()}</p>
-                <p>Use this token on the home page to unlock unlimited summaries!</p>
+                <p>{t('premium.tokenExpiry', { plan: claimInfo.plan, date: new Date(claimInfo.expiresAt).toLocaleDateString() })}</p>
+                <p>{t('premium.tokenUsage')}</p>
               </div>
             </div>
           )}
@@ -132,16 +138,16 @@ export default function PremiumPage() {
 
         {/* Token Checker */}
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
-          <h2 className="text-xl font-semibold text-text">Check Your Token</h2>
+          <h2 className="text-xl font-semibold text-text">{t('premium.checkToken')}</h2>
           <p className="text-text-secondary text-sm">
-            Already have a token? Enter it here to check your plan and remaining limits.
+            {t('premium.checkTokenDesc')}
           </p>
           <div className="flex gap-3">
             <input
               type="text"
               value={token}
               onChange={e => { setToken(e.target.value); setStatus('idle'); setTokenInfo(null) }}
-              placeholder="ps-xxxxxxxxxxxx..."
+              placeholder={t('premium.tokenPlaceholder')}
               className="flex-1 bg-bg border border-border rounded-xl px-4 py-3 text-text placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/50"
             />
             <button
@@ -149,7 +155,7 @@ export default function PremiumPage() {
               disabled={status === 'loading'}
               className="px-6 py-3 bg-primary hover:bg-primary-dark disabled:opacity-50 text-white rounded-xl font-medium transition-colors"
             >
-              {status === 'loading' ? 'Checking...' : 'Verify'}
+              {status === 'loading' ? t('premium.checking') : t('premium.verify')}
             </button>
           </div>
 
@@ -159,10 +165,10 @@ export default function PremiumPage() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Token Valid — {tokenInfo.plan} Plan
+                {t('premium.tokenValid', { plan: tokenInfo.plan })}
               </div>
               <div className="text-sm text-text-secondary">
-                Name: {tokenInfo.name} · Max: {tokenInfo.maxRequests} requests per {(tokenInfo.windowMs / 60000).toFixed(0)} min · Remaining: {tokenInfo.remaining}
+                {t('premium.tokenInfo', { name: tokenInfo.name, max: tokenInfo.maxRequests, window: (tokenInfo.windowMs / 60000).toFixed(0), remaining: tokenInfo.remaining })}
               </div>
             </div>
           )}
@@ -177,19 +183,19 @@ export default function PremiumPage() {
         {/* Pricing Hero */}
         <div className="bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/30 rounded-2xl p-8 space-y-6 text-center">
           <div className="text-4xl">💎</div>
-          <h2 className="text-2xl font-bold text-text">Pro Plan — ¥9.9/month</h2>
+          <h2 className="text-2xl font-bold text-text">{t('premium.proPlan')}</h2>
           <p className="text-text-secondary">
-            Unlock unlimited daily summaries and priority processing.
+            {t('premium.proPlanDesc')}
           </p>
           <div className="inline-block bg-bg-card border border-primary/30 rounded-2xl p-6">
-            <div className="text-sm text-text-secondary mb-1">Monthly Subscription</div>
-            <div className="text-4xl font-bold text-primary">¥9.9<span className="text-lg text-text-secondary font-normal">/month</span></div>
+            <div className="text-sm text-text-secondary mb-1">{t('premium.monthlySubscription')}</div>
+            <div className="text-4xl font-bold text-primary">{t('premium.proPrice')}<span className="text-lg text-text-secondary font-normal">{t('premium.proPriceSuffix')}</span></div>
             <div className="mt-4 text-text-secondary text-sm space-y-2 text-left">
-              <p>✓ Unlimited daily summaries</p>
-              <p>✓ 15,000 chars per request</p>
-              <p>✓ Priority processing queue</p>
-              <p>✓ PDF upload support</p>
-              <p>✓ Email support</p>
+              <p>{t('premium.features.unlimited')}</p>
+              <p>{t('premium.features.chars')}</p>
+              <p>{t('premium.features.priority')}</p>
+              <p>{t('premium.features.pdf')}</p>
+              <p>{t('premium.features.email')}</p>
             </div>
           </div>
         </div>
@@ -198,9 +204,9 @@ export default function PremiumPage() {
         <div className="grid md:grid-cols-3 gap-6">
           {/* Afdian Payment */}
           <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
-            <h2 className="text-xl font-semibold text-text">💡 Pay with 爱发电</h2>
+            <h2 className="text-xl font-semibold text-text">{t('premium.payment.afdian')}</h2>
             <p className="text-text-secondary text-sm">
-              🇨🇳 Chinese users: Support the project via 爱发电. After payment, enter your order ID to activate Pro.
+              {t('premium.payment.afdianDesc')}
             </p>
 
             <a
@@ -209,61 +215,61 @@ export default function PremiumPage() {
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-3 px-6 py-3.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold text-lg transition-all shadow-lg hover:shadow-xl block text-center"
             >
-              🚀 Go to 爱发电 — ¥9.9/month
+              {t('premium.payment.goAfdian')}
             </a>
 
             <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 text-sm text-text-secondary">
-              <strong className="text-text">📋 How it works:</strong>
+              <strong className="text-text">{t('premium.payment.howAfdian')}</strong>
               <ol className="mt-2 space-y-1 list-decimal list-inside">
-                <li>Click the button above and pay ¥9.9 on 爱发电</li>
-                <li>After payment, enter your order ID to claim your token</li>
-                <li>Token issued within 24 hours</li>
+                <li>{t('premium.payment.afdianStep1')}</li>
+                <li>{t('premium.payment.afdianStep2')}</li>
+                <li>{t('premium.payment.afdianStep3')}</li>
               </ol>
             </div>
           </div>
 
           {/* Gumroad Payment */}
           <div className="bg-bg-card border border-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl p-6 space-y-4">
-            <h2 className="text-xl font-semibold text-text">💳 Pay with Gumroad</h2>
+            <h2 className="text-xl font-semibold text-text">{t('premium.payment.gumroad')}</h2>
             <p className="text-text-secondary text-sm">
-              🌍 International users: Pay with credit card, PayPal, or Apple Pay. Instant token delivery via email.
+              {t('premium.payment.gumroadDesc')}
             </p>
 
             <Link
               href="/buy"
               className="flex items-center justify-center gap-3 px-6 py-3.5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl font-semibold text-lg transition-all shadow-lg hover:shadow-xl block text-center"
             >
-              🌍 Gumroad Checkout — From $9.99/month
+              {t('premium.payment.goGumroad')}
             </Link>
 
             <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 text-sm text-text-secondary">
-              <strong className="text-text">📋 Plans:</strong>
+              <strong className="text-text">{t('premium.payment.gumroadPlans')}</strong>
               <ul className="mt-2 space-y-1 list-disc list-inside">
-                <li>Pro Monthly: $9.99/month (500/day)</li>
-                <li>Pro Yearly: $79.99/year (save 33%)</li>
+                <li>{t('premium.payment.gumroadMonthly')}</li>
+                <li>{t('premium.payment.gumroadYearly')}</li>
               </ul>
             </div>
           </div>
 
           {/* Lemon Squeezy Payment */}
           <div className="bg-bg-card border border-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl p-6 space-y-4">
-            <h2 className="text-xl font-semibold text-text">💳 Pay with Lemon Squeezy</h2>
+            <h2 className="text-xl font-semibold text-text">{t('premium.payment.lemonSqueezy')}</h2>
             <p className="text-text-secondary text-sm">
-              🌍 International alternative: Pay with credit card, PayPal, or Google Pay. Supports subscriptions and one-time payments.
+              {t('premium.payment.lemonSqueezyDesc')}
             </p>
 
             <Link
               href="/buy"
               className="flex items-center justify-center gap-3 px-6 py-3.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl font-semibold text-lg transition-all shadow-lg hover:shadow-xl block text-center"
             >
-              🛒 Lemon Squeezy Checkout — From $9.99/month
+              {t('premium.payment.goLemonSqueezy')}
             </Link>
 
             <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4 text-sm text-text-secondary">
-              <strong className="text-text">📋 Plans:</strong>
+              <strong className="text-text">{t('premium.payment.lsPlans')}</strong>
               <ul className="mt-2 space-y-1 list-disc list-inside">
-                <li>Pro Monthly: $9.99/month (500/day)</li>
-                <li>Pro Yearly: $79.99/year (save 33%)</li>
+                <li>{t('premium.payment.lsMonthly')}</li>
+                <li>{t('premium.payment.lsYearly')}</li>
               </ul>
             </div>
           </div>
@@ -271,16 +277,16 @@ export default function PremiumPage() {
 
         {/* Alternative: Contact for Invoice */}
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-3">
-          <h2 className="text-xl font-semibold text-text">📧 Alternative: Contact Us</h2>
+          <h2 className="text-xl font-semibold text-text">{t('premium.alternative')}</h2>
           <p className="text-text-secondary text-sm">
-            Need a different payment method or invoice? Reach out directly.
+            {t('premium.alternativeDesc')}
           </p>
           <div className="flex flex-wrap gap-3">
             <a
               href="mailto:selina_zxw@qq.com?subject=Pro%20Payment%20Inquiry&body=I%20want%20to%20upgrade%20to%20Pro%20(%C2%A59.9%2Fmonth).%20Please%20send%20payment%20instructions."
               className="px-5 py-2.5 bg-bg-hover hover:bg-border text-text rounded-lg text-sm transition-colors border border-border"
             >
-              📧 Email Us
+              {t('premium.emailUs')}
             </a>
           </div>
         </div>
@@ -288,31 +294,28 @@ export default function PremiumPage() {
         {/* Pricing Comparison */}
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-3">
-            <h3 className="text-xl font-semibold text-text">Free</h3>
-            <div className="text-3xl font-bold text-text">¥0</div>
+            <h3 className="text-xl font-semibold text-text">{t('premium.freePlan')}</h3>
+            <div className="text-3xl font-bold text-text">{t('pricing.freePrice')}</div>
             <div className="text-text-secondary text-sm space-y-1">
-              <p>• 3 summaries per day</p>
-              <p>• 15,000 chars max per request</p>
-              <p>• Paper text summary</p>
-              <p>• PDF upload</p>
+              {(tArray('premium.freeFeatures') as string[]).map((feature, i) => (
+                <p key={i}>{feature}</p>
+              ))}
             </div>
             <Link href="/" className="block text-center py-3 bg-bg-hover hover:bg-border text-text rounded-xl font-medium transition-colors">
-              Continue Free
+              {t('premium.continueFree')}
             </Link>
           </div>
 
           <div className="bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/40 rounded-2xl p-6 space-y-3 relative">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-primary text-white text-xs font-medium rounded-full">
-              Recommended
+              {t('pricing.popular')}
             </div>
-            <h3 className="text-xl font-semibold text-text">Pro</h3>
-            <div className="text-3xl font-bold text-primary">¥9.9<span className="text-sm text-text-secondary font-normal">/month</span></div>
+            <h3 className="text-xl font-semibold text-text">{t('pricing.pro')}</h3>
+            <div className="text-3xl font-bold text-primary">{t('pricing.proPrice')}<span className="text-sm text-text-secondary font-normal">{t('pricing.proPriceSuffix')}</span></div>
             <div className="text-text-secondary text-sm space-y-1">
-              <p>• Unlimited daily summaries</p>
-              <p>• 15,000 chars max per request</p>
-              <p>• Priority processing</p>
-              <p>• PDF upload</p>
-              <p>• Email support</p>
+              {(tArray('premium.proFeatures') as string[]).map((feature, i) => (
+                <p key={i}>{feature}</p>
+              ))}
             </div>
                 <div className="space-y-3">
               <a
@@ -321,19 +324,19 @@ export default function PremiumPage() {
                 rel="noopener noreferrer"
                 className="block text-center py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors"
               >
-                🇨🇳 Buy on 爱发电 ¥9.9 →
+                {t('premium.buyAfdian')}
               </a>
               <Link
                 href="/buy"
                 className="block text-center py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-medium transition-colors"
               >
-                🌍 Buy on Gumroad $9.99 →
+                {t('premium.buyGumroad')}
               </Link>
               <Link
                 href="/buy#lemon-squeezy"
                 className="block text-center py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-medium transition-colors"
               >
-                🍋 Buy on Lemon Squeezy $9.99 →
+                {t('premium.buyLemonSqueezy')}
               </Link>
             </div>
           </div>
@@ -341,19 +344,19 @@ export default function PremiumPage() {
 
         {/* How it works */}
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-text">How It Works</h2>
+          <h2 className="text-xl font-semibold text-text">{t('premium.howItWorks')}</h2>
           <div className="space-y-3 text-text-secondary">
             <div className="flex items-start gap-3">
               <span className="flex-shrink-0 w-6 h-6 bg-primary/20 text-primary rounded-full flex items-center justify-center text-sm font-medium">1</span>
-              <p><strong className="text-text">Choose a payment method</strong> above and complete the payment (¥9.9/month).</p>
+              <p dangerouslySetInnerHTML={{ __html: t('premium.step1') }} />
             </div>
             <div className="flex items-start gap-3">
               <span className="flex-shrink-0 w-6 h-6 bg-primary/20 text-primary rounded-full flex items-center justify-center text-sm font-medium">2</span>
-              <p><strong className="text-text">Receive your token</strong> within 24 hours after entering your order ID. No registration, no account needed.</p>
+              <p dangerouslySetInnerHTML={{ __html: t('premium.step2') }} />
             </div>
             <div className="flex items-start gap-3">
               <span className="flex-shrink-0 w-6 h-6 bg-primary/20 text-primary rounded-full flex items-center justify-center text-sm font-medium">3</span>
-              <p><strong className="text-text">Paste your token</strong> on the home page or in the API headers. Enjoy unlimited summaries!</p>
+              <p dangerouslySetInnerHTML={{ __html: t('premium.step3') }} />
             </div>
           </div>
         </div>

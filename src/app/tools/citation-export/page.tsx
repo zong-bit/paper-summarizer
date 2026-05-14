@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../../components/Footer'
+import LanguageSwitcher from '../../../components/LanguageSwitcher'
+import { useTranslation } from '@/i18n/provider'
 
 type CitationFormat = 'apa' | 'mla' | 'gbt'
 type CitationType = 'journal' | 'book' | 'conference' | 'thesis' | 'website'
@@ -22,6 +24,7 @@ interface PaperInfo {
 }
 
 export default function CitationExportPage() {
+  const { t, tArray } = useTranslation()
   const [format, setFormat] = useState<CitationFormat>('apa')
   const [citationType, setCitationType] = useState<CitationType>('journal')
   const [info, setInfo] = useState<PaperInfo>({
@@ -220,8 +223,9 @@ export default function CitationExportPage() {
             <span className="font-bold">Paper Summarizer</span>
           </Link>
           <div className="flex items-center gap-3">
+            <LanguageSwitcher />
             <Link href="/premium" className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-medium transition-colors border border-primary/20">
-              ⭐ Pro
+              ⭐ {t('nav.premium')}
             </Link>
           </div>
         </div>
@@ -231,20 +235,20 @@ export default function CitationExportPage() {
         {/* Title */}
         <div className="text-center space-y-3">
           <div className="inline-block px-4 py-1 bg-green-500/20 text-green-500 rounded-full text-sm font-medium">
-            🆓 Free Tool
+            {t('tools.freeTool')}
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-text">
-            Citation Generator
+            {t('citationExport.title')}
           </h1>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            Generate formatted citations in APA, MLA, and GB/T 7714 formats. Free to use, no sign-up needed.
+            {t('citationExport.subtitle')}
           </p>
         </div>
 
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-5">
           {/* Format Selection */}
           <div>
-            <label className="block text-sm font-medium text-text mb-2">Citation Format</label>
+            <label className="block text-sm font-medium text-text mb-2">{t('citationExport.citationFormat')}</label>
             <div className="flex flex-wrap gap-2">
               {(Object.entries(formatLabels) as [CitationFormat, string][]).map(([key, label]) => (
                 <button
@@ -264,7 +268,7 @@ export default function CitationExportPage() {
 
           {/* Source Type */}
           <div>
-            <label className="block text-sm font-medium text-text mb-2">Source Type</label>
+            <label className="block text-sm font-medium text-text mb-2">{t('citationExport.sourceType')}</label>
             <div className="flex flex-wrap gap-2">
               {(Object.entries(typeLabels) as [CitationType, string][]).map(([key, label]) => (
                 <button
@@ -285,43 +289,43 @@ export default function CitationExportPage() {
           {/* Fields */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-text mb-1">Authors *</label>
+              <label className="block text-sm font-medium text-text mb-1">{t('citationExport.authors')}</label>
               <input
                 type="text"
                 value={info.authors}
                 onChange={(e) => updateField('authors', e.target.value)}
-                placeholder={format === 'gbt' ? '作者姓名（如：张三, 李四）' : 'e.g., Smith, J. A., & Johnson, B.'}
+                placeholder={format === 'gbt' ? t('citationExport.authorsPlaceholder') : t('citationExport.authorsPlaceholderEn')}
                 className="w-full bg-bg border border-border rounded-xl px-4 py-2.5 text-text placeholder-text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-text mb-1">Year</label>
+              <label className="block text-sm font-medium text-text mb-1">{t('citationExport.year')}</label>
               <input
                 type="text"
                 value={info.year}
                 onChange={(e) => updateField('year', e.target.value)}
-                placeholder="2024"
+                placeholder={t('citationExport.yearPlaceholder')}
                 className="w-full bg-bg border border-border rounded-xl px-4 py-2.5 text-text placeholder-text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-text mb-1">Title *</label>
+              <label className="block text-sm font-medium text-text mb-1">{t('citationExport.title')}</label>
               <input
                 type="text"
                 value={info.title}
                 onChange={(e) => updateField('title', e.target.value)}
-                placeholder="Title of the paper or publication"
+                placeholder={t('citationExport.titlePlaceholder')}
                 className="w-full bg-bg border border-border rounded-xl px-4 py-2.5 text-text placeholder-text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
               />
             </div>
             {(citationType === 'journal' || citationType === 'conference') && (
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-text mb-1">Journal / Proceedings</label>
+                <label className="block text-sm font-medium text-text mb-1">{t('citationExport.journal')}</label>
                 <input
                   type="text"
                   value={info.journal}
                   onChange={(e) => updateField('journal', e.target.value)}
-                  placeholder="Journal Name or Conference Name"
+                  placeholder={t('citationExport.journalPlaceholder')}
                   className="w-full bg-bg border border-border rounded-xl px-4 py-2.5 text-text placeholder-text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
                 />
               </div>
@@ -329,32 +333,32 @@ export default function CitationExportPage() {
             {citationType === 'journal' && (
               <>
                 <div>
-                  <label className="block text-sm font-medium text-text mb-1">Volume</label>
+                  <label className="block text-sm font-medium text-text mb-1">{t('citationExport.volume')}</label>
                   <input
                     type="text"
                     value={info.volume}
                     onChange={(e) => updateField('volume', e.target.value)}
-                    placeholder="15"
+                    placeholder={t('citationExport.volumePlaceholder')}
                     className="w-full bg-bg border border-border rounded-xl px-4 py-2.5 text-text placeholder-text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-text mb-1">Issue</label>
+                  <label className="block text-sm font-medium text-text mb-1">{t('citationExport.issue')}</label>
                   <input
                     type="text"
                     value={info.issue}
                     onChange={(e) => updateField('issue', e.target.value)}
-                    placeholder="3"
+                    placeholder={t('citationExport.issuePlaceholder')}
                     className="w-full bg-bg border border-border rounded-xl px-4 py-2.5 text-text placeholder-text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-text mb-1">Pages</label>
+                  <label className="block text-sm font-medium text-text mb-1">{t('citationExport.pages')}</label>
                   <input
                     type="text"
                     value={info.pages}
                     onChange={(e) => updateField('pages', e.target.value)}
-                    placeholder="123-145"
+                    placeholder={t('citationExport.pagesPlaceholder')}
                     className="w-full bg-bg border border-border rounded-xl px-4 py-2.5 text-text placeholder-text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
                   />
                 </div>
@@ -362,33 +366,33 @@ export default function CitationExportPage() {
             )}
             {citationType === 'book' && (
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-text mb-1">Publisher</label>
+                <label className="block text-sm font-medium text-text mb-1">{t('citationExport.publisher')}</label>
                 <input
                   type="text"
                   value={info.publisher}
                   onChange={(e) => updateField('publisher', e.target.value)}
-                  placeholder="Publisher Name"
+                  placeholder={t('citationExport.publisherPlaceholder')}
                   className="w-full bg-bg border border-border rounded-xl px-4 py-2.5 text-text placeholder-text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
                 />
               </div>
             )}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-text mb-1">DOI</label>
+              <label className="block text-sm font-medium text-text mb-1">{t('citationExport.doi')}</label>
               <input
                 type="text"
                 value={info.doi}
                 onChange={(e) => updateField('doi', e.target.value)}
-                placeholder="10.xxxx/xxxxx"
+                placeholder={t('citationExport.doiPlaceholder')}
                 className="w-full bg-bg border border-border rounded-xl px-4 py-2.5 text-text placeholder-text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-text mb-1">URL</label>
+              <label className="block text-sm font-medium text-text mb-1">{t('citationExport.url')}</label>
               <input
                 type="text"
                 value={info.url}
                 onChange={(e) => updateField('url', e.target.value)}
-                placeholder="https://..."
+                placeholder={t('citationExport.urlPlaceholder')}
                 className="w-full bg-bg border border-border rounded-xl px-4 py-2.5 text-text placeholder-text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
               />
             </div>
@@ -400,7 +404,7 @@ export default function CitationExportPage() {
             disabled={!info.authors.trim() || !info.title.trim()}
             className="w-full py-3.5 bg-primary hover:bg-primary-dark disabled:bg-primary/50 disabled:cursor-not-allowed text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2"
           >
-            Generate {formatLabels[format]} Citation
+            {t('citationExport.generate', { format: formatLabels[format] })}
           </button>
         </div>
 
@@ -409,13 +413,13 @@ export default function CitationExportPage() {
           <div className="bg-bg-card border border-border rounded-2xl overflow-hidden">
             <div className="px-5 py-4 border-b border-border flex items-center justify-between">
               <h2 className="font-semibold text-text">
-                Generated Citation ({formatLabels[format]})
+                {t('citationExport.result', { format: formatLabels[format] })}
               </h2>
               <button
                 onClick={handleCopy}
                 className="text-xs text-primary hover:underline flex items-center gap-1"
               >
-                {copied ? '✓ Copied!' : '📋 Copy'}
+                {copied ? t('common.copied') : t('common.copy')}
               </button>
             </div>
             <div className="px-5 py-4">
@@ -432,7 +436,7 @@ export default function CitationExportPage() {
             href="/"
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-bg-card border border-border hover:border-primary/40 text-text rounded-xl text-sm transition-colors"
           >
-            ← Back to Home
+            {t('common.backToHome')}
           </Link>
         </div>
       </main>

@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../../components/Footer'
+import LanguageSwitcher from '../../../components/LanguageSwitcher'
+import { useTranslation } from '@/i18n/provider'
 
 interface PaperInput {
   title: string
@@ -21,6 +23,7 @@ interface ComparisonResult {
 }
 
 export default function PaperComparePage() {
+  const { t, tArray } = useTranslation()
   const [papers, setPapers] = useState<PaperInput[]>([
     { title: '', text: '' },
     { title: '', text: '' },
@@ -50,7 +53,7 @@ export default function PaperComparePage() {
   const handleSubmit = async () => {
     const validPapers = papers.filter(p => p.text.trim())
     if (validPapers.length < 2) {
-      setError('Please provide at least 2 papers with text.')
+      setError(t('paperCompare.error'))
       return
     }
 
@@ -100,9 +103,10 @@ export default function PaperComparePage() {
             <span className="font-bold">Paper Summarizer</span>
           </Link>
           <div className="flex items-center gap-3">
-            <span className="px-2.5 py-1 bg-primary/20 text-primary rounded-lg text-xs font-medium">Pro Feature</span>
+            <LanguageSwitcher />
+            <span className="px-2.5 py-1 bg-primary/20 text-primary rounded-lg text-xs font-medium">{t('tools.proFeature')}</span>
             <Link href="/premium" className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-medium transition-colors border border-primary/20">
-              ⭐ Upgrade
+              ⭐ {t('tools.upgrade')}
             </Link>
           </div>
         </div>
@@ -112,13 +116,13 @@ export default function PaperComparePage() {
         {/* Title */}
         <div className="text-center space-y-3">
           <div className="inline-block px-4 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium">
-            🔬 Pro Feature
+            {t('tools.proFeature')}
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-text">
-            Multi-Paper Comparison
+            {t('paperCompare.title')}
           </h1>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            Compare 2-5 academic papers side by side. Get structured comparison tables, key differences, and common findings.
+            {t('paperCompare.subtitle')}
           </p>
         </div>
 
@@ -127,13 +131,13 @@ export default function PaperComparePage() {
           {papers.map((paper, index) => (
             <div key={index} className="bg-bg-card border border-border rounded-2xl p-5 space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-text">Paper {index + 1}</h3>
+                <h3 className="font-semibold text-text">{t('paperCompare.paperN', { n: index + 1 })}</h3>
                 {papers.length > 2 && (
                   <button
                     onClick={() => removePaper(index)}
                     className="text-xs text-error hover:underline"
                   >
-                    Remove
+                    {t('paperCompare.remove')}
                   </button>
                 )}
               </div>
@@ -141,14 +145,14 @@ export default function PaperComparePage() {
                 type="text"
                 value={paper.title}
                 onChange={(e) => updatePaper(index, 'title', e.target.value)}
-                placeholder="Paper title (optional)"
+                placeholder={t('paperCompare.paperTitle')}
                 className="w-full bg-bg border border-border rounded-xl px-4 py-2.5 text-text placeholder-text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
                 disabled={isLoading}
               />
               <textarea
                 value={paper.text}
                 onChange={(e) => updatePaper(index, 'text', e.target.value)}
-                placeholder={`Paste abstract or summary of Paper ${index + 1}...`}
+                placeholder={t('paperCompare.paperPlaceholder', { n: index + 1 })}
                 className="w-full h-28 bg-bg border border-border rounded-xl p-3 text-text placeholder-text-secondary/40 resize-none focus:outline-none focus:ring-2 focus:ring-primary/50 scrollbar-thin text-sm"
                 disabled={isLoading}
               />
@@ -162,7 +166,7 @@ export default function PaperComparePage() {
               disabled={isLoading}
               className="w-full py-3 border-2 border-dashed border-border hover:border-primary/40 text-text-secondary hover:text-text rounded-2xl transition-colors text-sm font-medium"
             >
-              + Add Another Paper ({papers.length}/5)
+              {t('paperCompare.addAnother', { n: papers.length })}
             </button>
           )}
 
@@ -179,17 +183,17 @@ export default function PaperComparePage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Comparing...
+                  {t('paperCompare.comparing')}
                 </>
               ) : (
-                `Compare ${paperCount} Papers`
+                t('paperCompare.compareN', { n: paperCount })
               )}
             </button>
             <button
               onClick={handleClear}
               className="px-6 py-3.5 bg-bg-hover hover:bg-border text-text-secondary rounded-xl transition-colors"
             >
-              Clear All
+              {t('paperCompare.clearAll')}
             </button>
           </div>
 
@@ -199,7 +203,7 @@ export default function PaperComparePage() {
               {error}
               {error.includes('Pro') && (
                 <Link href="/premium" className="block mt-2 text-primary hover:underline">
-                  Upgrade to Pro →
+                  {t('common.upgradeToPro')}
                 </Link>
               )}
             </div>
@@ -211,20 +215,20 @@ export default function PaperComparePage() {
           <div className="space-y-6">
             {/* Summary */}
             <div className="bg-bg-card border border-border rounded-2xl p-6">
-              <h2 className="font-semibold text-text mb-3">📊 Comparison Summary</h2>
+              <h2 className="font-semibold text-text mb-3">{t('paperCompare.resultSummary')}</h2>
               <p className="text-text-secondary text-sm leading-relaxed">{result.summary}</p>
             </div>
 
             {/* Comparison Table */}
             <div className="bg-bg-card border border-border rounded-2xl overflow-hidden">
               <div className="px-5 py-4 border-b border-border">
-                <h2 className="font-semibold text-text">📋 Side-by-Side Comparison</h2>
+                <h2 className="font-semibold text-text">{t('paperCompare.resultTable')}</h2>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-border">
-                      <th className="text-left px-5 py-3 text-text-secondary font-medium">Dimension</th>
+                      <th className="text-left px-5 py-3 text-text-secondary font-medium">{t('paperCompare.resultDimension')}</th>
                       {papers.filter(p => p.text.trim()).map((_, i) => (
                         <th key={i} className="text-left px-5 py-3 text-text font-medium">
                           Paper {i + 1}{papers[i]?.title ? `: ${papers[i].title}` : ''}
@@ -254,7 +258,7 @@ export default function PaperComparePage() {
             {/* Key Differences & Common Grounds */}
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-bg-card border border-border rounded-2xl p-6">
-                <h2 className="font-semibold text-text mb-3">🔴 Key Differences</h2>
+                <h2 className="font-semibold text-text mb-3">{t('paperCompare.resultDifferences')}</h2>
                 <ul className="space-y-2">
                   {result.keyDifferences.map((d, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
@@ -265,7 +269,7 @@ export default function PaperComparePage() {
                 </ul>
               </div>
               <div className="bg-bg-card border border-border rounded-2xl p-6">
-                <h2 className="font-semibold text-text mb-3">🟢 Common Grounds</h2>
+                <h2 className="font-semibold text-text mb-3">{t('paperCompare.resultCommon')}</h2>
                 <ul className="space-y-2">
                   {result.commonGrounds.map((g, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
@@ -279,7 +283,7 @@ export default function PaperComparePage() {
 
             {/* Recommendation */}
             <div className="bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/30 rounded-2xl p-6">
-              <h2 className="font-semibold text-text mb-3">💡 Recommendation</h2>
+              <h2 className="font-semibold text-text mb-3">{t('paperCompare.resultRecommendation')}</h2>
               <p className="text-text-secondary text-sm leading-relaxed">{result.recommendation}</p>
             </div>
           </div>
@@ -291,7 +295,7 @@ export default function PaperComparePage() {
             href="/"
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-bg-card border border-border hover:border-primary/40 text-text rounded-xl text-sm transition-colors"
           >
-            ← Back to Home
+            {t('common.backToHome')}
           </Link>
         </div>
       </main>
