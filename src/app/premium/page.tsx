@@ -273,6 +273,29 @@ export default function PremiumPage() {
               </ul>
             </div>
           </div>
+
+          {/* Paddle Payment */}
+          <div className="bg-bg-card border border-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl p-6 space-y-4">
+            <h2 className="text-xl font-semibold text-text">Paddle</h2>
+            <p className="text-text-secondary text-sm">
+              Pay via Paddle — accept credit/debit cards, PayPal, and more. Instant token delivery.
+            </p>
+
+            <Link
+              href="/buy"
+              className="flex items-center justify-center gap-3 px-6 py-3.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-xl font-semibold text-lg transition-all shadow-lg hover:shadow-xl block text-center"
+            >
+              View Paddle Plans
+            </Link>
+
+            <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 text-sm text-text-secondary">
+              <strong className="text-text">Paddle Plans</strong>
+              <ul className="mt-2 space-y-1 list-disc list-inside">
+                <li>$9.99/month — Pro Monthly</li>
+                <li>$79.99/year — Pro Yearly (Best value)</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         {/* Alternative: Contact for Invoice */}
@@ -337,6 +360,12 @@ export default function PremiumPage() {
                 className="block text-center py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-medium transition-colors"
               >
                 {t('premium.buyLemonSqueezy')}
+              </Link>
+              <Link
+                href="/buy"
+                className="block text-center py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors"
+              >
+                Buy via Paddle
               </Link>
             </div>
           </div>
