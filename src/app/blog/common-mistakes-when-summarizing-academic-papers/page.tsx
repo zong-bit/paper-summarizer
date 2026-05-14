@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'Common Mistakes When Summarizing Academic Papers (And How to Avoid Them)',
@@ -65,6 +66,10 @@ export default function BlogPost() {
           <h2>Conclusion</h2>
           <p>Good summarization is a skill that improves with awareness and practice. By avoiding these seven common mistakes — and using tools like <Link href="/">Paper Summarizer</Link> that are designed with academic rigor in mind — you will produce summaries that are accurate, useful, and truly representative of the original research.</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='Common Mistakes When Summarizing Academic Papers (And How to Avoid Them) - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">Try Our Free AI Paper Summarizer</Link>
         </div>

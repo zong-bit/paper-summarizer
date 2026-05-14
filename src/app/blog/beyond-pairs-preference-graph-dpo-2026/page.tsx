@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: '大模型的"秘密偏好图"：Beyond Pairs论文解读 | Paper Summarizer',
@@ -374,6 +375,10 @@ export default function BlogPost() {
           <p><em>如需了解更多关于AI论文摘要工具的技术细节，请访问 <Link href="/" className="text-primary hover:text-primary-dark underline">Paper Summarizer</Link>。</em></p>
 
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='大模型的「秘密偏好图」：Beyond Pairs论文解读 - Paper Summarizer' compact />
+        </div>
+
       </main>
 
       <BlogCTA />

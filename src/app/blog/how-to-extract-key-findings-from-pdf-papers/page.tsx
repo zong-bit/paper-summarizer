@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'How to Extract Key Findings from PDF Papers Instantly',
@@ -81,6 +82,10 @@ export default function BlogPost() {
           <h2>Conclusion</h2>
           <p>Extracting key findings from academic PDFs no longer requires hours of manual reading. With <Link href="/">Paper Summarizer</Link>, you can upload any academic PDF and receive a structured, accurate summary of the paper's most important contributions in seconds. This frees you to spend your time on the deeper thinking that drives real research progress.</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='How to Extract Key Findings from PDF Papers Instantly - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">Try Our Free AI Paper Summarizer</Link>
         </div>

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: '为什么重试让 LLM Agent 越修越糟？上下文污染问题深度解析 | Paper Summarizer',
@@ -164,6 +165,10 @@ export default function BlogPost() {
 
           <p className="mt-2 text-sm text-text-secondary"><strong>Tags：</strong>LLM agent, context contamination, agent retry, 上下文污染, LLM重试, agent pipeline, SWE-bench, AI论文摘要</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='为什么重试让 LLM Agent 越修越糟？上下文污染问题深度解析 - Paper Summarizer' compact />
+        </div>
+
         <BlogCTA />
       </main>
       <footer className="border-t border-border bg-bg-card/50 py-8">

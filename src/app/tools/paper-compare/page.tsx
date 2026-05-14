@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../../components/Footer'
+import ShareButton from '../../../components/ShareButton'
 import LanguageSwitcher from '../../../components/LanguageSwitcher'
 import { useTranslation } from '@/i18n/provider'
 
@@ -288,6 +289,11 @@ export default function PaperComparePage() {
             </div>
           </div>
         )}
+
+        {/* Share */}
+        <div className="pt-8">
+          <ShareButton title="Paper Comparison - Paper Summarizer" description="Compare multiple research papers side by side" />
+        </div>
 
         {/* Back link */}
         <div className="text-center pt-4">

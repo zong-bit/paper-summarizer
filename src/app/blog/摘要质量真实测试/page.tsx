@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'paper-summarizer 摘要质量怎么样？真实测试 | Paper Summarizer',
@@ -76,6 +77,10 @@ export default function BlogPost() {
 
           <p className="text-text-tertiary text-xs mt-2">© 2025 paper-summarizer | 让每一篇论文的价值，都被高效发现</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='paper-summarizer 摘要质量怎么样？真实测试 - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-8">
           <div className="bg-bg-card border border-border rounded-lg p-6">
             <h3 className="text-lg font-semibold text-text mb-2">试试我们的 AI 论文摘要工具</h3>

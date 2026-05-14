@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'Best AI Tools for Academic Paper Summary in 2025',
@@ -82,6 +83,10 @@ export default function BlogPost() {
           <h2>Conclusion</h2>
           <p>The best AI paper summarizer depends on your specific needs. For quick, accurate, and free summarization of individual papers, <Link href="/">Paper Summarizer</Link> is hard to beat. For broader literature review workflows, consider pairing it with Elicit or Scholarcy. Try a few options and see which one fits your reading habits best.</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='Best AI Tools for Academic Paper Summary in 2025 - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">Try Our Free AI Paper Summarizer</Link>
         </div>

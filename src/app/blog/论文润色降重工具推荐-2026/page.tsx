@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: '2026年论文润色与降重工具推荐及使用技巧全攻略 | Paper Summarizer',
@@ -267,6 +268,10 @@ export default function BlogPost() {
 
           <p>如果你正在写论文或准备投稿，不妨先用 <Link href="/">Paper Summarizer</Link> 的免费功能试一下——上传你的论文或相关文献，让AI帮你快速梳理核心内容。理解透了，润色和降重自然水到渠成。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='2026年论文润色与降重工具推荐及使用技巧全攻略 - Paper Summarizer' compact />
+        </div>
+
         <BlogCTA />
       </main>
       <footer className="border-t border-border bg-bg-card/50 py-8">

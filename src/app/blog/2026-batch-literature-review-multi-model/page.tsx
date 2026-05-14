@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: '2026年如何用AI写文献综述：批量处理+多模型对比的科研新范式 | Paper Summarizer',
@@ -228,6 +229,10 @@ export default function BlogPost() {
 
           <p>👉 <strong>开始你的批量文献处理之旅</strong>：访问 <Link href="https://www.summarizeai.app" className="text-primary hover:underline">SummarizeAI</Link>，批量上传论文，体验AI文献综述的新范式。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='2026年如何用AI写文献综述：批量处理+多模型对比的科研新范式 - Paper Summarizer' compact />
+        </div>
+
 
         <h2>FAQ：常见问题</h2>
 

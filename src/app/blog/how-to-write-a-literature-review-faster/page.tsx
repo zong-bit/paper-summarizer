@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'How to Write a Literature Review Faster Using AI Summarizers',
@@ -70,6 +71,10 @@ export default function BlogPost() {
           <h2>Conclusion</h2>
           <p>AI summarization does not replace the careful thinking that a literature review requires, but it dramatically reduces the mechanical overhead of reading and note-taking. By using <Link href="/">Paper Summarizer</Link> strategically throughout the process, you can complete your literature review in half the time — and do it well enough to impress your reviewers.</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='How to Write a Literature Review Faster Using AI Summarizers - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">Try Our Free AI Paper Summarizer</Link>
         </div>

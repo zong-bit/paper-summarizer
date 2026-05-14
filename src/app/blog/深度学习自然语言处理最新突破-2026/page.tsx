@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: '深度学习在自然语言处理中的最新突破：2026年NLP技术全景解读 | Paper Summarizer',
@@ -381,6 +382,10 @@ export default function BlogPost() {
 
           <p>想亲身体验深度学习最新突破带来的NLP能力？试试我们的 <Link href="/" className="text-primary">免费AI论文摘要工具</Link>，上传你的第一篇论文，感受2026年AI如何改变你的科研阅读方式。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='深度学习在自然语言处理中的最新突破：2026年NLP技术全景解读 - Paper Summarizer' compact />
+        </div>
+
         <BlogCTA />
       </main>
       <footer className="border-t border-border bg-bg-card/50 py-8">

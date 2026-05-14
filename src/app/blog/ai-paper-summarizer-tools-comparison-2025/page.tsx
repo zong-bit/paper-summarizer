@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'AI论文摘要工具怎么选？2025年最新评测与避坑指南 - Paper Summarizer',
@@ -300,6 +301,10 @@ export default function BlogPost() {
           </ul>
           <p><strong>建议先用免费额度体验，再决定是否需要付费。</strong>别急着花钱，先用起来再说。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='AI论文摘要工具怎么选？2025年最新评测与避坑指南 - Paper Summarizer - Paper Summarizer' compact />
+        </div>
+
         <BlogCTA />
       </main>
       <footer className="border-t border-border bg-bg-card/50 py-8">

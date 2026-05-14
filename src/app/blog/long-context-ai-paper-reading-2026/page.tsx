@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: '长上下文AI如何改变论文阅读？2026年百万Token上下文革命解读 | Paper Summarizer',
@@ -528,6 +529,10 @@ export default function BlogPost() {
 
           <p>想亲身体验长上下文AI论文摘要的力量？试试我们的 <Link href="/" className="text-primary">免费AI论文摘要工具</Link>，上传你的整篇论文，感受AI如何"读懂"你的研究。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='长上下文AI如何改变论文阅读？2026年百万Token上下文革命解读 - Paper Summarizer' compact />
+        </div>
+
         <BlogCTA />
       </main>
       <footer className="border-t border-border bg-bg-card/50 py-8">

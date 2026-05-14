@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: "2026年AI学术引用管理完全指南：让参考文献管理效率提升10倍 | Paper Summarizer",
@@ -608,6 +609,10 @@ export default function BlogPost() {
 
           <BlogCTA />
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='2026年AI学术引用管理完全指南：让参考文献管理效率提升10倍 - Paper Summarizer' compact />
+        </div>
+
       </main>
     </div>
   )

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'The Future of Academic Reading: How AI Is Changing Research',
@@ -78,6 +79,10 @@ export default function BlogPost() {
           <h2>Conclusion</h2>
           <p>The future of academic reading is not about replacing human readers with AI. It is about freeing researchers from the mechanical burden of information extraction so they can focus on higher-level thinking. Tools like <Link href="/">Paper Summarizer</Link> are the first step in this transformation. As the technology matures, the relationship between researchers and the literature they consume will become more interactive, more personalized, and ultimately more productive.</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='The Future of Academic Reading: How AI Is Changing Research - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">Try Our Free AI Paper Summarizer</Link>
         </div>

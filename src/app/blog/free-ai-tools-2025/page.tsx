@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: '2025年免费AI工具推荐：学生党必备的5个神器 - Paper Summarizer',
@@ -113,6 +114,10 @@ export default function BlogPost() {
           </ol>
           <p><strong>AI不是来取代你的，是来让你比昨天的自己更强。</strong>2025年，免费AI工具的红利还在，赶紧抓住。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='2025年免费AI工具推荐：学生党必备的5个神器 - Paper Summarizer - Paper Summarizer' compact />
+        </div>
+
         <BlogCTA />
       </main>
       <footer className="border-t border-border bg-bg-card/50 py-8">

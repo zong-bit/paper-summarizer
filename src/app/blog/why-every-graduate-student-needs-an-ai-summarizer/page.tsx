@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'Why Every Graduate Student Needs an AI Paper Summarizer',
@@ -76,6 +77,10 @@ export default function BlogPost() {
           <h2>Conclusion</h2>
           <p>Graduate school demands that you read more than is humanly possible. AI paper summarizers like <Link href="/">Paper Summarizer</Link> do not make the reading go away, but they make it manageable. By cutting your screening time by 95% and giving you structured, consistent summaries for every paper, they free you to focus on the parts of graduate school that matter most: your own research, your own thinking, and your own development as a scholar.</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='Why Every Graduate Student Needs an AI Paper Summarizer - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">Try Our Free AI Paper Summarizer</Link>
         </div>

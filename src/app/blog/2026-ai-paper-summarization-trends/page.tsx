@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: '2026 AI论文摘要新趋势：大模型如何改变科研阅读方式 | Paper Summarizer',
@@ -328,6 +329,10 @@ export default function BlogPost() {
 
           <p>想亲身体验2026年AI论文摘要的力量？试试我们的 <Link href="/" className="text-primary">免费AI论文摘要工具</Link>，上传你的第一篇论文，感受AI如何改变你的科研阅读方式。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='2026 AI论文摘要新趋势：大模型如何改变科研阅读方式 - Paper Summarizer' compact />
+        </div>
+
         <BlogCTA />
       </main>
       <footer className="border-t border-border bg-bg-card/50 py-8">

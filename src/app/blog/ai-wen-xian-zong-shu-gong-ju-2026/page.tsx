@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: '2026年AI文献综述工具Top 10：研究生科研效率必备指南 | Paper Summarizer',
@@ -352,6 +353,10 @@ export default function BlogPost() {
 
           <p className="mt-2 text-sm text-text-secondary"><strong>Tags：</strong>AI文献综述工具, 文献综述, 科研效率, 研究生工具, AI research tool, literature review, Paper Summarizer, 文献综述排名, 2026科研工具</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='2026年AI文献综述工具Top 10：研究生科研效率必备指南 - Paper Summarizer' compact />
+        </div>
+
 
         <h2>相关阅读</h2>
         <ul>

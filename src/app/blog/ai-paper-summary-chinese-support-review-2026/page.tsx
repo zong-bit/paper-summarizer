@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { generateBlogMetadata, generateBlogJsonLd } from '../utils'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = generateBlogMetadata({
   slug: 'ai-paper-summary-chinese-support-review-2026',
@@ -182,6 +183,10 @@ export default function BlogPost() {
 
           <p>如果你对AI论文摘要工具的中文支持能力有疑问，不妨亲自试试 <Link href="/">Paper Summarizer</Link> ——上传一篇你的中文论文，看看AI的摘要质量如何。毕竟，实践是检验真理的唯一标准。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='AI论文摘要工具中文支持深度测评：中文论文摘要到底靠不靠谱？ - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">Try Our Free AI Paper Summarizer</Link>
         </div>

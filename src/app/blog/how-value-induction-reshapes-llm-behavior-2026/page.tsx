@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: '给AI"灌鸡汤"反而有害？价值诱导的连锁反应解读 | Paper Summarizer',
@@ -651,6 +652,10 @@ export default function BlogPost() {
           <p>正如论文作者所强调的：<strong>价值观是复杂且相互关联的——诱导一个价值可能会改变对其他价值的表达。</strong> 这既是科学挑战，也是工程挑战。</p>
 
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='给AI「灌鸡汤」反而有害？价值诱导的连锁反应解读 - Paper Summarizer' compact />
+        </div>
+
 
         <BlogCTA />
       </main>

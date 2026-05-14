@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'AI模型有"隐藏思维"吗？Anthropic自然语言自编码器解读 | Paper Summarizer',
@@ -538,6 +539,10 @@ export default function BlogPost() {
 
           <BlogCTA />
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='AI模型有「隐藏思维」吗？Anthropic自然语言自编码器解读 - Paper Summarizer' compact />
+        </div>
+
       </main>
       <footer className="border-t border-border bg-bg-card/50 py-8">
         <div className="max-w-4xl mx-auto px-4 text-center">

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { generateBlogMetadata, generateBlogJsonLd } from '../utils'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = generateBlogMetadata({
   slug: 'ai-paper-summary-hallucination-2026',
@@ -124,6 +125,10 @@ export default function BlogPost() {
 
           <p>学术诚信是研究者的生命线。在AI时代，这条生命线比以往任何时候都更需要我们主动守护。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='AI论文摘要的「幻觉」真相：2026年研究者必须知道的6种陷阱与应对指南 - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">Try Our Free AI Paper Summarizer</Link>
         </div>

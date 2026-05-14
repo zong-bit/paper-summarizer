@@ -5,6 +5,7 @@ import { useTranslation } from '@/i18n/provider'
 import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../../components/Footer'
+import ShareButton from '../../../components/ShareButton'
 
 const SAMPLE_PAPER = `Deep learning has revolutionized the field of natural language processing in recent years. This paper presents a comprehensive survey of transformer-based architectures and their applications across various NLP tasks. We analyze the evolution from the original Transformer model to modern variants including BERT, GPT, RoBERTa, and T5. Our study covers pre-training objectives, model architectures, and fine-tuning strategies. We find that larger models consistently outperform smaller ones across all benchmarks, with diminishing returns beyond 1.5 billion parameters. The study also reveals that domain-specific pre-training significantly improves performance on specialized tasks. Our analysis shows that transformer models achieve state-of-the-art results on 89% of evaluated NLP benchmarks. Key challenges include computational cost, data efficiency, and model interpretability. We propose several directions for future research including more efficient architectures and better evaluation methodologies.`
 
@@ -212,6 +213,11 @@ export default function PaperQAPage() {
             </div>
           </div>
         )}
+
+        {/* Share */}
+        <div className="pt-8">
+          <ShareButton title="Paper Q&A - Paper Summarizer" description="AI-powered question answering for research papers" />
+        </div>
 
         {/* Back link */}
         <div className="text-center pt-4">

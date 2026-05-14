@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: '2026研究生必备：用AI论文摘要工具10倍速完成文献综述——完整工作流指南 | Paper Summarizer',
@@ -503,6 +504,10 @@ export default function BlogPost() {
             <p>文献综述的本质是思考——不是抄写。AI让你把时间从"抄写"转移到"思考"上。用好这个工作流，你写的不只是更快的综述，而是更好的综述。</p>
           </blockquote>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='2026研究生必备：用AI论文摘要工具10倍速完成文献综述——完整工作流指南 - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-10">
           <BlogCTA />
         </div>

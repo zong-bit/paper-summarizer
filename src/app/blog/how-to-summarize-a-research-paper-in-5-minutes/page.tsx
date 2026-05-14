@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'How to Summarize a Research Paper in 5 Minutes with AI',
@@ -81,6 +82,10 @@ export default function BlogPost() {
           <h2>Conclusion</h2>
           <p>Summarizing a research paper in five minutes with AI is a realistic and powerful productivity strategy for modern researchers. By using a specialized tool like <Link href="/">Paper Summarizer</Link>, you can cut your reading time by 80% while maintaining comprehension of the key findings. Try it with your next paper and see the difference.</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='How to Summarize a Research Paper in 5 Minutes with AI - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">Try Our Free AI Paper Summarizer</Link>
         </div>

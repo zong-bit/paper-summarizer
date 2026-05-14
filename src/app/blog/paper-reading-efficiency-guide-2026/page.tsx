@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: '论文阅读效率提升指南：用AI工具每天高效阅读10篇论文 | Paper Summarizer',
@@ -341,6 +342,10 @@ export default function BlogPost() {
 
           <p>想亲身体验AI论文摘要带来的效率提升？试试 <Link href="/">Paper Summarizer</Link> 的免费功能，上传你的第一篇论文，看看AI如何在几秒钟内帮你抓住论文的核心要点。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='论文阅读效率提升指南：用AI工具每天高效阅读10篇论文 - Paper Summarizer' compact />
+        </div>
+
         <BlogCTA />
       </main>
       <footer className="border-t border-border bg-bg-card/50 py-8">

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: '如何验证AI论文摘要的准确性：研究者必读的核实指南 | Paper Summarizer',
@@ -273,6 +274,10 @@ export default function BlogPost() {
 
           <p>想试试用AI快速理解一篇论文，同时体验我们的摘要溯源功能（每个结论都标注原文出处，方便你快速验证）？访问 <Link href="https://www.summarizeai.app" className="text-primary hover:underline">SummarizeAI</Link>，上传你的第一篇论文，感受AI摘要的力量。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='如何验证AI论文摘要的准确性：研究者必读的核实指南 - Paper Summarizer' compact />
+        </div>
+
 
         <h2>延伸阅读</h2>
         <ul>

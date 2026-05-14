@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'AI vs Manual Summarizing: Which Is Better for Researchers?',
@@ -91,6 +92,10 @@ export default function BlogPost() {
           <h2>Conclusion</h2>
           <p>AI and manual summarization are not competitors — they are complementary tools. The best researchers use both strategically. For the heavy lifting of initial screening and structured note-taking, <Link href="/">Paper Summarizer</Link> is an invaluable free tool. For the deep, critical engagement that drives original research, nothing replaces careful reading. Use each where it excels, and you will read more, understand better, and write faster.</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='AI vs Manual Summarizing: Which Is Better for Researchers? - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">Try Our Free AI Paper Summarizer</Link>
         </div>

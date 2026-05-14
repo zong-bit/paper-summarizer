@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'AI论文摘要工具的未来趋势：2026-2027年展望 | Paper Summarizer',
@@ -311,6 +312,10 @@ export default function BlogPost() {
             <p>未来的学术研究者不会和AI竞争，而是那些善用AI的人将重新定义科研的边界。你，准备好了吗？</p>
           </blockquote>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='AI论文摘要工具的未来趋势：2026-2027年展望 - Paper Summarizer' compact />
+        </div>
+
         <BlogCTA />
       </main>
       <footer className="border-t border-border bg-bg-card/50 py-8">

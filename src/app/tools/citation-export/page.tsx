@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../../components/Footer'
+import ShareButton from '../../../components/ShareButton'
 import LanguageSwitcher from '../../../components/LanguageSwitcher'
 import { useTranslation } from '@/i18n/provider'
 
@@ -429,6 +430,11 @@ export default function CitationExportPage() {
             </div>
           </div>
         )}
+
+        {/* Share */}
+        <div className="pt-8">
+          <ShareButton title="Citation Export - Paper Summarizer" description="Generate APA, MLA, and more citation formats for academic papers" />
+        </div>
 
         {/* Back link */}
         <div className="text-center pt-4">

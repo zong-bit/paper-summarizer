@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'LLM推理加速技术全景指南：从原理到实践 | Paper Summarizer',
@@ -424,6 +425,10 @@ export default function BlogPost() {
 
           <p>想亲身体验经过推理加速优化的AI论文摘要？试试我们的 <Link href="/" className="text-primary">免费论文摘要工具</Link>，上传你的第一篇论文，感受速度的力量。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='LLM推理加速技术全景指南：从原理到实践 - Paper Summarizer' compact />
+        </div>
+
         <BlogCTA />
       </main>
       <footer className="border-t border-border bg-bg-card/50 py-8">

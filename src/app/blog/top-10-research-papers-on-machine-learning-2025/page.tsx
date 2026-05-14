@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'Top 10 Research Papers on Machine Learning in 2025 (Summarized)',
@@ -84,6 +85,10 @@ export default function BlogPost() {
           <h2>Conclusion</h2>
           <p>2025 has been an extraordinary year for machine learning research, spanning efficiency, alignment, multimodal reasoning, and privacy. These ten papers represent the frontier of what is possible. If any of these summaries pique your interest, we recommend reading the full paper — and using <Link href="/">Paper Summarizer</Link> to quickly remind yourself of the key findings when you need to reference them later.</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='Top 10 Research Papers on Machine Learning in 2025 (Summarized) - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">Try Our Free AI Paper Summarizer</Link>
         </div>

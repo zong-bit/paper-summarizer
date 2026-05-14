@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'RAG vs 长上下文：LLM 到底该选谁？2026 年最新研究告诉你答案 | Paper Summarizer',
@@ -172,6 +173,10 @@ export default function BlogPost() {
 
           <p>👉 <strong>体验智能摘要</strong>：访问 <Link href="https://www.summarizeai.app" className="text-primary hover:underline">SummarizeAI</Link> 免费试用，感受 AI 摘要的速度与深度。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='RAG vs 长上下文：LLM 到底该选谁？2026 年最新研究告诉你答案 - Paper Summarizer' compact />
+        </div>
+
 
         <h2>FAQ：常见问题</h2>
 

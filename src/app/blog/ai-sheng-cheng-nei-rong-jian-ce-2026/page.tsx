@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'AI生成内容检测技术2026：学术论文中的AI写作识别与应对指南 | Paper Summarizer',
@@ -222,6 +223,10 @@ export default function BlogPost() {
 
           <p>👉 <strong>合规使用AI辅助阅读</strong>：访问 <Link href="https://www.summarizeai.app" className="text-primary hover:underline">SummarizeAI</Link>，用AI论文摘要工具快速理解文献，用你自己的声音写出好论文。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='AI生成内容检测技术2026：学术论文中的AI写作识别与应对指南 - Paper Summarizer' compact />
+        </div>
+
 
         <h2>延伸阅读</h2>
         <ul>

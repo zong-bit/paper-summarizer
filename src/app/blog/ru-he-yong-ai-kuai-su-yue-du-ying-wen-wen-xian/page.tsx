@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogCTA from '@/components/BlogCTA'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: '如何用AI快速阅读英文文献：非英语母语研究者的终极指南 | Paper Summarizer',
@@ -218,6 +219,10 @@ export default function BlogPost() {
 
           <p>👉 <strong>开始你的AI英文文献阅读之旅</strong>：访问 <Link href="https://www.summarizeai.app" className="text-primary hover:underline">SummarizeAI</Link>，上传你的第一篇英文论文，体验AI论文摘要的速度和准确性。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='如何用AI快速阅读英文文献：非英语母语研究者的终极指南 - Paper Summarizer' compact />
+        </div>
+
 
         <h2>延伸阅读</h2>
         <ul>

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = {
   title: 'How to Summarize Multiple Papers at Once: A Practical Guide',
@@ -84,6 +85,10 @@ export default function BlogPost() {
           <h2>Conclusion</h2>
           <p>Summarizing multiple papers at once is not about cutting corners — it is about working smarter. By using <Link href="/">Paper Summarizer</Link> to generate structured, consistent summaries for an entire batch of papers, you can process 5–10 times more papers in the same time, identify patterns that are invisible when reading individually, and focus your deep reading on the papers that truly matter.</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='How to Summarize Multiple Papers at Once: A Practical Guide - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">Try Our Free AI Paper Summarizer</Link>
         </div>

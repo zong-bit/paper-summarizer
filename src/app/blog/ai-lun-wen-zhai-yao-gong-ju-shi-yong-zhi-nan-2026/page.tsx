@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { generateBlogMetadata, generateBlogJsonLd } from '../utils'
+import ShareButton from '../../../components/ShareButton'
 
 export const metadata = generateBlogMetadata({
   slug: 'ai-lun-wen-zhai-yao-gong-ju-shi-yong-zhi-nan-2026',
@@ -577,6 +578,10 @@ export default function BlogPost() {
 
           <p>本文旨在帮助科研人员更高效地使用AI论文摘要工具。如需体验Paper Summarizer的结构化摘要能力，请访问 <a href="https://www.summarizeai.app" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-dark underline">summarizeai.app</a>。</p>
         </article>
+        <div className="mt-8 pt-4 border-t border-border/50">
+          <ShareButton title='AI论文摘要工具使用指南：2026年科研人员必读的10个高效技巧 - Paper Summarizer' compact />
+        </div>
+
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors">Try Our Free AI Paper Summarizer</Link>
         </div>
