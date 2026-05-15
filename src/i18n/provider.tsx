@@ -17,7 +17,7 @@ interface I18nContextType {
 }
 
 const I18nContext = createContext<I18nContextType>({
-  locale: 'zh',
+  locale: 'en',
   setLocale: () => {},
   t: (key: string) => key,
   tArray: () => [],
@@ -46,14 +46,14 @@ function replaceParams(text: string, params?: Record<string, string | number>): 
 }
 
 function getBrowserLocale(): Locale {
-  if (typeof window === 'undefined') return 'zh'
+  if (typeof window === 'undefined') return 'en'
   const lang = navigator.language || ''
   if (lang.startsWith('zh')) return 'zh'
   return 'en'
 }
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('zh')
+  const [locale, setLocaleState] = useState<Locale>('en')
 
   useEffect(() => {
     // Try URL param first, then localStorage, then browser language

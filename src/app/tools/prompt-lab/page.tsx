@@ -153,7 +153,7 @@ export default function PromptLabPage() {
                     : 'bg-bg-card border border-border text-text-secondary hover:border-primary/40 hover:text-text'
                 }`}
               >
-                {cat.label} <span className="opacity-60">({count})</span>
+                {t(`promptLab.categories.${cat.key}`)} <span className="opacity-60">({count})</span>
               </button>
             )
           })}
