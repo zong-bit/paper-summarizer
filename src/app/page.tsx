@@ -7,6 +7,7 @@ import Footer from '../components/Footer'
 import VisitorCounter from '../components/VisitorCounter'
 import SummaryCard from '../components/SummaryCard'
 import LanguageSwitcher from '../components/LanguageSwitcher'
+import Navbar from '../components/Navbar'
 import { useTranslation } from '@/i18n/provider'
 
 type SummaryData = {
@@ -132,28 +133,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b border-border bg-bg-card/50 sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <span className="text-lg font-bold text-text">Paper Summarizer</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <VisitorCounter />
-            <LanguageSwitcher />
-            <Link
-              href="/premium"
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-medium transition-colors border border-primary/20"
-            >
-              ⭐ {t('nav.premium')}
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Navbar />
 
       <main className="flex-1 max-w-4xl mx-auto px-4 py-8 space-y-8">
         {!summary ? (

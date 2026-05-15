@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../components/Footer'
 import LanguageSwitcher from '../../components/LanguageSwitcher'
+import Navbar from '../../components/Navbar'
 import { useTranslation } from '@/i18n/provider'
 
 export default function PremiumPage() {
@@ -58,20 +59,7 @@ export default function PremiumPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b border-border bg-bg-card/50 sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-text hover:text-primary transition-colors">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            <span className="font-bold">Paper Summarizer</span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <LanguageSwitcher />
-            <Link href="/" className="text-sm text-primary hover:underline">{t('nav.backToHome')}</Link>
-          </div>
-        </div>
-      </header>
+      <Navbar currentPage="premium" />
 
       <main className="flex-1 max-w-4xl mx-auto px-4 py-12 space-y-10">
         {/* Hero */}
