@@ -70,6 +70,8 @@ const posts = [
   { slug: 'week21-yong-AI-shi-xian-lun-wen-san-ceng-yue-du-fa', title: '用AI实现论文"三层阅读法"：让每篇论文的阅读效率提升5倍', desc: '2026年的科研工作者每年要面对超过1000篇新论文。用传统方法精读每一篇是不可能的——但用AI辅助的"三层阅读法"，你只需要精读其中20%，就能掌握一个领域80%的核心知识。' },
   { slug: 'week22-xue-shu-fa-xian-gong-ju-dui-bi', title: 'Connected Papers vs ResearchRabbit vs Elicit：2026年学术发现工具横评', desc: '三大学术发现工具深度对比：Connected Papers的可视化图谱、ResearchRabbit的推荐算法、Elicit的AI问答，哪个更适合你？' },
   { slug: 'week23-yong-ai-gong-ju-bi-jiao-xuan-ze-zhi-nan', title: '2026年AI论文摘要工具全对比：哪款最适合你？', desc: '本文原创于 Paper Summarizer，发布于 2026年5月15日。免费使用，无需注册。' },
+  { slug: 'week24-yong-AI-zheng-he-duo-yuan-wen-xian-yue-du', title: '用AI整合多源文献阅读：博士生必读的文献管理新范式', desc: '做学术研究，最头疼的不是写论文，而是读论文。多源文献管理、整合、对比阅读——用AI工具构建你的个人文献知识库，让阅读效率提升10倍。' },
+  { slug: 'week25-yong-AI-sheng-cheng-lun-wen-da-geng-gong-ju-pu-cha', title: '2026年AI论文大纲生成工具全攻略：从选题到框架一键搞定', desc: '深度评测ChatGPT、Kimi、通义千问等5款主流工具的论文大纲生成能力，附实操指南和最佳实践，帮你从选题到三级框架一键搞定。' },
 ]
 
 export const metadata = {
