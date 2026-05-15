@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { getSupabaseClient } from '@/lib/supabase'
 import type { AuthUser } from '@supabase/supabase-js'
+import LanguageSwitcher from './LanguageSwitcher'
 
 interface NavbarProps {
   currentPage?: string
@@ -48,6 +49,7 @@ export default function Navbar({ currentPage }: NavbarProps) {
           <span className="font-bold text-lg">Paper Summarizer</span>
         </Link>
         <div className="flex items-center gap-3">
+          <LanguageSwitcher />
           {loading ? (
             <div className="w-20 h-8 bg-border/50 rounded-lg animate-pulse"></div>
           ) : user ? (
