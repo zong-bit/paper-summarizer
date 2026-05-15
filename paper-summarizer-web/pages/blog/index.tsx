@@ -110,6 +110,11 @@ export default function BlogPage() {
             </div>
             <span className="text-lg font-bold text-text">Paper Summarizer</span>
           </Link>
+          <nav className="flex items-center gap-4">
+            <Link href="/" className="text-text-secondary hover:text-text transition-colors text-sm">Home</Link>
+            <Link href="/blog" className="text-primary font-medium text-sm">Blog</Link>
+            <Link href="/tools" className="text-text-secondary hover:text-text transition-colors text-sm">Prompt Lab</Link>
+          </nav>
         </div>
       </header>
 

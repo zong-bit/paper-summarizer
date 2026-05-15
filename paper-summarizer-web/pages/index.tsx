@@ -74,6 +74,7 @@ export default function HomePage() {
           </Link>
           <nav className="flex items-center gap-4">
             <Link href="/blog" className="text-text-secondary hover:text-text transition-colors text-sm">Blog</Link>
+            <Link href="/tools" className="text-text-secondary hover:text-text transition-colors text-sm">Prompt Lab</Link>
           </nav>
         </div>
       </header>
