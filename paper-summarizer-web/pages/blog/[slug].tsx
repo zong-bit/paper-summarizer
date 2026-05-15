@@ -71,6 +71,11 @@ const BLOG_POSTS: Record<string, { title: string; description: string }> = {
   '2026-05-14-rag-vs-long-context': { title: 'RAG vs 长上下文：LLM 到底该选谁？2026 年最新研究告诉你答案', description: 'RAG（检索增强生成）和扩展长上下文窗口是当前 LLM 落地的两大主流方案。' },
   '2026-05-14-bo-shi-sheng-he-yong-AI-ti-gao-ke-yan-xiao-lv': { title: '博士生如何用AI提高科研效率：从文献阅读到论文发表', description: '博士生科研效率提升指南：从文献检索、AI论文摘要、文献综述到论文发表。' },
   '2026-05-15-ai-lun-wen-zhai-yao-gong-ju-dui-bi': { title: '2026年5月AI论文摘要工具终极对比', description: '终极对比：6款主流AI论文摘要工具在中文支持、摘要质量、价格、功能等方面的全面评测。' },
+  'week19-yong-ai-kuai-su-shai-xuan-lun-wen': { title: '如何用AI在5分钟内判断一篇论文是否值得精读：科研效率的降维打击', description: '面对海量论文，用AI快速筛选，把时间花在真正值得精读的论文上。' },
+  'week20-fu-xian-lun-wen-shi-yan-jie-guo': { title: '如何用AI工具快速复现一篇论文的实验结果：科研人员的完整指南', description: '论文读完了，结论很有意思，但你想验证一下——AI能帮你把复现时间从两周缩短到两天。' },
+  'week21-yong-AI-shi-xian-lun-wen-san-ceng-yue-du-fa': { title: '用AI实现论文"三层阅读法"：让每篇论文的阅读效率提升5倍', description: '用AI辅助的"三层阅读法"，你只需要精读其中20%，就能掌握一个领域80%的核心知识。' },
+  'week22-xue-shu-fa-xian-gong-ju-dui-bi': { title: 'Connected Papers vs ResearchRabbit vs Elicit：2026年学术发现工具横评', description: '三大学术发现工具深度对比，帮你找到最适合的学术文献发现工具。' },
+  'week23-yong-ai-gong-ju-bi-jiao-xuan-ze-zhi-nan': { title: '2026年AI论文摘要工具全对比：哪款最适合你？', description: '本文原创于 Paper Summarizer，发布于 2026年5月15日。免费使用，无需注册。' },
 }
 
 // Get all available blog slugs from filesystem
