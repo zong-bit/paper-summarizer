@@ -46,6 +46,14 @@ const posts = [
   { slug: 'tool-calling-reasoning-2026', title: 'AI Agent"思考"如何用工具？2026年工具调用推理研究全景解读', desc: '系统梳理2025-2026年工具调用推理领域的核心论文、技术进展，以及这些突破如何直接影响AI论文摘要工具（如Paper Summarizer）的能力边界。' },
   { slug: 'agentic-ai-scientific-research-2026', title: 'AI Agent重塑科研范式：从文献检索到论文撰写的自动化革命', desc: '深度解读Stanford Agent Laboratory、Google DeepMind ChemCrow、Meta AutoResearch三大里程碑，详解AI Agent在科研全流程中的六大应用场景及未来趋势。' },
   { slug: 'ai-citation-management-academic-research-2026', title: '2026年AI学术引用管理完全指南：让参考文献管理效率提升10倍', desc: '深入探讨AI在学术引用管理中的应用：智能文献推荐、自动引用格式生成、知识图谱构建、引用上下文理解。含前沿论文解读、工具对比和实操指南。' },
+  { slug: '2026-batch-literature-review-multi-model', title: '2026年如何用AI写文献综述：批量处理+多模型对比的科研新范式', desc: '2026年AI文献综述新范式：批量处理论文+多模型交叉验证，提升综述质量与效率。手把手教你用AI工具写高质量文献综述。' },
+  { slug: 'ai-literature-review-workflow-2026', title: '2026研究生必备：用AI论文摘要工具10倍速完成文献综述——完整工作流指南', desc: '手把手教你用AI论文摘要工具搭建文献综述工作流，从文献检索、批量摘要、关键发现提取到综述撰写，2026年研究生效率提升指南。' },
+  { slug: 'ai-lun-wen-zhai-yao-gong-ju-shi-yong-zhi-nan-2026', title: 'AI论文摘要工具使用指南：2026年科研人员必读的10个高效技巧', desc: '2026年AI论文摘要工具怎么用才最有效？本文分享10个科研人员验证AI摘要准确性、提升文献阅读效率的实战技巧，从工作流搭建到结果验证，手把手教你把AI论文摘要工具用到极致。' },
+  { slug: 'ai-lun-wen-zhai-yao-gong-ju-zen-me-xuan', title: 'AI论文摘要工具怎么选？2026年最新选择指南与避坑建议', desc: '市面上有超过20款AI论文摘要工具，到底该选哪款？本文从摘要准确率、中文支持、批量处理、价格等10个维度帮你理清选择思路，给出针对不同研究场景的精准推荐，避免花冤枉钱。' },
+  { slug: 'ai-paper-summarizer-tools-comparison-2025', title: 'AI论文摘要工具怎么选？2025年最新评测与避坑指南', desc: '评测8款主流AI论文摘要工具，从摘要质量、中文支持、价格性价比多维度对比，帮你找到最适合的论文摘要工具。含避坑指南和FAQ。' },
+  { slug: 'ai-paper-summary-tool-comparison-2026', title: 'AI论文摘要工具对比2026：哪款最准确？', desc: '深度对比Paper Summarizer、Scispace、Consensus、Elicit、ChatPDF等5款主流AI论文摘要工具，从摘要准确率、中文支持、批量处理、价格等10大维度给出客观评测，帮你找到最准确的AI论文摘要工具。' },
+  { slug: 'free-ai-tools-2025', title: '2025年免费AI工具推荐：学生党必备的5个神器', desc: '2025年免费AI工具推荐，为学生党精选5款真正好用的免费AI神器，涵盖写作、设计、学习等场景，亲测有效。' },
+  { slug: 'natural-language-autoencoders-claude-thoughts-2026', title: 'AI模型有"隐藏思维"吗？Anthropic自然语言自编码器解读', desc: '2026年5月Anthropic发布自然语言自编码器研究，揭示AI模型的"隐藏思维"过程。深度解读这项突破对AI论文摘要工具的深远影响。' },
 ]
 
 
