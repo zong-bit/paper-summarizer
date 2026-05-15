@@ -3,6 +3,7 @@ import fs from 'fs'
 import path from 'path'
 
 const posts = [
+  { slug: 'week26-mian-fei-e-du-dui-bi-2026', title: '2026年AI论文摘要工具免费额度大对比：哪款最划算？', desc: '实测5款主流AI论文摘要工具的免费额度：Paper Summarizer、ChatPDF、Scispace、Elicit、Kimi。从免费次数、字数限制到跨语言能力的全面对比，帮你找到最适合的免费AI论文摘要工具。' },
   { slug: 'rag-vs-long-context-2026', title: 'RAG vs 长上下文：LLM 到底该选谁？2026 年最新研究告诉你答案', desc: 'RAG（检索增强生成）和扩展长上下文窗口是当前 LLM 落地的两大主流方案。2026 年 5 月最新研究提出让 LLM 自己判断该走哪条路，帮你理清思路找到最适合的方案。' },
   { slug: '2026-ai-paper-summarization-trends', title: '2026 AI论文摘要新趋势：大模型如何改变科研阅读方式', desc: '多模态理解、推理增强、领域专用模型、实时协作与可解释性——五大趋势解析AI如何重塑科研阅读。' },
   { slug: 'ai-sheng-cheng-nei-rong-jian-ce-2026', title: 'AI生成内容检测技术2026：学术论文中的AI写作识别与应对指南', desc: '2026年AI生成内容检测技术最新进展。了解AI写作检测工具如何识别AI辅助的学术论文，研究者如何应对AI检测，以及如何合规使用AI论文摘要工具。' },
