@@ -76,6 +76,8 @@ const BLOG_POSTS: Record<string, { title: string; description: string }> = {
   'week21-yong-AI-shi-xian-lun-wen-san-ceng-yue-du-fa': { title: '用AI实现论文"三层阅读法"：让每篇论文的阅读效率提升5倍', description: '用AI辅助的"三层阅读法"，你只需要精读其中20%，就能掌握一个领域80%的核心知识。' },
   'week22-xue-shu-fa-xian-gong-ju-dui-bi': { title: 'Connected Papers vs ResearchRabbit vs Elicit：2026年学术发现工具横评', description: '三大学术发现工具深度对比，帮你找到最适合的学术文献发现工具。' },
   'week23-yong-ai-gong-ju-bi-jiao-xuan-ze-zhi-nan': { title: '2026年AI论文摘要工具全对比：哪款最适合你？', description: '本文原创于 Paper Summarizer，发布于 2026年5月15日。免费使用，无需注册。' },
+  'week24-yong-AI-zheng-he-duo-yuan-wen-xian-yue-du': { title: '用AI整合多源文献阅读：博士生必读的文献管理新范式', description: '做学术研究，最头疼的不是写论文，而是读论文。多源文献管理、整合、对比阅读——用AI工具构建你的个人文献知识库，让阅读效率提升10倍。' },
+  'week26-mian-fei-e-du-dui-bi-2026': { title: '2026年AI论文摘要工具免费额度大对比', description: '实测5款主流AI论文摘要工具的免费额度对比。' },
 }
 
 // Get all available blog slugs from filesystem
