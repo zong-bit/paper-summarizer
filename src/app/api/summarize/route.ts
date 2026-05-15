@@ -140,7 +140,15 @@ export async function POST(request: Request) {
 
     const apiKey = process.env.DEEPSEEK_API_KEY
     if (!apiKey) {
-      return NextResponse.json({ error: 'API key not configured' }, { status: 500 })
+      logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'error', textLength: text?.length || 0, errorMsg: 'api_key_missing' })
+      return NextResponse.json(
+        {
+          error: '服务正在维护中，请稍后再试。我们正在升级AI引擎以提供更高质量的摘要。',
+          maintenance: true,
+          estimatedRestore: '24-48小时',
+        },
+        { status: 503 }
+      )
     }
 
     const prompt = `You are a paper summarizer. Summarize the following academic paper and return ONLY valid JSON (no markdown, no code blocks, no extra text). Format:
