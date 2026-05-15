@@ -377,6 +377,14 @@
   "promptLab": {
     "title": "🧪 Prompt Lab",
     "subtitle": "50 个研究 AI 提示词，涵盖文献综述、论文写作、数据分析等。选择提示词，填写变量，用 AI 生成！",
-    "backToHome": "← 返回首页"
+    "subtitleEn": "50 Research AI Prompts covering literature review, paper writing, data analysis, and more. Select a prompt, fill in variables, and generate with AI!",
+    "backToHome": "← 返回首页",
+    "categories": {
+      "summary": "📋 摘要",
+      "rewrite": "✏️ 改写",
+      "analysis": "🔍 分析",
+      "writing": "📝 写作",
+      "productivity": "⚡ 效率"
+    }
   }
 }

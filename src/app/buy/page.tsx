@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../components/Footer'
 import LanguageSwitcher from '../../components/LanguageSwitcher'
+import PaddlePricingCards from '../../components/PaddlePricingCards'
 import { useTranslation } from '@/i18n/provider'
 
 // Gumroad product links — replace with actual Gumroad product URLs after publishing
@@ -13,10 +14,6 @@ const GUMROAD_YEARLY = 'https://selinazw.gumroad.com/l/kzfhr'
 // Lemon Squeezy checkout URLs
 const LS_CHECKOUT_MONTHLY = process.env.NEXT_PUBLIC_LS_MONTHLY_URL || 'https://paper-summarizer.lemonsqueezy.com/checkout/buy/monthly'
 const LS_CHECKOUT_YEARLY = process.env.NEXT_PUBLIC_LS_YEARLY_URL || 'https://paper-summarizer.lemonsqueezy.com/checkout/buy/yearly'
-
-// Paddle checkout URLs
-const PADDLE_URL_MONTHLY = 'https://checkout.paddle.com/start/pri_01krk617mdepfbhe493b2adfqn'
-const PADDLE_URL_YEARLY = 'https://checkout.paddle.com/start/pri_01krk61am9rvh6p2a61armcgyv'
 
 export default function BuyPage() {
   const { t, tArray } = useTranslation()
@@ -258,68 +255,7 @@ export default function BuyPage() {
         {/* Paddle Pricing Cards */}
         <div className="space-y-6">
           <h2 className="text-xl font-semibold text-text text-center">{t('buy.payPaddle')}</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Pro Monthly */}
-            <div className="bg-bg-card border border-border rounded-2xl p-6 sm:p-8 space-y-6 flex flex-col">
-              <div>
-                <h2 className="text-xl font-semibold text-text">{t('buy.monthly')}</h2>
-                <p className="text-text-secondary text-sm mt-1">{t('buy.monthlyDesc')}</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-text">
-                  {t('buy.monthlyPrice')}
-                  <span className="text-lg text-text-secondary font-normal">{t('buy.monthlyPriceSuffix')}</span>
-                </div>
-                <div className="text-sm text-text-secondary mt-1">{t('buy.monthlyApprox')}</div>
-              </div>
-              <div className="flex-1 text-text-secondary text-sm space-y-2">
-                {(tArray('buy.features') as string[]).map((feature, i) => (
-                  <p key={i}>{feature}</p>
-                ))}
-              </div>
-              <a
-                href={PADDLE_URL_MONTHLY}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-center py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-lg transition-colors"
-              >
-                {t('buy.buyMonthlyPaddle')}
-              </a>
-            </div>
-
-            {/* Pro Yearly */}
-            <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/40 rounded-2xl p-6 sm:p-8 space-y-6 flex flex-col relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-blue-600 text-white text-xs font-medium rounded-full">
-                {t('buy.bestValue')}
-              </div>
-              <div>
-                <h2 className="text-xl font-semibold text-text">{t('buy.yearly')}</h2>
-                <p className="text-text-secondary text-sm mt-1">{t('buy.yearlyDesc')}</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-blue-500">
-                  {t('buy.yearlyPrice')}
-                  <span className="text-lg text-text-secondary font-normal">{t('buy.yearlyPriceSuffix')}</span>
-                </div>
-                <div className="text-sm text-text-secondary mt-1">
-                  {t('buy.yearlyApprox')}
-                </div>
-              </div>
-              <div className="flex-1 text-text-secondary text-sm space-y-2">
-                {(tArray('buy.yearlyFeatures') as string[]).map((feature, i) => (
-                  <p key={i}>{feature}</p>
-                ))}
-              </div>
-              <a
-                href={PADDLE_URL_YEARLY}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-center py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-lg transition-colors"
-              >
-                {t('buy.buyYearlyPaddle')}
-              </a>
-            </div>
-          </div>
+          <PaddlePricingCards />
         </div>
 
         {/* How token delivery works */}

@@ -127,7 +127,7 @@ export default function PromptLabPage() {
             {t('promptLab.title')}
           </h1>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            50 ready-to-use AI prompts for research papers. Select a category, pick a prompt, fill in your details, and generate with AI.
+            {t('promptLab.subtitle')}
           </p>
           {remaining !== null && remaining >= 0 && (
             <div className="text-sm text-text-secondary">
@@ -165,7 +165,7 @@ export default function PromptLabPage() {
           <div className="bg-bg-card border border-border rounded-2xl overflow-hidden">
             <div className="px-5 py-4 border-b border-border">
               <h2 className="font-semibold text-text">
-                {categories.find(c => c.key === selectedCategory)?.label} Prompts
+                {t(`promptLab.categories.${selectedCategory}`)} Prompts
               </h2>
             </div>
             <div className="max-h-[600px] overflow-y-auto scrollbar-thin">
