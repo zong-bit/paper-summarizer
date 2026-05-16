@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { getSupabaseClient } from '@/lib/supabase'
@@ -12,6 +12,30 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [sendingLink, setSendingLink] = useState(false)
+  const [checkingSession, setCheckingSession] = useState(true)
+
+  // Redirect to dashboard if already logged in
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const supabase = getSupabaseClient()
+        const { data: { session } } = await supabase.auth.getSession()
+        if (session?.user) {
+          router.replace('/dashboard')
+          return
+        }
+      } catch (err) {
+        console.error('[login] Session check error:', err)
+      } finally {
+        setCheckingSession(false)
+      }
+    }
+    checkSession()
+  }, [router])
+
+  if (checkingSession) {
+    return null // or a loading spinner
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
