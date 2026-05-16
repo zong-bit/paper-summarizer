@@ -31,6 +31,9 @@ export default function LoginPage() {
         router.push('/dashboard')
       }
     } catch (err: any) {
+      // Log full error for debugging
+      console.error('[login] Full error:', JSON.stringify(err, null, 2))
+      console.error('[login] Error stack:', err?.stack)
       // Classify errors for better user feedback
       if (err?.status === 0 || err?.code === 'ERR_NETWORK' || err?.message?.includes('NetworkError') || err?.message?.includes('fetch failed')) {
         setError('无法连接到服务器，请检查网络连接后重试')
