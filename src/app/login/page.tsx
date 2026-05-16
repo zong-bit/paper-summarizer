@@ -31,7 +31,18 @@ export default function LoginPage() {
         router.push('/dashboard')
       }
     } catch (err: any) {
-      setError(err.message || 'Login failed')
+      // Classify errors for better user feedback
+      if (err?.status === 0 || err?.code === 'ERR_NETWORK' || err?.message?.includes('NetworkError') || err?.message?.includes('fetch failed')) {
+        setError('无法连接到服务器，请检查网络连接后重试')
+      } else if (err?.code === 'invalid_credentials' || err?.message?.includes('Invalid login credentials')) {
+        setError(err.message || '登录凭证错误，请检查邮箱和密码')
+      } else if (err?.code === 'user_not_found' || err?.message?.includes('User not found')) {
+        setError('该邮箱尚未注册，请先注册账号')
+      } else if (err?.code === 'email_not_confirmed') {
+        setError('该邮箱尚未验证，请检查邮箱完成验证')
+      } else {
+        setError(`登录失败（${err?.code || 'unknown'}）: ${err?.message || '未知错误，请稍后重试'}`)
+      }
     } finally {
       setLoading(false)
     }
@@ -56,7 +67,14 @@ export default function LoginPage() {
         alert('Check your email for the login link!')
       }
     } catch (err: any) {
-      setError(err.message || 'Failed to send login link')
+      // Classify errors for better user feedback
+      if (err?.status === 0 || err?.code === 'ERR_NETWORK' || err?.message?.includes('NetworkError') || err?.message?.includes('fetch failed')) {
+        setError('无法连接到服务器，请检查网络连接后重试')
+      } else if (err?.message?.includes('rate limit') || err?.code === 'rate_limit') {
+        setError('发送频率过高，请稍后再试')
+      } else {
+        setError(`发送登录链接失败（${err?.code || 'unknown'}）: ${err?.message || '未知错误，请稍后重试'}`)
+      }
     } finally {
       setSendingLink(false)
     }

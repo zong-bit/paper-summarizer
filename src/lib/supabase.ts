@@ -4,14 +4,19 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
+// Singleton instance to preserve auth session across calls
+let _supabaseClient: SupabaseClient | null = null
+
 // Client-side (browser) — uses anon key, for auth flows
 export function getSupabaseClient(): SupabaseClient {
+  if (_supabaseClient) return _supabaseClient
   if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error(
       'Supabase config missing: set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.production'
     )
   }
-  return createClient(supabaseUrl, supabaseAnonKey)
+  _supabaseClient = createClient(supabaseUrl, supabaseAnonKey)
+  return _supabaseClient
 }
 
 // Server-side (API routes) — uses service role key, bypasses RLS
