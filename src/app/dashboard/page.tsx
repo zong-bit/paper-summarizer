@@ -45,18 +45,22 @@ export default function DashboardPage() {
 
   const fetchData = useCallback(async (supabase: SupabaseClient) => {
     try {
-      const { data: { user: authUser } } = await supabase.auth.getUser()
-      if (!authUser) {
+      // Use getSession() instead of getUser() to avoid network requests
+      // getUser() makes an HTTP call to supabase.co to validate the JWT,
+      // which can fail/timing-out for users in China. getSession() reads
+      // the session from localStorage/memory and is much more reliable.
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session?.user) {
         router.push('/login')
         return
       }
-      setUser(authUser)
+      setUser(session.user)
 
       // Get profile
       const { data: profileData } = await supabase
         .from('users')
         .select('*')
-        .eq('id', authUser.id)
+        .eq('id', session.user.id)
         .single()
       setProfile(profileData)
 
@@ -64,7 +68,7 @@ export default function DashboardPage() {
       const { data: subData } = await supabase
         .from('subscriptions')
         .select('*')
-        .eq('user_id', authUser.id)
+        .eq('user_id', session.user.id)
         .eq('status', 'active')
         .order('created_at', { ascending: false })
         .limit(1)
@@ -75,7 +79,7 @@ export default function DashboardPage() {
       const { data: tokenData } = await supabase
         .from('tokens')
         .select('*')
-        .eq('user_id', authUser.id)
+        .eq('user_id', session.user.id)
         .is('expires_at', null)
         .or(`expires_at.gt.${new Date().toISOString()}`)
         .order('created_at', { ascending: false })
