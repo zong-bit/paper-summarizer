@@ -344,7 +344,7 @@
     "faqLostOrderId": "丢失了 Lemon Squeezy 订单 ID？",
     "faqLostOrderIdAns": "可在 Lemon Squeezy 购买确认邮件中找到。或联系我们（selina_zxw@qq.com），提供购买时使用的邮箱，我们可帮助查询。",
     "faqRefund": "可以退款吗？",
-    "faqRefundAnsGumroad": "<strong>Gumroad</strong>：购买后 30 天内可退款。<strong>Lemon Squeezy</strong>：请直接联系我们申请退款。退款后 Token 将被停用。",
+    "faqRefundAnsGumroad": "<strong>Refund Policy</strong>: As Paper Summarizer is a digital product, all sales are final and we do not offer refunds. Please confirm your needs before purchasing.",
     "faqBoth": "可以同时使用 Gumroad 和 Lemon Squeezy 的 Token 吗？",
     "faqBothAns": "当然可以。无论从何处购买，Token 使用方式相同。同一个 Token 可用于网页应用和 API。",
     "faqTrial": "有免费试用吗？",
