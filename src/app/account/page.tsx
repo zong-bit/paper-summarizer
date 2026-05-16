@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { getSupabaseClient } from '@/lib/supabase'
 import type { SupabaseClient, AuthUser } from '@supabase/supabase-js'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
 interface UserProfile {
   id: string
@@ -17,24 +19,19 @@ interface Subscription {
   id: string
   user_id: string
   plan: string
-  gumroad_order_id: string | null
   status: string
   expires_at: string | null
-  created_at: string
 }
 
 interface Token {
   id: string
   token: string
-  user_id: string
-  plan: string
   max_requests: number
   used_requests: number
   expires_at: string | null
-  created_at: string
 }
 
-export default function DashboardPage() {
+export default function AccountPage() {
   const router = useRouter()
   const [user, setUser] = useState<AuthUser | null>(null)
   const [profile, setProfile] = useState<UserProfile | null>(null)
@@ -45,18 +42,13 @@ export default function DashboardPage() {
 
   const fetchData = useCallback(async (supabase: SupabaseClient) => {
     try {
-      // Use getSession() instead of getUser() to avoid network requests
-      // getUser() makes an HTTP call to supabase.co to validate the JWT,
-      // which can fail/timing-out for users in China. getSession() reads
-      // the session from localStorage/memory and is much more reliable.
       const { data: { session } } = await supabase.auth.getSession()
       if (!session?.user) {
-        router.push('/account')
+        router.push('/login')
         return
       }
       setUser(session.user)
 
-      // Get profile
       const { data: profileData } = await supabase
         .from('users')
         .select('*')
@@ -64,7 +56,6 @@ export default function DashboardPage() {
         .single()
       setProfile(profileData)
 
-      // Get active subscription
       const { data: subData } = await supabase
         .from('subscriptions')
         .select('*')
@@ -75,7 +66,6 @@ export default function DashboardPage() {
         .single()
       setSubscription(subData)
 
-      // Get active tokens
       const { data: tokenData } = await supabase
         .from('tokens')
         .select('*')
@@ -85,18 +75,7 @@ export default function DashboardPage() {
         .order('created_at', { ascending: false })
       setTokens(tokenData || [])
     } catch (err: any) {
-      // Classify errors for better user feedback
-      if (err?.message?.includes('getSession') || err?.message?.includes('session')) {
-        setError('Session not found, please try logging in again')
-      } else if (err?.message?.includes('users') || err?.code === 'PGRST301') {
-        setError(`查询 users 表失败: ${err?.message || '未知错误'}`)
-      } else if (err?.message?.includes('subscriptions') || err?.code === 'PGRST301') {
-        setError(`查询 subscriptions 表失败: ${err?.message || '未知错误'}`)
-      } else if (err?.message?.includes('tokens') || err?.code === 'PGRST301') {
-        setError(`查询 tokens 表失败: ${err?.message || '未知错误'}`)
-      } else {
-        setError(`加载数据失败: ${err?.message || '未知错误'}`)
-      }
+      setError(err?.message || 'Failed to load account data')
     } finally {
       setLoading(false)
     }
@@ -108,7 +87,7 @@ export default function DashboardPage() {
 
     const { data: { subscription: authSub } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!session) {
-        router.push('/account')
+        router.push('/login')
       }
     })
 
@@ -154,35 +133,10 @@ export default function DashboardPage() {
     : 0
 
   return (
-    <div className="min-h-screen bg-bg">
-      <header className="border-b border-border bg-bg-card/50 sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-text hover:text-primary transition-colors">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <span className="font-bold text-lg">Paper Summarizer</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 text-sm text-text-secondary">
-              <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center text-primary font-bold text-sm">
-                {(profile?.name || profile?.email || 'U').charAt(0).toUpperCase()}
-              </div>
-              <span className="hidden sm:inline">{profile?.name || profile?.email}</span>
-            </div>
-            <button
-              onClick={handleSignOut}
-              className="px-3 py-1.5 text-sm text-text-secondary hover:text-error transition-colors"
-            >
-              Sign Out
-            </button>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-bg flex flex-col">
+      <Navbar currentPage="account" />
 
-      <main className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+      <main className="flex-1 max-w-4xl mx-auto px-4 py-8 space-y-8 w-full">
         {/* Welcome */}
         <div className="space-y-2">
           <h1 className="text-2xl font-bold text-text">
@@ -327,7 +281,19 @@ export default function DashboardPage() {
             <div className="text-sm text-text-secondary mt-1">Get unlimited summaries</div>
           </Link>
         </div>
+
+        {/* Sign Out */}
+        <div className="text-center">
+          <button
+            onClick={handleSignOut}
+            className="px-6 py-2 text-error hover:bg-error/10 rounded-xl transition-colors font-medium"
+          >
+            Sign Out
+          </button>
+        </div>
       </main>
+
+      <Footer />
     </div>
   )
 }

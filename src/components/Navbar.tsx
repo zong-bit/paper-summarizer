@@ -55,9 +55,9 @@ export default function Navbar({ currentPage }: NavbarProps) {
           ) : user ? (
             <>
               <Link
-                href="/dashboard"
+                href="/account"
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors border ${
-                  currentPage === 'dashboard'
+                  currentPage === 'account'
                     ? 'bg-primary/10 text-primary border-primary/20'
                     : 'bg-bg-hover hover:bg-border text-text-secondary border-border'
                 }`}

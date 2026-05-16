@@ -38,12 +38,8 @@ export default function SignupPage() {
 
       if (data.user) {
         setSuccess(true)
-        // If email confirmation is not required, redirect to dashboard
-        if (!data.user.email_confirmed_at) {
-          // Email confirmation required
-        } else {
-          router.push('/dashboard')
-        }
+        // Email confirmation required — redirect to login
+        router.push('/login')
       }
     } catch (err: any) {
       setError(err.message || 'Registration failed')

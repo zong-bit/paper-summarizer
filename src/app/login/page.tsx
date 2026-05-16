@@ -21,7 +21,7 @@ export default function LoginPage() {
         const supabase = getSupabaseClient()
         const { data: { session } } = await supabase.auth.getSession()
         if (session?.user) {
-          router.replace('/dashboard')
+          router.replace('/')
           return
         }
       } catch (err) {
@@ -52,7 +52,7 @@ export default function LoginPage() {
       if (error) {
         setError(error.message)
       } else {
-        router.push('/dashboard')
+        router.push('/')
       }
     } catch (err: any) {
       // Log full error for debugging
@@ -84,7 +84,7 @@ export default function LoginPage() {
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${window.location.origin}/dashboard`,
+          emailRedirectTo: `${window.location.origin}/`,
         },
       })
 
