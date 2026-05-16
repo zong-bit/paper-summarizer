@@ -4,19 +4,26 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-// Singleton instance to preserve auth session across calls
-let _supabaseClient: SupabaseClient | null = null
+// Global singleton key to survive Next.js chunk bundary
+const GLOBAL_KEY = '__paper_summarizer_supabase_client'
 
 // Client-side (browser) — uses anon key, for auth flows
 export function getSupabaseClient(): SupabaseClient {
-  if (_supabaseClient) return _supabaseClient
+  // Use globalThis to share instance across Next.js chunk boundaries
+  // (module-level singletons get duplicated per chunk during code-splitting)
+  if (typeof globalThis !== 'undefined' && (globalThis as any)[GLOBAL_KEY]) {
+    return (globalThis as any)[GLOBAL_KEY]
+  }
   if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error(
       'Supabase config missing: set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.production'
     )
   }
-  _supabaseClient = createClient(supabaseUrl, supabaseAnonKey)
-  return _supabaseClient
+  const client = createClient(supabaseUrl, supabaseAnonKey)
+  if (typeof globalThis !== 'undefined') {
+    (globalThis as any)[GLOBAL_KEY] = client
+  }
+  return client
 }
 
 // Server-side (API routes) — uses service role key, bypasses RLS
