@@ -3,10 +3,11 @@
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { getSupabaseClient } from '@/lib/supabase'
+import { getSupabaseClient, checkAndExpireSubscription } from '@/lib/supabase'
 import type { SupabaseClient, AuthUser } from '@supabase/supabase-js'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { useTranslation } from '@/i18n/provider'
 
 interface UserProfile {
   id: string
@@ -33,6 +34,7 @@ interface Token {
 
 export default function AccountPage() {
   const router = useRouter()
+  const { t } = useTranslation()
   const [user, setUser] = useState<AuthUser | null>(null)
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [subscription, setSubscription] = useState<Subscription | null>(null)
@@ -64,7 +66,23 @@ export default function AccountPage() {
         .order('created_at', { ascending: false })
         .limit(1)
         .single()
-      setSubscription(subData)
+
+      // Check if subscription has expired
+      if (subData) {
+        await checkAndExpireSubscription(supabase, subData)
+        // Refresh subscription data after potential update
+        const { data: refreshedSub } = await supabase
+          .from('subscriptions')
+          .select('*')
+          .eq('user_id', session.user.id)
+          .eq('status', 'active')
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .single()
+        setSubscription(refreshedSub)
+      } else {
+        setSubscription(subData)
+      }
 
       const { data: tokenData } = await supabase
         .from('tokens')
@@ -105,7 +123,7 @@ export default function AccountPage() {
       <div className="min-h-screen flex items-center justify-center bg-bg">
         <div className="text-center space-y-4">
           <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto"></div>
-          <p className="text-text-secondary">Loading...</p>
+          <p className="text-text-secondary">{t('common.loading')}</p>
         </div>
       </div>
     )
@@ -118,7 +136,7 @@ export default function AccountPage() {
           <div className="text-4xl">⚠️</div>
           <p className="text-error">{error}</p>
           <Link href="/" className="inline-block px-6 py-2 bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors">
-            Go Home
+            {t('common.backToHome')}
           </Link>
         </div>
       </div>
@@ -126,7 +144,7 @@ export default function AccountPage() {
   }
 
   const totalRequests = subscription?.plan === 'pro' ? Infinity : 3
-  const usedRequests = tokens.length > 0 ? tokens.reduce((sum, t) => sum + t.used_requests, 0) : 0
+  const usedRequests = tokens.length > 0 ? tokens.reduce((sum, tok) => sum + tok.used_requests, 0) : 0
   const remainingRequests = subscription?.plan === 'pro' ? Infinity : Math.max(0, 3 - usedRequests)
   const progressPercent = subscription?.plan === 'free'
     ? Math.min(100, (usedRequests / 3) * 100)
@@ -140,32 +158,55 @@ export default function AccountPage() {
         {/* Welcome */}
         <div className="space-y-2">
           <h1 className="text-2xl font-bold text-text">
-            Welcome{profile?.name ? `, ${profile.name}` : ''}!
+            {t('account.welcome')}{profile?.name ? `, ${profile.name}` : ''}!
           </h1>
-          <p className="text-text-secondary">Manage your account and usage</p>
+          <p className="text-text-secondary">{t('account.manageAccount')}</p>
         </div>
 
         {/* Plan Card */}
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-bold text-text">Your Plan</h2>
-              <p className="text-text-secondary text-sm">{subscription?.plan === 'pro' ? 'Pro' : 'Free'}</p>
+              <h2 className="text-lg font-bold text-text">{t('account.yourPlan')}</h2>
+              <p className="text-text-secondary text-sm">
+                {subscription?.plan === 'pro' ? t('account.pro') : t('account.free')}
+              </p>
             </div>
             {subscription?.plan === 'free' && (
               <Link
                 href="/premium"
                 className="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-xl text-sm font-medium transition-colors"
               >
-                Upgrade to Pro
+                {t('account.upgradeToPro')}
               </Link>
             )}
           </div>
 
+          {/* Subscription expiry info */}
+          {subscription?.status === 'active' && subscription?.expires_at && (
+            <div className="text-sm">
+              {new Date(subscription.expires_at) <= new Date() ? (
+                <p className="text-error">
+                  {t('account.expiredOn', { date: new Date(subscription.expires_at).toLocaleDateString('zh-CN') })}
+                </p>
+              ) : (
+                <p className="text-text-secondary">
+                  {t('account.validUntil', { date: new Date(subscription.expires_at).toLocaleDateString('zh-CN') })}
+                </p>
+              )}
+            </div>
+          )}
+          {subscription?.status === 'active' && !subscription?.expires_at && (
+            <p className="text-sm text-text-secondary">{t('account.lifetime')}</p>
+          )}
+          {subscription?.status === 'expired' && (
+            <p className="text-error text-sm">{t('account.subscriptionExpired')}</p>
+          )}
+
           {subscription?.plan === 'free' && (
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-text-secondary">Free summaries today</span>
+                <span className="text-text-secondary">{t('account.freeSummariesToday')}</span>
                 <span className="text-text font-medium">
                   {usedRequests} / 3
                 </span>
@@ -178,8 +219,8 @@ export default function AccountPage() {
               </div>
               <p className="text-xs text-text-secondary">
                 {remainingRequests === 0
-                  ? 'Daily limit reached. Upgrade to Pro for unlimited summaries.'
-                  : `${remainingRequests} free summaries remaining today`}
+                  ? t('account.dailyLimitReached')
+                  : `${remainingRequests} ${t('account.freeSummariesRemaining')}`}
               </p>
             </div>
           )}
@@ -187,25 +228,25 @@ export default function AccountPage() {
           {subscription?.plan === 'pro' && (
             <div className="flex items-center gap-2 text-green-500 text-sm">
               <span>✓</span>
-              <span>Unlimited summaries</span>
+              <span>{t('account.unlimitedSummaries')}</span>
             </div>
           )}
         </div>
 
         {/* Account Info */}
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
-          <h2 className="text-lg font-bold text-text">Account Info</h2>
+          <h2 className="text-lg font-bold text-text">{t('account.accountInfo')}</h2>
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
-              <span className="text-text-secondary">Email</span>
+              <span className="text-text-secondary">{t('account.email')}</span>
               <span className="text-text">{profile?.email}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-text-secondary">Name</span>
+              <span className="text-text-secondary">{t('account.name')}</span>
               <span className="text-text">{profile?.name || 'Not set'}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-text-secondary">Member since</span>
+              <span className="text-text-secondary">{t('account.memberSince')}</span>
               <span className="text-text">
                 {profile?.created_at
                   ? new Date(profile.created_at).toLocaleDateString('zh-CN')
@@ -218,29 +259,29 @@ export default function AccountPage() {
         {/* Active Tokens */}
         {tokens.length > 0 && (
           <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
-            <h2 className="text-lg font-bold text-text">Active Tokens</h2>
+            <h2 className="text-lg font-bold text-text">{t('account.activeTokens')}</h2>
             <div className="space-y-3">
-              {tokens.map((t) => {
-                const isExpired = t.expires_at && new Date(t.expires_at) < new Date()
-                const progress = t.max_requests > 0 ? (t.used_requests / t.max_requests) * 100 : 0
+              {tokens.map((tok) => {
+                const isExpired = tok.expires_at && new Date(tok.expires_at) < new Date()
+                const progress = tok.max_requests > 0 ? (tok.used_requests / tok.max_requests) * 100 : 0
 
                 return (
-                  <div key={t.id} className={`border border-border rounded-xl p-4 space-y-2 ${isExpired ? 'opacity-50' : ''}`}>
+                  <div key={tok.id} className={`border border-border rounded-xl p-4 space-y-2 ${isExpired ? 'opacity-50' : ''}`}>
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-sm text-text bg-bg px-2 py-1 rounded">
-                        {t.token.slice(0, 12)}...
+                        {tok.token.slice(0, 12)}...
                       </span>
                       <span className={`text-xs px-2 py-0.5 rounded-full ${
                         isExpired ? 'bg-error/10 text-error' : 'bg-green-500/10 text-green-500'
                       }`}>
-                        {isExpired ? 'Expired' : 'Active'}
+                        {isExpired ? t('account.expired') : t('account.active')}
                       </span>
                     </div>
-                    {t.max_requests > 0 && (
+                    {tok.max_requests > 0 && (
                       <div className="space-y-1">
                         <div className="flex justify-between text-xs text-text-secondary">
-                          <span>Usage</span>
-                          <span>{t.used_requests} / {t.max_requests}</span>
+                          <span>{t('account.tokenUsage')}</span>
+                          <span>{tok.used_requests} / {tok.max_requests}</span>
                         </div>
                         <div className="w-full bg-border rounded-full h-1.5">
                           <div
@@ -250,9 +291,9 @@ export default function AccountPage() {
                         </div>
                       </div>
                     )}
-                    {t.expires_at && (
+                    {tok.expires_at && (
                       <p className="text-xs text-text-secondary">
-                        Expires: {new Date(t.expires_at).toLocaleDateString('zh-CN')}
+                        {t('account.tokenExpiry', { date: new Date(tok.expires_at).toLocaleDateString('zh-CN') })}
                       </p>
                     )}
                   </div>
@@ -269,16 +310,16 @@ export default function AccountPage() {
             className="bg-bg-card border border-border rounded-2xl p-6 text-center hover:border-primary/40 transition-all group"
           >
             <div className="text-3xl mb-2">📝</div>
-            <div className="font-semibold text-text group-hover:text-primary transition-colors">Start Summarizing</div>
-            <div className="text-sm text-text-secondary mt-1">Go to the main tool</div>
+            <div className="font-semibold text-text group-hover:text-primary transition-colors">{t('account.startSummarizing')}</div>
+            <div className="text-sm text-text-secondary mt-1">{t('account.goToMainTool')}</div>
           </Link>
           <Link
             href="/premium"
             className="bg-bg-card border border-border rounded-2xl p-6 text-center hover:border-primary/40 transition-all group"
           >
             <div className="text-3xl mb-2">⭐</div>
-            <div className="font-semibold text-text group-hover:text-primary transition-colors">Upgrade to Pro</div>
-            <div className="text-sm text-text-secondary mt-1">Get unlimited summaries</div>
+            <div className="font-semibold text-text group-hover:text-primary transition-colors">{t('account.upgradeToPro')}</div>
+            <div className="text-sm text-text-secondary mt-1">{t('account.getUnlimited')}</div>
           </Link>
         </div>
 
@@ -288,7 +329,7 @@ export default function AccountPage() {
             onClick={handleSignOut}
             className="px-6 py-2 text-error hover:bg-error/10 rounded-xl transition-colors font-medium"
           >
-            Sign Out
+            {t('account.signOut')}
           </button>
         </div>
       </main>

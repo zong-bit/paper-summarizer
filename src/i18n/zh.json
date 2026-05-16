@@ -386,5 +386,35 @@
       "writing": "📝 写作",
       "productivity": "⚡ 效率"
     }
+  },
+  "account": {
+    "welcome": "欢迎",
+    "manageAccount": "管理您的账户和使用情况",
+    "yourPlan": "我的套餐",
+    "pro": "Pro",
+    "free": "免费",
+    "upgradeToPro": "升级 Pro",
+    "freeSummariesToday": "今日免费总结",
+    "unlimitedSummaries": "无限总结",
+    "dailyLimitReached": "已到达每日限制。升级到 Pro 以享受无限总结。",
+    "freeSummariesRemaining": "今日剩余免费总结次数",
+    "accountInfo": "账号信息",
+    "email": "邮箱",
+    "name": "名称",
+    "memberSince": "注册于",
+    "activeTokens": "有效Token",
+    "tokenExpiry": "过期时间：{date}",
+    "tokenUsage": "使用情况",
+    "expired": "已过期",
+    "active": "有效",
+    "startSummarizing": "开始总结",
+    "goToMainTool": "前往主工具",
+    "getUnlimited": "享受无限总结",
+    "signOut": "退出登录",
+    "validUntil": "有效期至 {date}",
+    "expiredOn": "已于 {date} 过期",
+    "lifetime": "终身有效",
+    "noExpiration": "无过期时间",
+    "subscriptionExpired": "订阅已过期"
   }
 }

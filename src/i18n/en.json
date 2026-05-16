@@ -386,5 +386,35 @@
       "writing": "📝 Writing",
       "productivity": "⚡ Productivity"
     }
+  },
+  "account": {
+    "welcome": "Welcome",
+    "manageAccount": "Manage your account and usage",
+    "yourPlan": "Your Plan",
+    "pro": "Pro",
+    "free": "Free",
+    "upgradeToPro": "Upgrade to Pro",
+    "freeSummariesToday": "Free summaries today",
+    "unlimitedSummaries": "Unlimited summaries",
+    "dailyLimitReached": "Daily limit reached. Upgrade to Pro for unlimited summaries.",
+    "freeSummariesRemaining": "free summaries remaining today",
+    "accountInfo": "Account Info",
+    "email": "Email",
+    "name": "Name",
+    "memberSince": "Member since",
+    "activeTokens": "Active Tokens",
+    "tokenExpiry": "Expires: {date}",
+    "tokenUsage": "Usage",
+    "expired": "Expired",
+    "active": "Active",
+    "startSummarizing": "Start Summarizing",
+    "goToMainTool": "Go to the main tool",
+    "getUnlimited": "Get unlimited summaries",
+    "signOut": "Sign Out",
+    "validUntil": "Valid until {date}",
+    "expiredOn": "Expired on {date}",
+    "lifetime": "Lifetime",
+    "noExpiration": "No expiration",
+    "subscriptionExpired": "Subscription expired"
   }
 }
