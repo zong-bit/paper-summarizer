@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { getSupabaseClient, checkAndExpireSubscription } from '@/lib/supabase'
 import type { SupabaseClient, AuthUser } from '@supabase/supabase-js'
-import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { useTranslation } from '@/i18n/provider'
 
@@ -152,8 +151,6 @@ export default function AccountPage() {
 
   return (
     <div className="min-h-screen bg-bg flex flex-col">
-      <Navbar currentPage="account" />
-
       <main className="flex-1 max-w-4xl mx-auto px-4 py-8 space-y-8 w-full">
         {/* Welcome */}
         <div className="space-y-2">

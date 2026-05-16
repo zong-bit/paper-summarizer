@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { I18nProvider } from '@/i18n/provider'
+import Navbar from '@/components/Navbar'
 
 const BASE_URL = 'https://www.summarizeai.app'
 
@@ -82,6 +83,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-bg">
         <I18nProvider>
+          <Navbar />
           {children}
         </I18nProvider>
         <Analytics />
