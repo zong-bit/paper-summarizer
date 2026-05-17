@@ -1,0 +1,5 @@
+sdk: docker
+app_port: 3000
+models:
+  - deepseek-ai/DeepSeek-V4
+fullWidth: true

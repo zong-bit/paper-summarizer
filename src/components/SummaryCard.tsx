@@ -10,6 +10,7 @@ interface SummaryCardProps {
     conclusion: string
     _rate?: { remaining: number; resetIn: number }
   }
+  title?: string
 }
 
 const SHARE_MESSAGE = 'I just used AI to summarize a research paper in seconds! Try it free at summarizai.app'
@@ -72,9 +73,43 @@ function ShareButtons({ onShare }: { onShare: () => void }) {
   )
 }
 
-export default function SummaryCard({ summary }: SummaryCardProps) {
+export default function SummaryCard({ summary, title }: SummaryCardProps) {
   const [copied, setCopied] = useState(false)
   const [shared, setShared] = useState(0)
+  const [exporting, setExporting] = useState(false)
+
+  const handleExportPdf = async () => {
+    setExporting(true)
+    try {
+      const pdfTitle = title || 'Research Paper Summary'
+      const res = await fetch('/api/export-pdf', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: pdfTitle,
+          oneSentence: summary.oneSentence,
+          keyFindings: summary.keyFindings,
+          methodology: summary.methodology,
+          conclusion: summary.conclusion,
+        }),
+      })
+      if (!res.ok) throw new Error('Export failed')
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      const safeName = pdfTitle.replace(/[^a-zA-Z0-9\u4e00-\u9fff\s-]/g, '').replace(/\s+/g, '-').toLowerCase().slice(0, 80)
+      a.download = `${safeName}.pdf`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+    } catch (err) {
+      console.error('PDF export error:', err)
+    } finally {
+      setExporting(false)
+    }
+  }
 
   const copyToClipboard = async () => {
     const text = `Summary: ${summary.oneSentence}\n\nKey Findings:\n${summary.keyFindings.map((f, i) => `${i + 1}. ${f}`).join('\n')}\n\nMethodology: ${summary.methodology}\n\nConclusion: ${summary.conclusion}`
@@ -104,10 +139,29 @@ export default function SummaryCard({ summary }: SummaryCardProps) {
     <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-text">Paper Summary</h2>
-        <button
-          onClick={copyToClipboard}
-          className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg transition-colors text-sm font-medium"
-        >
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleExportPdf}
+            disabled={exporting}
+            className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-500 disabled:bg-green-800 text-white rounded-lg transition-colors text-sm font-medium"
+            title="Export as PDF"
+          >
+            {exporting ? (
+              <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            ) : (
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707v1.591a1 1 0 01-.293.707l-3 3a2 2 0 01-1.414.586 2 2 0 01-1.414-.586z" />
+              </svg>
+            )}
+            {exporting ? 'Exporting...' : 'Export PDF'}
+          </button>
+          <button
+            onClick={copyToClipboard}
+            className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg transition-colors text-sm font-medium"
+          >
           {copied ? (
             <>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,6 +179,7 @@ export default function SummaryCard({ summary }: SummaryCardProps) {
           )}
         </button>
       </div>
+    </div>
 
       <div className="space-y-4">
         <div>

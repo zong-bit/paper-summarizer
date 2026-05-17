@@ -1,12 +1,19 @@
-// Simple token-based paywall system
-// Tokens are stored as a JSON file on disk — no external dependencies needed.
+// Token storage — uses Supabase tokens table (serverless-safe)
+// Tokens table: id, token (unique), user_id, plan, max_requests, used_requests, expires_at
 
-import fs from 'fs'
-import path from 'path'
+import { getSupabaseAdmin } from '@/lib/supabase'
 
-// Use /tmp on Vercel (read-only filesystem), or ./data locally
-const DATA_DIR = process.env.VERCEL ? path.join('/tmp', 'data') : path.join(process.cwd(), 'data')
-const TOKENS_FILE = path.join(DATA_DIR, 'tokens.json')
+interface TokenRow {
+  id: string
+  token: string
+  user_id: string | null
+  plan: string
+  max_requests: number
+  used_requests: number
+  expires_at: string | null
+  created_at: string
+  updated_at: string
+}
 
 interface TokenEntry {
   token: string
@@ -18,50 +25,146 @@ interface TokenEntry {
   expiresAt?: string
 }
 
-interface TokensStore {
-  tokens: TokenEntry[]
-}
-
-function ensureFile() {
-  const dir = path.dirname(TOKENS_FILE)
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true })
+/**
+ * Map a Supabase token row to our TokenEntry shape.
+ */
+function rowToEntry(row: TokenRow): TokenEntry {
+  return {
+    token: row.token,
+    name: '', // not stored in Supabase tokens table
+    plan: row.plan as 'pro' | 'free',
+    maxRequests: row.max_requests,
+    windowMs: 24 * 60 * 60 * 1000, // default daily window
+    createdAt: row.created_at,
+    expiresAt: row.expires_at || undefined,
   }
-  if (!fs.existsSync(TOKENS_FILE)) {
-    fs.writeFileSync(TOKENS_FILE, JSON.stringify({ tokens: [] }, null, 2))
+}
+
+/**
+ * Create a token in Supabase tokens table.
+ * For webhook flows (no user_id), we store with user_id = null and track it externally.
+ */
+export async function createToken(planId: PlanId, name?: string): Promise<TokenEntry> {
+  const plan = PLANS[planId]
+  if (!plan) {
+    throw new Error(`Unknown plan: ${planId}`)
+  }
+  const expiresAt = new Date(Date.now() + plan.expiryDays * 24 * 60 * 60 * 1000).toISOString()
+  const token = generateToken()
+
+  const supabase = getSupabaseAdmin()
+  const result = await supabase
+    .from('tokens')
+    .insert({
+      token,
+      user_id: null, // webhook-created tokens have no user association yet
+      plan: plan.plan as 'pro' | 'free',
+      max_requests: plan.maxRequests,
+      used_requests: 0,
+      expires_at: expiresAt,
+    })
+    .select()
+    .single()
+
+  if (result.error) {
+    console.error('[tokens] createToken error:', result.error)
+    throw result.error
+  }
+
+  const data = result.data
+  return {
+    token: data.token,
+    name: name || plan.name,
+    plan: data.plan as 'pro' | 'free',
+    maxRequests: data.max_requests,
+    windowMs: plan.windowMs,
+    createdAt: data.created_at,
+    expiresAt: data.expires_at || undefined,
   }
 }
 
-export function getTokens(): TokenEntry[] {
-  ensureFile()
-  const raw = fs.readFileSync(TOKENS_FILE, 'utf-8')
-  return JSON.parse(raw).tokens
-}
+/**
+ * Add a token to Supabase (used by afdian-webhook).
+ */
+export async function addToken(entry: Omit<TokenEntry, 'createdAt'>): Promise<TokenEntry> {
+  const supabase = getSupabaseAdmin()
+  const result = await supabase
+    .from('tokens')
+    .insert({
+      token: entry.token,
+      user_id: null,
+      plan: entry.plan,
+      max_requests: entry.maxRequests,
+      used_requests: 0,
+      expires_at: entry.expiresAt || null,
+    })
+    .select()
+    .single()
 
-export function addToken(entry: Omit<TokenEntry, 'createdAt'>): TokenEntry {
-  ensureFile()
-  const tokens = getTokens()
-  const newEntry: TokenEntry = {
-    ...entry,
-    createdAt: new Date().toISOString(),
+  if (result.error) {
+    console.error('[tokens] addToken error:', result.error)
+    throw result.error
   }
-  tokens.push(newEntry)
-  fs.writeFileSync(TOKENS_FILE, JSON.stringify({ tokens }, null, 2))
-  return newEntry
+
+  const data = result.data
+  return {
+    token: data.token,
+    name: entry.name,
+    plan: data.plan as 'pro' | 'free',
+    maxRequests: data.max_requests,
+    windowMs: entry.windowMs,
+    createdAt: data.created_at,
+    expiresAt: data.expires_at || undefined,
+  }
 }
 
-export function findToken(token: string): TokenEntry | null {
-  const tokens = getTokens()
-  return tokens.find(t => t.token === token) ?? null
+/**
+ * Find a token by its token string.
+ * Note: callers must await this. Returns null if not found.
+ */
+export async function findToken(tokenStr: string): Promise<TokenEntry | null> {
+  const supabase = getSupabaseAdmin()
+  const { data, error } = await supabase
+    .from('tokens')
+    .select('*')
+    .eq('token', tokenStr)
+    .single()
+
+  if (error || !data) return null
+  return rowToEntry(data)
 }
 
-export function removeToken(token: string): boolean {
-  ensureFile()
-  const tokens = getTokens()
-  const filtered = tokens.filter(t => t.token !== token)
-  if (filtered.length === tokens.length) return false
-  fs.writeFileSync(TOKENS_FILE, JSON.stringify({ tokens: filtered }, null, 2))
-  return true
+/**
+ * Remove a token from Supabase.
+ */
+export async function removeToken(tokenStr: string): Promise<boolean> {
+  const supabase = getSupabaseAdmin()
+  const { error } = await supabase
+    .from('tokens')
+    .delete()
+    .eq('token', tokenStr)
+
+  return !error
+}
+
+/**
+ * List all tokens from Supabase.
+ */
+export async function listTokens(): Promise<{ id: string; name: string; plan: string; createdAt: string; expiresAt?: string }[]> {
+  const supabase = getSupabaseAdmin()
+  const { data, error } = await supabase
+    .from('tokens')
+    .select('token, plan, created_at, expires_at')
+
+  if (error || !data) return []
+
+  return data.map(t => ({
+    id: t.token,
+    name: '',
+    plan: t.plan,
+    createdAt: t.created_at,
+    expiresAt: t.expires_at || undefined,
+  }))
 }
 
 /**
@@ -81,7 +184,7 @@ export const PLANS = {
     name: 'Pro Monthly',
     price: 9.99,
     maxRequests: 500,
-    windowMs: 24 * 60 * 60 * 1000, // daily
+    windowMs: 24 * 60 * 60 * 1000,
     expiryDays: 30,
     plan: 'pro',
   },
@@ -89,42 +192,10 @@ export const PLANS = {
     name: 'Pro Yearly',
     price: 79.99,
     maxRequests: 500,
-    windowMs: 24 * 60 * 60 * 1000, // daily
+    windowMs: 24 * 60 * 60 * 1000,
     expiryDays: 365,
     plan: 'pro',
   },
 } as const
 
 export type PlanId = keyof typeof PLANS
-
-/**
- * Create a token for a given plan.
- * Generates the token string, sets up maxRequests/windowMs/expiry based on the plan.
- */
-export function createToken(planId: PlanId, name?: string): TokenEntry {
-  const plan = PLANS[planId]
-  if (!plan) {
-    throw new Error(`Unknown plan: ${planId}`)
-  }
-  const expiresAt = new Date(Date.now() + plan.expiryDays * 24 * 60 * 60 * 1000).toISOString()
-  const token = generateToken()
-  return addToken({
-    token,
-    name: name || plan.name,
-    plan: plan.plan as 'pro' | 'free',
-    maxRequests: plan.maxRequests,
-    windowMs: plan.windowMs,
-    expiresAt,
-  })
-}
-
-export function listTokens(): { id: string; name: string; plan: string; createdAt: string; expiresAt?: string }[] {
-  const tokens = getTokens()
-  return tokens.map(t => ({
-    id: t.token,
-    name: t.name,
-    plan: t.plan,
-    createdAt: t.createdAt,
-    expiresAt: t.expiresAt,
-  }))
-}

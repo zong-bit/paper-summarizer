@@ -57,14 +57,14 @@ function incrementFreeDailyUsage(ip: string): number {
 }
 
 // ── Token / Pro verification helper ──
-function extractProToken(request: Request): { token: string | null; isPro: boolean } {
+async function extractProToken(request: Request): Promise<{ token: string | null; isPro: boolean }> {
   // Check Authorization header first
   const authHeader = request.headers.get('authorization') || ''
   const tokenMatch = authHeader.match(/^Bearer\s+(\S+)$/)
   const userToken = tokenMatch ? tokenMatch[1] : null
 
   if (userToken) {
-    const tokenEntry = findToken(userToken)
+    const tokenEntry = await findToken(userToken)
     if (tokenEntry) {
       // Check expiry
       if (tokenEntry.expiresAt && new Date(tokenEntry.expiresAt) < new Date()) {
@@ -88,7 +88,7 @@ export async function POST(request: Request) {
     const { text } = await request.json()
 
     // ── 1. Check Pro token ──
-    const { isPro } = extractProToken(request)
+    const { isPro } = await extractProToken(request)
 
     // ── 2. Rate limiting ──
     if (!isPro) {

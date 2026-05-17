@@ -236,28 +236,7 @@ export default function PremiumPage() {
             </div>
           </div>
 
-          {/* Lemon Squeezy Payment */}
-          <div className="bg-bg-card border border-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl p-6 space-y-4">
-            <h2 className="text-xl font-semibold text-text">{t('premium.payment.lemonSqueezy')}</h2>
-            <p className="text-text-secondary text-sm">
-              {t('premium.payment.lemonSqueezyDesc')}
-            </p>
 
-            <Link
-              href="/buy"
-              className="flex items-center justify-center gap-3 px-6 py-3.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl font-semibold text-lg transition-all shadow-lg hover:shadow-xl block text-center"
-            >
-              {t('premium.payment.goLemonSqueezy')}
-            </Link>
-
-            <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4 text-sm text-text-secondary">
-              <strong className="text-text">{t('premium.payment.lsPlans')}</strong>
-              <ul className="mt-2 space-y-1 list-disc list-inside">
-                <li>{t('premium.payment.lsMonthly')}</li>
-                <li>{t('premium.payment.lsYearly')}</li>
-              </ul>
-            </div>
-          </div>
 
           {/* Paddle Payment */}
           <div className="bg-bg-card border border-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl p-6 space-y-4">
@@ -340,12 +319,7 @@ export default function PremiumPage() {
               >
                 {t('premium.buyGumroad')}
               </Link>
-              <Link
-                href="/buy#lemon-squeezy"
-                className="block text-center py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-medium transition-colors"
-              >
-                {t('premium.buyLemonSqueezy')}
-              </Link>
+
               <Link
                 href="/buy"
                 className="block text-center py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors"

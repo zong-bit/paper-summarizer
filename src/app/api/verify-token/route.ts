@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ valid: false, error: 'Missing token parameter' }, { status: 400 })
   }
 
-  const entry = findToken(token)
+  const entry = await findToken(token)
 
   if (!entry) {
     return NextResponse.json(
@@ -74,7 +74,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ valid: false, error: 'Missing token' }, { status: 400 })
   }
 
-  const entry = findToken(token)
+  const entry = await findToken(token)
 
   if (!entry) {
     return NextResponse.json(

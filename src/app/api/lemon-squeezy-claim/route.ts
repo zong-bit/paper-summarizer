@@ -1,42 +1,57 @@
 import { NextResponse } from 'next/server'
 import { findToken } from '@/lib/tokens'
-import fs from 'fs'
-import path from 'path'
-
-const DATA_DIR = process.env.VERCEL ? path.join('/tmp', 'data') : path.join(process.cwd(), 'data')
-const SALE_FILE = path.join(DATA_DIR, 'lemon_squeezy_sales.json')
+import { getSupabaseAdmin } from '@/lib/supabase'
 
 interface LemonSqueezySale {
-  orderId: string
-  orderNumber: number
+  order_id: string
+  order_number: number
   email: string
-  variantName: string
-  variantId: number
+  variant_name: string
+  variant_id: number
   plan: string
   token: string
   total: number
   currency: string
-  paidAt: string
-  expiresAt: string
+  paid_at: string
+  expires_at: string | null
   refunded: boolean
-  subscriptionId?: string
-  subscriptionStatus?: string
+  subscription_id?: string
+  subscription_status?: string
 }
 
-function loadSales(): LemonSqueezySale[] {
-  try {
-    if (!fs.existsSync(SALE_FILE)) return []
-    return JSON.parse(fs.readFileSync(SALE_FILE, 'utf-8'))
-  } catch {
-    return []
+async function getLSSale(orderId: string): Promise<LemonSqueezySale | null> {
+  const supabase = getSupabaseAdmin()
+
+  // Try by order_id first
+  let { data } = await supabase
+    .from('lemon_squeezy_sales')
+    .select('*')
+    .eq('order_id', orderId)
+    .maybeSingle()
+  if (data) return data as unknown as LemonSqueezySale
+
+  // Try by order_number
+  const orderNumber = parseInt(orderId, 10)
+  if (!isNaN(orderNumber)) {
+    ;({ data } = await supabase
+      .from('lemon_squeezy_sales')
+      .select('*')
+      .eq('order_number', orderNumber)
+      .maybeSingle())
+    if (data) return data as unknown as LemonSqueezySale
   }
+
+  // Try by subscription_id
+  ;({ data } = await supabase
+    .from('lemon_squeezy_sales')
+    .select('*')
+    .eq('subscription_id', orderId)
+    .maybeSingle())
+  if (data) return data as unknown as LemonSqueezySale
+
+  return null
 }
 
-/**
- * GET /api/lemon-squeezy-claim?order_id=<orderId>&email=<email>
- * Lemon Squeezy users can claim their token using their order ID or order number.
- * Optionally passing email for extra verification.
- */
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const orderId = searchParams.get('order_id')
@@ -49,35 +64,15 @@ export async function GET(request: Request) {
     )
   }
 
-  const sales = loadSales()
-
-  // Try to match by orderId (the UUID-style Lemon Squeezy order ID)
-  let sale = sales.find(s => s.orderId === orderId)
-
-  // If not found by orderId, try matching by orderNumber (human-readable number)
-  if (!sale) {
-    const orderNumber = parseInt(orderId, 10)
-    if (!isNaN(orderNumber)) {
-      sale = sales.find(s => s.orderNumber === orderNumber)
-    }
-  }
-
-  // If still not found, try matching by subscriptionId
-  if (!sale) {
-    sale = sales.find(s => s.subscriptionId === orderId)
-  }
+  const sale = await getLSSale(orderId)
 
   if (!sale) {
     return NextResponse.json(
-      {
-        valid: false,
-        error: 'Order not found. It may take a few minutes for the webhook to sync. If the issue persists, contact us at selina_zxw@qq.com',
-      },
+      { valid: false, error: 'Order not found. It may take a few minutes for the webhook to sync. If the issue persists, contact us at selina_zxw@qq.com' },
       { status: 404 }
     )
   }
 
-  // Optional email verification
   if (email && sale.email !== email && sale.email !== 'unknown@email.com') {
     return NextResponse.json(
       { valid: false, error: 'Email does not match the order. Please use the email you paid with.' },
@@ -85,7 +80,6 @@ export async function GET(request: Request) {
     )
   }
 
-  // Check refunded
   if (sale.refunded) {
     return NextResponse.json(
       { valid: false, error: 'This order has been refunded or cancelled. The token has been revoked.' },
@@ -93,8 +87,7 @@ export async function GET(request: Request) {
     )
   }
 
-  // Token should exist
-  const tokenEntry = findToken(sale.token)
+  const tokenEntry = await findToken(sale.token)
   if (!tokenEntry) {
     return NextResponse.json(
       { valid: false, error: 'Token not found. Please contact support.' },
@@ -102,8 +95,7 @@ export async function GET(request: Request) {
     )
   }
 
-  // Check expiry
-  if (tokenEntry.expiresAt && new Date(tokenEntry.expiresAt) < new Date()) {
+  if (sale.expires_at && new Date(sale.expires_at) < new Date()) {
     return NextResponse.json(
       { valid: false, error: 'This token has expired.' },
       { status: 403 }
@@ -114,11 +106,11 @@ export async function GET(request: Request) {
     valid: true,
     token: sale.token,
     plan: sale.plan || 'pro',
-    expiresAt: tokenEntry.expiresAt,
+    expiresAt: sale.expires_at || tokenEntry.expiresAt,
     maxRequests: tokenEntry.maxRequests,
     windowMs: tokenEntry.windowMs,
     name: tokenEntry.name,
-    variantName: sale.variantName,
-    orderNumber: sale.orderNumber,
+    variantName: sale.variant_name,
+    orderNumber: sale.order_number,
   })
 }

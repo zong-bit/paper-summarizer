@@ -47,6 +47,27 @@
     "upgrade": "升级到 Pro",
     "popular": "推荐"
   },
+  "features": {
+    "title": "核心功能",
+    "subtitle": "专为学术研究打造的 AI 工具",
+    "pdfSummary": "PDF 论文摘要",
+    "pdfSummaryDesc": "上传 PDF 自动提取文本并生成结构化摘要",
+    "paperQa": "论文问答",
+    "paperQaDesc": "针对论文内容提出具体问题，获取精准回答",
+    "paperCompare": "论文对比",
+    "paperCompareDesc": "并排对比多篇论文，快速识别关键差异"
+  },
+  "trust": {
+    "title": "为什么选择我们",
+    "privacy": "隐私承诺",
+    "privacyDesc": "不存储您的论文原文，数据仅用于生成摘要",
+    "formats": "支持格式",
+    "formatsDesc": "支持 PDF、TXT 及常见学术格式",
+    "researchers": "服务研究者",
+    "researchersDesc": "已为 1000+ 研究者提供论文总结服务",
+    "poweredBy": "技术驱动",
+    "poweredByDesc": "基于 DeepSeek AI，精准理解学术内容"
+  },
   "tools": {
     "moreTools": "🔧 更多工具",
     "paperQa": "Paper Q&A",

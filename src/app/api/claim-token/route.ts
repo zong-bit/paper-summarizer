@@ -1,54 +1,56 @@
 import { NextResponse } from 'next/server'
 import { findToken } from '@/lib/tokens'
-import fs from 'fs'
-import path from 'path'
+import { getSupabaseAdmin } from '@/lib/supabase'
 
-// Use /tmp on Vercel (serverless read-only filesystem)
-const DATA_DIR = process.env.VERCEL ? path.join('/tmp', 'data') : path.join(process.cwd(), 'data')
-const ORDER_FILE = path.join(DATA_DIR, 'afdian_orders.json')
-const GUMROAD_SALE_FILE = path.join(DATA_DIR, 'gumroad_sales.json')
-
-interface OrderMapping {
-  orderId: string
+interface AfdianOrder {
+  order_id: string
   token: string
   name: string
-  paidAt: string
-  expiresAt: string
+  paid_at: string
+  expires_at: string | null
   claimed: boolean
 }
 
 interface GumroadSale {
-  saleId: string
+  sale_id: string
   email: string
-  productName: string
+  product_name: string
   plan: string
   token: string
   price: number
-  paidAt: string
-  expiresAt: string
+  paid_at: string
+  expires_at: string | null
   refunded: boolean
 }
 
-function loadOrders(): OrderMapping[] {
-  try {
-    if (!fs.existsSync(ORDER_FILE)) return []
-    return JSON.parse(fs.readFileSync(ORDER_FILE, 'utf-8'))
-  } catch {
-    return []
-  }
+async function getAfdianOrder(orderId: string): Promise<AfdianOrder | null> {
+  const supabase = getSupabaseAdmin()
+  const { data } = await supabase
+    .from('afdian_orders')
+    .select('*')
+    .eq('order_id', orderId)
+    .maybeSingle()
+  if (!data) return null
+  return data as unknown as AfdianOrder
 }
 
-function saveOrders(orders: OrderMapping[]) {
-  fs.writeFileSync(ORDER_FILE, JSON.stringify(orders, null, 2))
+async function markAfdianClaimed(orderId: string): Promise<void> {
+  const supabase = getSupabaseAdmin()
+  await supabase
+    .from('afdian_orders')
+    .update({ claimed: true })
+    .eq('order_id', orderId)
 }
 
-function loadGumroadSales(): GumroadSale[] {
-  try {
-    if (!fs.existsSync(GUMROAD_SALE_FILE)) return []
-    return JSON.parse(fs.readFileSync(GUMROAD_SALE_FILE, 'utf-8'))
-  } catch {
-    return []
-  }
+async function getGumroadSale(saleId: string): Promise<GumroadSale | null> {
+  const supabase = getSupabaseAdmin()
+  const { data } = await supabase
+    .from('gumroad_sales')
+    .select('*')
+    .eq('sale_id', saleId)
+    .maybeSingle()
+  if (!data) return null
+  return data as unknown as GumroadSale
 }
 
 export async function GET(request: Request) {
@@ -63,12 +65,10 @@ export async function GET(request: Request) {
   }
 
   // First, look for this order in Afdian webhook records
-  const orders = loadOrders()
-  const order = orders.find(o => o.orderId === orderId)
+  const order = await getAfdianOrder(orderId)
 
   if (order) {
-    // Token should exist
-    const tokenEntry = findToken(order.token)
+    const tokenEntry = await findToken(order.token)
     if (!tokenEntry) {
       return NextResponse.json(
         { valid: false, error: 'Token not found. Please contact support.' },
@@ -76,34 +76,30 @@ export async function GET(request: Request) {
       )
     }
 
-    // Check expiry
-    if (tokenEntry.expiresAt && new Date(tokenEntry.expiresAt) < new Date()) {
+    if (order.expires_at && new Date(order.expires_at) < new Date()) {
       return NextResponse.json(
         { valid: false, error: 'This token has expired.' },
         { status: 403 }
       )
     }
 
-    // Mark claimed
     if (!order.claimed) {
-      order.claimed = true
-      saveOrders(orders)
+      await markAfdianClaimed(order.order_id)
     }
 
     return NextResponse.json({
       valid: true,
       token: order.token,
       plan: 'pro',
-      expiresAt: tokenEntry.expiresAt,
+      expiresAt: order.expires_at || tokenEntry.expiresAt,
       maxRequests: tokenEntry.maxRequests,
       windowMs: tokenEntry.windowMs,
-      name: tokenEntry.name,
+      name: order.name,
     })
   }
 
   // If not found in Afdian, check Gumroad sales
-  const sales = loadGumroadSales()
-  const sale = sales.find(s => s.saleId === orderId)
+  const sale = await getGumroadSale(orderId)
 
   if (!sale) {
     return NextResponse.json(
@@ -112,7 +108,6 @@ export async function GET(request: Request) {
     )
   }
 
-  // Check refunded
   if (sale.refunded) {
     return NextResponse.json(
       { valid: false, error: 'This order has been refunded. The token has been revoked.' },
@@ -120,8 +115,7 @@ export async function GET(request: Request) {
     )
   }
 
-  // Token should exist
-  const tokenEntry = findToken(sale.token)
+  const tokenEntry = await findToken(sale.token)
   if (!tokenEntry) {
     return NextResponse.json(
       { valid: false, error: 'Token not found. Please contact support.' },
@@ -129,8 +123,7 @@ export async function GET(request: Request) {
     )
   }
 
-  // Check expiry
-  if (tokenEntry.expiresAt && new Date(tokenEntry.expiresAt) < new Date()) {
+  if (sale.expires_at && new Date(sale.expires_at) < new Date()) {
     return NextResponse.json(
       { valid: false, error: 'This token has expired.' },
       { status: 403 }
@@ -141,9 +134,9 @@ export async function GET(request: Request) {
     valid: true,
     token: sale.token,
     plan: sale.plan || 'pro',
-    expiresAt: tokenEntry.expiresAt,
+    expiresAt: sale.expires_at || tokenEntry.expiresAt,
     maxRequests: tokenEntry.maxRequests,
     windowMs: tokenEntry.windowMs,
-    name: tokenEntry.name,
+    name: sale.product_name || tokenEntry.name,
   })
 }

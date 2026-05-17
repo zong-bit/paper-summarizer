@@ -47,6 +47,27 @@
     "upgrade": "Upgrade to Pro",
     "popular": "Popular"
   },
+  "features": {
+    "title": "Core Features",
+    "subtitle": "AI tools built for academic research",
+    "pdfSummary": "PDF Paper Summary",
+    "pdfSummaryDesc": "Upload PDF to auto-extract text and generate structured summaries",
+    "paperQa": "Paper Q&A",
+    "paperQaDesc": "Ask specific questions about paper content and get precise answers",
+    "paperCompare": "Paper Comparison",
+    "paperCompareDesc": "Compare multiple papers side by side to identify key differences"
+  },
+  "trust": {
+    "title": "Why Choose Us",
+    "privacy": "Privacy Commitment",
+    "privacyDesc": "We never store your paper content — data is used only for generating summaries",
+    "formats": "Supported Formats",
+    "formatsDesc": "PDF, TXT, and common academic formats",
+    "researchers": "Trusted by Researchers",
+    "researchersDesc": "Serving 1000+ researchers worldwide",
+    "poweredBy": "AI-Powered",
+    "poweredByDesc": "Built on DeepSeek AI for precise academic understanding"
+  },
   "tools": {
     "moreTools": "🔧 More Tools",
     "paperQa": "Paper Q&A",

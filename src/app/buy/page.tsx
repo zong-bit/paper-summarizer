@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Footer from '../../components/Footer'
 import LanguageSwitcher from '../../components/LanguageSwitcher'
 import PaddlePricingCards from '../../components/PaddlePricingCards'
@@ -11,40 +12,13 @@ import { useTranslation } from '@/i18n/provider'
 const GUMROAD_MONTHLY = 'https://selinazw.gumroad.com/l/qkcjod'
 const GUMROAD_YEARLY = 'https://selinazw.gumroad.com/l/kzfhr'
 
-// Lemon Squeezy checkout URLs
-const LS_CHECKOUT_MONTHLY = process.env.NEXT_PUBLIC_LS_MONTHLY_URL || 'https://paper-summarizer.lemonsqueezy.com/checkout/buy/monthly'
-const LS_CHECKOUT_YEARLY = process.env.NEXT_PUBLIC_LS_YEARLY_URL || 'https://paper-summarizer.lemonsqueezy.com/checkout/buy/yearly'
+
 
 export default function BuyPage() {
   const { t, tArray } = useTranslation()
-  const [orderId, setOrderId] = useState('')
-  const [claimStatus, setClaimStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
-  const [claimInfo, setClaimInfo] = useState<any>(null)
-
   const [token, setToken] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
   const [tokenInfo, setTokenInfo] = useState<any>(null)
-
-  const claimToken = async () => {
-    if (!orderId.trim() || orderId.trim().length < 6) return
-    setClaimStatus('loading')
-    setClaimInfo(null)
-    try {
-      const res = await fetch(`/api/claim-token?order_id=${encodeURIComponent(orderId.trim())}`)
-      const data = await res.json()
-      if (data.valid) {
-        setClaimStatus('ok')
-        setClaimInfo(data)
-        setToken(data.token)
-      } else {
-        setClaimStatus('error')
-        setClaimInfo(data)
-      }
-    } catch {
-      setClaimStatus('error')
-      setClaimInfo({ error: 'Failed to claim token. Please try again later.' })
-    }
-  }
 
   const verifyToken = async () => {
     if (!token.trim()) return
@@ -104,12 +78,7 @@ export default function BuyPage() {
             </svg>
             {t('buy.tabs.gumroad')}
           </div>
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 text-purple-500 text-sm font-medium rounded-full">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-            {t('buy.tabs.lemonSqueezy')}
-          </div>
+
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 text-blue-500 text-sm font-medium rounded-full">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
@@ -185,72 +154,7 @@ export default function BuyPage() {
           </div>
         </div>
 
-        {/* Lemon Squeezy Pricing Cards */}
-        <div className="space-y-6">
-          <h2 className="text-xl font-semibold text-text text-center">{t('buy.payLemonSqueezy')}</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Pro Monthly */}
-            <div className="bg-bg-card border border-border rounded-2xl p-6 sm:p-8 space-y-6 flex flex-col">
-              <div>
-                <h2 className="text-xl font-semibold text-text">{t('buy.monthly')}</h2>
-                <p className="text-text-secondary text-sm mt-1">{t('buy.monthlyDesc')}</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-text">
-                  {t('buy.monthlyPrice')}
-                  <span className="text-lg text-text-secondary font-normal">{t('buy.monthlyPriceSuffix')}</span>
-                </div>
-                <div className="text-sm text-text-secondary mt-1">{t('buy.monthlyApprox')}</div>
-              </div>
-              <div className="flex-1 text-text-secondary text-sm space-y-2">
-                {(tArray('buy.features') as string[]).map((feature, i) => (
-                  <p key={i}>{feature}</p>
-                ))}
-              </div>
-              <a
-                href={LS_CHECKOUT_MONTHLY}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-center py-3.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-semibold text-lg transition-colors"
-              >
-                {t('buy.buyMonthlyLS')}
-              </a>
-            </div>
 
-            {/* Pro Yearly */}
-            <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/40 rounded-2xl p-6 sm:p-8 space-y-6 flex flex-col relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-purple-600 text-white text-xs font-medium rounded-full">
-                {t('buy.bestValue')}
-              </div>
-              <div>
-                <h2 className="text-xl font-semibold text-text">{t('buy.yearly')}</h2>
-                <p className="text-text-secondary text-sm mt-1">{t('buy.yearlyDesc')}</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-purple-500">
-                  {t('buy.yearlyPrice')}
-                  <span className="text-lg text-text-secondary font-normal">{t('buy.yearlyPriceSuffix')}</span>
-                </div>
-                <div className="text-sm text-text-secondary mt-1">
-                  {t('buy.yearlyApprox')}
-                </div>
-              </div>
-              <div className="flex-1 text-text-secondary text-sm space-y-2">
-                {(tArray('buy.yearlyFeatures') as string[]).map((feature, i) => (
-                  <p key={i}>{feature}</p>
-                ))}
-              </div>
-              <a
-                href={LS_CHECKOUT_YEARLY}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-center py-3.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-semibold text-lg transition-colors"
-              >
-                {t('buy.buyYearlyLS')}
-              </a>
-            </div>
-          </div>
-        </div>
 
         {/* Paddle Pricing Cards */}
         <div className="space-y-6">
@@ -273,67 +177,36 @@ export default function BuyPage() {
               <span className="flex-shrink-0 w-7 h-7 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center text-sm font-medium">2</span>
               <div>
                 <p className="text-text font-medium">{t('buy.step2')}</p>
-                <p className="text-sm" dangerouslySetInnerHTML={{ __html: t('buy.step2DescGumroad') }} />
+                <p className="text-sm">{t('buy.step2DescGumroad')}</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <span className="flex-shrink-0 w-7 h-7 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center text-sm font-medium">3</span>
               <div>
                 <p className="text-text font-medium">{t('buy.step3')}</p>
-                <p className="text-sm" dangerouslySetInnerHTML={{ __html: t('buy.step3Desc').replace('<a>', '<a href="/" class="text-primary hover:underline">').replace('</a>', '</a>') }} />
+                <p className="text-sm">{t('buy.step3Desc')}</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Claim Token (manual backup) */}
+        {/* Auto-Claim Success (shown after payment redirect) */}
+        <Suspense fallback={
+          <div className="bg-bg-card border border-border rounded-2xl p-6 text-center space-y-4">
+            <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto"></div>
+            <p className="text-text-secondary">Checking for pending tokens...</p>
+          </div>
+        }>
+          <AutoClaimToken />
+        </Suspense>
+
+        {/* Manual claim (backup for auto-claim failures) */}
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
           <h2 className="text-xl font-semibold text-text">{t('buy.manualClaim')}</h2>
           <p className="text-text-secondary text-sm">
             {t('buy.manualClaimDesc')}
           </p>
-          <div className="flex gap-3">
-            <input
-              type="text"
-              value={orderId}
-              onChange={e => { setOrderId(e.target.value); setClaimStatus('idle'); setClaimInfo(null) }}
-              placeholder={t('buy.orderIdPlaceholder')}
-              className="flex-1 bg-bg border border-border rounded-xl px-4 py-3 text-text placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/50"
-            />
-            <button
-              onClick={claimToken}
-              disabled={claimStatus === 'loading' || orderId.trim().length < 6}
-              className="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 disabled:opacity-50 text-white rounded-xl font-medium transition-colors"
-            >
-              {claimStatus === 'loading' ? t('buy.lookingUp') : t('buy.lookup')}
-            </button>
-          </div>
-
-          {claimStatus === 'ok' && claimInfo && (
-            <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 space-y-3">
-              <div className="flex items-center gap-2 text-green-600 font-medium text-lg">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                {t('buy.tokenFound')}
-              </div>
-              <div className="bg-bg rounded-xl p-4">
-                <p className="text-xs text-text-secondary mb-1">{t('buy.tokenSaved')}</p>
-                <p className="text-lg font-mono font-bold text-primary break-all select-all">{claimInfo.token}</p>
-              </div>
-              <div className="text-sm text-text-secondary space-y-1">
-                <p>{t('buy.tokenDetails', { plan: claimInfo.plan, date: new Date(claimInfo.expiresAt).toLocaleDateString() })}</p>
-                {claimInfo.variantName && <p>{t('buy.tokenProduct', { name: claimInfo.variantName })}</p>}
-                <p>{t('buy.tokenUsage')}</p>
-              </div>
-            </div>
-          )}
-
-          {claimStatus === 'error' && claimInfo && (
-            <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 text-red-500 text-sm">
-              {claimInfo.error}
-            </div>
-          )}
+          <ClaimTokenForm />
         </div>
 
         {/* Token Checker */}
@@ -425,6 +298,158 @@ export default function BuyPage() {
       </main>
 
       <Footer />
+    </div>
+  )
+}
+
+// Auto-claim component — wrapped in Suspense to satisfy Next.js requirements
+function AutoClaimToken() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const [autoClaimStatus, setAutoClaimStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
+  const [autoClaimInfo, setAutoClaimInfo] = useState<any>(null)
+
+  useEffect(() => {
+    const email = searchParams.get('email')
+    if (!email) return
+    setAutoClaimStatus('loading')
+    fetch(`/api/claim-token?email=${encodeURIComponent(email)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.valid) {
+          setAutoClaimStatus('ok')
+          setAutoClaimInfo(data)
+          // Copy to clipboard
+          navigator.clipboard?.writeText(data.token)
+          // Auto-redirect to dashboard after 2 seconds
+          setTimeout(() => {
+            router.push('/dashboard')
+          }, 2000)
+        } else {
+          setAutoClaimStatus('error')
+          setAutoClaimInfo(data)
+        }
+      })
+      .catch(() => {
+        setAutoClaimStatus('error')
+        setAutoClaimInfo({ error: 'Failed to claim token. Please try again later.' })
+      })
+  }, [searchParams, router])
+
+  if (autoClaimStatus === 'loading') {
+    return (
+      <div className="bg-bg-card border border-border rounded-2xl p-6 text-center space-y-4">
+        <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto"></div>
+        <p className="text-text-secondary">Claiming your token... Redirecting to dashboard</p>
+      </div>
+    )
+  }
+
+  if (autoClaimStatus === 'ok' && autoClaimInfo) {
+    return (
+      <div className="bg-green-500/10 border border-green-500/30 rounded-2xl p-6 space-y-4">
+        <div className="flex items-center gap-2 text-green-600 font-medium text-lg">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+          Token claimed successfully! Redirecting to dashboard...
+        </div>
+        <div className="bg-bg rounded-xl p-4">
+          <p className="text-xs text-text-secondary mb-1">Your token (copied to clipboard)</p>
+          <p className="text-lg font-mono font-bold text-primary break-all select-all" id="auto-claim-token">{autoClaimInfo.token}</p>
+        </div>
+        <div className="text-sm text-text-secondary space-y-1">
+          <p>Plan: {autoClaimInfo.plan} | Expires: {new Date(autoClaimInfo.expiresAt).toLocaleDateString()}</p>
+          <p>Your token has been automatically saved to your account. You can also use it directly in the dashboard.</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (autoClaimStatus === 'error' && autoClaimInfo) {
+    return (
+      <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-2xl p-6 text-yellow-600 text-sm">
+        <p className="font-medium mb-1">⚠️ Auto-claim failed</p>
+        <p>{autoClaimInfo.error}</p>
+        <p className="mt-2">Don't worry — your token is still ready! Check your payment confirmation email for the order ID, then paste it below to claim it manually.</p>
+      </div>
+    )
+  }
+
+  return null
+}
+
+// Reusable claim token form component
+function ClaimTokenForm() {
+  const [orderId, setOrderId] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
+  const [info, setInfo] = useState<any>(null)
+
+  const claimToken = async () => {
+    if (!orderId.trim() || orderId.trim().length < 6) return
+    setStatus('loading')
+    setInfo(null)
+    try {
+      const res = await fetch(`/api/claim-token?order_id=${encodeURIComponent(orderId.trim())}`)
+      const data = await res.json()
+      if (data.valid) {
+        setStatus('ok')
+        setInfo(data)
+        // Copy to clipboard
+        navigator.clipboard?.writeText(data.token)
+      } else {
+        setStatus('error')
+        setInfo(data)
+      }
+    } catch {
+      setStatus('error')
+      setInfo({ error: 'Failed to claim token. Please try again later.' })
+    }
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-3">
+        <input
+          type="text"
+          value={orderId}
+          onChange={e => { setOrderId(e.target.value); setStatus('idle'); setInfo(null) }}
+          placeholder="Enter your order ID from Gumroad / Paddle"
+          className="flex-1 bg-bg border border-border rounded-xl px-4 py-3 text-text placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/50"
+        />
+        <button
+          onClick={claimToken}
+          disabled={status === 'loading' || orderId.trim().length < 6}
+          className="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 disabled:opacity-50 text-white rounded-xl font-medium transition-colors"
+        >
+          {status === 'loading' ? 'Looking up...' : 'Claim Token'}
+        </button>
+      </div>
+
+      {status === 'ok' && info && (
+        <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 space-y-3">
+          <div className="flex items-center gap-2 text-green-600 font-medium text-lg">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            Token claimed! Copied to clipboard.
+          </div>
+          <div className="bg-bg rounded-xl p-4">
+            <p className="text-xs text-text-secondary mb-1">Your token</p>
+            <p className="text-lg font-mono font-bold text-primary break-all select-all">{info.token}</p>
+          </div>
+          <div className="text-sm text-text-secondary space-y-1">
+            <p>Plan: {info.plan} | Expires: {new Date(info.expiresAt).toLocaleDateString()}</p>
+            <p>Use this token in the dashboard to activate your Pro plan.</p>
+          </div>
+        </div>
+      )}
+
+      {status === 'error' && info && (
+        <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 text-red-500 text-sm">
+          {info.error}
+        </div>
+      )}
     </div>
   )
 }

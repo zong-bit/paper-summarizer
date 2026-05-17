@@ -1,15 +1,9 @@
 import { NextResponse } from 'next/server'
 import crypto from 'crypto'
 import { addToken } from '@/lib/tokens'
-import fs from 'fs'
-import path from 'path'
+import { getSupabaseAdmin } from '@/lib/supabase'
 
 const AFDIAN_USER_ID = '6d58eee44d3011f1961952540025c377'
-
-// Store order_id → token mappings
-// Use /tmp on Vercel (serverless read-only filesystem)
-const DATA_DIR = process.env.VERCEL ? path.join('/tmp', 'data') : path.join(process.cwd(), 'data')
-const ORDER_FILE = path.join(DATA_DIR, 'afdian_orders.json')
 
 interface OrderMapping {
   orderId: string
@@ -20,19 +14,37 @@ interface OrderMapping {
   claimed: boolean
 }
 
-function loadOrders(): OrderMapping[] {
-  try {
-    const dir = path.dirname(ORDER_FILE)
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
-    if (!fs.existsSync(ORDER_FILE)) return []
-    return JSON.parse(fs.readFileSync(ORDER_FILE, 'utf-8'))
-  } catch {
-    return []
-  }
+async function isDuplicateAfdian(orderId: string): Promise<boolean> {
+  const supabase = getSupabaseAdmin()
+  const { data } = await supabase
+    .from('afdian_orders')
+    .select('id')
+    .eq('order_id', orderId)
+    .maybeSingle()
+  return !!data
 }
 
-function saveOrders(orders: OrderMapping[]) {
-  fs.writeFileSync(ORDER_FILE, JSON.stringify(orders, null, 2))
+async function recordAfdianOrder(order: OrderMapping): Promise<void> {
+  const supabase = getSupabaseAdmin()
+  await supabase.from('afdian_orders').insert({
+    order_id: order.orderId,
+    token: order.token,
+    name: order.name,
+    paid_at: order.paidAt,
+    expires_at: order.expiresAt,
+    claimed: order.claimed,
+  })
+}
+
+async function getAfdianOrder(orderId: string): Promise<OrderMapping | null> {
+  const supabase = getSupabaseAdmin()
+  const { data } = await supabase
+    .from('afdian_orders')
+    .select('*')
+    .eq('order_id', orderId)
+    .maybeSingle()
+  if (!data) return null
+  return data as unknown as OrderMapping
 }
 
 function generateProToken(name: string): string {
@@ -41,12 +53,6 @@ function generateProToken(name: string): string {
   return `ps-${hash}-${random}`
 }
 
-/**
- * Verify Afdian webhook signature.
- * Afdian sends a `sign` field in the JSON payload.
- * sign = MD5(order_id + AFDIAN_TOKEN)
- * Where AFDIAN_TOKEN is the user_token from Afdian developer settings.
- */
 function verifySignature(payload: any): boolean {
   const sign = payload.sign
   if (!sign) {
@@ -60,7 +66,6 @@ function verifySignature(payload: any): boolean {
     return false
   }
 
-  // Try to find the order_id from the payload
   const payloadData = payload.data || {}
   const order = payloadData.order || {}
   const orderId = order.order_id || order.out_trade_no
@@ -70,7 +75,6 @@ function verifySignature(payload: any): boolean {
     return false
   }
 
-  // Afdian signature: MD5(order_id + user_token)
   const expected = crypto.createHash('md5').update(orderId + token).digest('hex')
   return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(sign))
 }
@@ -79,19 +83,15 @@ export async function POST(request: Request) {
   try {
     const body = await request.json()
 
-    // ── Signature verification ──
     if (!verifySignature(body)) {
       console.warn('[Afdian] Invalid signature — possible spoofed request. Rejecting.')
       return NextResponse.json({ ec: 400, em: 'Invalid signature' }, { status: 401 })
     }
 
     const { type, data } = body
-
-    // Afdian sends: { ec: 200, data: { type: "order", order: {...} } }
     const payloadData = data || body.data
     const payloadType = payloadData?.type || type
 
-    // Only handle order events
     if (payloadType !== 'order' && payloadType !== 'commerce_order') {
       return NextResponse.json({ ec: 200 })
     }
@@ -103,56 +103,46 @@ export async function POST(request: Request) {
 
     const outTradeNo = order.out_trade_no
     const orderId = order.order_id || outTradeNo
-    const status = order.status // 2 = paid
-    const totalAmount = order.total_amount // in cents, 990 = ¥9.9
+    const status = order.status
+    const totalAmount = order.total_amount
     const planName = order.plan_title || 'Paper Summarizer Pro'
     const buyerName = order.buyer_name || 'Pro User'
 
-    // ── Idempotency check: skip if we already created a token for this order ──
-    const existingOrders = loadOrders()
-    if (existingOrders.find(o => o.orderId === (orderId || outTradeNo))) {
+    // Idempotency check
+    if (await isDuplicateAfdian(orderId || outTradeNo)) {
       console.log(`[Afdian] Order ${outTradeNo} already processed, skipping (idempotency)`)
       return NextResponse.json({ ec: 200 })
     }
 
-    // Only process paid orders
-    // Accept all positive amounts (flexible: support ¥9.9, ¥19.9, ¥29.9, etc.)
-    const amountNum = parseInt(totalAmount, 10)
-    if (status === 2 && amountNum > 0) {
-      // Generate Pro token valid for 30 days
+    if (status === 2 && totalAmount && parseInt(totalAmount, 10) > 0) {
       const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
       const token = generateProToken(buyerName)
 
-      // Save token
-      addToken({
+      await addToken({
         token,
         name: buyerName,
         plan: 'pro',
         maxRequests: 100,
-        windowMs: 60 * 60 * 1000, // 1 hour window
+        windowMs: 60 * 60 * 1000,
         expiresAt,
       })
 
-      // Save order mapping
-      const orders = loadOrders()
-      orders.push({
+      const orderMapping: OrderMapping = {
         orderId: orderId || outTradeNo,
         token,
         name: buyerName,
         paidAt: new Date().toISOString(),
         expiresAt,
         claimed: false,
-      })
-      saveOrders(orders)
+      }
 
+      await recordAfdianOrder(orderMapping)
       console.log(`[Afdian] Pro token created for order ${outTradeNo}: ${token}`)
     }
 
-    // Afdian expects { ec: 200 } response
     return NextResponse.json({ ec: 200 })
   } catch (err) {
     console.error('[Afdian Webhook Error]', err)
-    // Always return ec:200 even on error, afdian only checks this
     return NextResponse.json({ ec: 200 }, { status: 500 })
   }
 }

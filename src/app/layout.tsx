@@ -7,16 +7,16 @@ import Navbar from '@/components/Navbar'
 const BASE_URL = 'https://www.summarizeai.app'
 
 export const metadata: Metadata = {
-  title: 'Free AI Paper Summarizer - Summarize Research Papers Instantly',
-  description: 'Summarize any academic paper or PDF with AI. Get key findings, methodology, and conclusions in seconds. Free to use.',
-  keywords: 'AI paper summarizer, research paper summary, academic paper summarizer, PDF summarizer, DeepSeek',
+  title: '免费 AI 论文总结工具 - 数秒内总结任何学术论文',
+  description: '使用 AI 总结任何学术论文或 PDF。快速获取关键发现、方法和结论。免费使用。',
+  keywords: 'AI论文总结, 论文摘要, 学术论文总结, PDF摘要, 学术工具, DeepSeek',
   authors: [{ name: 'Paper Summarizer' }],
   alternates: {
     canonical: BASE_URL,
   },
   openGraph: {
-    title: 'Free AI Paper Summarizer - Summarize Research Papers Instantly',
-    description: 'Summarize any academic paper or PDF with AI. Get key findings, methodology, and conclusions in seconds.',
+    title: '免费 AI 论文总结工具 - 数秒内总结任何学术论文',
+    description: '使用 AI 总结任何学术论文或 PDF。快速获取关键发现、方法和结论。',
     type: 'website',
     url: BASE_URL,
     siteName: 'Paper Summarizer',
@@ -25,14 +25,14 @@ export const metadata: Metadata = {
         url: 'https://www.summarizeai.app/og-home.png',
         width: 1200,
         height: 630,
-        alt: 'Paper Summarizer - Free AI Paper Summarizer',
+        alt: 'Paper Summarizer - 免费 AI 论文总结工具',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free AI Paper Summarizer - Summarize Research Papers Instantly',
-    description: 'Summarize any academic paper or PDF with AI. Get key findings, methodology, and conclusions in seconds.',
+    title: '免费 AI 论文总结工具 - 数秒内总结任何学术论文',
+    description: '使用 AI 总结任何学术论文或 PDF。快速获取关键发现、方法和结论。',
     images: ['https://www.summarizeai.app/og-home.png'],
   },
 }
@@ -44,7 +44,7 @@ const HOME_JSON_LD = {
   name: 'Paper Summarizer',
   applicationCategory: 'EducationalApplication',
   operatingSystem: 'Any',
-  description: 'Free AI-powered academic paper summarizer. Paste any paper text or upload a PDF to get key findings, methodology, and conclusions in seconds.',
+  description: '免费 AI 驱动的学术论文总结工具。粘贴任何论文文本或上传 PDF，数秒内获取关键发现、方法和结论。',
   url: BASE_URL,
   offers: {
     '@type': 'Offer',
@@ -77,11 +77,11 @@ export default function RootLayout({
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6809828426585070" crossOrigin="anonymous"></script>
         {/* JSON-LD structured data for home page */}
         <script
-          type="application/ld+json"
+          type="application/json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(HOME_JSON_LD) }}
         />
       </head>
-      <body className="min-h-screen bg-bg">
+      <body className="min-h-screen bg-slate-950">
         <I18nProvider>
           <Navbar />
           {children}

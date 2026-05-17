@@ -1,15 +1,25 @@
 import { NextResponse } from 'next/server'
 import { addToken, removeToken, listTokens } from '@/lib/tokens'
+import { getSupabaseAdmin } from '@/lib/supabase'
 
-// Simple token generation: random string + hash
 function generateToken(name: string): string {
   const random = Math.random().toString(36).slice(2, 10)
   const hash = Buffer.from(`${name}-${Date.now()}-${Math.random()}`).toString('base64url').slice(0, 20)
   return `ps-${hash}-${random}`
 }
 
-// Admin API — requires a secret key from env
 const ADMIN_SECRET = process.env.ADMIN_SECRET
+
+function getAuthHeader(): string | null {
+  return process.env.ADMIN_SECRET || null
+}
+
+function verifyAuth(header: string | null): boolean {
+  if (!header) return false
+  const auth = process.env.ADMIN_SECRET
+  if (!auth) return false
+  return header === auth
+}
 
 export async function GET() {
   const auth = getAuthHeader()
@@ -17,7 +27,7 @@ export async function GET() {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const tokens = listTokens()
+  const tokens = await listTokens()
   return NextResponse.json({ tokens })
 }
 
@@ -35,7 +45,7 @@ export async function POST(request: Request) {
   }
 
   const token = generateToken(name)
-  const entry = addToken({
+  const entry = await addToken({
     token,
     name,
     plan: plan || 'pro',
@@ -68,21 +78,10 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: 'Missing token parameter' }, { status: 400 })
   }
 
-  const removed = removeToken(token)
+  const removed = await removeToken(token)
   if (!removed) {
     return NextResponse.json({ error: 'Token not found' }, { status: 404 })
   }
 
   return NextResponse.json({ success: true, message: 'Token removed' })
-}
-
-function getAuthHeader(): string | null {
-  return process.env.ADMIN_SECRET || null
-}
-
-function verifyAuth(header: string | null): boolean {
-  if (!header) return false
-  const auth = process.env.ADMIN_SECRET
-  if (!auth) return false
-  return header === auth
 }

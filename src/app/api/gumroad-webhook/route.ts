@@ -1,12 +1,7 @@
 import { NextResponse } from 'next/server'
 import crypto from 'crypto'
 import { createToken, findToken } from '@/lib/tokens'
-import fs from 'fs'
-import path from 'path'
-
-// Use /tmp on Vercel (serverless read-only filesystem)
-const DATA_DIR = process.env.VERCEL ? path.join('/tmp', 'data') : path.join(process.cwd(), 'data')
-const SALE_FILE = path.join(DATA_DIR, 'gumroad_sales.json')
+import { getSupabaseAdmin } from '@/lib/supabase'
 
 interface GumroadSale {
   saleId: string
@@ -18,23 +13,6 @@ interface GumroadSale {
   paidAt: string
   expiresAt: string
   refunded: boolean
-}
-
-function loadSales(): GumroadSale[] {
-  try {
-    const dir = path.dirname(SALE_FILE)
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
-    if (!fs.existsSync(SALE_FILE)) return []
-    return JSON.parse(fs.readFileSync(SALE_FILE, 'utf-8'))
-  } catch {
-    return []
-  }
-}
-
-function saveSales(sales: GumroadSale[]) {
-  const dir = path.dirname(SALE_FILE)
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
-  fs.writeFileSync(SALE_FILE, JSON.stringify(sales, null, 2))
 }
 
 /**
@@ -73,14 +51,48 @@ function detectPlan(productName: string, permalink?: string): 'pro-monthly' | 'p
   return 'pro-monthly'
 }
 
+/**
+ * Check if a sale has already been processed (idempotency).
+ * Stores sale records in Supabase `gumroad_sales` table.
+ */
+async function isDuplicate(saleId: string): Promise<boolean> {
+  const supabase = getSupabaseAdmin()
+  const { data } = await supabase
+    .from('gumroad_sales')
+    .select('id')
+    .eq('sale_id', saleId)
+    .single()
+  return !!data
+}
+
+async function recordSale(sale: GumroadSale): Promise<void> {
+  const supabase = getSupabaseAdmin()
+  await supabase.from('gumroad_sales').insert({
+    sale_id: sale.saleId,
+    email: sale.email,
+    product_name: sale.productName,
+    plan: sale.plan,
+    token: sale.token,
+    price: sale.price,
+    paid_at: sale.paidAt,
+    expires_at: sale.expiresAt,
+    refunded: sale.refunded,
+  })
+}
+
+async function markRefunded(saleId: string): Promise<void> {
+  const supabase = getSupabaseAdmin()
+  await supabase
+    .from('gumroad_sales')
+    .update({ refunded: true })
+    .eq('sale_id', saleId)
+}
+
 export async function POST(request: Request) {
   try {
-    // Gumroad sends a POST with JSON body
-    // We need the raw body for signature verification
     const rawBody = await request.clone().text()
     const signature = request.headers.get('X-Gumroad-Signature')
 
-    // Verify signature
     if (!verifySignature(rawBody, signature)) {
       console.warn('[Gumroad] Invalid signature — possible spoofed request. Rejecting.')
       return NextResponse.json({ success: false, error: 'Invalid signature' }, { status: 401 })
@@ -102,35 +114,26 @@ export async function POST(request: Request) {
 
     console.log(`[Gumroad] Sale received:`, { saleId, email, productName, price, refunded })
 
-    // Handle refunds — delete the token
+    // Handle refunds
     if (refunded) {
-      const sales = loadSales()
-      const existing = sales.find(s => s.saleId === saleId)
-      if (existing) {
-        existing.refunded = true
-        saveSales(sales)
-        console.log(`[Gumroad] Sale ${saleId} refunded, token marked as refunded`)
-      }
+      await markRefunded(saleId)
+      console.log(`[Gumroad] Sale ${saleId} refunded, token marked as refunded`)
       return NextResponse.json({ success: true })
     }
 
-    // Skip if we already processed this sale
-    const existingSales = loadSales()
-    if (existingSales.find(s => s.saleId === saleId)) {
+    // Idempotency check
+    if (await isDuplicate(saleId)) {
       console.log(`[Gumroad] Sale ${saleId} already processed, skipping`)
       return NextResponse.json({ success: true })
     }
 
-    // Detect which plan was purchased
     const planId = detectPlan(productName, permalink)
     if (!planId) {
       console.warn(`[Gumroad] Unknown product: ${productName}, defaulting to pro-monthly`)
     }
 
-    // Create the token
-    const tokenEntry = createToken(planId || 'pro-monthly', email || 'Gumroad User')
+    const tokenEntry = await createToken(planId || 'pro-monthly', email || 'Gumroad User')
 
-    // Persist the sale record
     const sale: GumroadSale = {
       saleId: saleId || `gr-${Date.now()}`,
       email: email || 'unknown@email.com',
@@ -142,16 +145,13 @@ export async function POST(request: Request) {
       expiresAt: tokenEntry.expiresAt!,
       refunded: false,
     }
-    existingSales.push(sale)
-    saveSales(existingSales)
+
+    await recordSale(sale)
 
     console.log(`[Gumroad] Token created for ${email}: ${tokenEntry.token} (plan: ${planId})`)
-
-    // Return 200 — Gumroad expects success
     return NextResponse.json({ success: true })
   } catch (err) {
     console.error('[Gumroad Webhook Error]', err)
-    // Always return 200 so Gumroad doesn't keep retrying
     return NextResponse.json({ success: true })
   }
 }

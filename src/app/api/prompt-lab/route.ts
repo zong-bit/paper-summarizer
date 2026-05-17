@@ -65,7 +65,7 @@ export async function POST(request: Request) {
 
     let isPro = false
     if (userToken) {
-      const tokenEntry = findToken(userToken)
+      const tokenEntry = await findToken(userToken)
       if (tokenEntry) {
         // Check expiry
         if (tokenEntry.expiresAt && new Date(tokenEntry.expiresAt) < new Date()) {
