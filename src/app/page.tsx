@@ -175,7 +175,7 @@ export default function Home() {
               {t('common.back')}
             </button>
           </div>
-          <SummaryCard summary={summary} title="Research Paper Summary" originalText={summary.originalText} />
+          <SummaryCard summary={summary} title="Research Paper Summary" originalText={summary.originalText} domain={domain} />
           <ShareInsight
             paperTitle={summary.oneSentence || 'Research Paper'}
             summaryPreview={summary.oneSentence}

@@ -47,6 +47,19 @@ export default function Navbar({ currentPage }: NavbarProps) {
           <span className="font-bold text-lg text-white">Paper Summarizer</span>
         </Link>
         <div className="flex items-center gap-3">
+          <Link
+            href="/library"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors border ${
+              currentPage === 'library'
+                ? 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                : 'bg-slate-800 hover:bg-slate-700 text-slate-400 border-slate-700'
+            }`}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+            </svg>
+            <span className="hidden sm:inline">Library</span>
+          </Link>
           {loading ? (
             <div className="w-20 h-8 bg-slate-800/50 rounded-lg animate-pulse"></div>
           ) : user ? (
