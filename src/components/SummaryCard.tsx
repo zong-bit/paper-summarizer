@@ -19,6 +19,8 @@ interface SummaryCardProps {
   }
   title?: string
   originalText?: string
+  domain?: string
+  onSaveToLibrary?: (info: { title: string; content: string; domain: string }) => void
 }
 
 const SHARE_MESSAGE = 'I just used AI to summarize a research paper in seconds! Try it at summarizeai.app'
@@ -243,16 +245,75 @@ function computeSimilarity(a: string, b: string): number {
   return matches / Math.max(wordsA.size, wordsB.size)
 }
 
-export default function SummaryCard({ summary, title, originalText }: SummaryCardProps) {
+export default function SummaryCard({ summary, title, originalText, domain, onSaveToLibrary }: SummaryCardProps) {
   const [copied, setCopied] = useState(false)
   const [exporting, setExporting] = useState(false)
   const [showOriginal, setShowOriginal] = useState(false)
   const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null)
+  const [savingToLibrary, setSavingToLibrary] = useState(false)
+  const [savedToLibrary, setSavedToLibrary] = useState(false)
 
   const originalPanelRef = useRef<HTMLDivElement>(null)
   const highlightedRef = useRef<HTMLDivElement>(null)
 
   const findings = normalizeFindings(summary.keyFindings)
+
+  const paperTitle = title || summary.oneSentence || 'Research Paper'
+
+  const handleSaveToLibrary = async () => {
+    if (savingToLibrary || savedToLibrary) return
+    setSavingToLibrary(true)
+    try {
+      const content = [
+        `Summary: ${summary.oneSentence}`,
+        '',
+        'Key Findings:',
+        ...findings.map((f, i) => `${i + 1}. ${f.text}`),
+        '',
+        `Methodology: ${summary.methodology}`,
+        '',
+        `Conclusion: ${summary.conclusion}`,
+      ].join('\n')
+
+      const res = await fetch('/api/library', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: paperTitle,
+          content,
+          domain: domain || 'General',
+          source: 'summarizeai',
+        }),
+      })
+
+      const data = await res.json()
+      if (res.ok) {
+        setSavedToLibrary(true)
+        onSaveToLibrary?.({ title: paperTitle, content, domain: domain || 'General' })
+      }
+    } catch (err) {
+      console.error('Save to library error:', err)
+    } finally {
+      setSavingToLibrary(false)
+    }
+  }
+
+  // Check localStorage for saved state on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined' && paperTitle) {
+      const saved = localStorage.getItem(`ps-library-saved:${paperTitle}`)
+      if (saved === 'true') {
+        setSavedToLibrary(true)
+      }
+    }
+  }, [paperTitle])
+
+  // Save state to localStorage when saved
+  useEffect(() => {
+    if (savedToLibrary && paperTitle) {
+      localStorage.setItem(`ps-library-saved:${paperTitle}`, 'true')
+    }
+  }, [savedToLibrary, paperTitle])
 
   // Scroll to highlighted paragraph after render
   useEffect(() => {

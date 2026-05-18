@@ -24,6 +24,12 @@ export default function Home() {
   const [summary, setSummary] = useState<SummaryData | null>(null)
   const [error, setError] = useState('')
   const [rateLimitTimer, setRateLimitTimer] = useState<number | null>(null)
+  const [domain, setDomain] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('ps-domain') || 'General'
+    }
+    return 'General'
+  })
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,12 +86,15 @@ export default function Home() {
         }
       }
 
+      // Save domain to localStorage
+      localStorage.setItem('ps-domain', domain)
+
       const response = await fetch('/api/summarize', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text: textToSummarize, originalText: textToSummarize }),
+        body: JSON.stringify({ text: textToSummarize, originalText: textToSummarize, domain }),
       })
 
       const data = await response.json()
@@ -121,6 +130,11 @@ export default function Home() {
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
+  }
+
+  const handleDomainChange = (newDomain: string) => {
+    setDomain(newDomain)
+    localStorage.setItem('ps-domain', newDomain)
   }
 
   // Rate limit countdown
@@ -242,17 +256,38 @@ export default function Home() {
                 </button>
               </div>
 
+              {/* Domain selector */}
+              <div className="flex items-center gap-3">
+                <label className="text-sm text-slate-400 whitespace-nowrap">Domain:</label>
+                <select
+                  value={domain}
+                  onChange={(e) => handleDomainChange(e.target.value)}
+                  className="bg-slate-900/60 border border-slate-700/60 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 cursor-pointer"
+                >
+                  <option value="General">General</option>
+                  <option value="CS">Computer Science</option>
+                  <option value="Biology">Biology</option>
+                  <option value="Medicine">Medicine</option>
+                </select>
+              </div>
+
               {/* Textarea */}
               <div className="relative">
                 <textarea
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  placeholder={t('hero.placeholder')}
+                  placeholder={t('hero.placeholder').replace(
+                    'Paste your paper text here',
+                    'Paste arXiv URL or paper text here'
+                  )}
                   className="w-full h-48 bg-slate-900/60 border border-slate-700/60 rounded-xl p-4 text-slate-200 placeholder-slate-500 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 text-sm leading-relaxed"
                   disabled={isLoading}
                 />
                 <div className="absolute bottom-3 right-3 text-xs text-slate-500">
                   {inputText.length.toLocaleString()} {t('hero.charCount')}
+                </div>
+                <div className="absolute bottom-3 left-3 text-xs text-slate-600">
+                  💡 Supports arXiv URLs (e.g. https://arxiv.org/abs/2301.xxxxx)
                 </div>
               </div>
 

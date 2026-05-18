@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { logApiCall } from '@/lib/api-logger'
 import { findToken } from '@/lib/tokens'
+import { getDomainPrompt } from '@/lib/prompt-templates'
 
 // ── Rate limiter for anonymous/free users ──
 // Per-IP rate limit: 1 request per 10 minutes (anti-abuse)
@@ -85,7 +86,8 @@ export async function POST(request: Request) {
   const ua = request.headers.get('user-agent') || 'unknown'
 
   try {
-    const { text } = await request.json()
+    const { text, domain } = await request.json()
+    const domainKey = (domain || 'general').toLowerCase()
 
     // ── 1. Check Pro token ──
     const { isPro } = await extractProToken(request)
@@ -151,7 +153,11 @@ export async function POST(request: Request) {
       )
     }
 
-    const prompt = `You are a paper summarizer. Summarize the following academic paper and return ONLY valid JSON (no markdown, no code blocks, no extra text). Format:
+    const domainPrefix = getDomainPrompt(domainKey)
+
+    const prompt = `You are a paper summarizer. ${domainPrefix}
+
+Summarize the following academic paper and return ONLY valid JSON (no markdown, no code blocks, no extra text). Format:
 {
   "oneSentence": "one sentence summary",
   "keyFindings": [
