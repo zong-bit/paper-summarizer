@@ -147,6 +147,7 @@ async function activateProSubscription(
       .update({
         plan: 'pro',
         status: 'active',
+        source: 'paper-summarizer',
         gumroad_order_id: sale.sale_id,
         expires_at: sale.expires_at,
         updated_at: new Date().toISOString(),
@@ -158,6 +159,7 @@ async function activateProSubscription(
       user_id: userId,
       plan: 'pro',
       status: 'active',
+      source: 'paper-summarizer',
       gumroad_order_id: sale.sale_id,
       expires_at: sale.expires_at,
     })
@@ -176,6 +178,7 @@ async function updateSubscriptionToPro(
     .update({
       plan: 'pro',
       status: 'active',
+      source: 'paper-summarizer',
       gumroad_order_id: sale.sale_id,
       expires_at: sale.expires_at,
       updated_at: new Date().toISOString(),
