@@ -186,11 +186,11 @@ export default function AccountPage() {
             <div className="text-sm">
               {new Date(subscription.expires_at) <= new Date() ? (
                 <p className="text-error">
-                  {t('account.expiredOn', { date: new Date(subscription.expires_at).toLocaleDateString('zh-CN') })}
+                  {t('account.expiredOn', { date: new Date(subscription.expires_at).toLocaleDateString() })}
                 </p>
               ) : (
                 <p className="text-text-secondary">
-                  {t('account.validUntil', { date: new Date(subscription.expires_at).toLocaleDateString('zh-CN') })}
+                  {t('account.validUntil', { date: new Date(subscription.expires_at).toLocaleDateString() })}
                 </p>
               )}
             </div>
@@ -248,7 +248,7 @@ export default function AccountPage() {
               <span className="text-text-secondary">{t('account.memberSince')}</span>
               <span className="text-text">
                 {profile?.created_at
-                  ? new Date(profile.created_at).toLocaleDateString('zh-CN')
+                  ? new Date(profile.created_at).toLocaleDateString()
                   : 'N/A'}
               </span>
             </div>
@@ -292,7 +292,7 @@ export default function AccountPage() {
                     )}
                     {tok.expires_at && (
                       <p className="text-xs text-text-secondary">
-                        {t('account.tokenExpiry', { date: new Date(tok.expires_at).toLocaleDateString('zh-CN') })}
+                        {t('account.tokenExpiry', { date: new Date(tok.expires_at).toLocaleDateString() })}
                       </p>
                     )}
                   </div>

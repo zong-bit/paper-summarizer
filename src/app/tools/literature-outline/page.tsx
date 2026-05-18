@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../../components/Footer'
 import ShareButton from '../../../components/ShareButton'
-import LanguageSwitcher from '../../../components/LanguageSwitcher'
 import { useTranslation } from '@/i18n/provider'
 
 interface Section {
@@ -31,7 +30,7 @@ export default function LiteratureOutlinePage() {
   const { t } = useTranslation()
   const [topic, setTopic] = useState('')
   const [context, setContext] = useState('')
-  const [language, setLanguage] = useState<'en' | 'zh'>('en')
+  const [language] = useState<'en'>('en')
   const [result, setResult] = useState<OutlineResult | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -101,7 +100,6 @@ export default function LiteratureOutlinePage() {
             <span className="font-bold">Paper Summarizer</span>
           </Link>
           <div className="flex items-center gap-3">
-            <LanguageSwitcher />
             <span className="px-2.5 py-1 bg-primary/20 text-primary rounded-lg text-xs font-medium">{t('tools.proFeature')}</span>
             <Link href="/premium" className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-medium transition-colors border border-primary/20">
               ⭐ {t('tools.upgrade')}
@@ -128,23 +126,12 @@ export default function LiteratureOutlinePage() {
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
           {/* Language Toggle */}
           <div className="flex items-center gap-3">
-            <span className='text-sm text-text-secondary'>{t('literatureOutline.outputLanguage')}</span>
+            <span className='text-sm text-text-secondary'>Output Language:</span>
             <div className="flex bg-bg border border-border rounded-xl overflow-hidden">
               <button
-                onClick={() => setLanguage('en')}
-                className={`px-4 py-2 text-sm font-medium transition-colors ${
-                  language === 'en' ? 'bg-primary text-white' : 'text-text-secondary hover:text-text'
-                }`}
+                className="px-4 py-2 text-sm font-medium bg-primary text-white transition-colors"
               >
                 English
-              </button>
-              <button
-                onClick={() => setLanguage('zh')}
-                className={`px-4 py-2 text-sm font-medium transition-colors ${
-                  language === 'zh' ? 'bg-primary text-white' : 'text-text-secondary hover:text-text'
-                }`}
-              >
-                中文
               </button>
             </div>
           </div>
@@ -157,7 +144,7 @@ export default function LiteratureOutlinePage() {
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter' && !isLoading) handleSubmit() }}
-              placeholder={language === 'zh' ? t('literatureOutline.topicPlaceholderZh') : t('literatureOutline.topicPlaceholderEn')}
+              placeholder={t('literatureOutline.topicPlaceholderEn')}
               className="w-full bg-bg border border-border rounded-xl px-4 py-3 text-text placeholder-text-secondary/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
               disabled={isLoading}
             />
@@ -171,7 +158,7 @@ export default function LiteratureOutlinePage() {
             <textarea
               value={context}
               onChange={(e) => setContext(e.target.value)}
-              placeholder={language === 'zh' ? t('literatureOutline.contextPlaceholderZh') : t('literatureOutline.contextPlaceholderEn')}
+              placeholder={t('literatureOutline.contextPlaceholderEn')}
               className="w-full h-28 bg-bg border border-border rounded-xl p-4 text-text placeholder-text-secondary/40 resize-none focus:outline-none focus:ring-2 focus:ring-primary/50 scrollbar-thin"
               disabled={isLoading}
             />

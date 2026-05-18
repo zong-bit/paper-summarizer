@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { getSupabaseClient } from '@/lib/supabase'
 import type { AuthUser } from '@supabase/supabase-js'
-import LanguageSwitcher from './LanguageSwitcher'
+
 
 interface NavbarProps {
   currentPage?: string
@@ -47,7 +47,6 @@ export default function Navbar({ currentPage }: NavbarProps) {
           <span className="font-bold text-lg text-white">Paper Summarizer</span>
         </Link>
         <div className="flex items-center gap-3">
-          <LanguageSwitcher />
           {loading ? (
             <div className="w-20 h-8 bg-slate-800/50 rounded-lg animate-pulse"></div>
           ) : user ? (
@@ -69,7 +68,7 @@ export default function Navbar({ currentPage }: NavbarProps) {
                 onClick={handleSignOut}
                 className="px-3 py-1.5 text-sm text-slate-400 hover:text-red-400 transition-colors"
               >
-                退出登录
+                Sign Out
               </button>
             </>
           ) : (
@@ -78,13 +77,13 @@ export default function Navbar({ currentPage }: NavbarProps) {
                 href="/login"
                 className="px-3 py-1.5 text-sm text-slate-300 hover:text-white transition-colors"
               >
-                登录
+                Login
               </Link>
               <Link
                 href="/signup"
                 className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-medium transition-colors"
               >
-                注册
+                Sign Up
               </Link>
             </>
           )}

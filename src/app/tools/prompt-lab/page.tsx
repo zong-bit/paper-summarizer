@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../../components/Footer'
-import LanguageSwitcher from '../../../components/LanguageSwitcher'
 import { useTranslation } from '@/i18n/provider'
 import { prompts, categories, getPromptById, type Prompt } from '@/data/prompts'
 
@@ -112,7 +111,6 @@ export default function PromptLabPage() {
             <span className="font-bold">Paper Summarizer</span>
           </Link>
           <div className="flex items-center gap-3">
-            <LanguageSwitcher />
             <Link href="/premium" className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-medium transition-colors border border-primary/20">
               ⭐ Pro
             </Link>

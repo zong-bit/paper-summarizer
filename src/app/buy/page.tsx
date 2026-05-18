@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Footer from '../../components/Footer'
-import LanguageSwitcher from '../../components/LanguageSwitcher'
+
 import PaddlePricingCards from '../../components/PaddlePricingCards'
 import { useTranslation } from '@/i18n/provider'
 
@@ -50,7 +50,7 @@ export default function BuyPage() {
             <span className="font-bold">Paper Summarizer</span>
           </Link>
           <div className="flex items-center gap-3">
-            <LanguageSwitcher />
+            
             <Link href="/premium" className="text-sm text-primary hover:underline">{t('buy.comparePlans')}</Link>
           </div>
         </div>

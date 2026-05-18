@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 export default function AdPlaceholder() {
   useEffect(() => {
     try {
-      // @ts-expect-error - AdSense types
+      // @ts-ignore - AdSense types
       (window.adsbygoogle = window.adsbygoogle || []).push({})
     } catch (e) {
       console.error('AdSense error:', e)

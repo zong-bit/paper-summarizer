@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../components/Footer'
-import LanguageSwitcher from '../../components/LanguageSwitcher'
 import PricingComparison from '../../components/PricingComparison'
 import PrivacyNotice from '../../components/PrivacyNotice'
 import { useTranslation } from '@/i18n/provider'

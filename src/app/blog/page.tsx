@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import LanguageSwitcher from '../../components/LanguageSwitcher'
 
 const posts = [
   { slug: "ai-paper-summary-hallucination-verification-2026", title: "The AI Hallucination Crisis in Academic Paper Summarization: How to Ensure Your AI Doesn't Invent References", desc: "Nature warns: 30% of AI-generated academic citations are fabricated. Learn how to detect AI hallucination citations, verify summary accuracy, and why source-tracing is the gold standard for AI paper tools." },

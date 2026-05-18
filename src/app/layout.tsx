@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 import { I18nProvider } from '@/i18n/provider'
 import Navbar from '@/components/Navbar'
@@ -7,16 +8,16 @@ import Navbar from '@/components/Navbar'
 const BASE_URL = 'https://www.summarizeai.app'
 
 export const metadata: Metadata = {
-  title: '免费 AI 论文总结工具 - 数秒内总结任何学术论文',
-  description: '使用 AI 总结任何学术论文或 PDF。快速获取关键发现、方法和结论。免费使用。',
-  keywords: 'AI论文总结, 论文摘要, 学术论文总结, PDF摘要, 学术工具, DeepSeek',
+  title: 'Free AI Paper Summarizer - Summarize Any Academic Paper in Seconds',
+  description: 'Summarize any academic paper or PDF with AI. Get key findings, methods, and conclusions in seconds. Free to use.',
+  keywords: 'AI paper summarizer, paper summary, academic paper summary, PDF summary, research tool, DeepSeek',
   authors: [{ name: 'Paper Summarizer' }],
   alternates: {
     canonical: BASE_URL,
   },
   openGraph: {
-    title: '免费 AI 论文总结工具 - 数秒内总结任何学术论文',
-    description: '使用 AI 总结任何学术论文或 PDF。快速获取关键发现、方法和结论。',
+    title: 'Free AI Paper Summarizer - Summarize Any Academic Paper in Seconds',
+    description: 'Summarize any academic paper or PDF with AI. Get key findings, methods, and conclusions in seconds.',
     type: 'website',
     url: BASE_URL,
     siteName: 'Paper Summarizer',
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
         url: 'https://www.summarizeai.app/og-home.png',
         width: 1200,
         height: 630,
-        alt: 'Paper Summarizer - 免费 AI 论文总结工具',
+        alt: 'Paper Summarizer - Free AI Paper Summarizer',
       },
     ],
   },
@@ -34,8 +35,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '免费 AI 论文总结工具 - 数秒内总结任何学术论文',
-    description: '使用 AI 总结任何学术论文或 PDF。快速获取关键发现、方法和结论。',
+    title: 'Free AI Paper Summarizer - Summarize Any Academic Paper in Seconds',
+    description: 'Summarize any academic paper or PDF with AI. Get key findings, methods, and conclusions in seconds.',
     images: ['https://www.summarizeai.app/og-home.png'],
   },
 }
@@ -47,7 +48,7 @@ const HOME_JSON_LD = {
   name: 'Paper Summarizer',
   applicationCategory: 'EducationalApplication',
   operatingSystem: 'Any',
-  description: '免费 AI 驱动的学术论文总结工具。粘贴任何论文文本或上传 PDF，数秒内获取关键发现、方法和结论。',
+  description: 'Free AI-powered academic paper summarizer. Paste any paper text or upload a PDF, get key findings, methods, and conclusions in seconds.',
   url: BASE_URL,
   offers: {
     '@type': 'Offer',
@@ -68,7 +69,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="zh-CN" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6809828426585070" crossOrigin="anonymous"></script>
         {/* JSON-LD structured data for home page */}
@@ -83,6 +84,7 @@ export default function RootLayout({
           {children}
         </I18nProvider>
         <Analytics />
+        <GoogleAnalytics gaId="G-3F0LETZ2NY" />
       </body>
     </html>
   )

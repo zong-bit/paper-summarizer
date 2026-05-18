@@ -1,5 +1,4 @@
 'use client'
-import LanguageSwitcher from '../../../components/LanguageSwitcher'
 import { useTranslation } from '@/i18n/provider'
 
 import { useState } from 'react'
@@ -77,7 +76,6 @@ export default function PaperQAPage() {
             <span className="font-bold">Paper Summarizer</span>
           </Link>
           <div className="flex items-center gap-3">
-            <LanguageSwitcher />
             <span className="px-2.5 py-1 bg-primary/20 text-primary rounded-lg text-xs font-medium">{t('tools.proFeature')}</span>
             <Link href="/premium" className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-medium transition-colors border border-primary/20">
               ⭐ {t('tools.upgrade')}

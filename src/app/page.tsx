@@ -7,7 +7,6 @@ import Footer from '../components/Footer'
 import VisitorCounter from '../components/VisitorCounter'
 import SummaryCard from '../components/SummaryCard'
 import ShareInsight from '../components/ShareInsight'
-import LanguageSwitcher from '../components/LanguageSwitcher'
 import { useTranslation } from '@/i18n/provider'
 
 type SummaryData = {
@@ -185,9 +184,7 @@ export default function Home() {
 
             {/* Main heading */}
             <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight tracking-tight">
-              {locale === 'zh'
-                ? '数秒内总结\n任何学术论文'
-                : 'Summarize Any\nResearch Paper\nin Seconds'}
+              'Summarize Any\nResearch Paper\nin Seconds'
             </h1>
 
             {/* Subtitle */}
