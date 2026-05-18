@@ -55,7 +55,8 @@
     "paperQa": "论文问答",
     "paperQaDesc": "针对论文内容提出具体问题，获取精准回答",
     "paperCompare": "论文对比",
-    "paperCompareDesc": "并排对比多篇论文，快速识别关键差异"
+    "paperCompareDesc": "并排对比多篇论文，快速识别关键差异",
+    "tryNow": "试一试 →"
   },
   "trust": {
     "title": "为什么选择我们",

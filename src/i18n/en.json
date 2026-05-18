@@ -55,7 +55,8 @@
     "paperQa": "Paper Q&A",
     "paperQaDesc": "Ask specific questions about paper content and get precise answers",
     "paperCompare": "Paper Comparison",
-    "paperCompareDesc": "Compare multiple papers side by side to identify key differences"
+    "paperCompareDesc": "Compare multiple papers side by side to identify key differences",
+    "tryNow": "Try Now →"
   },
   "trust": {
     "title": "Why Choose Us",
