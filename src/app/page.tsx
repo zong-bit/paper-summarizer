@@ -6,6 +6,7 @@ import AdPlaceholder from '../components/AdPlaceholder'
 import Footer from '../components/Footer'
 import VisitorCounter from '../components/VisitorCounter'
 import SummaryCard from '../components/SummaryCard'
+import ShareInsight from '../components/ShareInsight'
 import LanguageSwitcher from '../components/LanguageSwitcher'
 import { useTranslation } from '@/i18n/provider'
 
@@ -147,6 +148,11 @@ export default function Home() {
             </button>
           </div>
           <SummaryCard summary={summary} title="Research Paper Summary" />
+          <ShareInsight
+            paperTitle={summary.oneSentence || 'Research Paper'}
+            summaryPreview={summary.oneSentence}
+            className="mt-4"
+          />
           <AdPlaceholder />
         </main>
         <Footer />

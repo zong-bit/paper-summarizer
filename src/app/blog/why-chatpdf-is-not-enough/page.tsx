@@ -3,7 +3,7 @@ import ShareButton from '../../../components/ShareButton'
 import { generateBlogMetadata, generateBlogJsonLd } from '../utils'
 
 export const metadata = generateBlogMetadata({
-  title: 'Why ChatPDF Isn\'t Enough: The ChatPDF Alternative Built for Deep Academic Analysis',
+  title: 'Why ChatPDF Is Not Enough: The ChatPDF Alternative Built for Deep Academic Analysis',
   description: 'ChatPDF is great for simple Q&A, but academic research needs deep synthesis. Discover why Paper-Summarizer is the ChatPDF alternative for researchers who need more.',
   keywords: ['ChatPDF alternative', 'ChatPDF vs Paper Summarizer', 'deep academic analysis', 'AI research synthesis', 'multi-paper analysis AI', 'academic AI tool', 'Paper Summarizer'],
   slug: 'why-chatpdf-is-not-enough',
@@ -35,7 +35,7 @@ export default function BlogPost() {
       <main className="flex-1 max-w-3xl mx-auto px-4 py-8">
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
-          <h1>Why ChatPDF Isn\'t Enough: The ChatPDF Alternative Built for Deep Academic Analysis</h1>
+          <h1>Why ChatPDF Is Not Enough: The ChatPDF Alternative Built for Deep Academic Analysis</h1>
 
           <p>If you're doing academic research, you've probably tried <strong>ChatPDF</strong> — the tool that lets you "chat" with any PDF. It's convenient, it's free (to start), and for simple questions, it works just fine. But when your research demands go beyond "What does this paper say?", ChatPDF's limitations become painfully obvious.</p>
 
@@ -107,7 +107,7 @@ export default function BlogPost() {
           <p>Stop treating your research like a search problem. Start treating it like what it is: a synthesis challenge. And Paper-Summarizer is built to meet that challenge head-on.</p>
         </article>
         <div className="mt-8 pt-4 border-t border-border/50">
-          <ShareButton title='Why ChatPDF Isn\'t Enough: The ChatPDF Alternative Built for Deep Academic Analysis - Paper Summarizer' compact />
+          <ShareButton title='Why ChatPDF Is Not Enough: The ChatPDF Alternative Built for Deep Academic Analysis - Paper Summarizer' compact />
         </div>
 
         <div className="mt-8 pt-8 border-t border-border text-center">

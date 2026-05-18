@@ -4,6 +4,9 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../components/Footer'
 import LanguageSwitcher from '../../components/LanguageSwitcher'
+import SocialProof from '../../components/SocialProof'
+import PricingComparison from '../../components/PricingComparison'
+import PrivacyNotice from '../../components/PrivacyNotice'
 import { useTranslation } from '@/i18n/provider'
 
 export default function PremiumPage() {
@@ -59,7 +62,7 @@ export default function PremiumPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 max-w-4xl mx-auto px-4 py-12 space-y-10">
-        {/* Hero */}
+        {/* Hero + Social Proof */}
         <div className="text-center space-y-4">
           <div className="inline-block px-4 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium">
             {t('premium.heroBadge')}
@@ -71,6 +74,7 @@ export default function PremiumPage() {
             {t('premium.subtitle')}
           </p>
         </div>
+        <SocialProof />
 
         {/* Claim Token (for new buyers) */}
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
@@ -187,6 +191,10 @@ export default function PremiumPage() {
 
         {/* Payment Options */}
         <div className="grid md:grid-cols-3 gap-6">
+          {/* Privacy Notice */}
+          <div className="col-span-full">
+            <PrivacyNotice />
+          </div>
           {/* Afdian Payment */}
           <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
             <h2 className="text-xl font-semibold text-text">{t('premium.payment.afdian')}</h2>
@@ -279,56 +287,7 @@ export default function PremiumPage() {
         </div>
 
         {/* Pricing Comparison */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-3">
-            <h3 className="text-xl font-semibold text-text">{t('premium.freePlan')}</h3>
-            <div className="text-3xl font-bold text-text">{t('pricing.freePrice')}</div>
-            <div className="text-text-secondary text-sm space-y-1">
-              {(tArray('premium.freeFeatures') as string[]).map((feature, i) => (
-                <p key={i}>{feature}</p>
-              ))}
-            </div>
-            <Link href="/" className="block text-center py-3 bg-bg-hover hover:bg-border text-text rounded-xl font-medium transition-colors">
-              {t('premium.continueFree')}
-            </Link>
-          </div>
-
-          <div className="bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/40 rounded-2xl p-6 space-y-3 relative">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-primary text-white text-xs font-medium rounded-full">
-              {t('pricing.popular')}
-            </div>
-            <h3 className="text-xl font-semibold text-text">{t('pricing.pro')}</h3>
-            <div className="text-3xl font-bold text-primary">{t('pricing.proPrice')}<span className="text-sm text-text-secondary font-normal">{t('pricing.proPriceSuffix')}</span></div>
-            <div className="text-text-secondary text-sm space-y-1">
-              {(tArray('premium.proFeatures') as string[]).map((feature, i) => (
-                <p key={i}>{feature}</p>
-              ))}
-            </div>
-                <div className="space-y-3">
-              <a
-                href="https://ifdian.net/item/8631b7544da611f1b57c52540025c377"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-center py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors"
-              >
-                {t('premium.buyAfdian')}
-              </a>
-              <Link
-                href="/buy"
-                className="block text-center py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-medium transition-colors"
-              >
-                {t('premium.buyGumroad')}
-              </Link>
-
-              <Link
-                href="/buy"
-                className="block text-center py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors"
-              >
-                Buy via Paddle
-              </Link>
-            </div>
-          </div>
-        </div>
+        <PricingComparison />
 
         {/* How it works */}
         <div className="space-y-4">

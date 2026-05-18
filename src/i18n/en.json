@@ -143,13 +143,12 @@
     "resultRecommendation": "💡 Recommendation"
   },
   "citationExport": {
-    "title": "Citation Generator",
+    "title": "Title *",
     "subtitle": "Generate formatted citations in APA, MLA, and GB/T 7714 formats. Free to use, no sign-up needed.",
     "citationFormat": "Citation Format",
     "sourceType": "Source Type",
     "authors": "Authors *",
     "year": "Year",
-    "title": "Title *",
     "journal": "Journal / Proceedings",
     "volume": "Volume",
     "issue": "Issue",
@@ -437,5 +436,13 @@
     "lifetime": "Lifetime",
     "noExpiration": "No expiration",
     "subscriptionExpired": "Subscription expired"
+  },
+  "social": {
+    "joinCommunity": "Join the growing community of researchers",
+    "trustedBy": "Trusted by researchers from"
+  },
+  "privacy": {
+    "zeroRetention": "Zero Data Retention. Your papers are processed and immediately discarded.",
+    "learnMore": "Learn more"
   }
 }

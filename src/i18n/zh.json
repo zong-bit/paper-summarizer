@@ -143,13 +143,12 @@
     "resultRecommendation": "💡 建议"
   },
   "citationExport": {
-    "title": "引文生成器",
+    "title": "标题 *",
     "subtitle": "生成 APA、MLA 和 GB/T 7714 格式的引文。免费使用，无需注册。",
     "citationFormat": "引文格式",
     "sourceType": "来源类型",
     "authors": "作者 *",
     "year": "年份",
-    "title": "标题 *",
     "journal": "期刊 / 会议论文集",
     "volume": "卷号",
     "issue": "期号",
@@ -437,5 +436,13 @@
     "lifetime": "终身有效",
     "noExpiration": "无过期时间",
     "subscriptionExpired": "订阅已过期"
+  },
+  "social": {
+    "joinCommunity": "加入不断壮大的研究者社区",
+    "trustedBy": "受到以下机构研究者的信赖"
+  },
+  "privacy": {
+    "zeroRetention": "零数据留存。您的论文经过处理后立即被丢弃。",
+    "learnMore": "了解更多"
   }
 }
