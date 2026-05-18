@@ -174,7 +174,7 @@ export default function PremiumPage() {
           </p>
           <div className="inline-block bg-bg-card border border-primary/30 rounded-2xl p-6">
             <div className="text-sm text-text-secondary mb-1">{t('premium.monthlySubscription')}</div>
-            <div className="text-4xl font-bold text-primary">{t('premium.proPrice')}<span className="text-lg text-text-secondary font-normal">{t('premium.proPriceSuffix')}</span></div>
+            <div className="text-4xl font-bold text-primary">{t('pricing.proPrice')}<span className="text-lg text-text-secondary font-normal">{t('pricing.proPriceSuffix')}</span></div>
             <div className="mt-4 text-text-secondary text-sm space-y-2 text-left">
               <p>{t('premium.features.unlimited')}</p>
               <p>{t('premium.features.chars')}</p>

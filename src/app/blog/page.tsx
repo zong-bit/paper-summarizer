@@ -2,6 +2,11 @@ import Link from 'next/link'
 import LanguageSwitcher from '../../components/LanguageSwitcher'
 
 const posts = [
+  { slug: "ai-paper-summary-hallucination-verification-2026", title: "The AI Hallucination Crisis in Academic Paper Summarization: How to Ensure Your AI Doesn't Invent References", desc: "Nature warns: 30% of AI-generated academic citations are fabricated. Learn how to detect AI hallucination citations, verify summary accuracy, and why source-tracing is the gold standard for AI paper tools." },
+  { slug: "ai-paper-summary-hallucination-crisis-2026", title: "AI论文摘要的幻觉危机：如何确保你的AI总结不编造参考文献", desc: "Nature子刊警告：30%的AI学术引用是虚构的。本文教你识别AI幻觉引用、验证AI总结准确性，以及为什么原文溯源是AI论文摘要工具的核心安全标准。" },
+  { slug: 'ai-paper-summarizer-vs-chatgpt-researchers', title: 'AI Paper Summarizer vs ChatGPT: Which One is Better for Researchers?', desc: 'A honest comparison of dedicated AI paper summarizers vs ChatGPT for academic research. See which tool wins on accuracy, speed, and domain-specific performance.' },
+  { slug: 'non-native-researcher-guide-ai-paper-summarization', title: "The Non-Native Researcher's Guide to AI-Powered Paper Summarization", desc: 'How AI paper summarization tools help non-native English speakers overcome language barriers and accelerate academic research.' },
+  { slug: 'how-to-summarize-a-research-paper-in-5-minutes', title: 'How to Summarize a Research Paper in 5 Minutes with AI', desc: 'Learn how to quickly extract key findings from any academic paper using our free AI summarizer.' },
   { slug: 'ai-paper-summary-chinese-support-review-2026', title: 'AI论文摘要工具中文支持深度测评：中文论文摘要到底靠不靠谱？', desc: '中文论文用AI摘要靠谱吗？实测6款主流AI论文摘要工具的中文支持能力，从摘要准确率、术语翻译、学术规范到中文文献理解深度，全面对比分析。' },
   { slug: 'ai-paper-summary-hallucination-2026', title: 'AI论文摘要的"幻觉"真相：2026年研究者必须知道的6种陷阱与应对指南', desc: '2026年AI幻觉问题引发学术信任危机。详解AI论文摘要中最常见的6种幻觉类型、真实数据案例，以及如何用科学方法识别和防范，确保你的研究不被AI误导。' },
   { slug: 'future-trends-ai-paper-summarizer', title: 'AI论文摘要工具的未来趋势：2026-2027年展望', desc: '深度解析AI论文摘要工具的四大未来趋势：多模态理解、推理增强、个性化摘要和AI Agent科研助手。为学术研究人员提供前瞻性展望和选择建议。' },

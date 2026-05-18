@@ -29,6 +29,9 @@ export const metadata: Metadata = {
       },
     ],
   },
+  verification: {
+    google: 'google7cb187820d4c40ab',
+  },
   twitter: {
     card: 'summary_large_image',
     title: '免费 AI 论文总结工具 - 数秒内总结任何学术论文',

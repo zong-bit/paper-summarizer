@@ -35,7 +35,7 @@ const TOOLS = [
     href: '/tools/prompt-lab',
     icon: '🧪',
     title: 'Prompt Lab',
-    desc: '50+ 研究 AI 提示词，按分类整理，直接复制使用',
+    desc: '50+ research AI prompts, organized by category, ready to copy and use',
     tag: 'Free',
     tagColor: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
   },
@@ -43,31 +43,31 @@ const TOOLS = [
     href: '/tools/paper-qa',
     icon: '🤖',
     title: 'Paper Q&A',
-    desc: '用 AI 对话方式深入理解论文，问答式探索',
+    desc: 'Deeply understand papers through AI-powered Q&A conversations',
     tag: 'Pro',
     tagColor: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
   },
   {
     href: '/tools/paper-compare',
     icon: '⚖️',
-    title: '论文对比',
-    desc: '并排对比多篇论文的核心发现、方法和结论',
+    title: 'Paper Comparison',
+    desc: 'Compare key findings, methods, and conclusions of multiple papers side by side',
     tag: 'Pro',
     tagColor: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
   },
   {
     href: '/tools/citation-export',
     icon: '📋',
-    title: '引用导出',
-    desc: '一键导出标准格式的参考文献列表',
+    title: 'Citation Export',
+    desc: 'Export standardized reference lists with one click',
     tag: 'Pro',
     tagColor: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
   },
   {
     href: '/tools/literature-outline',
     icon: '📑',
-    title: '综述大纲',
-    desc: 'AI 自动生成文献综述的结构化大纲',
+    title: 'Literature Outline',
+    desc: 'AI-generated structured outlines for literature reviews',
     tag: 'Pro',
     tagColor: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
   },
@@ -106,10 +106,10 @@ export default function ToolsPage() {
             AI-Powered Research Tools
           </h1>
           <p className="text-xl text-text-secondary mb-2">
-            一站式科研工具集
+            All-in-One Research Toolkit
           </p>
           <p className="text-text-secondary text-sm mb-8">
-            从论文阅读到文献综述，AI 帮你提升科研效率
+            From paper reading to literature reviews — AI boosts your research productivity
           </p>
         </div>
 
@@ -132,7 +132,7 @@ export default function ToolsPage() {
               </h3>
               <p className="text-text-secondary text-sm">{tool.desc}</p>
               <div className="mt-4 text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                使用工具 →
+                Use Tool →
               </div>
             </Link>
           ))}
