@@ -4,6 +4,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 import { I18nProvider } from '@/i18n/provider'
 import Navbar from '@/components/Navbar'
+import FeedbackButton from '@/components/FeedbackButton'
 
 const BASE_URL = 'https://www.summarizeai.app'
 
@@ -82,6 +83,7 @@ export default function RootLayout({
         <I18nProvider>
           <Navbar />
           {children}
+          <FeedbackButton />
         </I18nProvider>
         <Analytics />
         <GoogleAnalytics gaId="G-3F0LETZ2NY" />
