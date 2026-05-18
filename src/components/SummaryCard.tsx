@@ -448,7 +448,7 @@ export default function SummaryCard({ summary, title, originalText }: SummaryCar
                         {index + 1}
                       </span>
                       <p className={`text-sm leading-relaxed whitespace-pre-wrap ${
-                        isHighlighted ? 'text-text font-medium' : 'text-text-secondary'
+                        isHighlighted ? 'text-amber-900 dark:text-amber-100 font-medium' : 'text-text-secondary'
                       }`}>
                         {paragraph}
                       </p>
