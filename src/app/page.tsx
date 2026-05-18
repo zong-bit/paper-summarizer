@@ -11,7 +11,7 @@ import { useTranslation } from '@/i18n/provider'
 
 type SummaryData = {
   oneSentence: string
-  keyFindings: string[]
+  keyFindings: Array<string | { text: string; source_page?: number; source_paragraph?: number; source_text?: string }>
   methodology: string
   conclusion: string
 }
@@ -146,7 +146,7 @@ export default function Home() {
               {t('common.back')}
             </button>
           </div>
-          <SummaryCard summary={summary} title="Research Paper Summary" />
+          <SummaryCard summary={summary} title="Research Paper Summary" originalText={inputText} />
           <ShareInsight
             paperTitle={summary.oneSentence || 'Research Paper'}
             summaryPreview={summary.oneSentence}

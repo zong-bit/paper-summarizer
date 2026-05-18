@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 
 interface KeyFinding {
   text: string
   source_page?: number
   source_paragraph?: number
+  source_text?: string
 }
 
 interface SummaryCardProps {
@@ -17,6 +18,7 @@ interface SummaryCardProps {
     _rate?: { remaining: number; resetIn: number }
   }
   title?: string
+  originalText?: string
 }
 
 const SHARE_MESSAGE = 'I just used AI to summarize a research paper in seconds! Try it free at summarizai.app'
@@ -72,7 +74,7 @@ function ShareButtons({ onShare }: { onShare: () => void }) {
         title="Copy link"
       >
         <svg className="w-5 h-5 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 0 00-5.656-5.656l-1.1 1.1" />
         </svg>
       </button>
     </div>
@@ -148,10 +150,17 @@ function ExportButtons({ title, keyFindings }: { title: string; keyFindings: (st
   )
 }
 
-function AnchorLink({ page, paragraph }: { page: number | undefined; paragraph: number | undefined }) {
+function AnchorLink({ page, paragraph, onClick }: { page: number | undefined; paragraph: number | undefined; onClick?: () => void }) {
   if (!page || !paragraph) return null
   return (
-    <span className="inline-block ml-1.5 text-[11px] text-blue-500 hover:text-blue-700 cursor-pointer select-none font-mono bg-blue-50 hover:bg-blue-100 px-1.5 py-0.5 rounded transition-colors" title={`Source: page ${page}, paragraph ${paragraph}`}>
+    <span
+      className="inline-block ml-1.5 text-[11px] text-blue-500 hover:text-blue-700 cursor-pointer select-none font-mono bg-blue-50 hover:bg-blue-100 px-1.5 py-0.5 rounded transition-colors"
+      title={`Source: page ${page}, paragraph ${paragraph}`}
+      onClick={(e) => {
+        e.stopPropagation()
+        onClick?.()
+      }}
+    >
       [{page}.{paragraph}]
     </span>
   )
@@ -159,16 +168,102 @@ function AnchorLink({ page, paragraph }: { page: number | undefined; paragraph: 
 
 function normalizeFindings(findings: (string | KeyFinding)[]): KeyFinding[] {
   return findings.map((f) =>
-    typeof f === 'string' ? { text: f, source_page: 0, source_paragraph: 0 } : f
+    typeof f === 'string' ? { text: f, source_page: 0, source_paragraph: 0, source_text: '' } : f
   )
 }
 
-export default function SummaryCard({ summary, title }: SummaryCardProps) {
+/**
+ * Split text into paragraphs (split by double newline or single newline).
+ * Returns array of paragraph strings.
+ */
+function splitParagraphs(text: string): string[] {
+  if (!text || !text.trim()) return []
+  // Split by double newline first, then single newline if result is too few
+  let paragraphs = text.split(/\n\s*\n/)
+  if (paragraphs.length < 3) {
+    paragraphs = text.split(/\n+/)
+  }
+  return paragraphs
+    .map(p => p.trim())
+    .filter(p => p.length > 0)
+}
+
+/**
+ * Find the paragraph index that best matches the given source_text.
+ * Uses similarity scoring to find the best match.
+ */
+function findBestMatchIndex(paragraphs: string[], sourceText: string, page: number, paragraphNum: number): number {
+  if (!sourceText || !sourceText.trim()) {
+    // Fallback: use estimated paragraph number (0-indexed)
+    return Math.max(0, Math.min(paragraphs.length - 1, (paragraphNum || 1) - 1))
+  }
+
+  const normalizedSource = sourceText.toLowerCase().trim()
+  let bestScore = 0
+  let bestIndex = 0
+
+  // If source_text is short (< 20 chars), use exact paragraph number as primary
+  if (normalizedSource.length < 20) {
+    const fallback = Math.max(0, Math.min(paragraphs.length - 1, (paragraphNum || 1) - 1))
+    // Also check nearby paragraphs for a better match
+    const range = 5
+    for (let i = Math.max(0, fallback - range); i <= Math.min(paragraphs.length - 1, fallback + range); i++) {
+      const score = computeSimilarity(normalizedSource, paragraphs[i].toLowerCase().trim())
+      if (score > bestScore) {
+        bestScore = score
+        bestIndex = i
+      }
+    }
+    return bestIndex
+  }
+
+  for (let i = 0; i < paragraphs.length; i++) {
+    const score = computeSimilarity(normalizedSource, paragraphs[i].toLowerCase().trim())
+    if (score > bestScore) {
+      bestScore = score
+      bestIndex = i
+    }
+  }
+
+  return bestIndex
+}
+
+/**
+ * Simple text similarity score (0-1) based on shared words.
+ */
+function computeSimilarity(a: string, b: string): number {
+  if (!a || !b) return 0
+  const wordsA = new Set(a.split(/\s+/))
+  const wordsB = new Set(b.split(/\s+/))
+  if (wordsA.size === 0 || wordsB.size === 0) return 0
+  let matches = 0
+  for (const w of wordsA) {
+    if (wordsB.has(w)) matches++
+  }
+  return matches / Math.max(wordsA.size, wordsB.size)
+}
+
+export default function SummaryCard({ summary, title, originalText }: SummaryCardProps) {
   const [copied, setCopied] = useState(false)
   const [shared, setShared] = useState(0)
   const [exporting, setExporting] = useState(false)
+  const [showOriginal, setShowOriginal] = useState(false)
+  const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null)
+
+  const originalPanelRef = useRef<HTMLDivElement>(null)
+  const highlightedRef = useRef<HTMLDivElement>(null)
 
   const findings = normalizeFindings(summary.keyFindings)
+
+  // Scroll to highlighted paragraph after render
+  useEffect(() => {
+    if (highlightedIndex !== null && highlightedRef.current && showOriginal) {
+      // Use requestAnimationFrame to ensure DOM is ready
+      requestAnimationFrame(() => {
+        highlightedRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      })
+    }
+  }, [highlightedIndex, showOriginal])
 
   const handleExportPdf = async () => {
     setExporting(true)
@@ -225,6 +320,21 @@ export default function SummaryCard({ summary, title }: SummaryCardProps) {
   }
 
   const remaining = summary._rate?.remaining ?? 0
+
+  // Split original text into paragraphs for display
+  const paragraphs = originalText ? splitParagraphs(originalText) : []
+
+  /**
+   * Handle clicking an anchor link: expand the original text panel and highlight the paragraph.
+   */
+  const handleAnchorClick = useCallback((index: number) => {
+    setShowOriginal(true)
+    setHighlightedIndex(index)
+    // Delay scroll to next tick so DOM has updated
+    setTimeout(() => {
+      highlightedRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }, 100)
+  }, [])
 
   return (
     <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-6">
@@ -286,7 +396,7 @@ export default function SummaryCard({ summary, title }: SummaryCardProps) {
                 <span className="flex-shrink-0 w-6 h-6 bg-primary/20 text-primary rounded-full flex items-center justify-center text-sm font-medium">
                   {index + 1}
                 </span>
-                <span>{finding.text}<AnchorLink page={finding.source_page} paragraph={finding.source_paragraph} /></span>
+                <span className="flex-1">{finding.text}<AnchorLink page={finding.source_page} paragraph={finding.source_paragraph} onClick={() => handleAnchorClick(index)} /></span>
               </li>
             ))}
           </ul>
@@ -302,6 +412,64 @@ export default function SummaryCard({ summary, title }: SummaryCardProps) {
           <p className="text-text leading-relaxed">{summary.conclusion}</p>
         </div>
       </div>
+
+      {/* Original Text Reference Panel */}
+      {originalText && paragraphs.length > 0 && (
+        <div ref={originalPanelRef} className="border-t border-border pt-4">
+          <button
+            onClick={() => setShowOriginal(!showOriginal)}
+            className="flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-dark transition-colors w-full"
+          >
+            <svg
+              className={`w-4 h-4 transition-transform ${showOriginal ? 'rotate-90' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            原文对照 ({paragraphs.length} paragraphs)
+          </button>
+
+          {showOriginal && (
+            <div className="mt-3 bg-bg-hover rounded-xl p-4 space-y-3 max-h-[60vh] overflow-y-auto">
+              <p className="text-xs text-text-secondary mb-2">
+                Click on any [page.paragraph] anchor above to highlight the corresponding original text.
+              </p>
+              {paragraphs.map((paragraph, index) => {
+                const isHighlighted = highlightedIndex !== null && index === highlightedIndex
+                // Also highlight paragraphs near the highlighted one
+                const isNearHighlighted = highlightedIndex !== null && Math.abs(index - highlightedIndex) <= 2 && index !== highlightedIndex
+                
+                return (
+                  <div
+                    key={index}
+                    ref={isHighlighted ? highlightedRef : undefined}
+                    className={`rounded-lg p-3 transition-all duration-300 ${
+                      isHighlighted
+                        ? 'bg-amber-100 dark:bg-amber-900/30 border-l-4 border-amber-500 shadow-sm'
+                        : isNearHighlighted
+                          ? 'bg-bg-card border border-border/50'
+                          : 'border border-transparent'
+                    }`}
+                  >
+                    <div className="flex items-start gap-2">
+                      <span className="flex-shrink-0 text-xs text-text-secondary/50 font-mono mt-0.5 w-6 text-right">
+                        {index + 1}
+                      </span>
+                      <p className={`text-sm leading-relaxed whitespace-pre-wrap ${
+                        isHighlighted ? 'text-text font-medium' : 'text-text-secondary'
+                      }`}>
+                        {paragraph}
+                      </p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Share section */}
       <div className="border-t border-border pt-4 space-y-3">

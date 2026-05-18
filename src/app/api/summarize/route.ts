@@ -155,14 +155,14 @@ export async function POST(request: Request) {
 {
   "oneSentence": "one sentence summary",
   "keyFindings": [
-    {"text": "finding 1", "source_page": 1, "source_paragraph": 2},
-    {"text": "finding 2", "source_page": 3, "source_paragraph": 1}
+    {"text": "finding 1", "source_page": 1, "source_paragraph": 2, "source_text": "exact text of the paragraph where this finding is mentioned"},
+    {"text": "finding 2", "source_page": 3, "source_paragraph": 1, "source_text": "exact text of the paragraph where this finding is mentioned"}
   ],
   "methodology": "one sentence about methodology",
   "conclusion": "main conclusion"
 }
 
-IMPORTANT: For each key finding, estimate the source_page (page number in the original paper) and source_paragraph (paragraph number on that page where this finding is mentioned). These help readers locate the original text. Use reasonable estimates based on the text provided.
+IMPORTANT: For each key finding, estimate the source_page (page number in the original paper) and source_paragraph (paragraph number on that page where this finding is mentioned). Also provide "source_text" which is the exact text of the paragraph where this finding is mentioned. Use the provided text to extract the actual paragraph content. Use reasonable estimates for page/paragraph numbers.
 
 Paper text:
 ${truncatedText}
@@ -229,12 +229,17 @@ Return ONLY the JSON object, nothing else.`
     // Normalize keyFindings: handle both array-of-strings and array-of-objects
     let keyFindings = parsedContent.keyFindings ?? []
     if (keyFindings.length > 0 && typeof keyFindings[0] === 'string') {
-      keyFindings = keyFindings.map((text: string) => ({ text, source_page: 0, source_paragraph: 0 }))
+      keyFindings = keyFindings.map((text: string) => ({ text, source_page: 0, source_paragraph: 0, source_text: '' }))
     }
 
     return NextResponse.json({
       oneSentence: parsedContent.oneSentence ?? '',
-      keyFindings,
+      keyFindings: keyFindings.map((f: any) => ({
+        text: f.text ?? '',
+        source_page: f.source_page ?? 0,
+        source_paragraph: f.source_paragraph ?? 0,
+        source_text: f.source_text ?? '',
+      })),
       methodology: parsedContent.methodology ?? '',
       conclusion: parsedContent.conclusion ?? '',
       _pro: isPro,
