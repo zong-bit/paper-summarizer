@@ -66,12 +66,26 @@ export default function Home() {
     setSummary(null)
 
     try {
+      // If input looks like a URL, fetch the content first
+      let textToSummarize = inputText
+      if (inputText.match(/^https?:\/\//i)) {
+        const urlResponse = await fetch('/api/fetch-content', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: inputText }),
+        })
+        if (urlResponse.ok) {
+          const urlData = await urlResponse.json()
+          textToSummarize = urlData.text
+        }
+      }
+
       const response = await fetch('/api/summarize', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text: inputText }),
+        body: JSON.stringify({ text: textToSummarize, originalText: textToSummarize }),
       })
 
       const data = await response.json()
