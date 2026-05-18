@@ -2,10 +2,16 @@
 
 import { useState } from 'react'
 
+interface KeyFinding {
+  text: string
+  source_page?: number
+  source_paragraph?: number
+}
+
 interface SummaryCardProps {
   summary: {
     oneSentence: string
-    keyFindings: string[]
+    keyFindings: (string | KeyFinding)[]
     methodology: string
     conclusion: string
     _rate?: { remaining: number; resetIn: number }
@@ -73,10 +79,96 @@ function ShareButtons({ onShare }: { onShare: () => void }) {
   )
 }
 
+function ExportButtons({ title, keyFindings }: { title: string; keyFindings: (string | KeyFinding)[] }) {
+  const [loading, setLoading] = useState<string | null>(null)
+
+  const authors = Array.from({ length: 5 }, (_, i) => `Author${i + 1}`)
+  const year = new Date().getFullYear()
+
+  const buildPayload = (format: string) => ({
+    format,
+    title,
+    authors,
+    journal: 'Journal',
+    year,
+    volume: '',
+    issue: '',
+    pages: '',
+    doi: '',
+    url: '',
+    abstract: '',
+  })
+
+  const handleExport = async (format: 'bibtex' | 'ris' | 'plain') => {
+    setLoading(format)
+    try {
+      const res = await fetch('/api/export', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(buildPayload(format)),
+      })
+      if (!res.ok) throw new Error('Export failed')
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      const safeName = title.replace(/[^a-zA-Z0-9\u4e00-\u9fff\s-]/g, '').replace(/\s+/g, '-').toLowerCase().slice(0, 80)
+      const extMap = { bibtex: 'bib', ris: 'ris', plain: 'txt' }
+      a.download = `${safeName}.${extMap[format]}`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+    } catch (err) {
+      console.error(`Export ${format} error:`, err)
+    } finally {
+      setLoading(null)
+    }
+  }
+
+  return (
+    <div className="flex items-center gap-1">
+      {(['bibtex', 'ris', 'plain'] as const).map((fmt) => (
+        <button
+          key={fmt}
+          onClick={() => handleExport(fmt)}
+          disabled={!!loading}
+          className="px-2.5 py-1 text-xs bg-bg-hover hover:bg-primary/20 text-text-secondary hover:text-primary rounded-md transition-colors font-mono disabled:opacity-50"
+          title={`Export as ${fmt}`}
+        >
+          {loading === fmt ? (
+            <svg className="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+            </svg>
+          ) : fmt.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function AnchorLink({ page, paragraph }: { page: number | undefined; paragraph: number | undefined }) {
+  if (!page || !paragraph) return null
+  return (
+    <span className="inline-block ml-1.5 text-[11px] text-blue-500 hover:text-blue-700 cursor-pointer select-none font-mono bg-blue-50 hover:bg-blue-100 px-1.5 py-0.5 rounded transition-colors" title={`Source: page ${page}, paragraph ${paragraph}`}>
+      [{page}.{paragraph}]
+    </span>
+  )
+}
+
+function normalizeFindings(findings: (string | KeyFinding)[]): KeyFinding[] {
+  return findings.map((f) =>
+    typeof f === 'string' ? { text: f, source_page: 0, source_paragraph: 0 } : f
+  )
+}
+
 export default function SummaryCard({ summary, title }: SummaryCardProps) {
   const [copied, setCopied] = useState(false)
   const [shared, setShared] = useState(0)
   const [exporting, setExporting] = useState(false)
+
+  const findings = normalizeFindings(summary.keyFindings)
 
   const handleExportPdf = async () => {
     setExporting(true)
@@ -98,7 +190,7 @@ export default function SummaryCard({ summary, title }: SummaryCardProps) {
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      const safeName = pdfTitle.replace(/[^a-zA-Z0-9\u4e00-\u9fff\s-]/g, '').replace(/\s+/g, '-').toLowerCase().slice(0, 80)
+      const safeName = title?.replace(/[^a-zA-Z0-9\u4e00-\u9fff\s-]/g, '').replace(/\s+/g, '-').toLowerCase().slice(0, 80) || 'summary'
       a.download = `${safeName}.pdf`
       document.body.appendChild(a)
       a.click()
@@ -112,7 +204,7 @@ export default function SummaryCard({ summary, title }: SummaryCardProps) {
   }
 
   const copyToClipboard = async () => {
-    const text = `Summary: ${summary.oneSentence}\n\nKey Findings:\n${summary.keyFindings.map((f, i) => `${i + 1}. ${f}`).join('\n')}\n\nMethodology: ${summary.methodology}\n\nConclusion: ${summary.conclusion}`
+    const text = `Summary: ${summary.oneSentence}\n\nKey Findings:\n${findings.map((f, i) => `${i + 1}. ${f.text}`).join('\n')}\n\nMethodology: ${summary.methodology}\n\nConclusion: ${summary.conclusion}`
     
     try {
       await navigator.clipboard.writeText(text)
@@ -126,7 +218,6 @@ export default function SummaryCard({ summary, title }: SummaryCardProps) {
   const handleShare = () => {
     const newCount = shared + 1
     setShared(newCount)
-    // Track shares
     if (typeof window !== 'undefined') {
       const total = parseInt(localStorage.getItem('ps_shares') || '0', 10)
       localStorage.setItem('ps_shares', String(total + 1))
@@ -190,12 +281,12 @@ export default function SummaryCard({ summary, title }: SummaryCardProps) {
         <div>
           <h3 className="text-sm font-semibold text-text-secondary mb-2">Key Findings</h3>
           <ul className="space-y-2">
-            {summary.keyFindings.map((finding, index) => (
+            {findings.map((finding, index) => (
               <li key={index} className="flex items-start gap-2 text-text">
                 <span className="flex-shrink-0 w-6 h-6 bg-primary/20 text-primary rounded-full flex items-center justify-center text-sm font-medium">
                   {index + 1}
                 </span>
-                <span>{finding}</span>
+                <span>{finding.text}<AnchorLink page={finding.source_page} paragraph={finding.source_paragraph} /></span>
               </li>
             ))}
           </ul>
@@ -221,6 +312,7 @@ export default function SummaryCard({ summary, title }: SummaryCardProps) {
               <span className="text-xs text-success font-medium">+{shared} share{shared > 1 ? 's' : ''}</span>
             )}
           </div>
+          <ExportButtons title={title || 'Research Paper Summary'} keyFindings={summary.keyFindings} />
           <span className="text-xs text-text-secondary/60">
             {remaining > 0 ? `${remaining} use${remaining > 1 ? 's' : ''} left` : 'Limit reached'}
           </span>

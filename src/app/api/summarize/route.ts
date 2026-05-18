@@ -154,10 +154,15 @@ export async function POST(request: Request) {
     const prompt = `You are a paper summarizer. Summarize the following academic paper and return ONLY valid JSON (no markdown, no code blocks, no extra text). Format:
 {
   "oneSentence": "one sentence summary",
-  "keyFindings": ["finding 1", "finding 2", "finding 3", "finding 4", "finding 5"],
+  "keyFindings": [
+    {"text": "finding 1", "source_page": 1, "source_paragraph": 2},
+    {"text": "finding 2", "source_page": 3, "source_paragraph": 1}
+  ],
   "methodology": "one sentence about methodology",
   "conclusion": "main conclusion"
 }
+
+IMPORTANT: For each key finding, estimate the source_page (page number in the original paper) and source_paragraph (paragraph number on that page where this finding is mentioned). These help readers locate the original text. Use reasonable estimates based on the text provided.
 
 Paper text:
 ${truncatedText}
@@ -221,8 +226,17 @@ Return ONLY the JSON object, nothing else.`
       incrementFreeDailyUsage(ip)
     }
 
+    // Normalize keyFindings: handle both array-of-strings and array-of-objects
+    let keyFindings = parsedContent.keyFindings ?? []
+    if (keyFindings.length > 0 && typeof keyFindings[0] === 'string') {
+      keyFindings = keyFindings.map((text: string) => ({ text, source_page: 0, source_paragraph: 0 }))
+    }
+
     return NextResponse.json({
-      ...parsedContent,
+      oneSentence: parsedContent.oneSentence ?? '',
+      keyFindings,
+      methodology: parsedContent.methodology ?? '',
+      conclusion: parsedContent.conclusion ?? '',
       _pro: isPro,
       _remaining: isPro ? -1 : Math.max(0, 3 - (getFreeDailyUsage(ip).count + (isPro ? 0 : 1))),
     })
