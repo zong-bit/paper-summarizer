@@ -45,15 +45,15 @@ export const metadata: Metadata = {
 const HOME_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'Paper Summarizer',
-  applicationCategory: 'EducationalApplication',
-  operatingSystem: 'Any',
-  description: 'Free AI-powered academic paper summarizer. Paste any paper text or upload a PDF, get key findings, methods, and conclusions in seconds.',
+  name: 'Paper-Summarizer',
+  applicationCategory: 'Education',
+  operatingSystem: 'Web',
+  description: 'AI-powered academic paper summarizer. Instantly summarize complex papers and export citations.',
   url: BASE_URL,
   offers: {
     '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'CNY',
+    price: '9.99',
+    priceCurrency: 'USD',
     availability: 'https://schema.org/InStock',
   },
   author: {
