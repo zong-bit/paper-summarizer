@@ -242,6 +242,7 @@ Return ONLY the JSON object, nothing else.`
       })),
       methodology: parsedContent.methodology ?? '',
       conclusion: parsedContent.conclusion ?? '',
+      originalText: truncatedText,
       _pro: isPro,
       _remaining: isPro ? -1 : Math.max(0, 3 - (getFreeDailyUsage(ip).count + (isPro ? 0 : 1))),
     })

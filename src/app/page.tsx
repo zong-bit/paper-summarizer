@@ -14,6 +14,7 @@ type SummaryData = {
   keyFindings: Array<string | { text: string; source_page?: number; source_paragraph?: number; source_text?: string }>
   methodology: string
   conclusion: string
+  originalText?: string
 }
 
 export default function Home() {
@@ -146,7 +147,7 @@ export default function Home() {
               {t('common.back')}
             </button>
           </div>
-          <SummaryCard summary={summary} title="Research Paper Summary" originalText={inputText} />
+          <SummaryCard summary={summary} title="Research Paper Summary" originalText={summary.originalText} />
           <ShareInsight
             paperTitle={summary.oneSentence || 'Research Paper'}
             summaryPreview={summary.oneSentence}

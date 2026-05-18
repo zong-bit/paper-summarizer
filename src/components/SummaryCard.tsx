@@ -21,7 +21,7 @@ interface SummaryCardProps {
   originalText?: string
 }
 
-const SHARE_MESSAGE = 'I just used AI to summarize a research paper in seconds! Try it free at summarizai.app'
+const SHARE_MESSAGE = 'I just used AI to summarize a research paper in seconds! Try it at summarizeai.app'
 
 function ShareButtons({ onShare }: { onShare: () => void }) {
   const shareUrl = 'https://www.summarizeai.app'
@@ -245,7 +245,6 @@ function computeSimilarity(a: string, b: string): number {
 
 export default function SummaryCard({ summary, title, originalText }: SummaryCardProps) {
   const [copied, setCopied] = useState(false)
-  const [shared, setShared] = useState(0)
   const [exporting, setExporting] = useState(false)
   const [showOriginal, setShowOriginal] = useState(false)
   const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null)
@@ -307,15 +306,6 @@ export default function SummaryCard({ summary, title, originalText }: SummaryCar
       setTimeout(() => setCopied(false), 2000)
     } catch (err) {
       console.error('Failed to copy:', err)
-    }
-  }
-
-  const handleShare = () => {
-    const newCount = shared + 1
-    setShared(newCount)
-    if (typeof window !== 'undefined') {
-      const total = parseInt(localStorage.getItem('ps_shares') || '0', 10)
-      localStorage.setItem('ps_shares', String(total + 1))
     }
   }
 
@@ -475,18 +465,12 @@ export default function SummaryCard({ summary, title, originalText }: SummaryCar
       <div className="border-t border-border pt-4 space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <ShareButtons onShare={handleShare} />
-            {shared > 0 && (
-              <span className="text-xs text-success font-medium">+{shared} share{shared > 1 ? 's' : ''}</span>
-            )}
+            <ShareButtons onShare={() => {}} />
           </div>
           <ExportButtons title={title || 'Research Paper Summary'} keyFindings={summary.keyFindings} />
-          <span className="text-xs text-text-secondary/60">
-            {remaining > 0 ? `${remaining} use${remaining > 1 ? 's' : ''} left` : 'Limit reached'}
-          </span>
         </div>
         <p className="text-xs text-text-secondary/50">
-          Share to support the free tool! Your shared count helps unlock more features in the future.
+          Share this tool with your peers.
         </p>
       </div>
     </div>
