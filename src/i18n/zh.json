@@ -214,8 +214,8 @@
     "subtitle": "免费用户每天可获得 3 次总结。Pro 用户可获得无限次总结和优先处理。",
     "heroBadge": "⚡ 升级到 Pro",
     "claimToken": "🔑 领取您的 Pro Token",
-    "claimTokenDesc": "已付款？输入您的订单 ID 即可立即获取 Pro 访问 Token。支持爱发电、Gumroad 和 Lemon Squeezy 订单。",
-    "orderIdPlaceholder": "爱发电 / Gumroad / Lemon Squeezy 订单 ID...",
+    "claimTokenDesc": "已付款？输入您的订单 ID 即可立即获取 Pro 访问 Token。支持 Gumroad 和 Lemon Squeezy 订单。",
+    "orderIdPlaceholder": "Gumroad 或 Lemon Squeezy 订单 ID...",
     "claimTokenBtn": "领取 Token",
     "claiming": "领取中...",
     "tokenActivated": "🎉 Pro 访问已激活！",
@@ -240,13 +240,7 @@
       "email": "✓ 邮件支持"
     },
     "payment": {
-      "afdian": "💡 爱发电支付",
-      "afdianDesc": "🇨🇳 中国用户：通过在爱发电上赞助项目来支持我们。付款后，输入订单 ID 激活 Pro。",
-      "goAfdian": "🚀 前往爱发电 — ¥9.9/月",
-      "howAfdian": "📋 操作步骤：",
-      "afdianStep1": "点击上方按钮在爱发电支付 ¥9.9",
-      "afdianStep2": "付款后输入订单 ID 领取 Token",
-      "afdianStep3": "Token 在 24 小时内发放",
+
       "gumroad": "💳 Gumroad 支付",
       "gumroadDesc": "🌍 国际用户：使用信用卡、PayPal 或 Apple Pay 支付。通过邮件即时获取 Token。",
       "goGumroad": "🌍 Gumroad 结账 — $9.99/月起",
@@ -278,7 +272,7 @@
       "• PDF 上传",
       "• 邮件支持"
     ],
-    "buyAfdian": "🇨🇳 爱发电购买 ¥9.9 →",
+
     "buyGumroad": "🌍 Gumroad 购买 $9.99 →",
     "buyLemonSqueezy": "🍋 Lemon Squeezy 购买 $9.99 →",
     "howItWorks": "工作原理",
@@ -372,7 +366,7 @@
     "faqTrialAns": "免费用户每天可获得 3 次总结试用服务，无需信用卡。",
     "comparePlans": "对比方案",
     "footerNote": "有问题？发送邮件至 <a>{email}</a>",
-    "chineseUsers": "中国用户：改用爱发电支付"
+    "chineseUsers": "中国用户：如有支付问题请联系 us"
   },
   "visitor": {
     "label": "访问量："

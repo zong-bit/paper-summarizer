@@ -24,8 +24,6 @@ export default function Footer() {
         </p>
         <div className="mt-2 flex items-center justify-center gap-4 text-xs text-slate-600">
           <a href="/premium" className="hover:text-blue-400 transition-colors">⭐ {t('nav.premium')}</a>
-          <span>·</span>
-          <a href="https://afdian.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">爱发电</a>
         </div>
       </div>
     </footer>

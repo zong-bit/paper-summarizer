@@ -195,32 +195,6 @@ export default function PremiumPage() {
           <div className="col-span-full">
             <PrivacyNotice />
           </div>
-          {/* Afdian Payment */}
-          <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
-            <h2 className="text-xl font-semibold text-text">{t('premium.payment.afdian')}</h2>
-            <p className="text-text-secondary text-sm">
-              {t('premium.payment.afdianDesc')}
-            </p>
-
-            <a
-              href="https://ifdian.net/item/8631b7544da611f1b57c52540025c377"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 px-6 py-3.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold text-lg transition-all shadow-lg hover:shadow-xl block text-center"
-            >
-              {t('premium.payment.goAfdian')}
-            </a>
-
-            <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 text-sm text-text-secondary">
-              <strong className="text-text">{t('premium.payment.howAfdian')}</strong>
-              <ol className="mt-2 space-y-1 list-decimal list-inside">
-                <li>{t('premium.payment.afdianStep1')}</li>
-                <li>{t('premium.payment.afdianStep2')}</li>
-                <li>{t('premium.payment.afdianStep3')}</li>
-              </ol>
-            </div>
-          </div>
-
           {/* Gumroad Payment */}
           <div className="bg-bg-card border border-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl p-6 space-y-4">
             <h2 className="text-xl font-semibold text-text">{t('premium.payment.gumroad')}</h2>

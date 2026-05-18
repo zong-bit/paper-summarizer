@@ -214,8 +214,8 @@
     "subtitle": "Free users get 3 summaries per day. Pro users get unlimited summaries with priority processing.",
     "heroBadge": "⚡ Upgrade to Pro",
     "claimToken": "🔑 Claim Your Pro Token",
-    "claimTokenDesc": "Already paid? Enter your order ID below to receive your Pro access token instantly. Supports 爱发电, Gumroad, and Lemon Squeezy orders.",
-    "orderIdPlaceholder": "爱发电 / Gumroad / Lemon Squeezy order ID...",
+    "claimTokenDesc": "Already paid? Enter your order ID below to receive your Pro access token instantly. Supports Gumroad and Lemon Squeezy orders.",
+    "orderIdPlaceholder": "Gumroad or Lemon Squeezy order ID...",
     "claimTokenBtn": "Claim Token",
     "claiming": "Claiming...",
     "tokenActivated": "🎉 Pro Access Activated!",
@@ -240,13 +240,7 @@
       "email": "✓ Email support"
     },
     "payment": {
-      "afdian": "💡 Pay with 爱发电",
-      "afdianDesc": "🇨🇳 Chinese users: Support the project via 爱发电. After payment, enter your order ID to activate Pro.",
-      "goAfdian": "🚀 Go to 爱发电 — ¥9.9/month",
-      "howAfdian": "📋 How it works:",
-      "afdianStep1": "Click the button above and pay ¥9.9 on 爱发电",
-      "afdianStep2": "After payment, enter your order ID to claim your token",
-      "afdianStep3": "Token issued within 24 hours",
+
       "gumroad": "💳 Pay with Gumroad",
       "gumroadDesc": "🌍 International users: Pay with credit card, PayPal, or Apple Pay. Instant token delivery via email.",
       "goGumroad": "🌍 Gumroad Checkout — From $9.99/month",
@@ -278,7 +272,7 @@
       "• PDF upload",
       "• Email support"
     ],
-    "buyAfdian": "🇨🇳 Buy on 爱发电 ¥9.9 →",
+
     "buyGumroad": "🌍 Buy on Gumroad $9.99 →",
     "buyLemonSqueezy": "🍋 Buy on Lemon Squeezy $9.99 →",
     "howItWorks": "How It Works",
@@ -372,7 +366,7 @@
     "faqTrialAns": "Free users get 3 summaries per day to try out the service. No credit card required.",
     "comparePlans": "Compare Plans",
     "footerNote": "Questions? Email <a>{email}</a>",
-    "chineseUsers": "Chinese users: pay with 爱发电 instead"
+    "chineseUsers": "Chinese users: contact us for alternative payment options"
   },
   "visitor": {
     "label": "Visitors: "

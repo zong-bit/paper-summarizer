@@ -2,15 +2,6 @@ import { NextResponse } from 'next/server'
 import { findToken } from '@/lib/tokens'
 import { getSupabaseAdmin } from '@/lib/supabase'
 
-interface AfdianOrder {
-  order_id: string
-  token: string
-  name: string
-  paid_at: string
-  expires_at: string | null
-  claimed: boolean
-}
-
 interface GumroadSale {
   sale_id: string
   email: string
@@ -21,25 +12,6 @@ interface GumroadSale {
   paid_at: string
   expires_at: string | null
   refunded: boolean
-}
-
-async function getAfdianOrder(orderId: string): Promise<AfdianOrder | null> {
-  const supabase = getSupabaseAdmin()
-  const { data } = await supabase
-    .from('afdian_orders')
-    .select('*')
-    .eq('order_id', orderId)
-    .maybeSingle()
-  if (!data) return null
-  return data as unknown as AfdianOrder
-}
-
-async function markAfdianClaimed(orderId: string): Promise<void> {
-  const supabase = getSupabaseAdmin()
-  await supabase
-    .from('afdian_orders')
-    .update({ claimed: true })
-    .eq('order_id', orderId)
 }
 
 async function getGumroadSale(saleId: string): Promise<GumroadSale | null> {
@@ -64,41 +36,7 @@ export async function GET(request: Request) {
     )
   }
 
-  // First, look for this order in Afdian webhook records
-  const order = await getAfdianOrder(orderId)
-
-  if (order) {
-    const tokenEntry = await findToken(order.token)
-    if (!tokenEntry) {
-      return NextResponse.json(
-        { valid: false, error: 'Token not found. Please contact support.' },
-        { status: 404 }
-      )
-    }
-
-    if (order.expires_at && new Date(order.expires_at) < new Date()) {
-      return NextResponse.json(
-        { valid: false, error: 'This token has expired.' },
-        { status: 403 }
-      )
-    }
-
-    if (!order.claimed) {
-      await markAfdianClaimed(order.order_id)
-    }
-
-    return NextResponse.json({
-      valid: true,
-      token: order.token,
-      plan: 'pro',
-      expiresAt: order.expires_at || tokenEntry.expiresAt,
-      maxRequests: tokenEntry.maxRequests,
-      windowMs: tokenEntry.windowMs,
-      name: order.name,
-    })
-  }
-
-  // If not found in Afdian, check Gumroad sales
+  // Check Gumroad sales
   const sale = await getGumroadSale(orderId)
 
   if (!sale) {

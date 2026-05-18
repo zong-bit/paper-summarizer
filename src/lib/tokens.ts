@@ -84,7 +84,7 @@ export async function createToken(planId: PlanId, name?: string): Promise<TokenE
 }
 
 /**
- * Add a token to Supabase (used by afdian-webhook).
+ * Add a token to Supabase (used by payment webhooks).
  */
 export async function addToken(entry: Omit<TokenEntry, 'createdAt'>): Promise<TokenEntry> {
   const supabase = getSupabaseAdmin()

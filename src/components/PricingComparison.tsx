@@ -51,19 +51,13 @@ export default function PricingComparison() {
           </div>
           <div className="space-y-2">
             <a
-              href="https://ifdian.net/item/8631b7544da611f1b57c52540025c377"
+              href="/buy"
               target="_blank"
               rel="noopener noreferrer"
-              className="block text-center py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors"
-            >
-              🇨🇳 {t('premium.buyAfdian')}
-            </a>
-            <Link
-              href="/buy"
-              className="block text-center py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-medium transition-colors"
+              className="block text-center py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl font-medium transition-colors"
             >
               🌍 {t('premium.buyGumroad')}
-            </Link>
+            </a>
           </div>
         </div>
       </div>
