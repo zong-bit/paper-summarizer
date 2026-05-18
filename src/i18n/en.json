@@ -64,8 +64,6 @@
     "privacyDesc": "We never store your paper content — data is used only for generating summaries",
     "formats": "Supported Formats",
     "formatsDesc": "PDF, TXT, and common academic formats",
-    "researchers": "Trusted by Researchers",
-    "researchersDesc": "Serving 1000+ researchers worldwide",
     "poweredBy": "AI-Powered",
     "poweredByDesc": "Built on DeepSeek AI for precise academic understanding"
   },
@@ -431,10 +429,6 @@
     "lifetime": "Lifetime",
     "noExpiration": "No expiration",
     "subscriptionExpired": "Subscription expired"
-  },
-  "social": {
-    "joinCommunity": "Join the growing community of researchers",
-    "trustedBy": "Trusted by researchers from"
   },
   "privacy": {
     "zeroRetention": "Zero Data Retention. Your papers are processed and immediately discarded.",

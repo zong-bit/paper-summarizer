@@ -55,13 +55,6 @@ const HOME_JSON_LD = {
     priceCurrency: 'CNY',
     availability: 'https://schema.org/InStock',
   },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.8',
-    bestRating: '5',
-    worstRating: '1',
-    ratingCount: 1000,
-  },
   author: {
     '@type': 'Organization',
     name: 'Paper Summarizer',

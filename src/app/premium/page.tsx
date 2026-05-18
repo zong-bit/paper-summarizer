@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Footer from '../../components/Footer'
 import LanguageSwitcher from '../../components/LanguageSwitcher'
-import SocialProof from '../../components/SocialProof'
 import PricingComparison from '../../components/PricingComparison'
 import PrivacyNotice from '../../components/PrivacyNotice'
 import { useTranslation } from '@/i18n/provider'
@@ -74,7 +73,7 @@ export default function PremiumPage() {
             {t('premium.subtitle')}
           </p>
         </div>
-        <SocialProof />
+
 
         {/* Claim Token (for new buyers) */}
         <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">

@@ -64,8 +64,6 @@
     "privacyDesc": "不存储您的论文原文，数据仅用于生成摘要",
     "formats": "支持格式",
     "formatsDesc": "支持 PDF、TXT 及常见学术格式",
-    "researchers": "服务研究者",
-    "researchersDesc": "已为 1000+ 研究者提供论文总结服务",
     "poweredBy": "技术驱动",
     "poweredByDesc": "基于 DeepSeek AI，精准理解学术内容"
   },
@@ -431,10 +429,6 @@
     "lifetime": "终身有效",
     "noExpiration": "无过期时间",
     "subscriptionExpired": "订阅已过期"
-  },
-  "social": {
-    "joinCommunity": "加入不断壮大的研究者社区",
-    "trustedBy": "受到以下机构研究者的信赖"
   },
   "privacy": {
     "zeroRetention": "零数据留存。您的论文经过处理后立即被丢弃。",
