@@ -40,6 +40,7 @@ export default function AccountPage() {
   const [tokens, setTokens] = useState<Token[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [activationBanner, setActivationBanner] = useState<{ show: boolean; message: string }>({ show: false, message: '' })
 
   const fetchData = useCallback(async (supabase: SupabaseClient) => {
     try {
@@ -93,12 +94,36 @@ export default function AccountPage() {
         .or(`expires_at.gt.${new Date().toISOString()}`)
         .order('created_at', { ascending: false })
       setTokens(tokenData || [])
+
+      // Auto-activate Pro subscription if user purchased via Gumroad
+      await autoActivatePro(supabase, session.user)
     } catch (err: any) {
       setError(err?.message || 'Failed to load account data')
     } finally {
       setLoading(false)
     }
   }, [router])
+
+  const autoActivatePro = useCallback(async (supabase: SupabaseClient, authUser: AuthUser) => {
+    try {
+      const res = await fetch('/api/auto-activate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: authUser.id,
+          userEmail: authUser.email || '',
+        }),
+      })
+      const result = await res.json()
+      if (result.success && result.activated) {
+        setActivationBanner({ show: true, message: result.message })
+        // Refresh subscription and tokens after activation
+        fetchData(supabase)
+      }
+    } catch (err) {
+      console.error('[account] auto-activate failed:', err)
+    }
+  }, [fetchData])
 
   useEffect(() => {
     const supabase = getSupabaseClient()
@@ -112,6 +137,10 @@ export default function AccountPage() {
 
     return () => authSub.unsubscribe()
   }, [fetchData, router])
+
+  const dismissBanner = useCallback(() => {
+    setActivationBanner({ show: false, message: '' })
+  }, [])
 
   const handleSignOut = async () => {
     const supabase = getSupabaseClient()
@@ -153,6 +182,21 @@ export default function AccountPage() {
 
   return (
     <div className="min-h-screen bg-bg flex flex-col">
+      {/* Activation Banner */}
+      {activationBanner.show && (
+        <div className="bg-green-500/10 border-b border-green-500/30">
+          <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <p className="text-green-400 font-medium">{activationBanner.message}</p>
+            <button
+              onClick={dismissBanner}
+              className="text-green-400/60 hover:text-green-400 ml-4 text-lg"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
       <main className="flex-1 max-w-4xl mx-auto px-4 py-8 space-y-8 w-full">
         {/* Welcome */}
         <div className="space-y-2">

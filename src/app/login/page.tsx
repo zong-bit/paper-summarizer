@@ -52,7 +52,7 @@ export default function LoginPage() {
       if (error) {
         setError(error.message)
       } else {
-        router.push('/')
+        router.push('/account')
       }
     } catch (err: any) {
       if (err?.status === 0 || err?.code === 'ERR_NETWORK' || err?.message?.includes('NetworkError') || err?.message?.includes('fetch failed')) {
