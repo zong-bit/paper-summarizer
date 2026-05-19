@@ -10,15 +10,18 @@
   "domain_registered": true,
   "status": "up",
   "phase": "feature-complete",
-  "last_check": "2026-05-20T02:27:00+08:00",
-  "last_report": "✅bornchart.app持续正常HTTP 200(0.39s首页,0.30s/pricing,0.28s/bazi,0.34s/blog,0.29s/chat)。累计正常+845min(第44次)。无新审计/UX反馈。无新bug。Git:ez-mystic HEAD f3d8c28(tree clean)。阻塞项:仅剩Paddle产品发布+Webhook(CEO操作)。ux-auditor仍4天未更新。",
+  "last_check": "2026-05-20T04:12:00+08:00",
+  "last_report": "✅bornchart.app持续正常HTTP 200(2.13s首页,1.42s/pricing,1.12s/bazi,1.42s/blog,1.08s/chat)。累计正常+950min(第45次)。无新审计/UX反馈。无新bug。Git:ez-mystic HEAD f3d8c28(tree clean)。阻塞项:仅剩Paddle产品发布+Webhook(CEO操作)。ux-auditor仍4天未更新。",
   "code_review": {
     "status": "solid",
     "issues": [],
-    "notes": "Audit 2026-05-20T02:27:00+08:00: ✅bornchart.app持续稳定HTTP 200(0.28-0.39s)。无新代码变更,无新bug,无需修复。Git tree clean(f3d8c28)。阻塞项不变(均CEO):Paddle产品发布+Webhook。ux-auditor最后活跃5/16,未覆盖ez-mystic。"
+    "notes": "Audit 2026-05-20T04:12:00+08:00: ✅bornchart.app持续稳定HTTP 200(1.08-2.13s)。无新代码变更,无新bug,无需修复。Git tree clean(f3d8c28)。阻塞项不变(均CEO):Paddle产品发布+Webhook。ux-auditor最后活跃5/16,未覆盖ez-mystic。"
   },
   "updates_count_since_down": 0,
-  "last_seen_up": "2026-05-20T02:27:00+08:00",
+  "last_seen_up": "2026-05-20T04:12:00+08:00",
+  "down_since": null,
+  "down_accumulated_hours": 0,
+  "consecutive_passes": 45,
   "down_since": null,
   "down_accumulated_hours": 0,
   "consecutive_passes": 44,
@@ -78,7 +81,7 @@
     "Paddle products not published in dashboard (CEO action)",
     "Paddle webhook URL not configured in dashboard (CEO action)"
   ],
-  "notes": "✅bornchart.app持续正常HTTP 200(0.39s首页,0.30s/pricing,0.28s/bazi,0.34s/blog,0.29s/chat)。累计正常+845min(第44次)。无新审计/UX反馈。无新bug。Git:ez-mystic HEAD f3d8c28(tree clean)。阻塞项:仅剩Paddle产品发布+Webhook(CEO操作)。ux-auditor仍4天未更新。",
+  "notes": "✅bornchart.app持续正常HTTP 200(2.13s首页,1.42s/pricing,1.12s/bazi,1.42s/blog,1.08s/chat)。累计正常+950min(第45次)。无新审计/UX反馈。无新bug。Git:ez-mystic HEAD f3d8c28(tree clean)。阻塞项:仅剩Paddle产品发布+Webhook(CEO操作)。ux-auditor仍4天未更新。",
   "deployed_pages": [
     "/ (home)",
     "/bazi",
@@ -151,6 +154,11 @@
       "time": "2026-05-20T02:27:00+08:00",
       "status": "up",
       "note": "✅bornchart.app持续正常HTTP 200(0.39s首页,0.30s/pricing,0.28s/bazi,0.34s/blog,0.29s/chat)。累计正常+845min(第44次)。无新审计/UX反馈。无新bug。Git:ez-mystic HEAD f3d8c28(tree clean)。阻塞项:仅剩Paddle产品发布+Webhook(CEO操作)。ux-auditor仍4天未更新。"
+    },
+    {
+      "time": "2026-05-20T04:12:00+08:00",
+      "status": "up",
+      "note": "✅bornchart.app持续正常HTTP 200(2.13s首页,1.42s/pricing,1.12s/bazi,1.42s/blog,1.08s/chat)。累计正常+950min(第45次)。无新审计/UX反馈。无新bug。Git:ez-mystic HEAD f3d8c28(tree clean)。阻塞项:仅剩Paddle产品发布+Webhook(CEO操作)。ux-auditor仍4天未更新。"
     }
   ]
 }
