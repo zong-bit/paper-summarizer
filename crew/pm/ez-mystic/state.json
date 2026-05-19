@@ -10,18 +10,18 @@
   "domain_registered": true,
   "status": "up",
   "phase": "feature-complete",
-  "last_check": "2026-05-20T06:12:00+08:00",
-  "last_report": "✅bornchart.app持续正常HTTP 200(1.53s首页,1.10s/pricing,1.09s/bazi,1.05s/blog,1.18s/chat)。累计正常+1085min(第68次)。无新审计/UX反馈。无新bug。Git:pm-ez-mystic HEAD a1d5aee(tree clean)。阻塞项:仅剩Paddle产品发布+Webhook(CEO操作)。",
+  "last_check": "2026-05-20T06:42:00+08:00",
+  "last_report": "✅bornchart.app持续正常HTTP 200(0.30s首页,0.30s/pricing,0.32s/bazi,0.39s/blog,0.30s/chat)。累计正常+1130min(第70次≈18.8h连续稳定)。无新审计/UX反馈,无新bug。Git:pm-ez-mystic HEAD 90bee0b(tree clean)。阻塞项:仅剩Paddle产品发布+Webhook(CEO操作)。ux-auditor自5/16起未更新仍未覆盖ez-mystic。",
   "code_review": {
     "status": "solid",
     "issues": [],
-    "notes": "Audit 2026-05-20T06:12:00+08:00: ✅bornchart.app持续稳定HTTP 200(1.05-1.53s,第68次连续)。无新代码变更,无新bug,无需修复。Git tree clean(a1d5aee)。阻塞项不变(均CEO):Paddle产品发布+Webhook。"
+    "notes": "Audit 2026-05-20T06:42:00+08:00: ✅bornchart.app持续稳定HTTP 200(0.30-0.39s,第70次连续≈18.8h)。无新代码变更,无新bug,无需修复。Git tree clean(90bee0b)。阻塞项不变(均CEO):Paddle产品发布+Webhook。ux-auditor停止4天。"
   },
   "updates_count_since_down": 0,
-  "last_seen_up": "2026-05-20T06:12:00+08:00",
+  "last_seen_up": "2026-05-20T06:42:00+08:00",
   "down_since": null,
   "down_accumulated_hours": 0,
-  "consecutive_passes": 68,
+  "consecutive_passes": 70,
   "deploy_status": "live-migrated",
   "payment": "Migrated from Gumroad to Paddle. Checkout URLs filled (b2d074c). Products need publishing in Paddle dashboard (CEO action).",
   "paddle_products": {
@@ -78,7 +78,7 @@
     "Paddle products not published in dashboard (CEO action)",
     "Paddle webhook URL not configured in dashboard (CEO action)"
   ],
-  "notes": "✅bornchart.app持续正常HTTP 200(1.53s首页,1.10s/pricing,1.09s/bazi,1.05s/blog,1.18s/chat)。累计正常+1085min(第68次)。无新审计/UX反馈。无新bug。Git:pm-ez-mystic HEAD a1d5aee(tree clean)。阻塞项:仅剩Paddle产品发布+Webhook(CEO操作)。",
+  "notes": "✅bornchart.app持续正常HTTP 200(0.30s首页,0.30s/pricing,0.32s/bazi,0.39s/blog,0.30s/chat)。累计正常+1130min(第70次≈18.8h连续稳定)。无新审计/UX反馈。无新bug。Git:pm-ez-mystic HEAD 90bee0b(tree clean)。阻塞项:仅剩Paddle产品发布+Webhook(CEO操作)。",
   "deployed_pages": [
     "/ (home)",
     "/bazi",
@@ -86,20 +86,8 @@
     "/blog",
     "/chat"
   ],
-  "local_uncommitted": [
-    "app/privacy/",
-    "app/terms/",
-    "app/refund/",
-    "app/api/gumroad-claim/",
-    "app/api/gumroad-verify/",
-    "app/components/Footer.tsx",
-    "sql/",
-    "src/lib/fatewise-tokens.ts",
-    "app/bazi/page.tsx (modified)",
-    "app/page.tsx (modified)",
-    "app/pricing/page.tsx (modified)"
-  ],
-  "local_commits": 10,
+  "local_uncommitted": [],
+  "local_commits": 11,
   "git_remote": "git@github.com:zong-bit/EZ-Mystic.git",
   "gh_cli": false,
   "github_token": null,
@@ -113,19 +101,9 @@
   },
   "audit_history": [
     {
-      "time": "2026-05-20T04:12:00+08:00",
+      "time": "2026-05-20T06:42:00+08:00",
       "status": "up",
-      "note": "✅bornchart.app持续正常HTTP 200(2.13s首页,1.42s/pricing,1.12s/bazi,1.42s/blog,1.08s/chat)。累计正常+950min(第45次)。无新审计/UX反馈。无新bug。Git:ez-mystic HEAD f3d8c28(tree clean)。阻塞项:仅剩Paddle产品发布+Webhook(CEO操作)。ux-auditor仍4天未更新。"
-    },
-    {
-      "time": "2026-05-20T05:27:00+08:00",
-      "status": "up",
-      "note": "✅bornchart.app持续正常HTTP 200(0.31s首页,0.29s/pricing,0.32s/bazi,0.29s/blog,0.28s/chat)。累计正常+1025min(第66次)。无新审计/UX反馈。无新bug。Git:pm-ez-mystic HEAD 24b8f60(tree clean)。阻塞项:仅剩Paddle产品发布+Webhook(CEO操作)。"
-    },
-    {
-      "time": "2026-05-20T06:12:00+08:00",
-      "status": "up",
-      "note": "✅bornchart.app持续正常HTTP 200(1.53s首页,1.10s/pricing,1.09s/bazi,1.05s/blog,1.18s/chat)。累计正常+1085min(第68次)。无新审计/UX反馈。无新bug。Git:pm-ez-mystic HEAD a1d5aee(tree clean)。阻塞项:仅剩Paddle产品发布+Webhook(CEO操作)。"
+      "note": "✅bornchart.app持续正常HTTP 200(0.30s首页,0.30s/pricing,0.32s/bazi,0.39s/blog,0.30s/chat)。累计正常+1130min(第70次≈18.8h)。无新审计/UX反馈。无新bug。Git:pm-ez-mystic HEAD 90bee0b(tree clean)。阻塞项:仅剩Paddle产品发布+Webhook(CEO操作)。ux-auditor自5/16起未更新仍未覆盖。CEO自5/17起未更新。"
     }
   ]
 }
