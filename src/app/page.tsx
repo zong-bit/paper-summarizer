@@ -9,6 +9,50 @@ import SummaryCard from '../components/SummaryCard'
 import ShareInsight from '../components/ShareInsight'
 import { useTranslation } from '@/i18n/provider'
 
+// ── Stats counter (Live Stats) ──
+type StatsData = {
+  today: number
+  total: number
+  uniqueIps: number
+}
+
+function LiveStats() {
+  const [stats, setStats] = useState<StatsData | null>(null)
+
+  useEffect(() => {
+    fetch('/api/stats')
+      .then(r => r.json())
+      .then(d => setStats(d))
+      .catch(() => {})
+  }, [])
+
+  if (!stats) return null
+
+  return (
+    <section className="bg-slate-900/30 py-10">
+      <div className="max-w-3xl mx-auto px-4">
+        <div className="text-center mb-6">
+          <h2 className="text-lg font-semibold text-slate-400 tracking-wide uppercase text-xs">📊 Live Stats</h2>
+        </div>
+        <div className="grid grid-cols-3 gap-4">
+          <div className="text-center p-4 bg-slate-800/40 border border-slate-700/40 rounded-xl">
+            <div className="text-2xl font-bold text-blue-400">{stats.today}</div>
+            <div className="text-xs text-slate-500 mt-1">papers summarized today</div>
+          </div>
+          <div className="text-center p-4 bg-slate-800/40 border border-slate-700/40 rounded-xl">
+            <div className="text-2xl font-bold text-indigo-400">{stats.uniqueIps}</div>
+            <div className="text-xs text-slate-500 mt-1">active users this week</div>
+          </div>
+          <div className="text-center p-4 bg-slate-800/40 border border-slate-700/40 rounded-xl">
+            <div className="text-2xl font-bold text-violet-400">{stats.total}</div>
+            <div className="text-xs text-slate-500 mt-1">total summaries generated</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 type SummaryData = {
   oneSentence: string
   keyFindings: Array<string | { text: string; source_page?: number; source_paragraph?: number; source_text?: string }>
@@ -405,6 +449,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <LiveStats />
 
         {/* ===== Trust Section ===== */}
         <section className="bg-slate-900/50 py-16 md:py-20">

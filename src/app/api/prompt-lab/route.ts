@@ -50,7 +50,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Prompt not found' }, { status: 404 })
     }
 
-    // Build the prompt text by replacing [变量] placeholders
+    // Build the prompt text by replacing [variable] placeholders
     let promptText = prompt.template
     for (const [key, value] of Object.entries(variables)) {
       if (typeof value === 'string' && value.trim()) {
@@ -95,7 +95,7 @@ export async function POST(request: Request) {
 
     const apiKey = process.env.DEEPSEEK_API_KEY
     if (!apiKey) {
-      return NextResponse.json({ error: '服务正在维护中，请稍后再试。我们正在升级AI引擎以提供更高质量的摘要。', maintenance: true, estimatedRestore: '24-48小时' }, { status: 503 })
+      return NextResponse.json({ error: 'Service is currently under maintenance. Please try again later. We are upgrading our AI engine for better quality summaries.', maintenance: true, estimatedRestore: '24-48 hours' }, { status: 503 })
     }
 
     const response = await fetch('https://api.deepseek.com/v1/chat/completions', {

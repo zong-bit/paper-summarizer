@@ -504,7 +504,7 @@ export default function SummaryCard({ summary, title, originalText, domain, onSa
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-            原文对照 ({paragraphs.length} paragraphs)
+            Original ({paragraphs.length} paragraphs)
           </button>
 
           {showOriginal && (

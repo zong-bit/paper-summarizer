@@ -354,7 +354,7 @@ export const prompts: Prompt[] = [
     id: '048',
     category: 'productivity',
     title: 'LaTeX Template and Format Check',
-    template: 'Please check the following LaTeX code snippet for format issues and improvement suggestions:\n"[paste LaTeX code]"\n\nCheck items:\n- Is reference format correct?\n- Are figure/table references using cross-references?\n- Is mathematical notation properly written?\n- Are there common排版 issues (missing \\, overly long lines, etc.)?\n- Are there missing packages or commands?',
+    template: 'Please check the following LaTeX code snippet for format issues and improvement suggestions:\n"[paste LaTeX code]"\n\nCheck items:\n- Is reference format correct?\n- Are figure/table references using cross-references?\n- Is mathematical notation properly written?\n- Are there common typesetting issues (missing \\, overly long lines, etc.)?\n- Are there missing packages or commands?',
     description: 'Check LaTeX code for format issues and provide suggestions',
   },
   {

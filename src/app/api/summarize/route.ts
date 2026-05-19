@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { logApiCall } from '@/lib/api-logger'
 import { findToken } from '@/lib/tokens'
 import { getDomainPrompt } from '@/lib/prompt-templates'
+import { trackUsage } from '@/lib/usage-tracker'
 
 // ── Rate limiter for anonymous/free users ──
 // Per-IP rate limit: 1 request per 10 minutes (anti-abuse)
@@ -145,9 +146,9 @@ export async function POST(request: Request) {
       logApiCall({ timestamp: new Date().toISOString(), ip, ua, path: 'summarize', status: 'error', textLength: text?.length || 0, errorMsg: 'api_key_missing' })
       return NextResponse.json(
         {
-          error: '服务正在维护中，请稍后再试。我们正在升级AI引擎以提供更高质量的摘要。',
+          error: 'Service is currently under maintenance. Please try again later. We are upgrading our AI engine for better quality summaries.',
           maintenance: true,
-          estimatedRestore: '24-48小时',
+          estimatedRestore: '24-48 hours',
         },
         { status: 503 }
       )
@@ -231,6 +232,14 @@ Return ONLY the JSON object, nothing else.`
     if (!isPro) {
       incrementFreeDailyUsage(ip)
     }
+
+    // Track usage in Supabase (fire & forget)
+    trackUsage({
+      source: 'paper-summarizer',
+      endpoint: 'summarize',
+      ip,
+      isPro,
+    })
 
     // Normalize keyFindings: handle both array-of-strings and array-of-objects
     let keyFindings = parsedContent.keyFindings ?? []

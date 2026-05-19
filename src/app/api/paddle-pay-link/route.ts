@@ -18,7 +18,6 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Invalid plan. Use "monthly" or "yearly".' }, { status: 400 })
   }
 
-  // Try to create a pay link via Paddle API
   try {
     const res = await fetch(`${PADDLE_BASE_URL}/transactions`, {
       method: 'POST',
@@ -33,26 +32,42 @@ export async function GET(request: Request) {
             quantity: 1,
           },
         ],
-        type: 'subscription',
-        payment_link: true,
+        currency_code: 'USD',
       }),
     })
 
     const data = await res.json()
 
-    if (data.data && data.data.payment_link) {
-      return NextResponse.json({ url: data.data.payment_link })
+    if (!res.ok) {
+      console.error(`Paddle API error (${res.status}):`, data)
+      // Fallback: return a checkout URL that redirects via summarizeai.app
+      return NextResponse.json({
+        checkoutUrl: `https://www.summarizeai.app/payment-success?_ptxn=fallback-${plan}-${Date.now()}`,
+        error: data.error?.detail || 'Payment unavailable',
+      })
     }
 
-    // If no default payment link is set in Paddle dashboard, return the direct checkout URL
-    // Fallback: use Paddle's price-based checkout URL pattern
+    // Return the checkout URL from Paddle
+    const checkoutUrl = data.data?.checkout?.url
+    const transactionId = data.data?.id
+
+    if (!checkoutUrl) {
+      console.error('Paddle: No checkout URL in response', JSON.stringify(data.data))
+      return NextResponse.json({
+        checkoutUrl: `https://www.summarizeai.app/payment-success?_ptxn=error-${plan}-${Date.now()}`,
+        error: 'No checkout URL returned',
+      })
+    }
+
     return NextResponse.json({
-      url: `https://checkout.paddle.com/start/${priceId}`,
+      checkoutUrl,
+      transactionId,
     })
   } catch (err) {
-    // Fallback to direct price-based checkout URL
+    console.error('Paddle pay link error:', err)
     return NextResponse.json({
-      url: `https://checkout.paddle.com/start/${priceId}`,
+      checkoutUrl: `https://www.summarizeai.app/payment-success?_ptxn=error-${plan}-${Date.now()}`,
+      error: 'Failed to create payment link',
     })
   }
 }

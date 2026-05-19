@@ -43,7 +43,7 @@ export default function SignupPage() {
         setSuccess(true)
       }
     } catch (err: any) {
-      setError(err.message || '注册失败')
+      setError(err.message || 'Sign up failed')
     } finally {
       setLoading(false)
     }
@@ -59,12 +59,12 @@ export default function SignupPage() {
         email,
       })
       if (error) {
-        setResendMsg('发送失败：' + error.message)
+        setResendMsg('Failed to resend: ' + error.message)
       } else {
-        setResendMsg('✅ 确认邮件已重新发送，请检查邮箱')
+        setResendMsg('✅ Confirmation email resent. Please check your inbox.')
       }
     } catch (err: any) {
-      setResendMsg('发送失败，请稍后重试')
+      setResendMsg('Failed to resend. Please try again later.')
     } finally {
       setResending(false)
     }
@@ -88,21 +88,21 @@ export default function SignupPage() {
         {/* Signup card */}
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6">
           <div className="text-center space-y-2">
-            <h1 className="text-2xl font-bold text-white">创建账号</h1>
-            <p className="text-slate-400 text-sm">获取无限次总结和 Pro 功能</p>
+            <h1 className="text-2xl font-bold text-white">Create Account</h1>
+            <p className="text-slate-400 text-sm">Get unlimited summaries and Pro features</p>
           </div>
 
           {success ? (
             <div className="text-center space-y-5 py-4">
               <div className="text-5xl">📧</div>
-              <h2 className="text-xl font-bold text-white">注册成功！请查收确认邮件</h2>
+              <h2 className="text-xl font-bold text-white">Signed Up! Please Check Your Email</h2>
               <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-4 text-left space-y-2 text-sm">
-                <p className="text-slate-300">📌 完成注册只需两步：</p>
+                <p className="text-slate-300">📌 Two steps to complete: </p>
                 <ol className="text-slate-400 space-y-1 list-decimal list-inside">
-                  <li>打开 <strong className="text-slate-200">{email}</strong> 的收件箱</li>
-                  <li>点击确认邮件中的链接完成验证</li>
+                  <li>Open your inbox for <strong className="text-slate-200">{email}</strong></li>
+                  <li>Click the confirmation link in the email</li>
                 </ol>
-                <p className="text-slate-500 text-xs mt-2">⏳ 如果没找到，请检查垃圾邮件文件夹</p>
+                <p className="text-slate-500 text-xs mt-2">⏳ Didn&apos;t see it? Check your spam folder.</p>
               </div>
 
               {resendMsg && (
@@ -114,20 +114,20 @@ export default function SignupPage() {
                 disabled={resending}
                 className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-medium transition-colors border border-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {resending ? '发送中...' : '🔄 重新发送确认邮件'}
+                {resending ? 'Sending...' : '🔄 Resend Confirmation Email'}
               </button>
 
               <Link
                 href="/login"
                 className="inline-block w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-colors text-sm"
               >
-                前往登录
+                Go to Login
               </Link>
 
               <p className="text-slate-500 text-xs">
-                已有账号？{' '}
+                Already have an account?{' '}
                 <Link href="/login" className="text-blue-400 hover:underline">
-                  直接登录
+                  Sign In
                 </Link>
               </p>
             </div>
@@ -140,18 +140,18 @@ export default function SignupPage() {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">名称</label>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Name</label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="您的名称（可选）"
+                  placeholder="Your name (optional)"
                   className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">邮箱</label>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Email</label>
                 <input
                   type="email"
                   value={email}
@@ -163,12 +163,12 @@ export default function SignupPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">密码</label>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Password</label>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="至少 6 个字符"
+                  placeholder="At least 6 characters"
                   required
                   minLength={6}
                   className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40"
@@ -180,15 +180,15 @@ export default function SignupPage() {
                 disabled={loading}
                 className="w-full py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-700 disabled:cursor-not-allowed text-white rounded-xl font-semibold transition-colors"
               >
-                {loading ? '创建中...' : '创建账号'}
+                {loading ? 'Creating...' : 'Create Account'}
               </button>
             </form>
           )}
 
           <div className="text-center text-sm text-slate-500">
-            已有账号？{' '}
+            Already have an account?{' '}
             <Link href="/login" className="text-blue-400 hover:underline font-medium">
-              登录
+              Sign In
             </Link>
           </div>
         </div>

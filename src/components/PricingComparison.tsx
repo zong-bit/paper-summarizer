@@ -51,7 +51,7 @@ export default function PricingComparison() {
           </div>
           <div className="space-y-2">
             <a
-              href="/buy"
+              href="/premium"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-center py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl font-medium transition-colors"

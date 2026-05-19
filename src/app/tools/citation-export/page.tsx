@@ -156,7 +156,7 @@ export default function CitationExportPage() {
 
     switch (citationType) {
       case 'journal': {
-        // 作者. 题名[J]. 刊名, 年, 卷(期): 起止页码.
+        // Author. Title[J]. Journal, Year, Volume(Issue): Pages.
         let ref = `${authors}. ${title}[J]. ${journal || 'Unknown Journal'}, ${year || 'n.d.'}`
         if (volume) ref += `, ${volume}`
         if (issue) ref += `(${issue})`
@@ -166,19 +166,19 @@ export default function CitationExportPage() {
         return ref
       }
       case 'book': {
-        // 作者. 书名[M]. 出版地: 出版社, 出版年.
+        // Author. Title[M]. Publisher Location: Publisher, Year.
         return `${authors}. ${title}[M]. ${publisher || 'Unknown Publisher'}, ${year || 'n.d.'}.`
       }
       case 'conference': {
-        // 作者. 题名[C]. 会议名称, 会议地点, 会议日期.
+        // Author. Title[C]. Conference Name, Location, Date.
         return `${authors}. ${title}[C]. ${journal || 'Conference Proceedings'}, ${year || 'n.d.'}.${pages ? `: ${pages}.` : ''}`
       }
       case 'thesis': {
-        // 作者. 题名[D]. 学校, 年份.
+        // Author. Title[D]. University, Year.
         return `${authors}. ${title}[D]. ${publisher || 'University'}, ${year || 'n.d.'}.`
       }
       case 'website': {
-        // 作者. 题名[EB/OL]. 发布日期, 引用日期. URL.
+        // Author. Title[EB/OL]. Publication Date, Access Date. URL.
         const pubDate = year || 'n.d.'
         const accessDate = info.accessedDate || 'n.d.'
         let ref = `${authors}. ${title}[EB/OL]. ${pubDate}, ${accessDate}.`
@@ -201,7 +201,7 @@ export default function CitationExportPage() {
   const formatLabels: Record<CitationFormat, string> = {
     apa: 'APA 7th Edition',
     mla: 'MLA 9th Edition',
-    gbt: 'GB/T 7714-2015 (中文)',
+    gbt: 'GB/T 7714-2015',
   }
 
   const typeLabels: Record<CitationType, string> = {

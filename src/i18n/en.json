@@ -172,7 +172,7 @@
     "formats": {
       "apa": "APA 7th Edition",
       "mla": "MLA 9th Edition",
-      "gbt": "GB/T 7714-2015 (中文)"
+      "gbt": "GB/T 7714-2015"
     },
     "types": {
       "journal": "Journal Article",
@@ -188,10 +188,10 @@
     "outputLanguage": "Output Language:",
     "researchTopic": "Research Topic *",
     "topicPlaceholderEn": "e.g., Transformer-based Medical Image Segmentation",
-    "topicPlaceholderZh": "e.g., 基于Transformer的医学图像分割方法综述",
+    "topicPlaceholderZh": "e.g., Transformer-based Medical Image Segmentation Survey",
     "additionalContext": "Additional Context (optional)",
     "contextPlaceholderEn": "e.g., specific focus areas, time range of interest, papers already reviewed, etc.",
-    "contextPlaceholderZh": "e.g., 具体研究方向、关注的年份范围、已阅读的论文等",
+    "contextPlaceholderZh": "e.g., specific research direction, time range of interest, papers already read, etc.",
     "generate": "Generate Outline",
     "generating": "Generating Outline...",
     "clear": "Clear",
@@ -205,7 +205,7 @@
     "keyQuestions": "Key Questions:",
     "error": "Please provide a research topic.",
     "en": "English",
-    "zh": "中文"
+    "zh": "Chinese"
   },
   "premium": {
     "title": "$9.99/month — Unlimited Summaries",
@@ -390,7 +390,7 @@
   "promptLab": {
     "title": "🧪 Prompt Lab",
     "subtitle": "50 Research AI Prompts covering literature review, paper writing, data analysis, and more. Select a prompt, fill in variables, and generate with AI!",
-    "subtitleZh": "50 个研究 AI 提示词，涵盖文献综述、论文写作、数据分析等。选择提示词，填写变量，用 AI 生成！",
+    "subtitleZh": "50 Research AI Prompts covering literature review, paper writing, data analysis, etc. Select a prompt, fill in variables, and generate with AI!",
     "backToHome": "← Back to Home",
     "categories": {
       "summary": "📋 Summary",

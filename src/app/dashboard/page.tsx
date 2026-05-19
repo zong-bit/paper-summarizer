@@ -89,13 +89,13 @@ export default function DashboardPage() {
       if (err?.message?.includes('getSession') || err?.message?.includes('session')) {
         setError('Session not found, please try logging in again')
       } else if (err?.message?.includes('users') || err?.code === 'PGRST301') {
-        setError(`查询 users 表失败: ${err?.message || '未知错误'}`)
+        setError(`Failed to query users table: ${err?.message || 'Unknown error'}`)
       } else if (err?.message?.includes('subscriptions') || err?.code === 'PGRST301') {
-        setError(`查询 subscriptions 表失败: ${err?.message || '未知错误'}`)
+        setError(`Failed to query subscriptions table: ${err?.message || 'Unknown error'}`)
       } else if (err?.message?.includes('tokens') || err?.code === 'PGRST301') {
-        setError(`查询 tokens 表失败: ${err?.message || '未知错误'}`)
+        setError(`Failed to query tokens table: ${err?.message || 'Unknown error'}`)
       } else {
-        setError(`加载数据失败: ${err?.message || '未知错误'}`)
+        setError(`Failed to load data: ${err?.message || 'Unknown error'}`)
       }
     } finally {
       setLoading(false)

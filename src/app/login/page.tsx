@@ -56,15 +56,15 @@ export default function LoginPage() {
       }
     } catch (err: any) {
       if (err?.status === 0 || err?.code === 'ERR_NETWORK' || err?.message?.includes('NetworkError') || err?.message?.includes('fetch failed')) {
-        setError('无法连接到服务器，请检查网络连接后重试')
+        setError('Cannot connect to server. Please check your network and try again.')
       } else if (err?.code === 'invalid_credentials' || err?.message?.includes('Invalid login credentials')) {
-        setError(err.message || '登录凭证错误，请检查邮箱和密码')
+        setError(err.message || 'Invalid email or password. Please try again.')
       } else if (err?.code === 'user_not_found' || err?.message?.includes('User not found')) {
-        setError('该邮箱尚未注册，请先注册账号')
+        setError('No account found with this email. Please sign up first.')
       } else if (err?.code === 'email_not_confirmed') {
-        setError('该邮箱尚未验证，请检查邮箱完成验证')
+        setError('Email not confirmed yet. Please check your inbox for the confirmation email.')
       } else {
-        setError(`登录失败（${err?.code || 'unknown'}）: ${err?.message || '未知错误，请稍后重试'}`)
+        setError(`Login failed (${err?.code || 'unknown'}): ${err?.message || 'Unknown error. Please try again.'}`)
       }
     } finally {
       setLoading(false)
@@ -87,15 +87,15 @@ export default function LoginPage() {
       if (error) {
         setError(error.message)
       } else {
-        alert('已发送登录链接，请检查您的邮箱')
+        alert('Login link sent! Please check your email.')
       }
     } catch (err: any) {
       if (err?.status === 0 || err?.code === 'ERR_NETWORK' || err?.message?.includes('NetworkError') || err?.message?.includes('fetch failed')) {
-        setError('无法连接到服务器，请检查网络连接后重试')
+        setError('Cannot connect to server. Please check your network and try again.')
       } else if (err?.message?.includes('rate limit') || err?.code === 'rate_limit') {
-        setError('发送频率过高，请稍后再试')
+        setError('Too many requests. Please try again later.')
       } else {
-        setError(`发送登录链接失败（${err?.code || 'unknown'}）: ${err?.message || '未知错误，请稍后重试'}`)
+        setError(`Failed to send login link (${err?.code || 'unknown'}): ${err?.message || 'Unknown error. Please try again.'}`)
       }
     } finally {
       setSendingLink(false)
@@ -120,8 +120,8 @@ export default function LoginPage() {
         {/* Login card */}
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6">
           <div className="text-center space-y-2">
-            <h1 className="text-2xl font-bold text-white">欢迎回来</h1>
-            <p className="text-slate-400 text-sm">登录以访问您的 Pro 功能</p>
+            <h1 className="text-2xl font-bold text-white">Welcome Back</h1>
+            <p className="text-slate-400 text-sm">Sign in to access your Pro features</p>
           </div>
 
           {error && (
@@ -132,7 +132,7 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-1">邮箱</label>
+              <label className="block text-sm font-medium text-slate-300 mb-1">Email</label>
               <input
                 type="email"
                 value={email}
@@ -144,12 +144,12 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-1">密码</label>
+              <label className="block text-sm font-medium text-slate-300 mb-1">Password</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="您的密码"
+                placeholder="Your password"
                 required
                 className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40"
               />
@@ -160,7 +160,7 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-700 disabled:cursor-not-allowed text-white rounded-xl font-semibold transition-colors"
             >
-              {loading ? '登录中...' : '登录'}
+              {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
 
@@ -169,7 +169,7 @@ export default function LoginPage() {
               <div className="w-full border-t border-slate-800"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-slate-900 text-slate-500">或</span>
+              <span className="px-2 bg-slate-900 text-slate-500">or</span>
             </div>
           </div>
 
@@ -178,13 +178,13 @@ export default function LoginPage() {
             disabled={sendingLink || !email}
             className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium transition-colors border border-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {sendingLink ? '发送中...' : '发送登录链接到邮箱'}
+            {sendingLink ? 'Sending...' : 'Send Magic Link to Email'}
           </button>
 
           <div className="text-center text-sm text-slate-500">
-            还没有账号？{' '}
+            Don&apos;t have an account?{' '}
             <Link href="/signup" className="text-blue-400 hover:underline font-medium">
-              注册账号
+              Sign Up
             </Link>
           </div>
         </div>

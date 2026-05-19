@@ -1,38 +1,36 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useTranslation } from '@/i18n/provider'
-
-const PADDLE_PRICE_MONTHLY = 'pri_01krk617mdepfbhe493b2adfqn'
-const PADDLE_PRICE_YEARLY = 'pri_01krk61am9rvh6p2a61armcgyv'
 
 export default function PaddlePricingCards() {
   const { t, tArray } = useTranslation()
-  const [monthlyUrl, setMonthlyUrl] = useState('')
-  const [yearlyUrl, setYearlyUrl] = useState('')
+  const [loading, setLoading] = useState<'monthly' | 'yearly' | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    async function fetchUrls() {
-      try {
-        const [mRes, yRes] = await Promise.all([
-          fetch(`/api/paddle-pay-link?plan=monthly`),
-          fetch(`/api/paddle-pay-link?plan=yearly`),
-        ])
-        const mData = await mRes.json()
-        const yData = await yRes.json()
-        setMonthlyUrl(mData.url || `https://checkout.paddle.com/start/${PADDLE_PRICE_MONTHLY}`)
-        setYearlyUrl(yData.url || `https://checkout.paddle.com/start/${PADDLE_PRICE_YEARLY}`)
-      } catch {
-        setMonthlyUrl(`https://checkout.paddle.com/start/${PADDLE_PRICE_MONTHLY}`)
-        setYearlyUrl(`https://checkout.paddle.com/start/${PADDLE_PRICE_YEARLY}`)
+  const handlePaddleClick = async (plan: 'monthly' | 'yearly') => {
+    setLoading(plan)
+    setError(null)
+
+    try {
+      // Create transaction server-side and redirect to checkout URL
+      const res = await fetch(`/api/paddle-pay-link?plan=${plan}`)
+      const data = await res.json()
+
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl
+      } else {
+        setError('Payment unavailable. Please use Gumroad instead.')
       }
+    } catch {
+      setError('Payment unavailable. Please use Gumroad instead.')
+    } finally {
+      setLoading(null)
     }
-    fetchUrls()
-  }, [])
+  }
 
   return (
     <div className="grid md:grid-cols-2 gap-6">
-      {/* Pro Monthly */}
       <div className="bg-bg-card border border-border rounded-2xl p-6 sm:p-8 space-y-6 flex flex-col">
         <div>
           <h2 className="text-xl font-semibold text-text">{t('buy.monthly')}</h2>
@@ -50,17 +48,15 @@ export default function PaddlePricingCards() {
             <p key={i}>{feature}</p>
           ))}
         </div>
-        <a
-          href={monthlyUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block text-center py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-lg transition-colors"
+        <button
+          onClick={() => handlePaddleClick('monthly')}
+          disabled={loading === 'monthly'}
+          className="block w-full text-center py-3.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 text-white rounded-xl font-semibold text-lg transition-colors"
         >
-          {t('buy.buyMonthlyPaddle')}
-        </a>
+          {loading === 'monthly' ? 'Redirecting...' : t('buy.buyMonthlyPaddle')}
+        </button>
       </div>
 
-      {/* Pro Yearly */}
       <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/40 rounded-2xl p-6 sm:p-8 space-y-6 flex flex-col relative">
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-blue-600 text-white text-xs font-medium rounded-full">
           {t('buy.bestValue')}
@@ -83,15 +79,20 @@ export default function PaddlePricingCards() {
             <p key={i}>{feature}</p>
           ))}
         </div>
-        <a
-          href={yearlyUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block text-center py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-lg transition-colors"
+        <button
+          onClick={() => handlePaddleClick('yearly')}
+          disabled={loading === 'yearly'}
+          className="block w-full text-center py-3.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 text-white rounded-xl font-semibold text-lg transition-colors"
         >
-          {t('buy.buyYearlyPaddle')}
-        </a>
+          {loading === 'yearly' ? 'Redirecting...' : t('buy.buyYearlyPaddle')}
+        </button>
       </div>
+
+      {error && (
+        <div className="col-span-full bg-red-500/10 border border-red-500/30 rounded-xl p-4 text-red-500 text-sm text-center">
+          {error}
+        </div>
+      )}
     </div>
   )
 }

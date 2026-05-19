@@ -116,7 +116,7 @@ export async function POST(request: Request) {
       expiresAt: sale.expires_at,
       maxRequests: 500,
       token: sale.token,
-      message: '🎉 Pro 已激活！无限次总结功能已开启。',
+      message: '🎉 Pro Activated! Unlimited summaries are now available.',
     })
   } catch (err) {
     console.error('[Auto-activate Error]', err)
