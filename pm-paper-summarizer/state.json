@@ -1,0 +1,169 @@
+{
+  "project": "paper-summarizer",
+  "name": "AI论文摘要工具",
+  "url": "https://www.summarizeai.app",
+  "status": "active",
+  "phase": "revenue_ready",
+  "backlog": [
+    {
+      "id": "fix-payment-wall",
+      "title": "首页添加付费入口+购买流程",
+      "priority": 1,
+      "status": "completed"
+    },
+    {
+      "id": "add-pro-pricing-section",
+      "title": "首页加Pro/Pricing引导区",
+      "priority": 2,
+      "status": "completed"
+    },
+    {
+      "id": "blog-detail-404",
+      "title": "Blog详情页全部404",
+      "priority": 0,
+      "status": "completed"
+    },
+    {
+      "id": "tools-page-404",
+      "title": "修复/tools页面404",
+      "priority": 4,
+      "status": "completed"
+    },
+    {
+      "id": "promote-new-tools",
+      "title": "推广新工具",
+      "priority": 8,
+      "status": "completed"
+    },
+    {
+      "id": "deploy-undeployed-blogs",
+      "title": "部署12篇未部署的SEO文章到生产",
+      "priority": 1,
+      "status": "completed"
+    },
+    {
+      "id": "fix-empty-blog-dir",
+      "title": "清理空blog目录",
+      "priority": 2,
+      "status": "completed"
+    },
+    {
+      "id": "remove-test-blog-dir",
+      "title": "移除QA测试目录",
+      "priority": 2,
+      "status": "completed"
+    },
+    {
+      "id": "update-sitemap",
+      "title": "更新sitemap包含全部51篇博客",
+      "priority": 1,
+      "status": "completed"
+    },
+    {
+      "id": "fix-api-key-error-handling",
+      "title": "修复5个API路由的API key缺失错误处理",
+      "priority": 0,
+      "status": "completed"
+    },
+    {
+      "id": "critical-deepseek-api-key",
+      "title": "配置DEEPSEEK_API_KEY — 核心功能不可用",
+      "priority": 0,
+      "status": "completed"
+    },
+    {
+      "id": "critical-gumroad-secret",
+      "title": "配置GUMROAD_SECRET — 支付回调不可用",
+      "priority": 0,
+      "status": "blocked"
+    },
+    {
+      "id": "critical-afdian-token",
+      "title": "配置AFDIAN_TOKEN — 爱发电支付不可用",
+      "priority": 0,
+      "status": "blocked"
+    },
+    {
+      "id": "ceo-config-env-vars",
+      "title": "CEO配置Vercel环境变量（支付+API key）",
+      "priority": 0,
+      "status": "in_progress"
+    },
+    {
+      "id": "ceo-product-hunt",
+      "title": "CEO执行Product Hunt Launch",
+      "priority": 0,
+      "status": "pending"
+    },
+    {
+      "id": "ceo-gsc-verify",
+      "title": "CEO完成Google Search Console验证",
+      "priority": 0,
+      "status": "pending"
+    },
+    {
+      "id": "seo-content-push",
+      "title": "持续SEO内容",
+      "priority": 3,
+      "status": "in_progress"
+    },
+    {
+      "id": "traffic-growth",
+      "title": "流量增长策略",
+      "priority": 9,
+      "status": "in_progress"
+    },
+    {
+      "id": "lemon-squeezy-webhook-secret",
+      "title": "配置LEMON_SQUEEZY_WEBHOOK_SECRET — Lemon Squeezy支付回调不可用",
+      "priority": 0,
+      "status": "pending"
+    },
+    {
+      "id": "test-payment-flow",
+      "title": "测试完整支付流程（购买→Token发放→使用）",
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "id": "fix-og-image-404",
+      "title": "修复OG图片404 — 添加public/og-home.png（1200×630px）",
+      "priority": 2,
+      "status": "completed"
+    },
+    {
+      "id": "fix-pricing-404",
+      "title": "/pricing页面404，添加重定向到/premium",
+      "priority": 3,
+      "status": "completed"
+    },
+    {
+      "id": "improve-signup-flow",
+      "title": "改进注册成功页引导和重发确认邮件功能",
+      "priority": 3,
+      "status": "completed"
+    }
+  ],
+  "last_check": "2026-05-19T18:27:00+08:00",
+  "last_report": "PM 2026-05-19 00:36: cron第二十四轮检查 ✅ 无新审计反馈（自14:02第二十三轮后无变化），全站7/7 URL健康，连续15轮无回归。",
+  "consecutive_errors": 0,
+  "deploy_status": "healthy",
+  "last_deploy": "2026-05-17T19:45:00+08:00",
+  "last_check_http": "200",
+  "last_check_result": "✅ 全站健康 www.summarizeai.app HTTP 200 ✅。连续16轮无新BUG无回归。阻塞项不变待CEO。SEO W27，BLOG_POSTS 71 slug。",
+  "last_audit": "2026-05-19T18:27:00+08:00",
+  "audit_result": "✅ 2026-05-19 18:27第二十五轮检查：无新审计反馈，全站6/6 200/308 ✅。连续16轮无回归。",
+  "audit_result_detail": "2026-05-19 18:27 PM检查：cron第二十五轮。audit-feedback.md自16:49后无新反馈。全站6/6核心路由健康 ✅。已修复项连续16轮无回归。阻塞项不变（GUMROAD_SECRET/AFDIAN_TOKEN/LEMON_SQUEEZY_WEBHOOK_SECRET/Product Hunt/Claim Token/首页改版）。SEO W27，BLOG_POSTS共71 slug。",
+  "long_term_plan": {
+    "current_phase": "revenue_ready",
+    "next_milestone": "支付流程跑通，获得第一笔收入",
+    "blockers": [
+      "🔴 GUMROAD_SECRET未配置（Gumroad webhook签名验证）",
+      "🔴 AFDIAN_TOKEN未配置（爱发电 webhook签名验证）",
+      "🔴 LEMON_SQUEEZY_WEBHOOK_SECRET未配置（Lemon Squeezy webhook签名验证）"
+    ],
+    "assessment": "产品已完全可用！核心API全部正常。BLOG_POSTS 71个slug，blog目录16个.md文件。支付系统代码完整但webhook签名验证需环境变量。已修复问题（pricing重定向/注册页/OG图片）连续15轮无回归。全站健康。DEEPSEEK_API_KEY已配置。阻塞项全需CEO介入。"
+  },
+  "seo_week": 27,
+  "seo_articles_deployed": 51
+}
