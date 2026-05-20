@@ -2,16 +2,14 @@
   "project": "ez-mystic",
   "name": "FateWise - AI东方神秘学",
   "status": "up",
-  "last_check": "2026-05-20T14:58:00+08:00",
-  "last_report": "✅bornchart.app持续正常HTTP 200(6页,0.30-0.80s)。第103次连续≈26.85h稳定🎉。无新CEO活动(HEAD 3b1db8e)。无新审计/UX反馈。阻塞项不变(CEO):Paddle产品发布+Webhook。",
-  "consecutive_passes": 103,
+  "last_check": "2026-05-20T21:47:00+08:00",
+  "last_report": "✅bornchart.app持续正常HTTP 200(6页,0.29-0.89s)。第128次连续≈33.75h稳定🎉🎉。无新CEO活动,无新Bugs,无新审计/UX反馈。阻塞项不变: Paddle产品发布+Webhook(CEO操作)。",
+  "consecutive_passes": 128,
   "blockers": [
     "Paddle products not published in dashboard (CEO action)",
     "Paddle webhook URL not configured in dashboard (CEO action)"
   ],
   "deployed_pages": ["/", "/bazi", "/pricing", "/blog", "/chat", "/contact"],
-  "git_head": "1ca64b0",
-  "git_tree": "clean",
   "domain": "bornchart.app",
-  "notes": "26.85h uptime (103 checks). No new audit/UX feedback. Blocked on CEO for Paddle publish."
+  "notes": "33.75h uptime (128 checks). No new audit/UX feedback. CEO commits unchanged (not pushed). Blocked on CEO for Paddle publish."
 }
