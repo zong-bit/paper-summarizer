@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← 返回博客</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>2026研究生必备：用AI论文摘要工具10倍速完成文献综述——完整工作流指南</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>写文献综述是研究生涯中最耗时、最痛苦的环节之一——你可能需要在几百篇论文中找到十几篇真正相关的，逐篇阅读、理解、做笔记、分类对比，最后才能动笔写。整个过程动辄数周甚至数月。但如果告诉你，一套精心设计的AI工作流可以将这个时间压缩到<a href="https://www.summarizeai.app" className="text-primary hover:text-primary-dark">AI论文摘要工具</a>驱动下的3-5天，你信吗？这篇文章就把这套完整工作流拆给你看。</p>

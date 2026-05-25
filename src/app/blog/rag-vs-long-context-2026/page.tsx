@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>RAG vs 长上下文：LLM 到底该选谁？2026 年最新研究告诉你答案</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>RAG（检索增强生成）和扩展长上下文窗口是当前 LLM 落地的两大主流方案。2026 年 5 月，一篇新论文提出「让 LLM 自己学会判断该走哪条路」，为技术选型提供了全新视角。本文带你理清思路，找到最适合你的方案。</p>

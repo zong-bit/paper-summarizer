@@ -39,6 +39,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI论文摘要工具使用指南：2026年科研人员必读的10个高效技巧</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <blockquote>
             <p>2026年，AI论文摘要工具已经普及到每个科研人员的工具箱。但一个残酷的现实是：<strong>大多数研究者只用了AI工具10%的功能，甚至用错了方法。</strong> 本文分享10个经过验证的高效技巧，从工作流搭建到结果验证，手把手教你把AI论文摘要工具用到极致，让文献阅读效率提升10倍。</p>

@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI Agent工具调用推理研究全景解读</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote><p>2025到2026年，AI领域最引人注目的趋势之一是AI Agent从被动响应走向主动规划。大语言模型不再只是根据prompt生成文本，而是学会像人类专家一样先思考、再选择工具、后执行。本文系统梳理工具调用推理领域的核心论文、技术进展，以及这些突破如何直接影响AI论文摘要工具（如Paper Summarizer）的能力边界。</p></blockquote>
 

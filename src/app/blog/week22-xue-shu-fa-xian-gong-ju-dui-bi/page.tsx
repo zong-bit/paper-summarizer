@@ -16,6 +16,7 @@ export default function Page() {
   return (
     <article className="prose prose-lg max-w-none">
       <h1>Connected Papers vs ResearchRabbit vs Elicit：2026年学术发现工具横评（附选择指南）</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
       <p className="lead">
         找到一篇关键论文后，下一步是什么？顺藤摸瓜找到相关文献。但手动追踪引用链、浏览推荐列表效率极低。2026年，<strong>学术发现工具</strong>已经从"锦上添花"变成了科研基础设施。但面对 Connected Papers、ResearchRabbit、Elicit、Scite、Litmaps 等一众选手，到底该选谁？本文将逐一拆解，帮你做出明智选择。

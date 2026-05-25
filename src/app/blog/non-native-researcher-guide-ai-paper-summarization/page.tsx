@@ -26,6 +26,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>The Non-Native Researcher's Guide to AI-Powered Paper Summarization</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <p>If English is not your first language, reading academic papers is one of the hardest parts of being a researcher. You are not alone. Over 60% of the world's researchers are non-native English speakers, yet the vast majority of academic literature is published in English. The gap between your expertise in your field and your comfort with English can slow down your research by months or even years.</p>
           <p>AI-powered paper summarization tools have changed this landscape dramatically. Here is how they help non-native researchers and how to use them most effectively.</p>

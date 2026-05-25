@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>大模型的"秘密偏好图"：Beyond Pairs论文解读——你的AI正在优化一个你看不见的关系网</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2026年5月，来自Meta AI等机构的研究者发表了一篇题为《Beyond Pairs: Your Language Model is Secretly Optimizing a Preference Graph》的论文（arXiv:2605.08037），揭示了一个令人惊讶的事实：当我们在用DPO（直接偏好优化）训练大模型时，模型实际上在内部优化一个它自己的"偏好图"——一个由所有回答之间的偏好关系构成的有向无环图。这项研究不仅挑战了我们对DPO的理解，更提出了一种全新的偏好优化框架：GraphDPO。</p>

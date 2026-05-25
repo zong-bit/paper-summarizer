@@ -27,6 +27,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI论文摘要工具的未来趋势：2026-2027年展望</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>到2027年，AI论文摘要工具将不再是"辅助工具"，而是科研工作的"默认入口"。多模态理解、推理增强、个性化适配和AI Agent化——四大趋势将彻底改变研究人员获取知识的方式。本文为你梳理未来两年的核心发展方向，以及作为研究者该如何应对。</p>

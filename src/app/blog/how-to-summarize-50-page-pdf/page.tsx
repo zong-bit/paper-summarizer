@@ -36,6 +36,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>How to Summarize a 50-Page PDF in 30 Seconds with AI</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <p>Imagine this: You've just downloaded a 50-page research paper. Your deadline is in 3 hours. You need to understand the key findings, methodology, and conclusions — <strong>fast</strong>. Traditionally, this would mean a grueling reading session. With AI, it takes 30 seconds.</p>
 

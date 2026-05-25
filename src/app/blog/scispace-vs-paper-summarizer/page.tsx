@@ -36,6 +36,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>Scispace vs Paper-Summarizer: Which AI Tool is Better for Academic Research?</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <p>In the rapidly evolving landscape of academic research, AI tools have become indispensable for navigating the deluge of scientific literature. Two names frequently dominate the conversation: <strong>Scispace</strong> and <strong>Paper-Summarizer</strong>. While both platforms leverage artificial intelligence to assist researchers, they cater to slightly different needs and workflows.</p>
 

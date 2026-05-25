@@ -26,6 +26,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>How to Extract Key Findings from PDF Papers Instantly</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <p>Academic research lives in PDFs. Tens of millions of papers are published each year, and nearly all of them are distributed as PDF documents. Yet extracting the key findings from these files remains one of the most tedious tasks in research. In this guide, we show you how to go from a PDF download to a structured summary of findings in under a minute.</p>
 

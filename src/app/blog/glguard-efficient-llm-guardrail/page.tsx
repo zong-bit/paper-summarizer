@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>GLiGuard解读：0.3B参数实现27B级AI安全护栏，16倍加速的突破</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2026年5月8日，一篇名为《GLiGuard: Schema-Conditioned Classification for LLM Safeguard》的论文在AI安全领域引发关注。研究者提出了一种仅0.3B参数的LLM安全护栏模型，在9个安全基准测试中达到了与7B-27B参数模型相当的检测精度，同时推理速度提升高达16倍、延迟降低17倍。这篇论文挑战了"大模型才能做好安全"的固有认知，为AI安全护栏的高效部署开辟了新路径。</p>

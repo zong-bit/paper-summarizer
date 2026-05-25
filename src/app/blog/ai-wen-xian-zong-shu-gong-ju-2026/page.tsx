@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>2026年AI文献综述工具Top 10：研究生科研效率必备指南</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>研究生写文献综述有多痛苦？读几十篇论文、做无数笔记、最后发现逻辑还是乱的——这是无数研究生的共同经历。2026年，AI文献综述工具已经从"少数人的玩具"变成了"每个研究者的标配"。本文从数十款工具中精选Top 10，按不同场景分类推荐，帮你找到最适合的那一款。无论你是本科生、硕士生还是博士生，这篇文章都能让你的文献综述效率翻倍。</p>

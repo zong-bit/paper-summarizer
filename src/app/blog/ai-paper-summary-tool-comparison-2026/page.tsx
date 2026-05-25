@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI论文摘要工具对比2026：哪款最准确？</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2026年，市面上有超过20款AI论文摘要工具，每款都宣称自己"最强大"。但作为科研人员，你最关心的其实只有一个问题：<strong>哪款工具的摘要最准确？</strong> 本文对5款主流AI论文摘要工具进行深度对比评测，从摘要准确率、中文支持、批量处理、价格等10大维度给出客观分析，帮你做出明智选择。</p>

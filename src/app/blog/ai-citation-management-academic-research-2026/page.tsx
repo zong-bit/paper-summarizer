@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>2026年AI学术引用管理完全指南：让参考文献管理效率提升10倍</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote><p>学术引用管理是科研论文写作中最耗时、最易出错的环节之一。2026年，AI技术正在彻底改变学术引用的管理方式——从自动化的参考文献提取、智能引用推荐、知识图谱构建到一键格式转换。本文深入探讨AI在学术引用管理中的应用现状、核心技术、主流工具对比，以及科研人员如何搭建高效的AI引用管理工作流。文章引用了多篇前沿研究论文，为读者提供既有理论深度又具实操价值的全面指南。</p></blockquote>
 

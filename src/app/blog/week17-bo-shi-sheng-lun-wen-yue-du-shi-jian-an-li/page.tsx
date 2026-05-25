@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI论文摘要工具如何帮博士生节省80%阅读时间：3个真实场景案例</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>开题报告前导师说"你先读50篇文献"，文献综述写到一半发现读了50篇却写不出逻辑线，跨学科研究时连基础术语都看不懂——这些场景，每个博士生都经历过。本文通过3个真实场景案例，展示AI论文摘要工具如何帮博士生**节省80%的阅读时间**，从开题筛选到综述写作，一步步给你看。</p>

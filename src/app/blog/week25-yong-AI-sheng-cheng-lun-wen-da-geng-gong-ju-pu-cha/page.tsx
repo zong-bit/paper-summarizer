@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>2026年AI论文大纲生成工具全攻略：从选题到框架一键搞定</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>写论文的第一步不是动笔，而是搭框架。2026年，AI论文大纲生成工具已经从"能用"进化到"好用"，但不同工具的能力差异巨大。本文实测5款主流AI论文大纲生成工具，从选题到三级框架，帮你找到最适合的那一款。</p>

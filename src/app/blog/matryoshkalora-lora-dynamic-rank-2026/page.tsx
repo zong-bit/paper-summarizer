@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>MatryoshkaLoRA解读：套娃式LoRA实现动态rank选择，微调效率再升级</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2026年5月8日，一篇名为《MatryoshkaLoRA: Learning Accurate Hierarchical Low-Rank Representations for LLM Fine-Tuning》的论文在参数高效微调（PEFT）领域引发关注。研究者提出了一种"套娃"式的LoRA训练框架，通过引入一个精心设计的对角矩阵，在单次训练中同时学习多个rank的低秩表示，实现了动态rank选择而无需网格搜索。这篇论文解决了LoRA微调中一个长期存在的痛点：如何在不重新训练的情况下，在不同计算预算下获得最优的微调效果。</p>

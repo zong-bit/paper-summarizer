@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI论文摘要工具怎么选？2026年最新选择指南与避坑建议</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2026年，市面上有超过20款AI论文摘要工具，价格从免费到每月数百元不等。但真相是：选错工具不仅浪费钱，更浪费你宝贵的科研时间。本文不推荐某一款"最牛"工具，而是教你一套系统化的选择方法，帮你根据自己的研究场景找到最合适的工具，避免花冤枉钱、踩不必要的坑。</p>

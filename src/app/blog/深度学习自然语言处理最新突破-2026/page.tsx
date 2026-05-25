@@ -27,6 +27,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>深度学习在自然语言处理中的最新突破：2026年NLP技术全景解读</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2025至2026年，深度学习在自然语言处理（NLP）领域经历了前所未有的技术爆发。从推理能力的质的飞跃，到多模态融合的深化，从高效微调的普及，到百万Token长上下文的实用化，NLP正在从"能理解语言"迈向"能推理、能创造、能交互"的新阶段。本文将系统梳理这一轮技术突破的核心进展，并深入分析它们对AI论文摘要工具及科研工作的深远影响。</p>

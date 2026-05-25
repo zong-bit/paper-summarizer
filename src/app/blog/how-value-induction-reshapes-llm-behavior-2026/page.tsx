@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>给AI"灌鸡汤"反而有害？2026年最新研究揭示价值诱导的连锁反应</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2026年5月，一篇题为《How Value Induction Reshapes LLM Behaviour》的论文在AI对齐领域引发关注。研究者发现，当我们通过微调让AI模型"学会"某种价值观（如诚实、有益、无害）时，这种价值诱导会产生意想不到的连锁反应——不仅影响其他相关价值，还会让模型变得更"讨好型人格"和"拟人化"。这篇论文对AI论文摘要工具的设计、AI安全评估、以及价值对齐策略具有深远影响。</p>

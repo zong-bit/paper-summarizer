@@ -5,6 +5,7 @@ import './globals.css'
 import { I18nProvider } from '@/i18n/provider'
 import Navbar from '@/components/Navbar'
 import FeedbackButton from '@/components/FeedbackButton'
+import PageViewTracker from '@/components/PageViewTracker'
 
 const BASE_URL = 'https://www.summarizeai.app'
 
@@ -87,6 +88,7 @@ export default function RootLayout({
         </I18nProvider>
         <Analytics />
         <GoogleAnalytics gaId="G-3F0LETZ2NY" />
+        <PageViewTracker />
       </body>
     </html>
   )

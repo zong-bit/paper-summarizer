@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← 返回博客</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>如何验证AI论文摘要的准确性：研究者必读的核实指南</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2026年，全球科研人员平均每天生成超过1.2万篇新论文。AI论文摘要工具成为筛选文献的"第一道防线"。但问题来了：你信任AI摘要到什么程度？当AI告诉你一篇论文"证明了X方法优于Y方法"时，你真的需要去原文验证吗？</p>

@@ -26,6 +26,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>Top 10 Research Papers on Machine Learning in 2025 (Summarized)</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <p>2025 has been a remarkable year for machine learning research. From breakthroughs in efficient language models to novel architectures for long-context understanding, the field continues to evolve at a breathtaking pace. Here are ten of the most impactful ML papers of 2025, each summarized with the help of <Link href="/">Paper Summarizer</Link> to save you hours of reading.</p>
 

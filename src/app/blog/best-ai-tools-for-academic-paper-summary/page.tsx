@@ -26,6 +26,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>Best AI Tools for Academic Paper Summary in 2025</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <p>The market for AI-powered academic tools has exploded in 2025. With dozens of options claiming to save researchers time, choosing the right one can feel overwhelming. In this guide, we compare the leading AI paper summarization tools to help you find the best fit for your workflow.</p>
 

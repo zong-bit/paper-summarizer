@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>2026年最佳AI论文摘要工具TOP10：全面评测与推荐</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2026年，AI论文摘要工具已经从"能用"进化到"好用"。但市面上有超过20款工具，怎么选？本文深度评测10款主流AI论文摘要工具，从摘要质量、中文支持、免费额度、核心功能四个维度全面对比，帮你找到最适合的那一款。</p>

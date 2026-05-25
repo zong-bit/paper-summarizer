@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>2026年论文润色与降重工具推荐及使用技巧全攻略</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>论文写完了，但查重率飙到40%？英文论文语法错误频出，投稿总被拒？别慌——本文精选8款主流论文润色与降重工具，逐一对比功能、价格、优缺点，并分享经过验证的降重实操技巧，帮你高效通过查重、提升论文质量。</p>

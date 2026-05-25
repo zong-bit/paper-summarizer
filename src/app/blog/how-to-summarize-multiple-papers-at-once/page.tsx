@@ -26,6 +26,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>How to Summarize Multiple Papers at Once: A Practical Guide</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <p>Reading individual papers is one thing. But what happens when you face a literature review with 80 papers, a conference proceedings with 200 submissions, or a weekly update from five different preprint servers? The ability to process multiple papers efficiently is a superpower in modern academia, and AI summarization is the key to unlocking it.</p>
 

@@ -27,6 +27,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>论文阅读效率提升指南：用AI工具每天高效阅读10篇论文</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>作为一名研究生，我最大的痛点不是"没有论文可看"，而是"看了太多论文却记不住重点"。直到我建立了一套基于AI论文摘要的阅读工作流，阅读效率提升了近10倍——从每天勉强读2篇，到高效消化10篇以上。本文将分享这套方法的核心思路、具体步骤和工具选择。</p>

@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI论文摘要工具怎么选？AI摘要与人工摘要的深度对比</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>在学术界，"摘要"是最被低估的技能之一。一篇好的摘要能让你的研究被看见，而一份糟糕的摘要可能让数月心血石沉大海。那么问题来了：AI生成的摘要，真的能替代人工吗？本文将通过真实场景对比，帮你做出明智选择。</p>

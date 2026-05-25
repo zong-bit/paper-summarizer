@@ -39,6 +39,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI论文摘要工具中文支持深度测评：中文论文摘要到底靠不靠谱？</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <p>作为中文研究者，你可能有过这样的经历：上传一篇中文论文，AI生成了"看起来不错"的摘要，但仔细一看——核心方法被简化成了大白话，专业术语被翻译得莫名其妙，结论部分甚至出现了原文根本没有的内容。</p>
 

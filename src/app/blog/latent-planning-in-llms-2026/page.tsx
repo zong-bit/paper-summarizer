@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI模型会"提前计划"吗？2026年最新研究揭示大模型的"思维路线图"</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2026年5月，一篇名为《Where's the Plan?》的论文在AI可解释性领域引发关注。研究者发现，大语言模型在生成文本时，会在内部"提前计划"未来要输出的内容——就像人类在下棋时会提前想好几步。但这项发现并非所有模型都具备：Gemma-3是唯一表现出这种"思维跳转"能力的模型。这一发现对AI论文摘要工具的设计、安全性和可靠性评估具有深远影响。</p>

@@ -27,6 +27,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI论文摘要工具 vs 手动摘要：哪个更适合你的科研需求？</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>在信息爆炸的时代，科研人员每天需要阅读大量学术论文。如何高效地从海量文献中提取核心信息，成为每位研究者的必修课。AI论文摘要工具与人工摘要各有优劣，选择哪种方式，取决于你的具体需求。</p>

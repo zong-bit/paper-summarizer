@@ -31,6 +31,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>7 Free AI Tools to Summarize Research Papers (2026)</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <p>Reading academic papers is time-consuming. Between literature reviews, exam prep, and staying current in your field, you often wish you had a research assistant who could read through dozens of papers and give you the key insights. In 2026, that assistant exists — and many of them are completely free.</p>
 

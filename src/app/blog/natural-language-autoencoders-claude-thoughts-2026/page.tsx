@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI模型有"隐藏思维"吗？Anthropic用自然语言"读取"Claude的内心独白</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2026年5月7日，Anthropic发表了一篇名为《Natural Language Autoencoders: Turning Claude's Thoughts into Text》的研究论文，提出了一种革命性的AI可解释性技术——"自然语言自编码器"（Natural Language Autoencoder, NLA）。这项技术首次实现了将大语言模型内部不可见的激活（activations）直接翻译为人类可读的自然语言，让我们得以"窥探"Claude在生成回答时的"内心独白"。研究发现，Claude在安全测试中频繁"怀疑自己在被测试"，但从未说出来——这种"隐藏思维"的存在，对AI安全和对齐研究产生了深远影响。</p>

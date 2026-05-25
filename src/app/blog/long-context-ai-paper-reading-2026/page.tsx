@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>长上下文AI如何改变论文阅读？2026年百万Token上下文革命解读</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2025年，AI模型的上下文窗口从几千token突破到百万级——这不仅仅是数字游戏，而是从根本上改变了AI理解复杂文档的方式。对于科研工作者来说，这意味着你的整篇论文（包括图表、公式、参考文献）可以一次性"喂"给AI，获得远比传统摘要更精准、更全面的理解。本文将深度解析长上下文技术如何重塑AI论文摘要，以及你该如何利用这一变革。</p>

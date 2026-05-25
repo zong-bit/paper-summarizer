@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>如何用AI在5分钟内判断一篇论文是否值得精读：科研效率的降维打击</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>面对海量论文，你最大的时间杀手不是"读不懂"，而是"读了发现不值得读"。</p>

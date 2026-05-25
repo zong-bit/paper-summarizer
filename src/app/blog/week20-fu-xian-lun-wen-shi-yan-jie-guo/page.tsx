@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>如何用AI工具快速复现一篇论文的实验结果：科研人员的完整指南</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>论文读完了，结论很有意思，但你想验证一下——AI能帮你把复现时间从两周缩短到两天。</p>

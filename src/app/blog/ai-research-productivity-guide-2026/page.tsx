@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>2026研究生科研效率革命：AI论文工具全攻略，从文献阅读到论文发表</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>读研最痛的从来不是科研本身——而是80%的时间花在了"机械劳动"上：读100篇论文找5篇相关的、手打参考文献格式、反复调整论文格式……2026年，AI已经把机械劳动的占比压缩到可以忽略不计。真正的挑战变成了——会不会用这些工具。本文用一份完整工作流+8款工具，帮你把写一篇论文的时间从3个月压缩到3周。</p>

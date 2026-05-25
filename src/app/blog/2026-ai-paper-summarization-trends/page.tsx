@@ -27,6 +27,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>2026 AI论文摘要新趋势：大模型如何改变科研阅读方式</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2025年，全球科研人员生成了超过350万篇新论文。到2026年，这个数字仍在攀升。面对"论文爆炸"，AI论文摘要技术正在经历从"能摘要"到"懂论文"的质变。本文将深入解析2026年AI论文摘要的五大核心趋势，以及它们将如何重塑你的科研阅读习惯。</p>

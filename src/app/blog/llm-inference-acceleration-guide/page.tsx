@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>LLM推理加速技术全景指南：从原理到实践</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2025年，全球LLM推理调用量突破千亿次，推理成本占AI总支出的70%以上。理解LLM推理加速技术，不仅关乎技术选型，更直接决定了AI论文摘要工具的响应速度、成本和用户体验。本文将用通俗语言拆解六大核心技术。</p>

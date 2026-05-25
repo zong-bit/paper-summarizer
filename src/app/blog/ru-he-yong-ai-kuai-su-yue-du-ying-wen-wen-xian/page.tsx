@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← 返回博客</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>如何用AI快速阅读英文文献：非英语母语研究者的终极指南</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>对全球超过3亿非英语母语的研究者来说，阅读英文文献是一道跨不过的坎。但2026年的AI工具已经彻底改变了这个局面——你不再需要逐词翻译、不再需要查遍词典、不再需要花三小时读一篇论文。本文将手把手教你用AI工具实现英文文献的高效阅读。</p>

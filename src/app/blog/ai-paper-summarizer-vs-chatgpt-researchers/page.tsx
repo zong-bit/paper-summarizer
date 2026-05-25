@@ -26,6 +26,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI Paper Summarizer vs ChatGPT: Which One is Better for Researchers?</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <p>If you are a researcher, you have probably tried both ChatGPT and dedicated AI paper summarizers. Both claim to help you read papers faster. But when it comes to actual academic work, the differences are significant. This article breaks down the key comparisons across six dimensions that matter most to researchers.</p>
 

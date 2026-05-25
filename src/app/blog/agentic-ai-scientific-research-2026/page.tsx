@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>2026年AI Agent重塑科研范式：从文献检索到论文撰写的自动化革命</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2025-2026年，AI Agent技术迎来了科研领域的爆炸性突破。从Stanford的Agent Laboratory到Google DeepMind的ChemCrow，再到Meta的AutoResearch，AI Agent已经从"辅助工具"进化为能够独立完成文献调研、实验设计、数据分析甚至论文撰写全流程的"AI科学家"。本文将深度解读这一技术变革的三大核心驱动力、代表性论文突破、对科研生态的深远影响，以及科研人员如何利用AI Agent提升研究效率。</p>

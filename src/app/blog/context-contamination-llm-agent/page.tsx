@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>为什么重试让 LLM Agent 越修越糟？上下文污染问题深度解析</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>我们每天都在用 LLM 做各种"智能"任务——自动修 Bug、写代码、做研究。最常见的策略是"失败了就重试"。但 2026 年 5 月发表在 arXiv 上的一篇论文揭示了一个反直觉的问题：<strong>重试本身就会让下一次尝试更可能失败</strong>——失败痕迹会在上下文里"污染"后续尝试，使失败率提高多达 7 倍。</p>

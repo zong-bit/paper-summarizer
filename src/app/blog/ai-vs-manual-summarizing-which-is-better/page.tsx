@@ -26,6 +26,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI vs Manual Summarizing: Which Is Better for Researchers?</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <p>As AI summarization tools become increasingly capable, researchers face a genuine question: should I summarize papers myself or let AI do it? The answer is not as simple as "AI is always better" or "AI can never replace human reading." Each approach has distinct strengths and weaknesses that make them suitable for different stages of the research process.</p>
 

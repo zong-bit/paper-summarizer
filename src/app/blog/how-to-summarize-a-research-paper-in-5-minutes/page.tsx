@@ -26,6 +26,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>How to Summarize a Research Paper in 5 Minutes with AI</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <p>If you are a researcher, graduate student, or academic professional, you know the struggle: a growing reading list, limited time, and dozens of papers competing for your attention. What if you could extract the core findings of any research paper in under five minutes? With modern AI summarization tools, this is not only possible but practical.</p>
 

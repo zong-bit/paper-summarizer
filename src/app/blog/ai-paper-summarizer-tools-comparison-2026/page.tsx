@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI论文摘要工具大对比：2026年最佳论文总结工具测评与选择指南</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2026年，市面上有超过20款AI论文摘要工具，从ChatPDF到Scispace，从Elicit到Paper Summarizer，每款都宣称自己"最强大"。但真相是：没有最好的工具，只有最适合你的工具。本文深度测评6款主流AI论文摘要工具，从摘要质量、多语言支持、批量处理、学术引用、价格等12个维度给出客观对比，并针对不同类型的研究者给出精准选择建议。</p>

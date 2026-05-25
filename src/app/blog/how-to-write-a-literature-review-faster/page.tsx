@@ -26,6 +26,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>How to Write a Literature Review Faster Using AI Summarizers</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <p>A literature review is one of the most time-consuming parts of academic writing. Surveying dozens of papers, extracting relevant findings, and synthesizing them into a coherent narrative can take weeks or even months. But with AI summarization tools, you can cut that time dramatically without sacrificing quality.</p>
 

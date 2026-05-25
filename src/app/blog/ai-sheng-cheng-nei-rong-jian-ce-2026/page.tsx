@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← 返回博客</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI生成内容检测技术2026：学术论文中的AI写作识别与应对指南</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2026年，全球超过60%的高校和学术期刊已部署AI生成内容检测系统。当AI写作检测成为学术规范的新常态，研究者该如何在合规的前提下，合理利用AI工具提升科研效率？</p>

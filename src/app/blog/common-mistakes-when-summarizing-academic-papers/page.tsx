@@ -26,6 +26,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>Common Mistakes When Summarizing Academic Papers (And How to Avoid Them)</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <p>Summarizing academic papers seems straightforward, but even experienced researchers make mistakes that compromise the usefulness of their summaries. Whether you summarize manually or use AI tools like <Link href="/">Paper Summarizer</Link>, being aware of these common pitfalls will help you produce more accurate and actionable summaries.</p>
 

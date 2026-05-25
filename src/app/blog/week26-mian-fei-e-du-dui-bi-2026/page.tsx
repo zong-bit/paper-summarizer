@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>2026年AI论文摘要工具免费额度大对比：哪款最划算？</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>作为研究者，你可能已经试过几款AI论文摘要工具，然后遇到了同一个问题：<strong>免费额度用完了怎么办？</strong>2026年，市面上主流的AI论文摘要工具都采用"免费+付费"模式，但它们的免费策略差异巨大。本文通过实测对比，帮你找到最划算的选择。</p>

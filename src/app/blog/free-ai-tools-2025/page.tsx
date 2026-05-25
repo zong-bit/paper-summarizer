@@ -27,6 +27,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← 返回博客</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>2025年免费AI工具推荐：学生党必备的5个神器</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2025年了，AI已经不再是科技圈的特权。对于预算有限的学生党来说，掌握几个靠谱的免费AI工具，就能在学业、副业和个人成长上弯道超车。今天推荐5款真正好用、完全免费的AI神器，亲测有效。</p>

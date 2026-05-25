@@ -26,6 +26,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>Why Every Graduate Student Needs an AI Paper Summarizer</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <p>If you are a graduate student, your relationship with reading is complicated. You love the pursuit of knowledge. You hate the sheer volume of it. Between coursework, teaching obligations, your own research, and staying current in your field, finding time to read everything feels impossible. An AI paper summarizer is not just a convenience — it is becoming an essential tool for graduate student success.</p>
 

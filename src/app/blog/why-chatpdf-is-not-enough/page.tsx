@@ -36,6 +36,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>Why ChatPDF Is Not Enough: The ChatPDF Alternative Built for Deep Academic Analysis</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <p>If you're doing academic research, you've probably tried <strong>ChatPDF</strong> — the tool that lets you "chat" with any PDF. It's convenient, it's free (to start), and for simple questions, it works just fine. But when your research demands go beyond "What does this paper say?", ChatPDF's limitations become painfully obvious.</p>
 

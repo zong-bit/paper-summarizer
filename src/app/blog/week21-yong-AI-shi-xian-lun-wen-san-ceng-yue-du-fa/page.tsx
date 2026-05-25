@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>用AI实现论文"三层阅读法"：让每篇论文的阅读效率提升5倍</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>2026年的科研工作者每年要面对超过1000篇新论文。用传统方法精读每一篇是不可能的——但用AI辅助的"三层阅读法"，你只需要精读其中20%，就能掌握一个领域80%的核心知识。</p>

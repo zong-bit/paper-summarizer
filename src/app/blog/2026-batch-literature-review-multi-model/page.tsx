@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>2026年如何用AI写文献综述：批量处理+多模型对比的科研新范式</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>文献综述是科研中最耗时、也最容易被低估的环节。2026年，AI工具已经不再只是"辅助阅读"——批量处理+多模型交叉验证正在成为写高质量文献综述的新标准。本文将带你掌握这套方法论，让你的文献综述效率提升5倍以上。</p>

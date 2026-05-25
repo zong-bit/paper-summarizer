@@ -26,6 +26,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>The Future of Academic Reading: How AI Is Changing Research</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <p>The way researchers read and process academic literature is undergoing its most significant transformation since the rise of digital PDFs. AI language models — particularly those designed for summarization and information extraction — are not just incrementally improving the reading experience; they are fundamentally changing what it means to "read" a paper. Here is a look at where academic reading is heading and what it means for researchers.</p>
 

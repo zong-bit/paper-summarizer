@@ -31,6 +31,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">&larr; Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>Best AI Paper Summarizer Tools Compared (2026)</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           <p className="text-text-muted text-sm">Updated May 2026 &middot; 8 min read</p>
 
           <p>

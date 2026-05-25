@@ -32,6 +32,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI论文摘要的准确性：如何验证AI生成的摘要是否可靠</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
 
           <blockquote>
             <p>AI论文摘要工具已经非常成熟，但了解如何验证其准确性是每位研究者的必备技能。本文提供5种实用的验证方法，帮助你高效利用AI工具而不被误导。</p>

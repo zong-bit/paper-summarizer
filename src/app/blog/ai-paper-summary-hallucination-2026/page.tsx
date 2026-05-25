@@ -39,6 +39,7 @@ export default function BlogPost() {
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
           <h1>AI论文摘要的"幻觉"真相：2026年研究者必须知道的6种陷阱与应对指南</h1>
+          <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team</p>
           
           <p>2026年的学术界正经历一场前所未有的信任危机。GPTZero的最新调查揭露，在随机抽取的300篇ICLR 2026投稿论文中，超过50篇存在明显的AI幻觉问题。而在NeurIPS 2025上，研究者发现了超过53篇包含AI伪造引用的论文。这些数字令人震惊——AI正在以"自信满满"的姿态，将虚假信息写入学术记录。</p>
 
