@@ -52,21 +52,27 @@ export default function DashboardPage() {
       }
       setUser(session.user)
 
-      const { data: profileData } = await supabase
+      const { data: profileData, error: profileErr } = await supabase
         .from('users')
         .select('*')
         .eq('id', session.user.id)
-        .single()
+        .maybeSingle()
+      if (profileErr && !profileData) {
+        console.error('[dashboard] Failed to fetch profile:', profileErr)
+      }
       setProfile(profileData)
 
-      const { data: subData } = await supabase
+      const { data: subData, error: subErr } = await supabase
         .from('subscriptions')
         .select('*')
         .eq('user_id', session.user.id)
         .eq('status', 'active')
         .order('created_at', { ascending: false })
         .limit(1)
-        .single()
+        .maybeSingle()
+      if (subErr && !subData) {
+        console.error('[dashboard] Failed to fetch subscription:', subErr)
+      }
       setSubscription(subData)
 
       const { data: tokenData } = await supabase

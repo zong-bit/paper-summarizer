@@ -7,18 +7,24 @@ const SUPABASE_COOKIE_PREFIX = 'sb-'
 const LEGACY_TOKEN_COOKIE = 'token'
 
 function hasAuthCookie(request: NextRequest): boolean {
-  // Check for common Supabase auth cookie names
   // Supabase stores auth cookies with pattern: sb-{projectRef}-auth-token
-  // We check common variants to be compatible with different Supabase versions
-  const cookieNames = [
+  // Also check common generic names for compatibility
+  const allNames = [
     'sb-auth-token',
     'sb-auth-token0',
     'sb-auth-token1',
     'auth-token',
     LEGACY_TOKEN_COOKIE,
   ]
-  for (const name of cookieNames) {
+  for (const name of allNames) {
     if (request.cookies.get(name)?.value) {
+      return true
+    }
+  }
+  // Check all cookies for any that start with 'sb-' and contain 'auth-token'
+  // This handles project-specific cookie names like sb-xgaxejeaxfhlupguqteu-auth-token
+  for (const [name] of request.cookies) {
+    if (name.startsWith('sb-') && name.includes('auth-token')) {
       return true
     }
   }

@@ -58,7 +58,7 @@ export default function AccountPage() {
         .single()
       setProfile(profileData)
 
-      const { data: subData } = await supabase
+      const { data: subData, error: subErr } = await supabase
         .from('subscriptions')
         .select('*')
         .eq('user_id', session.user.id)
@@ -66,7 +66,7 @@ export default function AccountPage() {
         .eq('source', 'paper-summarizer')
         .order('created_at', { ascending: false })
         .limit(1)
-        .single()
+        .maybeSingle()
 
       // Check if subscription has expired
       if (subData) {
@@ -80,10 +80,13 @@ export default function AccountPage() {
           .eq('source', 'paper-summarizer')
           .order('created_at', { ascending: false })
           .limit(1)
-          .single()
+          .maybeSingle()
         setSubscription(refreshedSub)
       } else {
         setSubscription(subData)
+      }
+      if (subErr && !subData) {
+        console.error('[account] Failed to fetch subscription:', subErr)
       }
 
       const { data: tokenData } = await supabase
