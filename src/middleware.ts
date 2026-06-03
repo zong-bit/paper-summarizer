@@ -34,7 +34,7 @@ const OPEN_PATHS = [
   '/privacy',
   '/terms',
   '/refund',
-  '/pricing',
+  '/premium',
   '/buy',
   '/about',
   '/blog',

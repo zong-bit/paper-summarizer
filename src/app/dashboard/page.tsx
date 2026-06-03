@@ -45,18 +45,13 @@ export default function DashboardPage() {
 
   const fetchData = useCallback(async (supabase: SupabaseClient) => {
     try {
-      // Use getSession() instead of getUser() to avoid network requests
-      // getUser() makes an HTTP call to supabase.co to validate the JWT,
-      // which can fail/timing-out for users in China. getSession() reads
-      // the session from localStorage/memory and is much more reliable.
       const { data: { session } } = await supabase.auth.getSession()
       if (!session?.user) {
-        router.push('/account')
+        router.push('/login')
         return
       }
       setUser(session.user)
 
-      // Get profile
       const { data: profileData } = await supabase
         .from('users')
         .select('*')
@@ -64,7 +59,6 @@ export default function DashboardPage() {
         .single()
       setProfile(profileData)
 
-      // Get active subscription
       const { data: subData } = await supabase
         .from('subscriptions')
         .select('*')
@@ -75,7 +69,6 @@ export default function DashboardPage() {
         .single()
       setSubscription(subData)
 
-      // Get active tokens
       const { data: tokenData } = await supabase
         .from('tokens')
         .select('*')
@@ -85,7 +78,6 @@ export default function DashboardPage() {
         .order('created_at', { ascending: false })
       setTokens(tokenData || [])
     } catch (err: any) {
-      // Classify errors for better user feedback
       if (err?.message?.includes('getSession') || err?.message?.includes('session')) {
         setError('Session not found, please try logging in again')
       } else if (err?.message?.includes('users') || err?.code === 'PGRST301') {
@@ -108,7 +100,7 @@ export default function DashboardPage() {
 
     const { data: { subscription: authSub } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!session) {
-        router.push('/account')
+        router.push('/login')
       }
     })
 
@@ -123,10 +115,10 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-bg">
+      <div className="min-h-screen flex items-center justify-center bg-slate-950">
         <div className="text-center space-y-4">
-          <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto"></div>
-          <p className="text-text-secondary">Loading...</p>
+          <div className="w-12 h-12 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mx-auto"></div>
+          <p className="text-slate-400">Loading...</p>
         </div>
       </div>
     )
@@ -134,11 +126,11 @@ export default function DashboardPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-bg px-4">
+      <div className="min-h-screen flex items-center justify-center bg-slate-950 px-4">
         <div className="text-center space-y-4">
           <div className="text-4xl">⚠️</div>
-          <p className="text-error">{error}</p>
-          <Link href="/" className="inline-block px-6 py-2 bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors">
+          <p className="text-red-400">{error}</p>
+          <Link href="/" className="inline-block px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-500 transition-colors">
             Go Home
           </Link>
         </div>
@@ -154,27 +146,27 @@ export default function DashboardPage() {
     : 0
 
   return (
-    <div className="min-h-screen bg-bg">
-      <header className="border-b border-border bg-bg-card/50 sticky top-0 z-10">
+    <div className="min-h-screen bg-slate-950">
+      <header className="border-b border-slate-800 bg-slate-900/50 sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-text hover:text-primary transition-colors">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+          <Link href="/" className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <span className="font-bold text-lg">Paper Summarizer</span>
+            <span className="font-bold text-lg text-white">Paper Summarizer</span>
           </Link>
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 text-sm text-text-secondary">
-              <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center text-primary font-bold text-sm">
+            <div className="flex items-center gap-2 text-sm text-slate-400">
+              <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center text-blue-400 font-bold text-sm">
                 {(profile?.name || profile?.email || 'U').charAt(0).toUpperCase()}
               </div>
               <span className="hidden sm:inline">{profile?.name || profile?.email}</span>
             </div>
             <button
               onClick={handleSignOut}
-              className="px-3 py-1.5 text-sm text-text-secondary hover:text-error transition-colors"
+              className="px-3 py-1.5 text-sm text-slate-400 hover:text-red-400 transition-colors"
             >
               Sign Out
             </button>
@@ -185,23 +177,23 @@ export default function DashboardPage() {
       <main className="max-w-4xl mx-auto px-4 py-8 space-y-8">
         {/* Welcome */}
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-text">
+          <h1 className="text-2xl font-bold text-white">
             Welcome{profile?.name ? `, ${profile.name}` : ''}!
           </h1>
-          <p className="text-text-secondary">Manage your account and usage</p>
+          <p className="text-slate-400">Manage your account and usage</p>
         </div>
 
         {/* Plan Card */}
-        <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
+        <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-bold text-text">Your Plan</h2>
-              <p className="text-text-secondary text-sm">{subscription?.plan === 'pro' ? 'Pro' : 'Free'}</p>
+              <h2 className="text-lg font-bold text-white">Your Plan</h2>
+              <p className="text-slate-400 text-sm">{subscription?.plan === 'pro' ? 'Pro' : 'Free'}</p>
             </div>
             {subscription?.plan === 'free' && (
               <Link
                 href="/premium"
-                className="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-xl text-sm font-medium transition-colors"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-medium transition-colors"
               >
                 Upgrade to Pro
               </Link>
@@ -211,18 +203,18 @@ export default function DashboardPage() {
           {subscription?.plan === 'free' && (
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-text-secondary">Free summaries today</span>
-                <span className="text-text font-medium">
+                <span className="text-slate-400">Free summaries today</span>
+                <span className="text-white font-medium">
                   {usedRequests} / 3
                 </span>
               </div>
-              <div className="w-full bg-border rounded-full h-2.5">
+              <div className="w-full bg-slate-800 rounded-full h-2.5">
                 <div
-                  className="bg-primary h-2.5 rounded-full transition-all"
+                  className="bg-blue-500 h-2.5 rounded-full transition-all"
                   style={{ width: `${progressPercent}%` }}
                 ></div>
               </div>
-              <p className="text-xs text-text-secondary">
+              <p className="text-xs text-slate-400">
                 {remainingRequests === 0
                   ? 'Daily limit reached. Upgrade to Pro for unlimited summaries.'
                   : `${remainingRequests} free summaries remaining today`}
@@ -239,20 +231,20 @@ export default function DashboardPage() {
         </div>
 
         {/* Account Info */}
-        <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
-          <h2 className="text-lg font-bold text-text">Account Info</h2>
+        <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-4">
+          <h2 className="text-lg font-bold text-white">Account Info</h2>
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
-              <span className="text-text-secondary">Email</span>
-              <span className="text-text">{profile?.email}</span>
+              <span className="text-slate-400">Email</span>
+              <span className="text-white">{profile?.email}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-text-secondary">Name</span>
-              <span className="text-text">{profile?.name || 'Not set'}</span>
+              <span className="text-slate-400">Name</span>
+              <span className="text-white">{profile?.name || 'Not set'}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-text-secondary">Member since</span>
-              <span className="text-text">
+              <span className="text-slate-400">Member since</span>
+              <span className="text-white">
                 {profile?.created_at
                   ? new Date(profile.created_at).toLocaleDateString('zh-CN')
                   : 'N/A'}
@@ -263,41 +255,41 @@ export default function DashboardPage() {
 
         {/* Active Tokens */}
         {tokens.length > 0 && (
-          <div className="bg-bg-card border border-border rounded-2xl p-6 space-y-4">
-            <h2 className="text-lg font-bold text-text">Active Tokens</h2>
+          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-4">
+            <h2 className="text-lg font-bold text-white">Active Tokens</h2>
             <div className="space-y-3">
               {tokens.map((t) => {
                 const isExpired = t.expires_at && new Date(t.expires_at) < new Date()
                 const progress = t.max_requests > 0 ? (t.used_requests / t.max_requests) * 100 : 0
 
                 return (
-                  <div key={t.id} className={`border border-border rounded-xl p-4 space-y-2 ${isExpired ? 'opacity-50' : ''}`}>
+                  <div key={t.id} className={`border border-slate-800 rounded-xl p-4 space-y-2 ${isExpired ? 'opacity-50' : ''}`}>
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-sm text-text bg-bg px-2 py-1 rounded">
+                      <span className="font-mono text-sm text-white bg-slate-800 px-2 py-1 rounded">
                         {t.token.slice(0, 12)}...
                       </span>
                       <span className={`text-xs px-2 py-0.5 rounded-full ${
-                        isExpired ? 'bg-error/10 text-error' : 'bg-green-500/10 text-green-500'
+                        isExpired ? 'bg-red-500/10 text-red-400' : 'bg-green-500/10 text-green-500'
                       }`}>
                         {isExpired ? 'Expired' : 'Active'}
                       </span>
                     </div>
                     {t.max_requests > 0 && (
                       <div className="space-y-1">
-                        <div className="flex justify-between text-xs text-text-secondary">
+                        <div className="flex justify-between text-xs text-slate-400">
                           <span>Usage</span>
                           <span>{t.used_requests} / {t.max_requests}</span>
                         </div>
-                        <div className="w-full bg-border rounded-full h-1.5">
+                        <div className="w-full bg-slate-800 rounded-full h-1.5">
                           <div
-                            className="bg-primary h-1.5 rounded-full"
+                            className="bg-blue-500 h-1.5 rounded-full"
                             style={{ width: `${Math.min(progress, 100)}%` }}
                           ></div>
                         </div>
                       </div>
                     )}
                     {t.expires_at && (
-                      <p className="text-xs text-text-secondary">
+                      <p className="text-xs text-slate-400">
                         Expires: {new Date(t.expires_at).toLocaleDateString('zh-CN')}
                       </p>
                     )}
@@ -312,19 +304,19 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link
             href="/"
-            className="bg-bg-card border border-border rounded-2xl p-6 text-center hover:border-primary/40 transition-all group"
+            className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 text-center hover:border-blue-500/40 transition-all group"
           >
             <div className="text-3xl mb-2">📝</div>
-            <div className="font-semibold text-text group-hover:text-primary transition-colors">Start Summarizing</div>
-            <div className="text-sm text-text-secondary mt-1">Go to the main tool</div>
+            <div className="font-semibold text-white group-hover:text-blue-400 transition-colors">Start Summarizing</div>
+            <div className="text-sm text-slate-400 mt-1">Go to the main tool</div>
           </Link>
           <Link
             href="/premium"
-            className="bg-bg-card border border-border rounded-2xl p-6 text-center hover:border-primary/40 transition-all group"
+            className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 text-center hover:border-blue-500/40 transition-all group"
           >
             <div className="text-3xl mb-2">⭐</div>
-            <div className="font-semibold text-text group-hover:text-primary transition-colors">Upgrade to Pro</div>
-            <div className="text-sm text-text-secondary mt-1">Get unlimited summaries</div>
+            <div className="font-semibold text-white group-hover:text-blue-400 transition-colors">Upgrade to Pro</div>
+            <div className="text-sm text-slate-400 mt-1">Get unlimited summaries</div>
           </Link>
         </div>
       </main>
