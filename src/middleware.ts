@@ -1,34 +1,25 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { createServerClient } from '@supabase/ssr'
 
-// Supabase stores auth cookies with pattern: sb-{projectRef}-auth-token
-// We also check the legacy 'token' cookie name for compatibility.
-const SUPABASE_COOKIE_PREFIX = 'sb-'
-const LEGACY_TOKEN_COOKIE = 'token'
-
-function hasAuthCookie(request: NextRequest): boolean {
-  // Supabase stores auth cookies with pattern: sb-{projectRef}-auth-token
-  // Also check common generic names for compatibility
-  const allNames = [
-    'sb-auth-token',
-    'sb-auth-token0',
-    'sb-auth-token1',
-    'auth-token',
-    LEGACY_TOKEN_COOKIE,
-  ]
-  for (const name of allNames) {
-    if (request.cookies.get(name)?.value) {
-      return true
-    }
-  }
-  // Check all cookies for any that start with 'sb-' and contain 'auth-token'
-  // This handles project-specific cookie names like sb-xgaxejeaxfhlupguqteu-auth-token
-  for (const [name] of request.cookies) {
-    if (name.startsWith('sb-') && name.includes('auth-token')) {
-      return true
-    }
-  }
-  return false
+// Create Supabase client for middleware (server-side cookie handling)
+function createMiddlewareClient(request: NextRequest) {
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            request.cookies.set(name, value)
+          })
+        },
+      },
+    },
+  )
 }
 
 // Open routes that do NOT require authentication
@@ -81,20 +72,16 @@ const OPEN_FILE_EXTENSIONS = [
 ]
 
 function isPublicPath(pathname: string): boolean {
-  // Check exact open paths
   for (const p of OPEN_PATHS) {
-    // '/' must be exact match; others use startsWith
     if (p === '/' ? pathname === '/' : pathname.startsWith(p)) {
       return true
     }
   }
-  // Check static file patterns
   for (const p of OPEN_STATIC_PATTERNS) {
     if (pathname.startsWith(p)) {
       return true
     }
   }
-  // Check file extensions
   for (const ext of OPEN_FILE_EXTENSIONS) {
     if (pathname.endsWith(ext)) {
       return true
@@ -103,7 +90,7 @@ function isPublicPath(pathname: string): boolean {
   return false
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Allow all public paths
@@ -111,16 +98,18 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // Create Supabase client and check auth via cookies
+  const supabase = createMiddlewareClient(request)
+  const { data: { session } } = await supabase.auth.getSession()
+
   // All other routes require authentication
-  if (!hasAuthCookie(request)) {
+  if (!session) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
   // Redirect logged-in users away from login/signup
   if (pathname === '/login' || pathname === '/signup') {
-    if (hasAuthCookie(request)) {
-      return NextResponse.redirect(new URL('/dashboard', request.url))
-    }
+    return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
   return NextResponse.next()

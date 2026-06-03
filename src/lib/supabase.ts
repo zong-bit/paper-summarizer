@@ -1,4 +1,5 @@
 import { createClient, SupabaseClient, AuthUser } from '@supabase/supabase-js'
+import { createBrowserClient } from '@supabase/ssr'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -7,7 +8,7 @@ const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 // Global singleton key to survive Next.js chunk bundary
 const GLOBAL_KEY = '__paper_summarizer_supabase_client'
 
-// Client-side (browser) — uses anon key, for auth flows
+// Client-side (browser) — uses anon key with cookie-based auth, for auth flows
 export function getSupabaseClient(): SupabaseClient {
   // Use globalThis to share instance across Next.js chunk boundaries
   // (module-level singletons get duplicated per chunk during code-splitting)
@@ -19,7 +20,17 @@ export function getSupabaseClient(): SupabaseClient {
       'Supabase config missing: set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.production'
     )
   }
-  const client = createClient(supabaseUrl, supabaseAnonKey)
+  // Use @supabase/ssr createBrowserClient for cookie-based auth.
+  // This stores session in cookies instead of localStorage,
+  // allowing middleware to read auth state.
+  const client = createBrowserClient(supabaseUrl, supabaseAnonKey, {
+    cookies: {
+      getAll() {
+        return []
+      },
+      setAll() {},
+    },
+  })
   if (typeof globalThis !== 'undefined') {
     (globalThis as any)[GLOBAL_KEY] = client
   }
