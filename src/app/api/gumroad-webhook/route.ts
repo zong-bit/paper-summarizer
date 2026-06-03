@@ -21,9 +21,9 @@ interface GumroadSale {
  */
 function verifySignature(rawBody: string, signature: string | null): boolean {
   if (!signature) return false
-  const secret = process.env.GUMROAD_SECRET
+  const secret = process.env.GUMROAD_WEBHOOK_SECRET || process.env.GUMROAD_SECRET
   if (!secret) {
-    console.warn('[Gumroad] GUMROAD_SECRET not set, skipping signature verification')
+    console.warn('[Gumroad] GUMROAD_WEBHOOK_SECRET not set, skipping signature verification')
     return true // skip verification if not configured
   }
   const expected = crypto
