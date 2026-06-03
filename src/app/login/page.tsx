@@ -21,7 +21,7 @@ export default function LoginPage() {
         const supabase = getSupabaseClient()
         const { data: { session } } = await supabase.auth.getSession()
         if (session?.user) {
-          router.replace('/')
+          router.replace('/dashboard')
           return
         }
       } catch (err) {
