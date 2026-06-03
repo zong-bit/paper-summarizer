@@ -77,7 +77,8 @@ const OPEN_FILE_EXTENSIONS = [
 function isPublicPath(pathname: string): boolean {
   // Check exact open paths
   for (const p of OPEN_PATHS) {
-    if (pathname === p || pathname.startsWith(p + '/')) {
+    // '/' must be exact match; others use startsWith
+    if (p === '/' ? pathname === '/' : pathname.startsWith(p)) {
       return true
     }
   }
