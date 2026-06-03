@@ -27,6 +27,7 @@ function hasAuthCookie(request: NextRequest): boolean {
 
 // Open routes that do NOT require authentication
 const OPEN_PATHS = [
+  '/',
   '/login',
   '/signup',
   '/api/',
