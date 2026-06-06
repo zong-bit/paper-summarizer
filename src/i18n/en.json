@@ -64,6 +64,8 @@
     "privacyDesc": "We never store your paper content — data is used only for generating summaries",
     "formats": "Supported Formats",
     "formatsDesc": "PDF, TXT, and common academic formats",
+    "researchers": "Built for Researchers",
+    "researchersDesc": "Designed to help academics save hours of reading time",
     "poweredBy": "AI-Powered",
     "poweredByDesc": "Built on DeepSeek AI for precise academic understanding"
   },

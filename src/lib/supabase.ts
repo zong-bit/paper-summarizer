@@ -22,13 +22,28 @@ export function getSupabaseClient(): SupabaseClient {
   }
   // Use @supabase/ssr createBrowserClient for cookie-based auth.
   // This stores session in cookies instead of localStorage,
-  // allowing middleware to read auth state.
+  // allowing middleware to read auth state via document.cookie.
   const client = createBrowserClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
       getAll() {
-        return []
+        if (typeof document === 'undefined') return []
+        return document.cookie.split('; ').map(pair => ({
+          name: pair.split('=')[0],
+          value: pair.split('=').slice(1).join('='),
+        }))
       },
-      setAll() {},
+      setAll(cookiesToSet) {
+        if (typeof document === 'undefined') return
+        cookiesToSet.forEach(({ name, value, options }) => {
+          const parts = [`${name}=${value}`, 'path=/']
+          if (options?.maxAge) parts.push(`max-age=${options.maxAge}`)
+          if (options?.domain) parts.push(`domain=${options.domain}`)
+          if (options?.sameSite) parts.push(`SameSite=${options.sameSite}`)
+          if (options?.secure) parts.push('Secure')
+          if (options?.httpOnly) parts.push('HttpOnly')
+          document.cookie = parts.join('; ')
+        })
+      },
     },
   })
   if (typeof globalThis !== 'undefined') {
