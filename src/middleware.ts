@@ -35,6 +35,8 @@ const OPEN_PATHS = [
   '/buy',
   '/about',
   '/blog',
+  '/tools',
+  '/library',
   '/og',
   '/sitemap',
   '/robots.txt',
