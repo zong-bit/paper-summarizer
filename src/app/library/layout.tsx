@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+// PM hotfix 07:00 - force rebuild
 export const generateMetadata = (): Metadata => ({
   title: '📚 My Library - Paper Summarizer',
   description: 'View and manage your saved paper summaries. Access all your previously summarized academic papers in one place.',
