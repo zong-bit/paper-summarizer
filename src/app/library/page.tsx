@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import Head from 'next/head'
+import { useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { generateMetadata } from './metadata'
 
 interface LibraryItem {
   id: string
@@ -83,8 +84,25 @@ export default function LibraryPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950">
-      <Navbar currentPage="library" />
+    <>
+      <Head>
+        <title>📚 My Library - Paper Summarizer</title>
+        <meta name="description" content="View and manage your saved paper summaries. Access all your previously summarized academic papers in one place." />
+        <link rel="canonical" href="https://www.summarizeai.app/library" />
+        <meta property="og:title" content="📚 My Library - Paper Summarizer" />
+        <meta property="og:description" content="View and manage your saved paper summaries." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.summarizeai.app/library" />
+        <meta property="og:image" content="https://www.summarizeai.app/og-home.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_size" />
+        <meta name="twitter:title" content="📚 My Library - Paper Summarizer" />
+        <meta name="twitter:description" content="View and manage your saved paper summaries." />
+        <meta name="twitter:image" content="https://www.summarizeai.app/og-home.png" />
+      </Head>
+      <div className="min-h-screen flex flex-col bg-slate-950">
+        <Navbar currentPage="library" />
       <main className="flex-1 max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -169,8 +187,8 @@ export default function LibraryPage() {
           </div>
         )}
       </main>
-      <Footer />
-    </div>
+      </div>
+    </>
   )
 }
 
