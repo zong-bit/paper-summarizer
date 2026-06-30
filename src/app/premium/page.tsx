@@ -369,8 +369,7 @@ export default function PremiumPage() {
   )
 }
 
-// Export metadata for use client component
-export { generateMetadata }
+
 
 // Auto-claim component — wrapped in Suspense to satisfy Next.js requirements
 function AutoClaimToken() {

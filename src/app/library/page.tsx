@@ -174,5 +174,4 @@ export default function LibraryPage() {
   )
 }
 
-// Export metadata for use client component
-export { generateMetadata }
+
