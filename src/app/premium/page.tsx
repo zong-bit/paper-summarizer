@@ -6,6 +6,7 @@ import Footer from '../../components/Footer'
 import PrivacyNotice from '../../components/PrivacyNotice'
 import PaddlePricingCards from '../../components/PaddlePricingCards'
 import { useTranslation } from '@/i18n/provider'
+import { generateMetadata } from './metadata'
 
 // Gumroad product links
 const GUMROAD_MONTHLY = 'https://selinazw.gumroad.com/l/qkcjod'
@@ -367,6 +368,9 @@ export default function PremiumPage() {
     </div>
   )
 }
+
+// Export metadata for use client component
+export { generateMetadata }
 
 // Auto-claim component — wrapped in Suspense to satisfy Next.js requirements
 function AutoClaimToken() {
