@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 const posts = [
+  { slug: 'w73-ai-paper-summarizer-comparison-guide', title: '2026年AI论文摘要工具深度对比：SummarizeAI vs 5大竞品全解析', desc: '从摘要深度、领域优化、隐私保护、导出格式等10个核心维度，深度对比SummarizeAI、SciSpace、Elicit、ChatPDF、PaperPal和Zotero AI等6款主流工具。' },
   { slug: 'w72-ai-paper-summarizer-academic-writing-guide', title: 'AI论文摘要工具在学术写作中的应用：从文献调研到论文撰写的全流程指南', desc: 'AI论文摘要工具如何帮你提升学术写作效率50%？从文献调研、深度阅读到论文撰写，本文提供完整流程和实操技巧，附最佳实践清单。' },
   { slug: 'w70-ai-paper-summarizer-reading-pipeline-guide', title: 'AI论文摘要工具阅读流水线指南：从发现到深度阅读的完整工作流', desc: '构建从论文发现到深度理解的完整AI辅助阅读流水线，让阅读效率提升5-10倍。从探索阶段到写作阶段，每步都有AI工具优化方案。' },
   { slug: 'w68-ai-academic-paper-summarizer-comparison-guide-2026', title: 'AI Academic Paper Summarizer Comparison 2026: 8 Tools Tested Side by Side', desc: 'We tested 8 leading AI paper summarizers — NotebookLM, SciSpace, Elicit, Scholarcy, Paper Summarizer, and more. See which tool wins on accuracy, speed, privacy, and price in 2026.' },
