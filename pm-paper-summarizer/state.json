@@ -1,0 +1,113 @@
+{
+  "project": "paper-summarizer",
+  "website": "https://www.summarizeai.app",
+  "lastCheck": "2026-07-02T02:00:00+08:00",
+  "lastCheckUTC": "2026-07-01T18:00:00Z",
+  "websiteHealth": {
+    "homepage": "ok",
+    "tools": "ok",
+    "library": "content-blank-title-wrong",
+    "premium": "title-wrong",
+    "blog": "ok",
+    "apiSummarizePost": "method-not-allowed",
+    "sitemap": "ok",
+    "sitemapUrlCount": 63
+  },
+  "deployStatus": {
+    "vercelTokenValid": false,
+    "localBlogCount": 124,
+    "deployedBlogCount": 63,
+    "undeployedCount": 61,
+    "uncommittedFiles": 0,
+    "latestCommit": "a526ff6 feat: add W78 SEO article - YouTube博主实测3款PDF摘要神器对比 + blog list update",
+    "latestCommitPushed": true,
+    "latestDeployed": "w72",
+    "missingDeployedArticles": ["W73", "W74", "W75", "W76", "W77", "W78"]
+  },
+  "blockers": [
+    {
+      "severity": "critical",
+      "title": "VERCEL_TOKEN 无效",
+      "action": "登录 Vercel Dashboard → Settings → Tokens → 创建新 Token → 更新环境变量",
+      "requiresCEO": true
+    },
+    {
+      "severity": "critical",
+      "title": "W73-W78 全部 404 (6 篇新文章未部署)",
+      "action": "VERCEL_TOKEN 修复后自动部署",
+      "requiresCEO": true
+    },
+    {
+      "severity": "critical",
+      "title": "61 个 blog 页面未部署",
+      "action": "VERCEL_TOKEN 修复后自动部署",
+      "requiresCEO": true
+    },
+    {
+      "severity": "critical",
+      "title": "/library 页面内容区空白 + title 错误",
+      "action": "排查 /library 页面组件渲染逻辑",
+      "requiresCEO": false
+    },
+    {
+      "severity": "minor",
+      "title": "/premium 页面 title 错误",
+      "action": "排查页面 metadata/title 配置",
+      "requiresCEO": false
+    }
+  ],
+  "competitorUpdates": [
+    {
+      "competitor": "Paperguide",
+      "status": "rebranded to logically.app",
+      "covered": true,
+      "article": "W73"
+    },
+    {
+      "competitor": "WiseUp Communications / Advanced ChatGPT",
+      "status": "3.78万订阅YouTube频道发布'3 Best AI PDF Summarizers for 2026'视频(Humata/Scholarcy/SciSpace对比)",
+      "covered": true,
+      "article": "W78"
+    },
+    {
+      "competitor": "MindMap AI",
+      "status": "发布 'Best AI Research Summarizers 2026'，主打 mind map + structured breakdown",
+      "covered": false,
+      "article": null
+    },
+    {
+      "competitor": "PapersFlow",
+      "status": "发布 'Best AI Paper Summarizer: Read 100 Papers in a Day'，强调 section-level retrieval",
+      "covered": false,
+      "article": null
+    }
+  ],
+  "lastContentProduction": "2026-07-02",
+  "lastContentArticle": "W78 - YouTube博主实测3款PDF摘要神器对比",
+  "competitorUpdates": [
+    {
+      "competitor": "Paperguide",
+      "status": "rebranded to logically.app",
+      "covered": true,
+      "article": "W73"
+    },
+    {
+      "competitor": "WiseUp Communications / Advanced ChatGPT",
+      "status": "3.78万订阅YouTube频道发布'3 Best AI PDF Summarizers for 2026'视频(Humata/Scholarcy/SciSpace对比)",
+      "covered": true,
+      "article": "W78"
+    },
+    {
+      "competitor": "MindMap AI",
+      "status": "发布 'Best AI Research Summarizers 2026: Visualize Your Literature Review', 主打 mind map + structured breakdown",
+      "covered": false,
+      "article": null
+    },
+    {
+      "competitor": "PapersFlow",
+      "status": "发布 'Best AI Paper Summarizer: Read 100 Papers in a Day (2026 Guide)', 强调 section-level retrieval, cross-paper comparison, library-aware context",
+      "covered": false,
+      "article": null
+    }
+  ]
+}
