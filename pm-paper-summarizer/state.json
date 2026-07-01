@@ -1,48 +1,52 @@
 {
   "project": "paper-summarizer",
   "website": "https://www.summarizeai.app",
-  "lastCheck": "2026-07-02T03:32:00+08:00",
-  "lastCheckUTC": "2026-07-01T19:32:00Z",
+  "lastCheck": "2026-07-02T05:30:00+08:00",
+  "lastCheckUTC": "2026-07-01T21:30:00Z",
   "websiteHealth": {
     "homepage": "ok",
     "tools": "ok",
-    "library": "fixed-unauth-empty-array (pending deploy)",
+    "library": "blank-content (pending deploy)",
     "premium": "title-wrong (pending deploy)",
-    "blog": "ok",
+    "blog": "ok-listing, all-article-pages-404",
     "apiSummarizePost": "method-not-allowed",
     "sitemap": "ok",
     "sitemapUrlCount": 63,
-    "latestFix": "library-api: unauthenticated returns [] instead of 401"
+    "latestFix": "library-api: unauthenticated returns [] instead of 401",
+    "note": "ALL article pages W65+ return 404. Blog listing shows links but individual pages broken. Deploy version predates W65."
   },
   "deployStatus": {
     "vercelTokenValid": false,
-    "localBlogCount": 124,
+    "localBlogCount": 7,
     "deployedBlogCount": 63,
-    "undeployedCount": 61,
+    "undeployedCount": 63,
     "uncommittedFiles": 0,
-    "latestCommit": "c5e37a7 fix(library-api): return empty array for unauthenticated visitors + fix response shape",
+    "latestCommit": "5647930 Deploy IndexNow key",
     "latestCommitPushed": true,
-    "latestDeployed": "w72",
-    "missingDeployedArticles": ["W73", "W74", "W75", "W76", "W77", "W78"]
+    "latestDeployed": "pre-w65",
+    "missingDeployedArticles": ["W65", "W66", "W67", "W68", "W69", "W70", "W73", "W74", "W75", "W76", "W77", "W78"]
   },
   "blockers": [
     {
       "severity": "critical",
       "title": "VERCEL_TOKEN 无效",
       "action": "登录 Vercel Dashboard → Settings → Tokens → 创建新 Token → 更新环境变量 (预计5分钟)",
-      "requiresCEO": true
+      "requiresCEO": true,
+      "daysOpen": 20
     },
     {
       "severity": "critical",
-      "title": "W73-W78 全部 404 (6 篇新文章未部署)",
+      "title": "W65-W73 全部 404 (部署版本早于 W65)",
       "action": "VERCEL_TOKEN 修复后自动部署",
-      "requiresCEO": true
+      "requiresCEO": true,
+      "daysOpen": 20
     },
     {
       "severity": "critical",
-      "title": "61 个 blog 页面未部署",
+      "title": "63 个 blog 页面未部署 (sitemap 仍为 63 URLs)",
       "action": "VERCEL_TOKEN 修复后自动部署",
-      "requiresCEO": true
+      "requiresCEO": true,
+      "daysOpen": 20
     },
     {
       "severity": "minor",
@@ -59,10 +63,10 @@
   ],
   "competitorUpdates": [
     {
-      "competitor": "Paperguide",
-      "status": "rebranded to logically.app (Q3 2025), 已覆盖 W73",
+      "competitor": "Paperguide (logically.app)",
+      "status": "发布 '9 Best AI Research Paper Summarizers in 2026', 自列第一, LinkedIn 也有 '7 Best' 文章 — 持续霸榜",
       "covered": true,
-      "article": "W73"
+      "article": "W76"
     },
     {
       "competitor": "WiseUp Communications / Advanced ChatGPT",
@@ -72,25 +76,31 @@
     },
     {
       "competitor": "MindMap AI",
-      "status": "发布 'Best AI Research Summarizers 2026: Master Your Literature Review'，定位 'research is not linear'，主打 mind map + structured breakdown，竞品列表 #1 MindMap AI / #2 SciSpace / #3 Scholarcy，关键词 'AI research summarizers 2026' + 'visualize literature review'",
+      "status": "发布 'Best AI Research Summarizers 2026: Visualize Your Literature Review'，定位 'research is not linear'，主打 mind map + structured breakdown — 需 W79 覆盖",
       "covered": false,
       "article": null
     },
     {
       "competitor": "PapersFlow",
-      "status": "发布 'Best AI Paper Summarizer: Read 100 Papers in a Day (2026 Guide)'，差异化: section-level retrieval + Jina Reranker + Deep Research(30-80篇并发)，关键词 'best AI paper summarizer 2026' + 'read 100 papers in a day'",
-      "covered": false,
-      "article": null
-    },
-    {
-      "competitor": "Paperguide (paperguide.ai)",
-      "status": "发布 '9 Best AI Research Paper Summarizers in 2026 (Free + Paid)'，自列第一，强调 structured research-grade summaries + full-PDF analysis",
-      "covered": false,
-      "article": null
+      "status": "发布 'Best AI Paper Summarizer: Read 100 Papers in a Day (2026 Guide)'，差异化: section-level retrieval + Jina Reranker + Deep Research(30-80篇并发)",
+      "covered": true,
+      "article": "W75"
     },
     {
       "competitor": "SciSummary",
       "status": "推出夏季促销 SUMMER26 (2个月免费)，官方 ACM Digital Library AI provider",
+      "covered": true,
+      "article": "W77"
+    },
+    {
+      "competitor": "Mapify.so",
+      "status": "新竞品 — 'Free Online AI Research Paper Summarizer'，主打论文→mind map 转换，支持 100+ 语言翻译。定位介于 MindMap AI 和通用论文摘要之间 — 需 W80 覆盖",
+      "covered": false,
+      "article": null
+    },
+    {
+      "competitor": "Lindy.ai",
+      "status": "发布 '9 Best AI Summarizer Tools in 2026 (I Tested 20+)', 偏通用摘要工具，非纯学术方向",
       "covered": false,
       "article": null
     },
@@ -99,15 +109,9 @@
       "status": "发布 'The 8 best AI PDF summarizer tools in 2026'，测试20+款工具，覆盖 academic papers + PDFs + videos",
       "covered": false,
       "article": null
-    },
-    {
-      "competitor": "Medium 博主",
-      "status": "发布 'Top 10 Academic AI Tools in 2026: A Comparative Review'，Jenni AI 排名第6，强调 research relevance + transparency",
-      "covered": false,
-      "article": null
     }
   ],
-  "lastContentProduction": "2026-07-02",
-  "lastContentArticle": "W78 - YouTube博主实测3款PDF摘要神器对比",
-  "lastPmAction": "2026-07-02 03:32 - PM check: website stable, competitor intel (Paperguide new list + SciSummary summer promo + Jotform + Medium), W79 pending"
+  "lastContentProduction": "2026-06-30",
+  "lastContentArticle": "W73 - AI论文摘要工具vsLogically对比指南",
+  "lastPmAction": "2026-07-02 05:30 - PM check: ALL article pages W65+ return 404 (even W65!), blog listing works but individual pages broken. Deploy version predates W65 (~2 months behind). New competitor Mapify.so discovered (论文→mind map + 100+ languages, needs W80). VERCEL_TOKEN issue day 20+. W79 (MindMap AI) + W80 (Mapify.so) recommended."
 }
