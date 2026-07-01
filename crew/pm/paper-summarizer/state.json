@@ -22,63 +22,70 @@
       "title": "Blog详情页部分404:部署版与本地代码库不一致",
       "priority": 0,
       "status": "in_progress",
-      "note": "✅ 已确认: 2个短URL(hallucination-crisis+verification) 307重定向到/login，但sitemap中是完整URL(ai-paper-summary-hallucination-crisis-2026, ai-paper-summary-hallucination-verification-2026，实际存在且正常返回200。无需额外操作。所有blog页面经308尾斜杠重定向后正常返回200。本地117+个blog页面,54+个未部署。"
+      "note": "🚨 严重: Vercel 部署停在 5 月中旬。本地 120+ 个 blog 页面(W70-W75)全部未部署。根因: VERCEL_TOKEN 已失效，无法触发重建。"
     },
     {
       "id": "seo-content-push",
       "title": "持续SEO内容(每天最多1篇高质量)",
       "priority": 3,
       "status": "in_progress",
-      "note": "✅ W73 SEO文章已创建并部署: '2026年AI论文摘要工具深度对比：SummarizeAI vs 5大竞品全解析'(10维度对比6款工具)。Blog页面已更新到W73。本地117+个blog页面(含W73)就绪。本次合并推送还包含了W40-W73所有缺失blog页面。"
+      "note": "✅ W74+W75 SEO文章已创建(系统性文献综述指南+10个科研场景指南)，本地累计120+页面。全部未部署。Vercel 部署滞后 6 周+。需刷新 VERCEL_TOKEN 后触发重建。"
     },
     {
       "id": "tools-page-404",
       "title": "修复/tools页面回归:重定向到/login而非显示Prompt Lab",
       "priority": 4,
       "status": "completed",
-      "note": "✅ 已修复！根因:本地middleware OPEN_PATHS缺少/tools。已commit+push到origin/main→reset PM master→push到origin/master→Vercel部署完成。/tools现在HTTP 200(标题'Tools - Paper Summarizer')。"
+      "note": "✅ 已修复！/tools 现在 HTTP 200，标题 'Tools - Paper Summarizer'。"
     },
     {
       "id": "traffic-growth",
       "priority": 9,
       "status": "in_progress",
-      "note": "⚠️ Paperguide.com已重定向至logically.app(可能已被收购/停止运营)。logically.app定位：AI学术研究工作台(引用管理/文献综述/PDF批注/写作)。SEO对比文#1垄断。PH Launch Prep Checklist已创建。竞品深度分析已产出。"
+      "note": "⚠️ 竞品赛道分化加速: PapersFlow Doxa Deep Research + QED Science + MindMap AI 新竞品涌现。PH Launch Prep Checklist已创建。"
     },
     {
       "id": "fix-library-307",
       "title": "修复/library页面回归:HTTP 307重定向",
       "priority": 10,
       "status": "completed",
-      "note": "✅ 已修复！根因:本地middleware OPEN_PATHS缺少/library。已commit+push→reset PM master→push→Vercel部署完成。/library现在HTTP 200(标题'📚 My Library')。"
+      "note": "✅ 已修复！/library 现在 HTTP 200。"
     },
     {
       "id": "fix-client-page-titles-v3",
       "title": "修复/library和/premium标题(v3: 根因分析+最终修复)",
       "priority": 12,
-      "status": "completed",
-      "note": "✅ 最终修复完成！根因: origin/main(Vercel部署分支)只有v2修复，缺少v3的generateMetadata内联函数。已合并origin/master→main，解决合并冲突，force push(4c1c7c4)。包含所有新blog内容+v3标题修复。Vercel部署中。"
+      "status": "in_progress",
+      "note": "🚨 根因: use client 页面不触发 generateMetadata，已改用 next/head。代码已推送(origin/master=8da8a37)但 Vercel 未生效。/library 和 /premium 标题仍显示首页标题。🚨 VERCEL_TOKEN 已失效，需刷新。"
+    },
+    {
+      "id": "fix-terms-title",
+      "title": "修复/terms页面标题:缺少layout.tsx导致显示首页标题",
+      "priority": 13,
+      "status": "pending",
+      "note": "/terms 页面没有 layout.tsx，标题显示首页标题。需要创建 layout.tsx 添加 generateMetadata。代码修复可在 VERCEL_TOKEN 刷新后一并部署。"
     }
   ],
-  "last_check": "2026-07-01T05:02:00+08:00",
-  "last_report": "PM 05:02 (7月1日): ✅ 最终修复/library和/premium标题问题。根因: Vercel部署的是main分支(只有v2修复)，master有v3修复。已合并origin/master→main(force push 4c1c7c4)，包含所有新blog内容+v3标题修复。所有核心页面HTTP 200。待CEO:PH Launch。",
+  "last_check": "2026-07-01T16:30:00+08:00",
+  "last_report": "PM 16:30 (7月1日): W75 SEO文章已创建并推送。所有核心页面 HTTP 200。/tools 标题正确✅。/library、/premium 标题错误(未部署)。Sitemap 63 URLs(未更新)。🚨 VERCEL_TOKEN 已失效，阻塞部署。代码已就绪(origin/master=8da8a37, 含标题修复+W74+W75)。竞品动态: PapersFlow Doxa Deep Research + QED Science + MindMap AI 新竞品涌现。",
   "consecutive_errors": 0,
-  "deploy_status": "deploying",
-  "last_deploy": "2026-07-01T05:02:00+08:00",
-  "deploy_note": "✅ 代码已推送 origin/main (4c1c7c4)。Vercel 部署中，包含: v3标题修复(/library + /premium使用generateMetadata内联函数) + 所有新blog页面(W40-W73)。CDN缓存将刷新。",
-  "blog_404_count": 0,
-  "last_check_result": "PM 05:02 (7月1日): ✅ 最终修复/library和/premium标题。合并origin/master→main(force push)。所有核心页面HTTP 200。✅ 产出: 标题修复+网站健康检查。待CEO:PH Launch。",
+  "deploy_status": "stale",
+  "last_deploy": "2026-05-18T00:00:00+08:00",
+  "deploy_note": "🚨 Vercel 部署严重滞后(约 6 周+)。最新部署停在 5 月中旬代码。✅ origin/master=origin/main=8da8a37 (07-01 16:30 PM check)，含标题修复+W74+W75文章。🚨 VERCEL_TOKEN 已失效，无法通过 CLI/API 触发重建。",
+  "blog_404_count": 117,
+  "last_check_result": "PM 16:30 (7月1日): 所有核心页面 HTTP 200。/tools 标题正确✅。/library、/premium 标题错误(未部署)。Sitemap 63 URLs(未更新)。🚨 VERCEL_TOKEN 已失效，阻塞部署。代码已就绪(origin/master=8da8a37, 含标题修复+W74+W75)。W75 SEO文章已创建(10个科研场景指南)并推送。",
   "long_term_plan": {
     "current_phase": "monetization_expansion",
     "next_milestone": "流量突破100/日",
     "blockers": [
       "Product Hunt Launch需CEO手动操作 — PH Launch Prep Checklist已创建",
-      "⚠️ 2个hallucination短URL(hallucination-crisis+verification) 307重定向到/login，但sitemap中完整URL正常。无需额外操作。",
-      "⚠️ 本地117+个blog页面就绪。未部署:54+个缺失blog页面(本次合并已包含)。",
-      "⚠️ 竞品logically.app(原Afforai,38.7万订阅YouTube频道推荐)定位AI学术研究工作台(引用管理/文献综述/PDF批注/写作),比SummarizeAI全面。竞品深度分析已产出,建议专注摘要深度。"
+      "🚨 VERCEL_TOKEN 已失效(需在Vercel dashboard刷新)，无法通过CLI/API手动触发部署。需CEO刷新token(3-5分钟)。",
+      "🚨 Vercel 部署滞后 6 周+: 所有 W70-W75 blog 页面(117+页面)和标题修复未部署。刷新 token 后可用 vercel deploy 触发重建。",
+      "⚠️ 竞品赛道分化加速: PapersFlow.ai 推出 Doxa Deep Research(4.74亿篇论文搜索)+GitHub代码提取+写作助手；QED Science(证据推理)+MindMap AI(思维导图)新竞品涌现。建议SummarizeAI做'可追问的摘要'(QA+对比)差异化。"
     ],
-    "assessment": "项目处于monetization_expansion阶段。核心功能正常。/tools和/library已修复✅。Blog页面已更新到W73✅。✅ 最终修复: /library 和 /premium 页面标题已修复 (v3: generateMetadata内联函数，合并master→main)。阻塞:PH Launch + 竞品策略(专注摘要深度vs全能平台)。"
+    "assessment": "项目处于monetization_expansion阶段。核心功能正常(/tools✅, API✅)。🚨 Vercel 部署严重滞后(6周+), 117+ 个 blog 页面和标题修复全部未部署。✅ origin/master=origin/main=8da8a37，代码就绪。根因: VERCEL_TOKEN 已失效。阻塞: VERCEL_TOKEN 刷新 + Vercel 重建 + PH Launch + 竞品策略(竞品加速升级: PapersFlow Doxa Deep Research + QED Science + MindMap AI)。✅ W74+W75 SEO文章已创建。"
   },
   "merged_from": "digital-products(已合并,Prompt合集已下架)",
-  "seo_week": 73,
-  "last_action": "PM cron 05:02 (7月1日): ✅ 最终修复/library和/premium标题。合并origin/master→main(force push 4c1c7c4)。所有核心页面HTTP 200。✅ 产出: 标题修复+网站健康检查。待CEO:PH Launch。"
+  "seo_week": 75,
+  "last_action": "PM cron 16:30 (7月1日): 创建W75 SEO文章(10个科研场景指南)并推送到origin/main+origin/master。网站所有核心页面HTTP 200。/tools标题正确。/library、/premium标题错误(未部署)。Sitemap 63 URLs(未更新)。🚨 VERCEL_TOKEN已失效阻塞部署。竞品动态: PapersFlow Doxa Deep Research + QED Science + MindMap AI 新竞品涌现。"
 }
