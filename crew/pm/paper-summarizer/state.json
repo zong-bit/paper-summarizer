@@ -1,98 +1,113 @@
 {
   "project": "paper-summarizer",
-  "name": "AI论文摘要工具",
-  "url": "https://www.summarizeai.app",
-  "status": "active",
-  "phase": "monetization_expansion",
-  "backlog": [
+  "website": "https://www.summarizeai.app",
+  "lastCheck": "2026-07-02T03:32:00+08:00",
+  "lastCheckUTC": "2026-07-01T19:32:00Z",
+  "websiteHealth": {
+    "homepage": "ok",
+    "tools": "ok",
+    "library": "fixed-unauth-empty-array (pending deploy)",
+    "premium": "title-wrong (pending deploy)",
+    "blog": "ok",
+    "apiSummarizePost": "method-not-allowed",
+    "sitemap": "ok",
+    "sitemapUrlCount": 63,
+    "latestFix": "library-api: unauthenticated returns [] instead of 401"
+  },
+  "deployStatus": {
+    "vercelTokenValid": false,
+    "localBlogCount": 124,
+    "deployedBlogCount": 63,
+    "undeployedCount": 61,
+    "uncommittedFiles": 0,
+    "latestCommit": "c5e37a7 fix(library-api): return empty array for unauthenticated visitors + fix response shape",
+    "latestCommitPushed": true,
+    "latestDeployed": "w72",
+    "missingDeployedArticles": ["W73", "W74", "W75", "W76", "W77", "W78"]
+  },
+  "blockers": [
     {
-      "id": "fix-payment-wall",
-      "title": "首页添加付费入口+购买流程",
-      "priority": 1,
-      "status": "completed"
+      "severity": "critical",
+      "title": "VERCEL_TOKEN 无效",
+      "action": "登录 Vercel Dashboard → Settings → Tokens → 创建新 Token → 更新环境变量 (预计5分钟)",
+      "requiresCEO": true
     },
     {
-      "id": "add-pro-pricing-section",
-      "title": "首页加Pro/Pricing引导区",
-      "priority": 2,
-      "status": "completed"
+      "severity": "critical",
+      "title": "W73-W78 全部 404 (6 篇新文章未部署)",
+      "action": "VERCEL_TOKEN 修复后自动部署",
+      "requiresCEO": true
     },
     {
-      "id": "blog-detail-404",
-      "title": "Blog详情页部分404:部署版与本地代码库不一致",
-      "priority": 0,
-      "status": "in_progress",
-      "note": "✅ 已深度确认根因: W67文章存在于源码但从未部署。线上sitemap 63 URLs vs 源码124+个blog页面 — 约一半未部署。全部待部署。"
+      "severity": "critical",
+      "title": "61 个 blog 页面未部署",
+      "action": "VERCEL_TOKEN 修复后自动部署",
+      "requiresCEO": true
     },
     {
-      "id": "seo-content-push",
-      "title": "持续SEO内容(每天最多1篇高质量)",
-      "priority": 3,
-      "status": "in_progress",
-      "note": "✅ W74/W75/W76/W77/W78 SEO文章已创建并推送到origin/main。W74系统性文献综述指南, W75 10个科研场景指南, W76竞品对比文, W77隐私安全对比文, W78 YouTube博主PDF摘要工具测评对比文。全部待部署。"
+      "severity": "minor",
+      "title": "/library 页面空白已修复 (API改返回[] + 响应格式修正)，待部署",
+      "action": "VERCEL_TOKEN 修复后自动部署",
+      "requiresCEO": true
     },
     {
-      "id": "tools-page-404",
-      "title": "修复/tools页面回归:重定向到/login而非显示Prompt Lab",
-      "priority": 4,
-      "status": "completed",
-      "note": "✅ 已修复！/tools现在HTTP 200(标题'Tools - Paper Summarizer')。"
-    },
-    {
-      "id": "traffic-growth",
-      "priority": 9,
-      "status": "in_progress",
-      "note": "⚠️ Paperguide.com已重定向至logically.app。W78竞品对比SEO文章已产出。PH Launch Prep Checklist已创建。"
-    },
-    {
-      "id": "fix-library-307",
-      "title": "修复/library页面回归:HTTP 307重定向",
-      "priority": 10,
-      "status": "completed",
-      "note": "✅ 已修复！/library现在HTTP 200。标题修复代码已就绪但未部署。"
-    },
-    {
-      "id": "fix-client-page-titles-v3",
-      "title": "修复/library和/premium标题(v3: 根因分析+最终修复)",
-      "priority": 12,
-      "status": "in_progress",
-      "note": "⚠️ 代码已修复(origin/main: /library有<title>📚 My Library</title>, /premium有<title>⚡ Pro Plans</title>)，但网站serving旧版本(buildId: EAsnVIElkuRAYnbhLFs2h)。需刷新VERCEL_TOKEN触发重建。"
-    },
-    {
-      "id": "blog-list-missing-w74-w75-w76",
-      "title": "Blog列表页缺少W74/W75/W76入口",
-      "priority": 5,
-      "status": "completed",
-      "note": "✅ 已修复！W74/W75/W76已添加到blog list page.tsx顶部，推送到origin/main。"
-    },
-    {
-      "id": "blog-list-add-w78",
-      "title": "Blog列表页添加W78入口",
-      "priority": 6,
-      "status": "completed",
-      "note": "✅ 已修复！W78 YouTube博主PDF摘要工具测评对比文已添加到origin/main (a526ff6)。"
+      "severity": "minor",
+      "title": "/premium 页面 title 错误待部署",
+      "action": "VERCEL_TOKEN 修复后自动部署",
+      "requiresCEO": true
     }
   ],
-  "last_check": "2026-07-02T01:00:00+08:00",
-  "last_report": "PM 01:00 (7月2日): ✅ 网站健康检查完成。/tools✅, /blog✅, /library✅(HTTP200), /premium✅, 首页✅。所有页面HTTP 200。W78文章线上404(未部署)。🚨 部署陈旧(旧buildId: EAsnVIElkuRAYnbhLFs2h), origin/main(a526ff6)含W76-W78+标题修复未部署。VERCEL_TOKEN无效(连续第15+次确认)。✅ 产出: 完整网站健康检查。待CEO:刷新VERCEL_TOKEN + PH Launch。",
-  "consecutive_errors": 0,
-  "deploy_status": "stale",
-  "last_deploy": "2026-07-01T05:02:00+08:00",
-  "deploy_note": "⚠️ 网站serving旧版本(buildId: EAsnVIElkuRAYnbhLFs2h)。最新代码(a526ff6, W74-W78 SEO + blog list修复 + 标题修复 + 124+ blog页面)在origin/main但未部署。VERCEL_TOKEN无效无法触发重建。",
-  "blog_404_count": 1,
-  "last_check_result": "PM 01:00 (7月2日): ✅ 网站健康检查。/tools✅(标题正确), /blog✅(标题正确), /library✅(HTTP200标题旧), /premium✅(HTTP200标题旧), 首页✅(标题'Free AI Paper Summarizer')。所有页面HTTP 200。W78文章线上404。Sitemap 63 URLs。🚨 部署陈旧(旧buildId: EAsnVIElkuRAYnbhLFs2h), origin/main(a526ff6)含W76-W78+标题修复未部署。VERCEL_TOKEN无效。Blog 404: W67-W78在源码但未部署。✅ 产出: 完整网站健康检查。待CEO:刷新VERCEL_TOKEN + PH Launch。",
-  "long_term_plan": {
-    "current_phase": "monetization_expansion",
-    "next_milestone": "流量突破100/日",
-    "blockers": [
-      "🚨 VERCEL_TOKEN无效(vcp_6PjLobIZL5djytxW5gCpoGBEGg5evF8k8jdHkPfKIz4qgL06EVVZ) — 标题修复+124+个blog页面+W78全部未部署(需CEO刷新, 3-5分钟), 连续第14+次确认",
-      "Product Hunt Launch需CEO手动操作 — PH Launch Prep Checklist已创建",
-      "⚠️ W67-W78文章在源码中但未部署,导致/blog/ 下大量文章404",
-      "⚠️ 本地124+个blog页面就绪(含W74-W78)。全部在HEAD但未部署。",
-      "⚠️ 竞品logically.app(原Afforai,38.7万订阅YouTube频道推荐)定位AI学术研究工作台。W76对比文已产出。W78覆盖Advanced ChatGPT YouTube测评。"
-    ],
-    "assessment": "项目处于monetization_expansion阶段。核心功能正常。/tools已修复✅。/library和/premium标题修复代码在HEAD但未部署🚨。Blog页面W74-W78在HEAD且blog list已修复✅。阻塞:VERCEL_TOKEN无效(需刷新) + PH Launch。W78竞品对比SEO文章(YouTube博主PDF摘要工具测评)已推送origin/main。"
-  },
-  "merged_from": "digital-products(已合并,Prompt合集已下架)",
-  "last_action": "PM cron 01:00 (7月2日): ✅ 网站健康检查完成。所有核心页面HTTP 200。W78文章线上404(未部署)。🚨 部署陈旧(旧buildId: EAsnVIElkuRAYnbhLFs2h), origin/main(a526ff6)含W76-W78+标题修复未部署。VERCEL_TOKEN无效(连续第15+次确认)。✅ 产出: 完整网站健康检查。待CEO:刷新VERCEL_TOKEN + PH Launch。"
+  "competitorUpdates": [
+    {
+      "competitor": "Paperguide",
+      "status": "rebranded to logically.app (Q3 2025), 已覆盖 W73",
+      "covered": true,
+      "article": "W73"
+    },
+    {
+      "competitor": "WiseUp Communications / Advanced ChatGPT",
+      "status": "3.78万订阅YouTube频道发布'3 Best AI PDF Summarizers for 2026'视频(Humata/Scholarcy/SciSpace对比)",
+      "covered": true,
+      "article": "W78"
+    },
+    {
+      "competitor": "MindMap AI",
+      "status": "发布 'Best AI Research Summarizers 2026: Master Your Literature Review'，定位 'research is not linear'，主打 mind map + structured breakdown，竞品列表 #1 MindMap AI / #2 SciSpace / #3 Scholarcy，关键词 'AI research summarizers 2026' + 'visualize literature review'",
+      "covered": false,
+      "article": null
+    },
+    {
+      "competitor": "PapersFlow",
+      "status": "发布 'Best AI Paper Summarizer: Read 100 Papers in a Day (2026 Guide)'，差异化: section-level retrieval + Jina Reranker + Deep Research(30-80篇并发)，关键词 'best AI paper summarizer 2026' + 'read 100 papers in a day'",
+      "covered": false,
+      "article": null
+    },
+    {
+      "competitor": "Paperguide (paperguide.ai)",
+      "status": "发布 '9 Best AI Research Paper Summarizers in 2026 (Free + Paid)'，自列第一，强调 structured research-grade summaries + full-PDF analysis",
+      "covered": false,
+      "article": null
+    },
+    {
+      "competitor": "SciSummary",
+      "status": "推出夏季促销 SUMMER26 (2个月免费)，官方 ACM Digital Library AI provider",
+      "covered": false,
+      "article": null
+    },
+    {
+      "competitor": "Jotform Blog",
+      "status": "发布 'The 8 best AI PDF summarizer tools in 2026'，测试20+款工具，覆盖 academic papers + PDFs + videos",
+      "covered": false,
+      "article": null
+    },
+    {
+      "competitor": "Medium 博主",
+      "status": "发布 'Top 10 Academic AI Tools in 2026: A Comparative Review'，Jenni AI 排名第6，强调 research relevance + transparency",
+      "covered": false,
+      "article": null
+    }
+  ],
+  "lastContentProduction": "2026-07-02",
+  "lastContentArticle": "W78 - YouTube博主实测3款PDF摘要神器对比",
+  "lastPmAction": "2026-07-02 03:32 - PM check: website stable, competitor intel (Paperguide new list + SciSummary summer promo + Jotform + Medium), W79 pending"
 }

@@ -1,17 +1,18 @@
 {
   "project": "paper-summarizer",
   "website": "https://www.summarizeai.app",
-  "lastCheck": "2026-07-02T02:00:00+08:00",
-  "lastCheckUTC": "2026-07-01T18:00:00Z",
+  "lastCheck": "2026-07-02T03:32:00+08:00",
+  "lastCheckUTC": "2026-07-01T19:32:00Z",
   "websiteHealth": {
     "homepage": "ok",
     "tools": "ok",
-    "library": "content-blank-title-wrong",
-    "premium": "title-wrong",
+    "library": "fixed-unauth-empty-array (pending deploy)",
+    "premium": "title-wrong (pending deploy)",
     "blog": "ok",
     "apiSummarizePost": "method-not-allowed",
     "sitemap": "ok",
-    "sitemapUrlCount": 63
+    "sitemapUrlCount": 63,
+    "latestFix": "library-api: unauthenticated returns [] instead of 401"
   },
   "deployStatus": {
     "vercelTokenValid": false,
@@ -19,7 +20,7 @@
     "deployedBlogCount": 63,
     "undeployedCount": 61,
     "uncommittedFiles": 0,
-    "latestCommit": "a526ff6 feat: add W78 SEO article - YouTube博主实测3款PDF摘要神器对比 + blog list update",
+    "latestCommit": "c5e37a7 fix(library-api): return empty array for unauthenticated visitors + fix response shape",
     "latestCommitPushed": true,
     "latestDeployed": "w72",
     "missingDeployedArticles": ["W73", "W74", "W75", "W76", "W77", "W78"]
@@ -28,7 +29,7 @@
     {
       "severity": "critical",
       "title": "VERCEL_TOKEN 无效",
-      "action": "登录 Vercel Dashboard → Settings → Tokens → 创建新 Token → 更新环境变量",
+      "action": "登录 Vercel Dashboard → Settings → Tokens → 创建新 Token → 更新环境变量 (预计5分钟)",
       "requiresCEO": true
     },
     {
@@ -44,22 +45,22 @@
       "requiresCEO": true
     },
     {
-      "severity": "critical",
-      "title": "/library 页面内容区空白 + title 错误",
-      "action": "排查 /library 页面组件渲染逻辑",
-      "requiresCEO": false
+      "severity": "minor",
+      "title": "/library 页面空白已修复 (API改返回[] + 响应格式修正)，待部署",
+      "action": "VERCEL_TOKEN 修复后自动部署",
+      "requiresCEO": true
     },
     {
       "severity": "minor",
-      "title": "/premium 页面 title 错误",
-      "action": "排查页面 metadata/title 配置",
-      "requiresCEO": false
+      "title": "/premium 页面 title 错误待部署",
+      "action": "VERCEL_TOKEN 修复后自动部署",
+      "requiresCEO": true
     }
   ],
   "competitorUpdates": [
     {
       "competitor": "Paperguide",
-      "status": "rebranded to logically.app",
+      "status": "rebranded to logically.app (Q3 2025), 已覆盖 W73",
       "covered": true,
       "article": "W73"
     },
@@ -71,43 +72,42 @@
     },
     {
       "competitor": "MindMap AI",
-      "status": "发布 'Best AI Research Summarizers 2026'，主打 mind map + structured breakdown",
+      "status": "发布 'Best AI Research Summarizers 2026: Master Your Literature Review'，定位 'research is not linear'，主打 mind map + structured breakdown，竞品列表 #1 MindMap AI / #2 SciSpace / #3 Scholarcy，关键词 'AI research summarizers 2026' + 'visualize literature review'",
       "covered": false,
       "article": null
     },
     {
       "competitor": "PapersFlow",
-      "status": "发布 'Best AI Paper Summarizer: Read 100 Papers in a Day'，强调 section-level retrieval",
+      "status": "发布 'Best AI Paper Summarizer: Read 100 Papers in a Day (2026 Guide)'，差异化: section-level retrieval + Jina Reranker + Deep Research(30-80篇并发)，关键词 'best AI paper summarizer 2026' + 'read 100 papers in a day'",
+      "covered": false,
+      "article": null
+    },
+    {
+      "competitor": "Paperguide (paperguide.ai)",
+      "status": "发布 '9 Best AI Research Paper Summarizers in 2026 (Free + Paid)'，自列第一，强调 structured research-grade summaries + full-PDF analysis",
+      "covered": false,
+      "article": null
+    },
+    {
+      "competitor": "SciSummary",
+      "status": "推出夏季促销 SUMMER26 (2个月免费)，官方 ACM Digital Library AI provider",
+      "covered": false,
+      "article": null
+    },
+    {
+      "competitor": "Jotform Blog",
+      "status": "发布 'The 8 best AI PDF summarizer tools in 2026'，测试20+款工具，覆盖 academic papers + PDFs + videos",
+      "covered": false,
+      "article": null
+    },
+    {
+      "competitor": "Medium 博主",
+      "status": "发布 'Top 10 Academic AI Tools in 2026: A Comparative Review'，Jenni AI 排名第6，强调 research relevance + transparency",
       "covered": false,
       "article": null
     }
   ],
   "lastContentProduction": "2026-07-02",
   "lastContentArticle": "W78 - YouTube博主实测3款PDF摘要神器对比",
-  "competitorUpdates": [
-    {
-      "competitor": "Paperguide",
-      "status": "rebranded to logically.app",
-      "covered": true,
-      "article": "W73"
-    },
-    {
-      "competitor": "WiseUp Communications / Advanced ChatGPT",
-      "status": "3.78万订阅YouTube频道发布'3 Best AI PDF Summarizers for 2026'视频(Humata/Scholarcy/SciSpace对比)",
-      "covered": true,
-      "article": "W78"
-    },
-    {
-      "competitor": "MindMap AI",
-      "status": "发布 'Best AI Research Summarizers 2026: Visualize Your Literature Review', 主打 mind map + structured breakdown",
-      "covered": false,
-      "article": null
-    },
-    {
-      "competitor": "PapersFlow",
-      "status": "发布 'Best AI Paper Summarizer: Read 100 Papers in a Day (2026 Guide)', 强调 section-level retrieval, cross-paper comparison, library-aware context",
-      "covered": false,
-      "article": null
-    }
-  ]
+  "lastPmAction": "2026-07-02 03:32 - PM check: website stable, competitor intel (Paperguide new list + SciSummary summer promo + Jotform + Medium), W79 pending"
 }
