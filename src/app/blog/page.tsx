@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 const posts = [
+  { slug: 'w78-advanced-chatgpt-pdf-summarizer-comparison-2026', title: 'YouTube博主实测3款PDF摘要神器：Humata、Scholarcy、SciSpace谁最强？2026深度解析', desc: 'YouTube频道Advanced ChatGPT实测对比Humata AI、Scholarcy、SciSpace三款免费PDF摘要工具。本文深度解析测试结果，补充Paper Summarizer对比，帮科研工作者找到最适合的AI论文摘要工具。' },
   { slug: 'w77-ai-paper-summarizer-privacy-security-comparison-2026', title: 'AI论文摘要工具隐私安全深度对比2026：你的研究数据真的安全吗？', desc: '2026年AI论文摘要工具隐私安全全面评测：对比Paper Summarizer、ChatPDF、Scispace、Elicit等主流工具的隐私政策、数据留存策略和安全措施。揭秘9大数据泄露风险，附完整安全选择指南。' },
   { slug: 'w76-ai-research-workflow-platforms-vs-dedicated-summarizers-2026', title: 'AI Research Workload Platforms vs Dedicated Paper Summarizers: Which Approach Wins in 2026?', desc: 'Compare all-in-one AI research platforms (Logically, NotebookLM, SciSpace) with dedicated paper summarizers. Discover which approach saves more time and delivers deeper insights.' },
   { slug: 'w75-ai-paper-summarizer-10-scenarios-guide', title: 'AI论文摘要工具深度评测：10个科研场景实战指南', desc: '基于对10款主流AI论文摘要工具的深度评测，结合10个典型科研场景，提供实用的工具选择指南。从文献筛选到论文写作，每个场景都有最佳工具推荐。' },
