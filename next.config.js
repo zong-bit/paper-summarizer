@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // PM check 08:35: rebuild trigger
   async redirects() {
     return [
       {
