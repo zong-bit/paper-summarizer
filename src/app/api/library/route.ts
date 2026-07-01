@@ -33,7 +33,9 @@ async function getUserIdFromRequest(request: Request): Promise<string | null> {
 export async function GET(request: Request) {
   const userId = await getUserIdFromRequest(request)
   if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    // Return empty array for unauthenticated visitors so the library page
+    // shows the CTA "No saved papers yet" instead of a blank page.
+    return NextResponse.json([])
   }
 
   const supabase = getSupabaseAdmin()
@@ -48,7 +50,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Failed to fetch library' }, { status: 500 })
   }
 
-  return NextResponse.json({ items: data ?? [] })
+  return NextResponse.json(data ?? [])
 }
 
 export async function POST(request: Request) {
