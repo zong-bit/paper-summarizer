@@ -1,6 +1,9 @@
 import Link from 'next/link'
 
 const posts = [
+  { slug: 'w76-ai-research-workflow-platforms-vs-dedicated-summarizers-2026', title: 'AI Research Workload Platforms vs Dedicated Paper Summarizers: Which Approach Wins in 2026?', desc: 'Compare all-in-one AI research platforms (Logically, NotebookLM, SciSpace) with dedicated paper summarizers. Discover which approach saves more time and delivers deeper insights.' },
+  { slug: 'w75-ai-paper-summarizer-10-scenarios-guide', title: 'AI论文摘要工具深度评测：10个科研场景实战指南', desc: '基于对10款主流AI论文摘要工具的深度评测，结合10个典型科研场景，提供实用的工具选择指南。从文献筛选到论文写作，每个场景都有最佳工具推荐。' },
+  { slug: 'w74-ai-paper-summarizer-systematic-literature-review-guide', title: '用AI论文摘要做系统性文献综述：完整指南与最佳实践', desc: '如何用AI论文摘要工具加速系统性文献综述？从文献检索、摘要生成、主题聚类到结论撰写，掌握AI辅助文献综述的完整工作流。' },
   { slug: 'w73-ai-paper-summarizer-comparison-guide', title: '2026年AI论文摘要工具深度对比：SummarizeAI vs 5大竞品全解析', desc: '从摘要深度、领域优化、隐私保护、导出格式等10个核心维度，深度对比SummarizeAI、SciSpace、Elicit、ChatPDF、PaperPal和Zotero AI等6款主流工具。' },
   { slug: 'w72-ai-paper-summarizer-academic-writing-guide', title: 'AI论文摘要工具在学术写作中的应用：从文献调研到论文撰写的全流程指南', desc: 'AI论文摘要工具如何帮你提升学术写作效率50%？从文献调研、深度阅读到论文撰写，本文提供完整流程和实操技巧，附最佳实践清单。' },
   { slug: 'w70-ai-paper-summarizer-reading-pipeline-guide', title: 'AI论文摘要工具阅读流水线指南：从发现到深度阅读的完整工作流', desc: '构建从论文发现到深度理解的完整AI辅助阅读流水线，让阅读效率提升5-10倍。从探索阶段到写作阶段，每步都有AI工具优化方案。' },
