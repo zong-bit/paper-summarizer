@@ -1,8 +1,8 @@
 {
   "project": "paper-summarizer",
   "website": "https://www.summarizeai.app",
-  "lastCheck": "2026-07-02T06:00:00+08:00",
-  "lastCheckUTC": "2026-07-01T22:00:00Z",
+  "lastCheck": "2026-07-02T07:30:00+08:00",
+  "lastCheckUTC": "2026-07-01T23:30:00Z",
   "websiteHealth": {
     "homepage": "ok",
     "tools": "ok",
@@ -13,18 +13,18 @@
     "sitemap": "ok",
     "sitemapUrlCount": 63,
     "latestFix": "library-api: unauthenticated returns [] instead of 401",
-    "note": "ALL W-prefix article pages W65+ return 404. Blog listing renders links but individual pages broken. Deploy version predates W65 (~2.5 months behind). Old-style slugs (pre-W65) still accessible."
+    "note": "ALL W-prefix article pages W65+ return 404. Deploy version predates W65 (~2.5 months behind). Old-style slugs (pre-W65) still accessible."
   },
   "deployStatus": {
     "vercelTokenValid": false,
-    "localBlogCount": 7,
+    "localBlogCount": 9,
     "deployedBlogCount": 63,
     "undeployedCount": 63,
     "uncommittedFiles": 0,
-    "latestCommit": "5647930 Deploy IndexNow key",
+    "latestCommit": "399dbfa feat: add W79 (MindMap AI vs Paper Summarizer) + W80 (Mapify.so) SEO articles + blog list update",
     "latestCommitPushed": true,
     "latestDeployed": "pre-w65",
-    "missingDeployedArticles": ["W65", "W66", "W67", "W68", "W69", "W70", "W73", "W74", "W75", "W76", "W77", "W78"]
+    "missingDeployedArticles": ["W65", "W66", "W67", "W68", "W69", "W70", "W73", "W74", "W75", "W76", "W77", "W78", "W79", "W80"]
   },
   "blockers": [
     {
@@ -32,33 +32,36 @@
       "title": "VERCEL_TOKEN 无效",
       "action": "登录 Vercel Dashboard → Settings → Tokens → 创建新 Token → 更新环境变量 (预计5分钟)",
       "requiresCEO": true,
-      "daysOpen": 21
+      "daysOpen": 22
     },
     {
       "severity": "critical",
-      "title": "W65-W73 全部 404 (部署版本早于 W65)",
+      "title": "W65-W80 全部 404 (部署版本早于 W65)",
       "action": "VERCEL_TOKEN 修复后自动部署",
       "requiresCEO": true,
-      "daysOpen": 21
+      "daysOpen": 22
     },
     {
       "severity": "critical",
-      "title": "63 个 blog 页面未部署 (sitemap 仍为 63 URLs)",
+      "title": "63+ 个 blog 页面未部署 (sitemap 仍为 63 URLs)",
       "action": "VERCEL_TOKEN 修复后自动部署",
       "requiresCEO": true,
-      "daysOpen": 21
+      "daysOpen": 22
     },
     {
       "severity": "minor",
       "title": "/library 页面空白已修复 (API改返回[] + 响应格式修正)，待部署",
-      "action": "VERCEL_TOKEN 修复后自动部署",
-      "requiresCEO": true
+      "action": "VERCEL_TOKEN 修复后自动部署"
     },
     {
       "severity": "minor",
       "title": "/premium 页面 title 错误待部署",
-      "action": "VERCEL_TOKEN 修复后自动部署",
-      "requiresCEO": true
+      "action": "VERCEL_TOKEN 修复后自动部署"
+    },
+    {
+      "severity": "medium",
+      "title": "W71, W72 本地 content 缺失，需补写",
+      "action": "下一轮内容规划补写"
     }
   ],
   "competitorUpdates": [
@@ -76,9 +79,9 @@
     },
     {
       "competitor": "MindMap AI",
-      "status": "发布 'Best AI Research Summarizers 2026: Visualize Your Literature Review'，定位 'research is not linear'，主打 mind map + structured breakdown — 需 W79 覆盖",
-      "covered": false,
-      "article": null
+      "status": "发布 'Best AI Research Summarizers 2026: Visualize Your Literature Review'，定位 'research is not linear'，主打 mind map + structured breakdown — 已覆盖 W79",
+      "covered": true,
+      "article": "W79"
     },
     {
       "competitor": "PapersFlow",
@@ -94,9 +97,9 @@
     },
     {
       "competitor": "Mapify.so",
-      "status": "新竞品 — 'Free Online AI Research Paper Summarizer'，主打论文→mind map 转换，支持 100+ 语言翻译。定位介于 MindMap AI 和通用论文摘要之间 — 需 W80 覆盖",
-      "covered": false,
-      "article": null
+      "status": "'Free Online AI Research Paper Summarizer'，主打论文→mind map 转换，支持 100+ 语言翻译 — 已覆盖 W80",
+      "covered": true,
+      "article": "W80"
     },
     {
       "competitor": "Lindy.ai",
@@ -109,9 +112,15 @@
       "status": "发布 'The 8 best AI PDF summarizer tools in 2026'，测试20+款工具，覆盖 academic papers + PDFs + videos，偏通用PDF方向，优先级低",
       "covered": false,
       "article": null
+    },
+    {
+      "competitor": "Paperpal",
+      "status": "发布 '4 Best AI Summarizer Tools in 2026' — 学术写作工具，偏自身推广",
+      "covered": false,
+      "article": null
     }
   ],
-  "lastContentProduction": "2026-06-30",
-  "lastContentArticle": "W73 - AI论文摘要工具vsLogically对比指南",
-  "lastPmAction": "2026-07-02 06:00 - PM check: 网站状态无变化 — 首页/tools/blog listing 正常，所有 W-prefix 文章页 404，sitemap 仍 63 URLs，library 空白，premium title 错误。竞品搜索: Paperguide 继续霸榜自列第一 (已覆盖W76), Jotform/Lindy 偏通用方向优先级低。VERCEL_TOKEN 阻塞第21天。W79 (MindMap AI) + W80 (Mapify.so) 待产出。W71/W72 本地内容缺失需确认。"
+  "lastContentProduction": "2026-07-02",
+  "lastContentArticle": "W80 - Mapify.so 评测：AI论文摘要+思维导图转换工具",
+  "lastPmAction": "2026-07-02 07:30 - PM check: 网站状态无变化。竞品搜索无新学术方向威胁。VERCEL_TOKEN 阻塞第22天，W65-W80全部待部署。W71/W72本地缺失需补写。新增 Paperpal 竞品记录。"
 }
