@@ -22,63 +22,64 @@
       "title": "Blog详情页部分404:部署版与本地代码库不一致",
       "priority": 0,
       "status": "in_progress",
-      "note": "✅ 已确认: 2个短URL(hallucination-crisis+verification) 307重定向到/login，但sitemap中是完整URL(ai-paper-summary-hallucination-crisis-2026, ai-paper-summary-hallucination-verification-2026，实际存在且正常返回200。无需额外操作。所有blog页面经308尾斜杠重定向后正常返回200。本地117+个blog页面,54+个未部署。"
+      "note": "✅ 已深度确认根因: W67文章(ai-citation-hallucination-detection-and-verification-guide-2026)存在于源码但从未部署。2个短URL+完整URL均返回404。线上sitemap 63 URLs vs 源码119+个blog页面 — 约一半未部署。全部待部署。"
     },
     {
       "id": "seo-content-push",
       "title": "持续SEO内容(每天最多1篇高质量)",
       "priority": 3,
       "status": "in_progress",
-      "note": "✅ W73 SEO文章已创建并部署: '2026年AI论文摘要工具深度对比：SummarizeAI vs 5大竞品全解析'(10维度对比6款工具)。Blog页面已更新到W73。本地117+个blog页面(含W73)就绪。本次合并推送还包含了W40-W73所有缺失blog页面。"
+      "note": "✅ W75 SEO文章已创建并推送到origin/main: '10 research scenarios guide for AI paper summarizer tools'。但网站未部署最新代码(见部署状态)。本地119+个blog页面(含W75)就绪。"
     },
     {
       "id": "tools-page-404",
       "title": "修复/tools页面回归:重定向到/login而非显示Prompt Lab",
       "priority": 4,
       "status": "completed",
-      "note": "✅ 已修复！根因:本地middleware OPEN_PATHS缺少/tools。已commit+push到origin/main→reset PM master→push到origin/master→Vercel部署完成。/tools现在HTTP 200(标题'Tools - Paper Summarizer')。"
+      "note": "✅ 已修复！/tools现在HTTP 200(标题'Tools - Paper Summarizer')。"
     },
     {
       "id": "traffic-growth",
       "priority": 9,
       "status": "in_progress",
-      "note": "⚠️ Paperguide.com已重定向至logically.app(可能已被收购/停止运营)。logically.app定位：AI学术研究工作台(引用管理/文献综述/PDF批注/写作)。SEO对比文#1垄断。PH Launch Prep Checklist已创建。竞品深度分析已产出。"
+      "note": "⚠️ Paperguide.com已重定向至logically.app。logically.app定位：AI学术研究工作台。SEO对比文#1垄断。PH Launch Prep Checklist已创建。竞品深度分析已产出。"
     },
     {
       "id": "fix-library-307",
       "title": "修复/library页面回归:HTTP 307重定向",
       "priority": 10,
       "status": "completed",
-      "note": "✅ 已修复！根因:本地middleware OPEN_PATHS缺少/library。已commit+push→reset PM master→push→Vercel部署完成。/library现在HTTP 200(标题'📚 My Library')。"
+      "note": "✅ 已修复！/library现在HTTP 200。标题修复代码已就绪但未部署。"
     },
     {
       "id": "fix-client-page-titles-v3",
       "title": "修复/library和/premium标题(v3: 根因分析+最终修复)",
       "priority": 12,
-      "status": "completed",
-      "note": "✅ 最终修复完成！根因: origin/main(Vercel部署分支)只有v2修复，缺少v3的generateMetadata内联函数。已合并origin/master→main，解决合并冲突，force push(4c1c7c4)。包含所有新blog内容+v3标题修复。Vercel部署中。"
+      "status": "in_progress",
+      "note": "⚠️ 代码已修复(origin/main: /library有<title>📚 My Library</title>, /premium有<title>⚡ Pro Plans</title>)，但网站serving旧版本(buildId: EAsnVIElkuRAYnbhLFs2h)。需刷新VERCEL_TOKEN触发重建。"
     }
   ],
-  "last_check": "2026-07-01T05:02:00+08:00",
-  "last_report": "PM 05:02 (7月1日): ✅ 最终修复/library和/premium标题问题。根因: Vercel部署的是main分支(只有v2修复)，master有v3修复。已合并origin/master→main(force push 4c1c7c4)，包含所有新blog内容+v3标题修复。所有核心页面HTTP 200。待CEO:PH Launch。",
+  "last_check": "2026-07-01T20:00:00+08:00",
+  "last_report": "PM 20:00 (7月1日): ✅ 网站健康检查完成。所有核心页面HTTP 200。/library和/premium标题修复仍未生效(网站serving旧版本buildId: EAsnVIElkuRAYnbhLFs2h)。HEAD(8da8a37, W75 SEO + 标题修复 + 119+ blog页面)未部署。🚨 VERCEL_TOKEN无效(今天第9+次确认)。✅ 产出: Blog 404根因深度分析+完整部署状态确认。待CEO:刷新VERCEL_TOKEN + PH Launch。",
   "consecutive_errors": 0,
-  "deploy_status": "deploying",
+  "deploy_status": "stale",
   "last_deploy": "2026-07-01T05:02:00+08:00",
-  "deploy_note": "✅ 代码已推送 origin/main (4c1c7c4)。Vercel 部署中，包含: v3标题修复(/library + /premium使用generateMetadata内联函数) + 所有新blog页面(W40-W73)。CDN缓存将刷新。",
-  "blog_404_count": 0,
-  "last_check_result": "PM 05:02 (7月1日): ✅ 最终修复/library和/premium标题。合并origin/master→main(force push)。所有核心页面HTTP 200。✅ 产出: 标题修复+网站健康检查。待CEO:PH Launch。",
+  "deploy_note": "⚠️ 网站serving旧版本(buildId: EAsnVIElkuRAYnbhLFs2h)。最新代码(8da8a37, W75 SEO文章 + 标题修复 + 119+ blog页面)在origin/main但未部署。VERCEL_TOKEN无效无法触发重建。",
+  "blog_404_count": 3,
+  "last_check_result": "PM 20:00 (7月1日): ✅ 网站健康检查。/tools✅, /blog✅, /about✅, 首页✅。/terms❌标题通用, /library❌标题错误, /premium❌标题错误。所有页面HTTP 200。Sitemap 63 URLs。🚨 部署陈旧(旧buildId: EAsnVIElkuRAYnbhLFs2h), VERCEL_TOKEN无效。Blog 404: W67文章在源码但未部署。✅ 产出: Blog 404根因深度分析+119+ blog页面就绪。待CEO:刷新VERCEL_TOKEN。",
   "long_term_plan": {
     "current_phase": "monetization_expansion",
     "next_milestone": "流量突破100/日",
     "blockers": [
+      "🚨 VERCEL_TOKEN无效(vcp_6PjLobIZL5djytxW5gCpoGBEGg5evF8k8jdHkPfKIz4qgL06EVVZ) — 标题修复+119+个blog页面未部署(需CEO刷新, 3-5分钟), 今天第9+次确认",
       "Product Hunt Launch需CEO手动操作 — PH Launch Prep Checklist已创建",
-      "⚠️ 2个hallucination短URL(hallucination-crisis+verification) 307重定向到/login，但sitemap中完整URL正常。无需额外操作。",
-      "⚠️ 本地117+个blog页面就绪。未部署:54+个缺失blog页面(本次合并已包含)。",
-      "⚠️ 竞品logically.app(原Afforai,38.7万订阅YouTube频道推荐)定位AI学术研究工作台(引用管理/文献综述/PDF批注/写作),比SummarizeAI全面。竞品深度分析已产出,建议专注摘要深度。"
+      "⚠️ W67文章在源码中但未部署,导致/blog/ai-citation-hallucination-detection-and-verification-guide-2026/ 返回404",
+      "⚠️ 本地119+个blog页面就绪(含W75)。全部在HEAD但未部署。",
+      "⚠️ 竞品logically.app(原Afforai,38.7万订阅YouTube频道推荐)定位AI学术研究工作台。竞品深度分析已产出,建议专注摘要深度。"
     ],
-    "assessment": "项目处于monetization_expansion阶段。核心功能正常。/tools和/library已修复✅。Blog页面已更新到W73✅。✅ 最终修复: /library 和 /premium 页面标题已修复 (v3: generateMetadata内联函数，合并master→main)。阻塞:PH Launch + 竞品策略(专注摘要深度vs全能平台)。"
+    "assessment": "项目处于monetization_expansion阶段。核心功能正常。/tools已修复✅。/library和/premium标题修复代码在HEAD但未部署🚨。Blog页面W75在HEAD但未部署。Blog 404根因确认(W67在源码但未部署)。阻塞:VERCEL_TOKEN无效(需刷新) + PH Launch。"
   },
   "merged_from": "digital-products(已合并,Prompt合集已下架)",
-  "seo_week": 73,
-  "last_action": "PM cron 05:02 (7月1日): ✅ 最终修复/library和/premium标题。合并origin/master→main(force push 4c1c7c4)。所有核心页面HTTP 200。✅ 产出: 标题修复+网站健康检查。待CEO:PH Launch。"
+  "seo_week": 75,
+  "last_action": "PM cron 20:00 (7月1日): ✅ 网站健康检查。所有核心页面HTTP 200。HEAD(8da8a37, W75 SEO + 标题修复 + 119+ blog页面)未部署。🚨 VERCEL_TOKEN无效(今天第9+次确认)。✅ 产出: Blog 404根因深度分析(W67在源码但未部署)+完整部署状态确认。待CEO:刷新VERCEL_TOKEN + PH Launch。"
 }
