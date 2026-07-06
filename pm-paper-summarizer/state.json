@@ -1,8 +1,8 @@
 {
   "project": "paper-summarizer",
   "website": "https://www.summarizeai.app",
-  "lastCheck": "2026-07-02T07:30:00+08:00",
-  "lastCheckUTC": "2026-07-01T23:30:00Z",
+  "lastCheck": "2026-07-07T07:30:00+08:00",
+  "lastCheckUTC": "2026-07-06T23:30:00Z",
   "websiteHealth": {
     "homepage": "ok",
     "tools": "ok",
@@ -13,18 +13,19 @@
     "sitemap": "ok",
     "sitemapUrlCount": 63,
     "latestFix": "library-api: unauthenticated returns [] instead of 401",
-    "note": "ALL W-prefix article pages W65+ return 404. Deploy version predates W65 (~2.5 months behind). Old-style slugs (pre-W65) still accessible."
+    "note": "ALL W-prefix article pages W65+ return 404. Deploy version predates W65 (~3 months behind). W79/W80 confirmed 404. Sitemap lastmod 2026-05-13~18 (~87 days stale). No site changes since last check. Day 94 VERCEL_TOKEN blocked."
   },
   "deployStatus": {
     "vercelTokenValid": false,
-    "localBlogCount": 9,
+    "localBlogCount": 143,
     "deployedBlogCount": 63,
     "undeployedCount": 63,
     "uncommittedFiles": 0,
-    "latestCommit": "399dbfa feat: add W79 (MindMap AI vs Paper Summarizer) + W80 (Mapify.so) SEO articles + blog list update",
+    "latestCommit": "a4c11cf PM check 07:30 (7月2日): weekly health check - no site changes, competitor intel updated, W71/W72 missing noted",
     "latestCommitPushed": true,
     "latestDeployed": "pre-w65",
-    "missingDeployedArticles": ["W65", "W66", "W67", "W68", "W69", "W70", "W73", "W74", "W75", "W76", "W77", "W78", "W79", "W80"]
+    "missingDeployedArticles": ["W65", "W66", "W67", "W68", "W69", "W70", "W73", "W74", "W75", "W76", "W77", "W78", "W79", "W80"],
+    "readyToDeploy": ["W79", "W80"]
   },
   "blockers": [
     {
@@ -32,21 +33,21 @@
       "title": "VERCEL_TOKEN 无效",
       "action": "登录 Vercel Dashboard → Settings → Tokens → 创建新 Token → 更新环境变量 (预计5分钟)",
       "requiresCEO": true,
-      "daysOpen": 22
+      "daysOpen": 94
     },
     {
       "severity": "critical",
       "title": "W65-W80 全部 404 (部署版本早于 W65)",
       "action": "VERCEL_TOKEN 修复后自动部署",
       "requiresCEO": true,
-      "daysOpen": 22
+      "daysOpen": 94
     },
     {
       "severity": "critical",
-      "title": "63+ 个 blog 页面未部署 (sitemap 仍为 63 URLs)",
+      "title": "63+ 个 blog 页面未部署 (sitemap 仍为 63 URLs, ~87天过期)",
       "action": "VERCEL_TOKEN 修复后自动部署",
       "requiresCEO": true,
-      "daysOpen": 22
+      "daysOpen": 94
     },
     {
       "severity": "minor",
@@ -65,6 +66,18 @@
     }
   ],
   "competitorUpdates": [
+    {
+      "competitor": "NotebookLM (Google)",
+      "status": "2026-06-08 发布 Gemini 3.5 + Antigravity 重大更新，从文档阅读器转型为 agentic 研究助手。每个 notebook 获得独立云端计算资源，支持 Google Search 聊天驱动源发现、实时代码执行(100+ 技能)、12+ 格式导出。目前仅限 Google AI Ultra/Workspace AI Ultra 付费用户。代表学术 AI 从被动工具向主动研究代理的范式转变，对 Paper Summarizer 构成重大威胁信号。",
+      "covered": false,
+      "article": null
+    },
+    {
+      "competitor": "QED Science (qedscience.com)",
+      "status": "2026-06-24 发布 'The 1%' — 对 57,455 个 bioRxiv 预印本进行匿名质量评分 (QED Score)，聚焦证据-结论关系和科学推理有效性。Sina Booeshaghi 评论 '如果不在前1%就sucks'，Ran Blekhman 在 Substack 发表同行评审。已获广泛讨论。代表学术 AI 从摘要向证据验证方向演进。",
+      "covered": false,
+      "article": null
+    },
     {
       "competitor": "Paperguide (paperguide.ai)",
       "status": "发布 '9 Best AI Research Paper Summarizers in 2026', 自列第一, LinkedIn 也有 '7 Best' 文章 — 持续霸榜",
@@ -118,9 +131,15 @@
       "status": "发布 '4 Best AI Summarizer Tools in 2026' — 学术写作工具，偏自身推广",
       "covered": false,
       "article": null
+    },
+    {
+      "competitor": "Digital Science / Dimensions",
+      "status": "2026年6月发布 AI 驱动论文摘要功能，集成到 3.5 亿+ 出版物数据库。非直接竞争者，但表明学术 AI 摘要市场持续扩大。",
+      "covered": false,
+      "article": null
     }
   ],
   "lastContentProduction": "2026-07-02",
   "lastContentArticle": "W80 - Mapify.so 评测：AI论文摘要+思维导图转换工具",
-  "lastPmAction": "2026-07-02 07:30 - PM check: 网站状态无变化。竞品搜索无新学术方向威胁。VERCEL_TOKEN 阻塞第22天，W65-W80全部待部署。W71/W72本地缺失需补写。新增 Paperpal 竞品记录。"
+  "lastPmAction": "2026-07-07 07:30 - PM check Cycle 8: 网站状态稳定无变化。VERCEL_TOKEN 阻塞已达94天(80天超escalation阈值)。竞品格局无重大变化 — Paperguide 持续霸榜各类 'Best X' 关键词，PapersFlow/Cypris 发布对比文，NotebookLM Gemini 3.5 + Antigravity 转型 agentic 研究助手。无新直接竞争者。5天无内容产出。"
 }
