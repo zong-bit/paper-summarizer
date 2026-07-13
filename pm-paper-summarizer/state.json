@@ -1,8 +1,8 @@
 {
   "project": "paper-summarizer",
   "website": "https://www.summarizeai.app",
-  "lastCheck": "2026-07-07T07:30:00+08:00",
-  "lastCheckUTC": "2026-07-06T23:30:00Z",
+  "lastCheck": "2026-07-13T17:30:00+08:00",
+  "lastCheckUTC": "2026-07-13T09:30:00Z",
   "websiteHealth": {
     "homepage": "ok",
     "tools": "ok",
@@ -13,7 +13,7 @@
     "sitemap": "ok",
     "sitemapUrlCount": 63,
     "latestFix": "library-api: unauthenticated returns [] instead of 401",
-    "note": "ALL W-prefix article pages W65+ return 404. Deploy version predates W65 (~3 months behind). W79/W80 confirmed 404. Sitemap lastmod 2026-05-13~18 (~87 days stale). No site changes since last check. Day 94 VERCEL_TOKEN blocked."
+    "note": "ALL W-prefix article pages W65+ return 404. Deploy version predates W65 (~3 months behind). W79/W80 confirmed 404. Sitemap lastmod 2026-05-13~18 (~91 days stale). No site changes since last check. Day 100 VERCEL_TOKEN blocked. Web search API quota exhausted — competitor intel limited."
   },
   "deployStatus": {
     "vercelTokenValid": false,
@@ -21,11 +21,29 @@
     "deployedBlogCount": 63,
     "undeployedCount": 63,
     "uncommittedFiles": 0,
-    "latestCommit": "a4c11cf PM check 07:30 (7月2日): weekly health check - no site changes, competitor intel updated, W71/W72 missing noted",
+    "latestCommit": "e46171a PM check 07:30 (7月7日): Cycle 8 - no site changes, VERCEL_TOKEN blocked day 94, all pages 200 OK, W79/W80 still 404, 5 days no content production",
     "latestCommitPushed": true,
     "latestDeployed": "pre-w65",
-    "missingDeployedArticles": ["W65", "W66", "W67", "W68", "W69", "W70", "W73", "W74", "W75", "W76", "W77", "W78", "W79", "W80"],
-    "readyToDeploy": ["W79", "W80"]
+    "missingDeployedArticles": [
+      "W65",
+      "W66",
+      "W67",
+      "W68",
+      "W69",
+      "W70",
+      "W73",
+      "W74",
+      "W75",
+      "W76",
+      "W77",
+      "W78",
+      "W79",
+      "W80"
+    ],
+    "readyToDeploy": [
+      "W79",
+      "W80"
+    ]
   },
   "blockers": [
     {
@@ -33,21 +51,21 @@
       "title": "VERCEL_TOKEN 无效",
       "action": "登录 Vercel Dashboard → Settings → Tokens → 创建新 Token → 更新环境变量 (预计5分钟)",
       "requiresCEO": true,
-      "daysOpen": 94
+      "daysOpen": 100
     },
     {
       "severity": "critical",
       "title": "W65-W80 全部 404 (部署版本早于 W65)",
       "action": "VERCEL_TOKEN 修复后自动部署",
       "requiresCEO": true,
-      "daysOpen": 94
+      "daysOpen": 100
     },
     {
       "severity": "critical",
-      "title": "63+ 个 blog 页面未部署 (sitemap 仍为 63 URLs, ~87天过期)",
+      "title": "63+ 个 blog 页面未部署 (sitemap 仍为 63 URLs, ~91天过期)",
       "action": "VERCEL_TOKEN 修复后自动部署",
       "requiresCEO": true,
-      "daysOpen": 94
+      "daysOpen": 100
     },
     {
       "severity": "minor",
@@ -141,5 +159,5 @@
   ],
   "lastContentProduction": "2026-07-02",
   "lastContentArticle": "W80 - Mapify.so 评测：AI论文摘要+思维导图转换工具",
-  "lastPmAction": "2026-07-07 07:30 - PM check Cycle 8: 网站状态稳定无变化。VERCEL_TOKEN 阻塞已达94天(80天超escalation阈值)。竞品格局无重大变化 — Paperguide 持续霸榜各类 'Best X' 关键词，PapersFlow/Cypris 发布对比文，NotebookLM Gemini 3.5 + Antigravity 转型 agentic 研究助手。无新直接竞争者。5天无内容产出。"
+  "lastPmAction": "2026-07-13 17:30 - PM check Cycle 12: 网站状态稳定无变化。VERCEL_TOKEN 阻塞达100天(20天超escalation阈值)。Web search API 配额耗尽。11天无内容产出，SEO衰减风险持续(sitemap 91天未更新)。NotebookLM Gemini 3.5+Antigravity 全量部署 agentic 转型构成最大威胁。Paperguide 持续霸榜 'Best X' 关键词 Google #1。
 }
