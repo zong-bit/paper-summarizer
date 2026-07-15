@@ -1,19 +1,18 @@
 {
   "project": "paper-summarizer",
   "website": "https://www.summarizeai.app",
-  "lastCheck": "2026-07-13T17:30:00+08:00",
-  "lastCheckUTC": "2026-07-13T09:30:00Z",
+  "lastCheck": "2026-07-15T09:30:00+08:00",
+  "lastCheckUTC": "2026-07-15T01:30:00Z",
   "websiteHealth": {
     "homepage": "ok",
     "tools": "ok",
     "library": "blank-content (pending deploy)",
     "premium": "title-wrong (pending deploy)",
     "blog": "ok-listing, all-article-pages-404",
-    "apiSummarizePost": "method-not-allowed",
     "sitemap": "ok",
     "sitemapUrlCount": 63,
     "latestFix": "library-api: unauthenticated returns [] instead of 401",
-    "note": "ALL W-prefix article pages W65+ return 404. Deploy version predates W65 (~3 months behind). W79/W80 confirmed 404. Sitemap lastmod 2026-05-13~18 (~91 days stale). No site changes since last check. Day 100 VERCEL_TOKEN blocked. Web search API quota exhausted — competitor intel limited."
+    "note": "Site completely stable — zero changes since last check. Premium title still wrong, library blank — both pending deploy. Sitemap lastmod 2026-05-13 (~86 days stale). VERCEL_TOKEN blocked day 102. No content production in 13 days."
   },
   "deployStatus": {
     "vercelTokenValid": false,
@@ -21,7 +20,7 @@
     "deployedBlogCount": 63,
     "undeployedCount": 63,
     "uncommittedFiles": 0,
-    "latestCommit": "e46171a PM check 07:30 (7月7日): Cycle 8 - no site changes, VERCEL_TOKEN blocked day 94, all pages 200 OK, W79/W80 still 404, 5 days no content production",
+    "latestCommit": "706ae22 PM check 17:30 (7月13日): Cycle 12 - website stable, VERCEL_TOKEN blocked day 100, 11 days no content production",
     "latestCommitPushed": true,
     "latestDeployed": "pre-w65",
     "missingDeployedArticles": [
@@ -51,21 +50,20 @@
       "title": "VERCEL_TOKEN 无效",
       "action": "登录 Vercel Dashboard → Settings → Tokens → 创建新 Token → 更新环境变量 (预计5分钟)",
       "requiresCEO": true,
-      "daysOpen": 100
+      "daysOpen": 102
     },
     {
       "severity": "critical",
       "title": "W65-W80 全部 404 (部署版本早于 W65)",
       "action": "VERCEL_TOKEN 修复后自动部署",
       "requiresCEO": true,
-      "daysOpen": 100
+      "daysOpen": 102
     },
     {
       "severity": "critical",
-      "title": "63+ 个 blog 页面未部署 (sitemap 仍为 63 URLs, ~91天过期)",
+      "title": "63+ 个 blog 页面未部署 (sitemap 仍为 63 URLs, ~86天过期)",
       "action": "VERCEL_TOKEN 修复后自动部署",
-      "requiresCEO": true,
-      "daysOpen": 100
+      "daysOpen": 102
     },
     {
       "severity": "minor",
@@ -159,5 +157,5 @@
   ],
   "lastContentProduction": "2026-07-02",
   "lastContentArticle": "W80 - Mapify.so 评测：AI论文摘要+思维导图转换工具",
-  "lastPmAction": "2026-07-13 17:30 - PM check Cycle 12: 网站状态稳定无变化。VERCEL_TOKEN 阻塞达100天(20天超escalation阈值)。Web search API 配额耗尽。11天无内容产出，SEO衰减风险持续(sitemap 91天未更新)。NotebookLM Gemini 3.5+Antigravity 全量部署 agentic 转型构成最大威胁。Paperguide 持续霸榜 'Best X' 关键词 Google #1。
+  "lastPmAction": "2026-07-15 09:30 - PM check: 网站状态完全稳定无变化。VERCEL_TOKEN 阻塞持续至第 102 天（阈值 14 天的 7.3 倍）。无新内容产出（13 天）。SEO 衰减风险：sitemap 86 天过期，63+ 篇文章未部署。本周重点：VERCEL_TOKEN 是唯一关键阻塞项，修复后可一次性解决所有待部署问题。"
 }
