@@ -3,8 +3,8 @@ import crypto from 'crypto'
 import { createToken } from '@/lib/tokens'
 import { getSupabaseAdmin } from '@/lib/supabase'
 
-const PADDLE_PRICE_MONTHLY = 'pri_01krk617mdepfbhe493b2adfqn'
-const PADDLE_PRICE_YEARLY = 'pri_01krk61am9rvh6p2a61armcgyv'
+const PADDLE_PRICE_MONTHLY = 'pri_01krwnhrp61mddw9hb4rj7k40b'
+const PADDLE_PRICE_YEARLY = 'pri_01krwnhrp61mddw9hb4rj7k40b' // TODO: Update when yearly price is created
 const PADDLE_PUBLIC_KEY_URL = 'https://paddle.com/.well-known/paddle-public-key.pem'
 
 interface PaddleSale {

@@ -8,25 +8,12 @@ export default function PaddlePricingCards() {
   const [loading, setLoading] = useState<'monthly' | 'yearly' | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  const handlePaddleClick = async (plan: 'monthly' | 'yearly') => {
+  const handlePaddleClick = (plan: 'monthly' | 'yearly') => {
     setLoading(plan)
-    setError(null)
-
-    try {
-      // Create transaction server-side and redirect to checkout URL
-      const res = await fetch(`/api/paddle-pay-link?plan=${plan}`)
-      const data = await res.json()
-
-      if (data.checkoutUrl) {
-        window.location.href = data.checkoutUrl
-      } else {
-        setError('Payment unavailable. Please use Gumroad instead.')
-      }
-    } catch {
-      setError('Payment unavailable. Please use Gumroad instead.')
-    } finally {
-      setLoading(null)
-    }
+    // Direct redirect to Paddle checkout (no API call needed)
+    setTimeout(() => {
+      window.location.href = `/api/paddle-pay-link?plan=${plan}`
+    }, 100)
   }
 
   return (

@@ -126,6 +126,22 @@ export async function POST(request: Request) {
     }
 
     const data = await response.json()
+
+    // Log DeepSeek API call
+    const usage = data.usage;
+    if (usage) {
+      logApiCall({
+        timestamp: new Date().toISOString(),
+        ip,
+        ua,
+        path: 'prompt-lab/deepseek',
+        status: 'deepseek_success',
+        model: 'deepseek-chat',
+        prompt_tokens: usage.prompt_tokens || 0,
+        completion_tokens: usage.completion_tokens || 0,
+        total_tokens: usage.total_tokens || 0,
+      });
+    }
     const content = data.choices?.[0]?.message?.content
 
     if (!content) {
