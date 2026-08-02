@@ -393,6 +393,7 @@ export default function PremiumPage() {
 function AutoClaimToken() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const { t } = useTranslation()
   const [autoClaimStatus, setAutoClaimStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
   const [autoClaimInfo, setAutoClaimInfo] = useState<any>(null)
 
@@ -427,7 +428,7 @@ function AutoClaimToken() {
     return (
       <div className="bg-bg-card border border-border rounded-2xl p-6 text-center space-y-4">
         <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto"></div>
-        <p className="text-text-secondary">Claiming your token... Redirecting to dashboard</p>
+        <p className="text-text-secondary">{t('premium.autoClaimLoading')}</p>
       </div>
     )
   }
@@ -439,15 +440,15 @@ function AutoClaimToken() {
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
-          Token claimed successfully! Redirecting to dashboard...
+          {t('premium.autoClaimSuccess')}
         </div>
         <div className="bg-bg rounded-xl p-4">
-          <p className="text-xs text-text-secondary mb-1">Your token (copied to clipboard)</p>
+          <p className="text-xs text-text-secondary mb-1">{t('premium.autoClaimTokenCopied')}</p>
           <p className="text-lg font-mono font-bold text-primary break-all select-all" id="auto-claim-token">{autoClaimInfo.token}</p>
         </div>
         <div className="text-sm text-text-secondary space-y-1">
-          <p>Plan: {autoClaimInfo.plan} | Expires: {new Date(autoClaimInfo.expiresAt).toLocaleDateString()}</p>
-          <p>Your token has been automatically saved to your account. You can also use it directly in the dashboard.</p>
+          <p>{t('premium.autoClaimPlanInfo', { plan: autoClaimInfo.plan, date: new Date(autoClaimInfo.expiresAt).toLocaleDateString() })}</p>
+          <p>{t('premium.autoClaimSaved')}</p>
         </div>
       </div>
     )
@@ -456,9 +457,9 @@ function AutoClaimToken() {
   if (autoClaimStatus === 'error' && autoClaimInfo) {
     return (
       <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-2xl p-6 text-yellow-600 text-sm">
-        <p className="font-medium mb-1">⚠️ Auto-claim failed</p>
+        <p className="font-medium mb-1">{t('premium.autoClaimFailed')}</p>
         <p>{autoClaimInfo.error}</p>
-        <p className="mt-2">Don't worry — your token is still ready! Check your payment confirmation email for the order ID, then paste it below to claim it manually.</p>
+        <p className="mt-2">{t('premium.autoClaimFallback')}</p>
       </div>
     )
   }
