@@ -160,7 +160,6 @@ Paper Summarizer 的Pro版月费最低，但摘要质量和中文支持度处于
 | 教授/PI管理团队 | Pro | 团队成员共享效率提升 |
 
 **核心建议**：先用免费版体验3-7天，感受摘要质量和PDF解析能力。如果觉得每天3次不够用，立刻升级Pro版——**每天不到¥2.5的成本，换来的是数倍的阅读效率提升。**
-`
 
 export default function BlogPost() {
   return (
