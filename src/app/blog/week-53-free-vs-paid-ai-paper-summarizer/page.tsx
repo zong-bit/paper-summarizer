@@ -19,28 +19,6 @@ const jsonLd = generateBlogJsonLd({
   modifiedTime: '2026-06-27T17:30:00+08:00',
 })
 
-const blogContent = ``
-import Link from 'next/link'
-import { generateBlogMetadata, generateBlogJsonLd } from '../utils'
-import ShareButton from '../../../components/ShareButton'
-
-export const metadata = generateBlogMetadata({
-  slug: 'week-53-free-vs-paid-ai-paper-summarizer',
-  title: '免费vs付费AI论文摘要工具：2026年到底该选哪个？',
-  description: '深度对比免费和付费AI论文摘要工具的核心差异：摘要质量、PDF解析精度、批量处理能力。2026年最新实测数据告诉你，什么时候该用免费版，什么时候值得升级Pro。',
-  keywords: ['免费AI论文摘要', '付费论文摘要工具', 'AI摘要工具对比', 'Pro版值不值', '学术论文摘要', '免费vs付费', 'AI论文工具推荐'],
-  publishedTime: '2026-06-27T17:30:00+08:00',
-  modifiedTime: '2026-06-27T17:30:00+08:00',
-})
-
-const jsonLd = generateBlogJsonLd({
-  slug: 'week-53-free-vs-paid-ai-paper-summarizer',
-  title: '免费vs付费AI论文摘要工具：2026年到底该选哪个？',
-  description: '深度对比免费和付费AI论文摘要工具的核心差异：摘要质量、PDF解析精度、批量处理能力。2026年最新实测数据告诉你，什么时候该用免费版，什么时候值得升级Pro。',
-  publishedTime: '2026-06-27T17:30:00+08:00',
-  modifiedTime: '2026-06-27T17:30:00+08:00',
-})
-
 const blogContent = `
 ## 为什么"免费vs付费"是研究者最纠结的问题{#section-1}
 
@@ -182,7 +160,7 @@ Paper Summarizer 的Pro版月费最低，但摘要质量和中文支持度处于
 | 教授/PI管理团队 | Pro | 团队成员共享效率提升 |
 
 **核心建议**：先用免费版体验3-7天，感受摘要质量和PDF解析能力。如果觉得每天3次不够用，立刻升级Pro版——**每天不到¥2.5的成本，换来的是数倍的阅读效率提升。**
-` + `` + ``
+`
 
 export default function BlogPost() {
   return (

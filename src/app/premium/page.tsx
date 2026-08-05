@@ -1,14 +1,12 @@
 'use client'
 
-import Head from 'next/head'
 import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Footer from '../../components/Footer'
 import PrivacyNotice from '../../components/PrivacyNotice'
 import PaddlePricingCards from '../../components/PaddlePricingCards'
 import { useTranslation } from '@/i18n/provider'
-// Legacy: generateMetadata was here but is ignored for 'use client' pages.
-// Kept for reference. See metadata.ts file.
+import { generateMetadata } from './metadata'
 
 // Gumroad product links
 const GUMROAD_MONTHLY = 'https://selinazw.gumroad.com/l/qkcjod'
@@ -65,27 +63,11 @@ export default function PremiumPage() {
   }
 
   return (
-    <>
-      <Head>
-        <title>⚡ Pro Plans - Paper Summarizer</title>
-        <meta name="description" content="Upgrade to Pro for unlimited paper summaries, priority processing, and advanced PDF parsing. Starting at $9.99/month." />
-        <link rel="canonical" href="https://www.summarizeai.app/premium" />
-        <meta property="og:title" content="⚡ Pro Plans - Paper Summarizer" />
-        <meta property="og:description" content="Upgrade to Pro for unlimited summaries and priority processing." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.summarizeai.app/premium" />
-        <meta property="og:image" content="https://www.summarizeai.app/og-home.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta name="twitter:card" content="summary_large_size" />
-        <meta name="twitter:title" content="⚡ Pro Plans - Paper Summarizer" />
-        <meta name="twitter:description" content="Upgrade to Pro for unlimited summaries and priority processing." />
-        <meta name="twitter:image" content="https://www.summarizeai.app/og-home.png" />
-      </Head>
-      </div>
-    </>
-  )
-}
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-1 max-w-4xl mx-auto px-4 py-12 space-y-12">
+
+        {/* ═══════ 1. Hero ═══════ */}
+        <div className="text-center space-y-4">
           <div className="inline-block px-4 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium">
             {t('premium.heroBadge')}
           </div>
@@ -388,7 +370,6 @@ export default function PremiumPage() {
 }
 
 
-
 // Auto-claim component — wrapped in Suspense to satisfy Next.js requirements
 function AutoClaimToken() {
   const router = useRouter()
@@ -462,35 +443,6 @@ function AutoClaimToken() {
       </div>
     )
   }
+
   return null
 }
-
-// This wrapper adds page-level metadata for the 'use client' page
-export default function PremiumPageWithHead() {
-  return (
-    <>
-      <Head>
-        <title>⚡ Pro Plans - Paper Summarizer</title>
-        <meta name="description" content="Upgrade to Pro for unlimited paper summaries, priority processing, and advanced PDF parsing. Starting at $9.99/month." />
-        <link rel="canonical" href="https://www.summarizeai.app/premium" />
-        <meta property="og:title" content="⚡ Pro Plans - Paper Summarizer" />
-        <meta property="og:description" content="Upgrade to Pro for unlimited summaries and priority processing." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.summarizeai.app/premium" />
-        <meta property="og:image" content="https://www.summarizeai.app/og-home.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta name="twitter:card" content="summary_large_size" />
-        <meta name="twitter:title" content="⚡ Pro Plans - Paper Summarizer" />
-        <meta name="twitter:description" content="Upgrade to Pro for unlimited summaries and priority processing." />
-        <meta name="twitter:image" content="https://www.summarizeai.app/og-home.png" />
-      </Head>
-      <div className="min-h-screen flex flex-col">
-        <main className="flex-1 max-w-4xl mx-auto px-4 py-12 space-y-12">
-          <PremiumPage />
-        </main>
-      </div>
-    </>
-  )
-}
-
