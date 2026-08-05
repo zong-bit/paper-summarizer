@@ -317,7 +317,7 @@ export default function BlogPost() {
                 <td className="py-2">英文论文 + 深度学术摘要</td>
                 <td className="py-2"><strong>Paperguide</strong></td>
               </tr>
-              <tr className="py-2">功能全面 + 研究辅助</td>
+              <tr className="py-2"><td className="py-2">功能全面 + 研究辅助</td>
                 <td className="py-2"><strong>SciSpace</strong></td>
               </tr>
               <tr className="border-b border-border/50">

@@ -128,7 +128,8 @@ export default function W48Page() {
         <li>免费额度有限（每日3次），重度用户需要升级Pro</li>
       </ul>
 
-      <h3>🎯 适合谁：</strong>需要快速了解论文核心内容的研究者、博士生、学术爱好者</h3>
+      <h3>🎯 适合谁</h3>
+      <p><strong>需要快速了解论文核心内容的研究者、博士生、学术爱好者</strong></p>
 
       <h2>🥈 2. PapersFlow — 最强文献综述工具</h2>
 
@@ -148,7 +149,8 @@ export default function W48Page() {
         <li>论文内容会加密存储（隐私考量）</li>
       </ul>
 
-      <h3>🎯 适合谁：</strong>需要深度文献综述的博士生、正在写论文的研究者</h3>
+      <h3>🎯 适合谁</h3>
+      <p><strong>需要深度文献综述的博士生、正在写论文的研究者</strong></p>
 
       <h2>🥉 3. Semantic Scholar — 最佳免费论文发现工具</h2>
 
@@ -168,7 +170,8 @@ export default function W48Page() {
         <li>不支持PDF上传和对话式阅读</li>
       </ul>
 
-      <h3>🎯 适合谁：</strong>需要发现新论文、了解论文引用关系的研究者</h3>
+      <h3>🎯 适合谁</h3>
+      <p><strong>需要发现新论文、了解论文引用关系的研究者</strong></p>
 
       <h2>4. Elicit — 系统性论文筛选利器</h2>
 

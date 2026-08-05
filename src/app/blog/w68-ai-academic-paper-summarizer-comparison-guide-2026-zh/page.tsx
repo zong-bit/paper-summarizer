@@ -37,7 +37,6 @@ export default function BlogPost() {
           <ul>
             <li><strong>准确率</strong> — 摘要是否准确抓住了核心发现？</li>
             <li><strong>完整性</strong> — 是否覆盖了研究方法、结果和局限性？</li>
-li>
             <li><strong>速度</strong> — 从上传到生成摘要需要多久？</li>
             <li><strong>隐私</strong> — 工具是否会存储或复用你上传的论文？</li>
             <li><strong>价格</strong> — 免费额度多少？付费怎么收费？</li>

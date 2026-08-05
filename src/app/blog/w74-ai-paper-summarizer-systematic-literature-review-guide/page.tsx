@@ -206,5 +206,3 @@ SummarizeAI 专为学术研究设计，支持按领域优化摘要生成，提�
 `;
   return <div dangerouslySetInnerHTML={{ __html: content }} />;
 }
-`;
-}

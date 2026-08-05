@@ -4,7 +4,7 @@ import ShareButton from '../../../components/ShareButton'
 
 export const metadata = generateBlogMetadata({
   slug: 'ai-paper-summary-hallucination-verification-2026',
-  title: 'The AI Hallucination Crisis in Academic Paper Summarization: How to Ensure Your AI Doesn\'t Invent References',
+  title: 'The AI Hallucination Crisis in Academic Paper Summarization: How to Ensure Your AI Doesn\x27t Invent References',
   description: 'Nature warns: 30% of AI-generated academic citations are fabricated. Learn how to detect AI hallucination citations, verify summary accuracy, and why source-tracing is the gold standard for AI paper tools.',
   keywords: ['AI hallucination citations', 'AI paper summarization accuracy', 'AI fabricated references', 'academic integrity', 'AI paper tools', 'Paper Summarizer', 'AI academic tool reliability', 'paper summary verification'],
   publishedTime: '2026-05-18T08:00:00+08:00',
@@ -13,7 +13,7 @@ export const metadata = generateBlogMetadata({
 
 const jsonLd = generateBlogJsonLd({
   slug: 'ai-paper-summary-hallucination-verification-2026',
-  title: 'The AI Hallucination Crisis in Academic Paper Summarization: How to Ensure Your AI Doesn\'t Invent References',
+  title: 'The AI Hallucination Crisis in Academic Paper Summarization: How to Ensure Your AI Doesn\x27t Invent References',
   description: 'Nature warns: 30% of AI-generated academic citations are fabricated. Learn how to detect AI hallucination citations, verify summary accuracy, and why source-tracing is the gold standard for AI paper tools.',
   publishedTime: '2026-05-18T08:00:00+08:00',
   modifiedTime: '2026-05-18T08:00:00+08:00',
@@ -38,7 +38,7 @@ export default function BlogPost() {
       <main className="flex-1 max-w-3xl mx-auto px-4 py-8">
         <Link href="/blog" className="text-primary hover:text-primary-dark transition-colors text-sm">← Back to Blog</Link>
         <article className="mt-6 prose prose-invert max-w-none">
-          <h1>The AI Hallucination Crisis in Academic Paper Summarization: How to Ensure Your AI Doesn't Invent References</h1>
+          <h1>The AI Hallucination Crisis in Academic Paper Summarization: How to Ensure Your AI Doesn\x27t Invent References</h1>
           <p className="text-sm text-slate-500 mt-2 mb-6">by Paper Summarizer Team · 2026-05-18</p>
           
           <blockquote>
@@ -288,7 +288,7 @@ export default function BlogPost() {
           <p>A: Yes. Paper Summarizer supports both Chinese and English paper summarization, with specific optimization for Chinese academic context.</p>
         </article>
         <div className="mt-8 pt-4 border-t border-border/50">
-          <ShareButton title='The AI Hallucination Crisis in Academic Paper Summarization: How to Ensure Your AI Doesn\'t Invent References - Paper Summarizer' compact />
+          <ShareButton title='The AI Hallucination Crisis in Academic Paper Summarization: How to Ensure Your AI Doesn\x27t Invent References - Paper Summarizer' compact />
         </div>
 
         <div className="mt-8 pt-8 border-t border-border text-center">
